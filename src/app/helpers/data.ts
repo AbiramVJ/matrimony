@@ -1,3 +1,5 @@
 export enum user {
-  a = 1,
+  admin = 1,
+  agent = 2,
+  user = 3
 }
