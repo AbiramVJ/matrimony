@@ -17,10 +17,10 @@ export class AuthService {
     return this.http.post<any>(`${this.baseUrl}/google-login`, { token });
   }
 
+  // GET CLIENT TOKEN
   public getLoginClientToken(clientData:any){
     return this.http.get(this.baseUrl + `Client/client-token?name=${clientData.name}&secretKey=${clientData.secretKey}`).pipe(
       map((res: any) => {
-        console.log(res);
         return new TokenResult(res.Result);
       })
     );

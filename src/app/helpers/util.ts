@@ -19,3 +19,8 @@ export const matrimonyConfig = {
   userType: userType.ADMIN,
   clientData: clientData.ADMIN
 }
+
+export const matrimonyAgentConfig = {
+  userType: userType.AGENT,
+  clientData: clientData.AGENT
+}

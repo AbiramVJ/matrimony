@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+.pointer{
+  cursor: pointer;
+}
+
+.form-control[readonly] {
+  background-color: #F5F5F5 !important;
+}
+.form-control:focus {
+  color: var(--bs-body-color);
+  background-color: var(--bs-body-bg);
+  border-color: none !important;
+  outline: 0;
+  box-shadow: none !important;
+}
+
+
+.m-shadow{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 20px;
+}
+.form-check-input:checked {
+  background-color: #dc3545 !important;
+  border-color: #ffffff;
+}

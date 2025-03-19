@@ -1,0 +1,32 @@
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+  color: #bbb;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-top: 1px solid #bbb;
+  margin: 0 10px;
+}
+
+.divider span {
+  padding: 5px 10px;
+  border: 1px solid #bbb;
+  border-radius: 10px;
+  font-weight: bold;
+  background-color: #fff;
+}
+
+.bg-image{
+  background-image: url('https://t3.ftcdn.net/jpg/02/70/43/06/360_F_270430691_qKr4jYwfAdjvDFTVoBsd2613eKvHnFbT.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+
+
