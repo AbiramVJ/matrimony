@@ -1,12 +1,12 @@
 <section class="content">
   <div class="component-content">
-    <div class="row m-0 mt-5">
+    <div class="row m-0 pt-5 bg-image">
       <div class="col-4 mx-auto">
         <div class="row">
           <div class="col-12">
             <div class="p-3 d-flex justify-content-center align-items-center">
               <div class="col-12">
-                <div class="m-shadow col-12 p-3">
+                <div class="m-shadow col-12 p-3 bg-white">
                   <h3 class="text-center">{{isSingUp ? 'Sign up' : 'Sign in'}}</h3>
                   <h6 class="text-center">{{isAgent ? 'agent' : 'user'}}</h6>
                   <div class="d-flex justify-content-end">
@@ -19,12 +19,12 @@
                   <div *ngIf="!isSingUp">
                     <form [formGroup]="loginForm">
                       <div class="mb-3">
-                        <label for="email" class="form-label" >Email address</label>
-                        <input type="email" class="form-control" formControlName="email" id="email" placeholder="name@example.com">
+                        <label for="email" class="form-label" >Email or Phone number</label>
+                        <input type="email" class="form-control" formControlName="email" id="email" placeholder="name@example.com"  [ngClass]="{'errorBorder' : isSubmitted && loginForm.get('email')?.errors}">
                       </div>
                       <div class="mb-3">
                         <label for="password" class="form-label" >password</label>
-                        <input type="password" class="form-control" formControlName="password" id="password" placeholder="password">
+                        <input type="password" class="form-control" formControlName="password" id="password" placeholder="password" [ngClass]="{'errorBorder' : isSubmitted && loginForm.get('password')?.errors}">
                       </div>
                     </form>
                   </div>
@@ -33,32 +33,32 @@
                     <form [formGroup]="signUpForm">
                       <div class="mb-3">
                         <label for="firstname" class="form-label">First name</label>
-                        <input type="text" class="form-control" id="first-name" formControlName="firstName" placeholder="john">
+                        <input type="text" class="form-control" id="first-name" formControlName="firstName" placeholder="john" [ngClass]="{'errorBorder' : isSubmitted && signUpForm.get('firstName')?.errors}">
                       </div>
 
                       <div class="mb-3">
                         <label for="lasttname" class="form-label">Last name</label>
-                        <input type="text" class="form-control" id="last-name" formControlName="lastName" placeholder="wick">
+                        <input type="text" class="form-control" id="last-name" formControlName="lastName" placeholder="wick" [ngClass]="{'errorBorder' : isSubmitted && signUpForm.get('lastName')?.errors}">
                       </div>
 
                       <div class="mb-3">
                         <label for="s-email" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="email-singup" formControlName="email" placeholder="name@example.com">
+                        <input type="email" class="form-control" id="email-singup" formControlName="email" placeholder="name@example.com"  [ngClass]="{'errorBorder' : isSubmitted && signUpForm.get('email')?.errors}">
                       </div>
 
                       <div class="mb-3">
                         <label for="phonenumber" class="form-label">Phone number</label>
-                        <input type="text" class="form-control" id="pn-number" formControlName="phoneNumber" placeholder="0779507217">
+                        <input type="text" class="form-control" id="pn-number" formControlName="phoneNumber" placeholder="0779507217"  [ngClass]="{'errorBorder' : isSubmitted && signUpForm.get('phoneNumber')?.errors}">
                       </div>
                       <div class="mb-3">
                         <label for="password-singnup" class="form-label">password</label>
-                        <input type="password" class="form-control" id="password-singnup" formControlName="password" placeholder="password">
+                        <input type="password" class="form-control" id="password-singnup" formControlName="password" placeholder="password"  [ngClass]="{'errorBorder' : isSubmitted && signUpForm.get('password')?.errors}">
                       </div>
                     </form>
                    </div>
                    <div class="col-12">
-                    <button class="btn btn-danger me-3 w-100" [disabled]="isLoading" *ngIf="!isSingUp">LOGIN</button>
-                    <button class="btn btn-danger me-3 w-100" [disabled]="isLoading"  *ngIf="isSingUp">SIGN UP</button>
+                    <button class="btn btn-danger me-3 w-100" (click)="login()" [disabled]="isLoading" *ngIf="!isSingUp">LOGIN</button>
+                    <button class="btn btn-danger me-3 w-100"  (click)="signUp()" [disabled]="isLoading" *ngIf="isSingUp">SIGN UP</button>
                     <div class="mt-2 text-right pointer">forgot password?</div>
                     <!-- <button class="btn btn-danger me-3" (click)="isSingUp = true">SING-UP</button> -->
                   </div>

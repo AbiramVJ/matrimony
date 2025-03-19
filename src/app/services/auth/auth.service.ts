@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { TokenResult } from '../../models/index.model';
@@ -25,5 +25,48 @@ export class AuthService {
       })
     );
   }
+
+  public signUp(body:any, clientToken:any){
+    const headers = new HttpHeaders()
+      .set('content-type', 'application/json')
+      .set('Access-Control-Allow-Origin', '*')
+      .set('Authorization', `Bearer ${clientToken}`);
+    return this.http.post<any>(this.baseUrl + 'Auth/register', body, { 'headers': headers });
+  }
+
+  public login(body:any,clientToken:string){
+    const headers = new HttpHeaders()
+    .set('content-type', 'application/json')
+    .set('Access-Control-Allow-Origin', '*')
+    .set('Authorization', `Bearer ${clientToken}`);
+    return this.http.post<any>(this.baseUrl + 'Auth/login', body, { 'headers': headers });
+  }
+
+  public setAuthToken(token: string) {
+    console.log(token);
+    localStorage.setItem('token', token);
+  }
+
+  public getAuthToken() {
+    return localStorage.getItem('token');
+  }
+
+  public removeAuthToken() {
+    localStorage.removeItem('token');
+  }
+
+  public setUser(loginType:number){
+    localStorage.setItem('loginType', loginType.toString());
+  }
+
+  public getUserType(){
+    return localStorage.getItem('token');
+  }
+
+  public isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
+  }
+
+
 
 }

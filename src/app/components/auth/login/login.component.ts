@@ -43,9 +43,8 @@ export class LoginComponent implements OnInit {
 
   private _loginFormInit(){
     this.loginForm = this.formBuilder.group({
-      email:[null,[Validators.required, Validators.email,Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,50}$/)]],
+      email:[null,[Validators.required,]],
       password:[null,[Validators.required,Validators.minLength(8)]],
-      phoneNumber:[null,[Validators.required]]
     })
   }
 
@@ -77,12 +76,60 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  public userLogin(){
-
-  }
-
   public changeLoginType(){
     this.isAgent = !this.isAgent;
     this.getLoginClientToken();
+  }
+
+  //SING UP
+  public signUp(){
+    this.isSubmitted = true;
+    if(this.signUpForm.valid){
+      this.isLoading = true;
+      const body = this.signUpForm.value;
+      body['loginType'] = 1;
+      console.log(this.clientToken);
+      this.auth.signUp(this.signUpForm.value, this.clientToken).subscribe({
+        next:(res:any)=>{
+          this.auth.setAuthToken(res.Result.token);
+          this.auth.setUser(res.Result.tokenType)
+        },
+        complete:()=>{
+          this.isLoading = false;
+          this.router.navigateByUrl('home');
+        },
+        error:(error:any)=>{
+          this.isLoading = false;
+          this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
+        }
+      })
+    }
+  }
+
+  public login(){
+    this.isSubmitted = true;
+    const body = this.loginForm.value;
+    body['loginType'] = this.isEmail(body.email) ? 1 : 2;
+    if(this.loginForm.valid){
+      this.isLoading = true;
+      this.auth.login(body,this.clientToken).subscribe({
+        next:(res:any) => {
+          this.auth.setAuthToken(res.Result.token);
+          this.auth.setUser(res.Result.tokenType);
+        },
+        complete:()=>{
+          this.isLoading = false;
+          this.router.navigateByUrl('home');
+        },
+        error:(error:any)=>{
+          this.isLoading = false;
+          this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
+        }
+      })
+    }
+  }
+
+  private isEmail(input: string): boolean {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input);
   }
 }
