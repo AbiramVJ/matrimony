@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { TokenResult } from '../../models/index.model';
 
@@ -62,13 +62,18 @@ export class AuthService {
     .set('Authorization', `Bearer ${clientToken}`);
     return this.http.post<any>(this.baseUrl + 'Password/otp-verification', body, { 'headers': headers });
   }
-
-  public createPassword(body:any,clientToken:string) {
+  public createPassword(body: any, clientToken: string): Observable<any> {
     const headers = new HttpHeaders()
-    .set('content-type', 'application/json')
-    .set('Access-Control-Allow-Origin', '*')
-    .set('Authorization', `Bearer ${clientToken}`);
-    return this.http.post<any>(this.baseUrl + 'Password/reset-password', body, { 'headers': headers });
+      .set('Content-Type', 'application/json')
+      .set('Authorization', `Bearer ${clientToken}`);
+
+    return this.http.post<any>(`${this.baseUrl}Password/reset-password`, body, { headers })
+      .pipe(
+        catchError(error => {
+          console.error('Error resetting password:', error);
+          return throwError(() => error);
+        })
+      );
   }
 
   public setAuthToken(token: string) {

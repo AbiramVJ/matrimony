@@ -21,7 +21,8 @@ export class LoginComponent implements OnInit {
   private _clientTokenData = matrimonyConfig.clientData;
   private _agentClientData = matrimonyAgentConfig.clientData;
   private _memberClientData = matrimonyMemberConfig.clientData;
-  private _resetToken = '';
+  private _resetToken:string = '';
+  private _verifyToken:string = '';
 
 
   public isLoading:boolean = false;
@@ -211,12 +212,15 @@ export class LoginComponent implements OnInit {
 
   public verifyOtp(){
     if(this.otpForm.valid){
-      this.step = this.resetStep.resetPassword;
       this.isLoading = true;
       const otpString = Object.values(this.otpForm.value).join('');
-      this.auth.verifyOtp(otpString, this.clientToken).subscribe({
+      const body ={
+        token: this._resetToken,
+        otpCode: Number(otpString)
+      }
+      this.auth.verifyOtp(body, this.clientToken).subscribe({
         next:(res:any)=>{
-          console.log(res);
+          this._verifyToken = res.Result.token;
         },
         complete:() => {
           this.step = this.resetStep.resetPassword;
@@ -237,12 +241,18 @@ export class LoginComponent implements OnInit {
       this.isLoading = true;
       this.isSubmitted = true;
       this.isMatchPwd = true;
-      this.auth.createPassword(pwdValues.password, this.clientToken).subscribe({
-        next:()=>{
-
+      const body = {
+        token:this._verifyToken,
+        newPassword:pwdValues.password
+      }
+      this.auth.createPassword(body, this.clientToken).subscribe({
+        next:(res:any)=>{
+          this.auth.setAuthToken(res.Result.token);
+          this.auth.setUser();
         },
         complete:()=>{
           this.isLoading = false;
+          this.router.navigateByUrl('home');
         },
         error:(error:any)=>{
           this.isLoading = false;
