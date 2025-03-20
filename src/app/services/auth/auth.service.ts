@@ -42,8 +42,20 @@ export class AuthService {
     return this.http.post<any>(this.baseUrl + 'Auth/login', body, { 'headers': headers });
   }
 
+  public forgotPassword(isEmail:boolean,clientToken:string,param:string){
+    console.log(clientToken);
+    const headers = new HttpHeaders()
+    .set('content-type', 'application/json')
+    .set('Access-Control-Allow-Origin', '*')
+    .set('Authorization', `Bearer ${clientToken}`);
+    return this.http.get(this.baseUrl + `Password/forgot-password?${isEmail ? 'email' : 'phoneNumber'}=${param}`,{ 'headers': headers }).pipe(
+      map((res: any) => {
+        return new TokenResult(res.Result);
+      })
+    );
+  }
+
   public setAuthToken(token: string) {
-    console.log(token);
     localStorage.setItem('token', token);
   }
 
@@ -55,8 +67,9 @@ export class AuthService {
     localStorage.removeItem('token');
   }
 
-  public setUser(loginType:number){
-    localStorage.setItem('loginType', loginType.toString());
+  public setUser(){
+    var userDetails = this.getTokenDecodeData()
+    localStorage.setItem('userType', userDetails.UserType);
   }
 
   public getUserType(){
@@ -68,5 +81,26 @@ export class AuthService {
   }
 
 
+ public getTokenDecodeData() {
+    const token: any = localStorage.getItem('token');
+    console.log(token);
+    let decodeToken = this.payload(token);
+    if(decodeToken['UserType'] === 'Member') {
+      decodeToken['LoginUserType'] = 'Member';
+    } else if (decodeToken['UserType'] === 'Agent') {
+      decodeToken['LoginUserType'] = 'Agent';
+    } else {
+      decodeToken['LoginUserType'] = 'Admin';
+    }
+    return decodeToken;
+  }
+  payload(token: string) {
+    const payload = token.split('.')[1];
+    return this.decode(payload);
+  }
+
+  decode(payload: string) {
+    return JSON.parse(atob(payload));
+  }
 
 }

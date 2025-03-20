@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200px" viewBox="0 0 400 150">
+  <defs>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD700" />
+      <stop offset="100%" stop-color="#FFA500" />
+    </linearGradient>
+  </defs>
+  <path d="M10,80 Q60,50 110,80 Q160,110 210,80 Q260,50 310,80 Q360,110 390,80" stroke="#FFD700"
+    stroke-width="2" fill="none" />
+  <circle cx="200" cy="45" r="15" fill="none" stroke="url(#goldGradient)" stroke-width="3" />
+  <circle cx="215" cy="45" r="15" fill="none" stroke="#FF0000" stroke-width="3" />
+  <text x="200" y="90" font-family="'Segoe UI', Arial, sans-serif" font-size="42" font-weight="bold"
+    text-anchor="middle" fill="#FF0000">Matri<tspan fill="#FFD700">mony</tspan></text>
+  <text x="200" y="115" font-family="'Segoe UI', Arial, sans-serif" font-size="16"
+    text-anchor="middle" fill="#333">Forever Begins Here</text>
+</svg>
