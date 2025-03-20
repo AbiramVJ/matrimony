@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
   public isLogin:boolean = true;
   public isAgent:boolean = false;
   public isSingUp:boolean = false;
+  public isMatchPwd:boolean = true;
   public step:number = 1;
   public length: number = 4;
 
@@ -209,12 +210,52 @@ export class LoginComponent implements OnInit {
   }
 
   public verifyOtp(){
-    console.log(this.otpForm.value);
-    this.step = this.resetStep.resetPassword;
+    if(this.otpForm.valid){
+      this.step = this.resetStep.resetPassword;
+      this.isLoading = true;
+      const otpString = Object.values(this.otpForm.value).join('');
+      this.auth.verifyOtp(otpString, this.clientToken).subscribe({
+        next:(res:any)=>{
+          console.log(res);
+        },
+        complete:() => {
+          this.step = this.resetStep.resetPassword;
+          this.isLoading = false;
+        },
+        error:(error:any)=>{
+          this.isLoading = false;
+          this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
+        }
+      })
+    }
+
   }
 
   public createPassword(){
+    const pwdValues = this.passwordReset.value;
+    if(pwdValues.password === pwdValues.confirmPassword ){
+      this.isLoading = true;
+      this.isSubmitted = true;
+      this.isMatchPwd = true;
+      this.auth.createPassword(pwdValues.password, this.clientToken).subscribe({
+        next:()=>{
 
+        },
+        complete:()=>{
+          this.isLoading = false;
+        },
+        error:(error:any)=>{
+          this.isLoading = false;
+          this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
+        }
+      })
+    }else{
+      this.isMatchPwd = false;
+    }
+  }
+
+  public onInputChange() {
+    this.isMatchPwd = true;
   }
 
   trackByFn(index: number): number {
@@ -314,7 +355,7 @@ export class LoginComponent implements OnInit {
   public formsReset(){
     this.forgotForm.reset();
     this.otpForm.reset();
-    this.forgotForm.reset();
+    this.passwordReset.reset();
     this.isSubmitted = false;
     this.step = this.resetStep.enterEmail;
   }

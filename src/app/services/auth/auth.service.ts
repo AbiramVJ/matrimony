@@ -55,6 +55,22 @@ export class AuthService {
     );
   }
 
+  public verifyOtp(body:any,clientToken:string){
+    const headers = new HttpHeaders()
+    .set('content-type', 'application/json')
+    .set('Access-Control-Allow-Origin', '*')
+    .set('Authorization', `Bearer ${clientToken}`);
+    return this.http.post<any>(this.baseUrl + 'Password/otp-verification', body, { 'headers': headers });
+  }
+
+  public createPassword(body:any,clientToken:string) {
+    const headers = new HttpHeaders()
+    .set('content-type', 'application/json')
+    .set('Access-Control-Allow-Origin', '*')
+    .set('Authorization', `Bearer ${clientToken}`);
+    return this.http.post<any>(this.baseUrl + 'Password/reset-password', body, { 'headers': headers });
+  }
+
   public setAuthToken(token: string) {
     localStorage.setItem('token', token);
   }
@@ -81,7 +97,7 @@ export class AuthService {
   }
 
 
- public getTokenDecodeData() {
+  public getTokenDecodeData() {
     const token: any = localStorage.getItem('token');
     console.log(token);
     let decodeToken = this.payload(token);
@@ -94,12 +110,13 @@ export class AuthService {
     }
     return decodeToken;
   }
-  payload(token: string) {
+
+  public payload(token: string) {
     const payload = token.split('.')[1];
     return this.decode(payload);
   }
 
-  decode(payload: string) {
+  public decode(payload: string) {
     return JSON.parse(atob(payload));
   }
 

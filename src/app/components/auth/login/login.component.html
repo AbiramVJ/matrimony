@@ -86,7 +86,7 @@
                     <button class="btn btn-danger me-3 w-100" (click)="login()" [disabled]="isLoading" *ngIf="!isSingUp">
                       <div class="spinner-border spinner-border-sm text-light me-1" role="status" *ngIf="isLoading"></div>LOGIN</button>
                     <button class="btn btn-danger me-3 w-100"  (click)="signUp()" [disabled]="isLoading" *ngIf="isSingUp">SIGN UP</button>
-                    <div class="mt-2 text-right pointer"  data-bs-toggle="modal" href="#exampleModalToggle">forgot password?</div>
+                    <div class="mt-2 text-right pointer"  data-bs-toggle="modal" href="#exampleModalToggle" *ngIf="!isSingUp">forgot password?</div>
                     <!-- <button class="btn btn-danger me-3" (click)="isSingUp = true">SING-UP</button> -->
                   </div>
                   <div class="divider">
@@ -184,13 +184,14 @@
                     <form [formGroup]="passwordReset">
                       <div class="mb-3">
                         <label for="password-comfirm" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password-comfirm" formControlName="password" placeholder="password"  [ngClass]="{'errorBorder' : isSubmitted && passwordReset.get('password')?.errors}">
+                        <input type="password" class="form-control" id="password-comfirm" formControlName="password" placeholder="password"  [ngClass]="{'errorBorder' : isSubmitted && passwordReset.get('password')?.errors}"  (input)="onInputChange()">
                       </div>
 
-                      <div class="mb-3">
+                      <div class="">
                         <label for="password-singnup" class="form-label">Confirm Password</label>
-                        <input type="password" class="form-control" id="password-singnup" formControlName="confirmPassword" placeholder="confirm password"  [ngClass]="{'errorBorder' : isSubmitted && passwordReset.get('confirmPassword')?.errors}">
+                        <input type="password" class="form-control" id="password-singnup" formControlName="confirmPassword" placeholder="confirm password"  [ngClass]="{'errorBorder' : isSubmitted && passwordReset.get('confirmPassword')?.errors}" (input)="onInputChange()" >
                       </div>
+                      <div class="text-danger" *ngIf="!isMatchPwd">Password does not match</div>
                     </form>
                   </div>
 
