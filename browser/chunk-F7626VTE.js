@@ -1,0 +1,1 @@
+import{Ra as t,db as n,eb as m,mb as s}from"./chunk-PBUKKEVM.js";var p=class o{static \u0275fac=function(e){return new(e||o)};static \u0275cmp=t({type:o,selectors:[["app-home"]],decls:2,vars:0,template:function(e,a){e&1&&(n(0,"h3"),s(1,"login success"),m())},encapsulation:2})};export{p as HomeComponent};
