@@ -184,13 +184,14 @@ export class LoginComponent implements OnInit {
   public sendOtp(){
     const body = this.forgotForm.value;
     if(this.forgotForm.valid){
-      this.isLoading = false;
+      this.isLoading = true;
       this.auth.forgotPassword(this.isEmail(body.email),this.clientToken,body.email).subscribe({
         next:(res:TokenResult)=>{
           this._resetToken = res.token;
         },
         complete:()=>{
           this.isLoading = false;
+          this.step = this.resetStep.verification;
         },
         error:(error:any)=>{
           this.isLoading = false;
@@ -198,7 +199,6 @@ export class LoginComponent implements OnInit {
         }
       })
     }
-    this.step = this.resetStep.verification;
   }
   public backToStep(){
     if(this.step = this.resetStep.verification){
@@ -309,6 +309,14 @@ export class LoginComponent implements OnInit {
     if (firstInput) {
       firstInput.focus();
     }
+  }
+
+  public formsReset(){
+    this.forgotForm.reset();
+    this.otpForm.reset();
+    this.forgotForm.reset();
+    this.isSubmitted = false;
+    this.step = this.resetStep.enterEmail;
   }
 
 }
