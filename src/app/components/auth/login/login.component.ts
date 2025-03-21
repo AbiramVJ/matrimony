@@ -11,9 +11,10 @@ import { ToastrService } from 'ngx-toastr';
 import { TokenResult } from '../../../models/index.model';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { ResetPasswordStep } from '../../../helpers/enum';
+import { DataProviderService } from '../../../services/data-provider.service';
 @Component({
   selector: 'app-login',
-  imports: [FORM_MODULES, CommonModule, ROUTER_MODULES, FORM_MODULES,SvgIconComponent],
+  imports: [FORM_MODULES, CommonModule, ROUTER_MODULES, FORM_MODULES],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -44,12 +45,15 @@ export class LoginComponent implements OnInit {
   public clientToken: string = '';
 
   public resetStep = ResetPasswordStep;
-
+  public phoneCodes:any = [];
+  public selectedCode:any;
+  public allPhoneCodes: any[] = [];
   constructor(
     private auth:AuthService,
     private router:Router,
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
+    private dataProvider:DataProviderService
 
   ){}
   ngOnInit(): void {
@@ -59,6 +63,9 @@ export class LoginComponent implements OnInit {
     this._forgotFormInit();
     this._otpFormInit();
     this._restPwdFormsInit();
+    this._getPhoneNumberCode();
+    this.allPhoneCodes = [...this.phoneCodes];
+    this.selectedCode = this.phoneCodes[0].code;
   }
 
   private _loginFormInit(){
@@ -82,6 +89,10 @@ export class LoginComponent implements OnInit {
     this.forgotForm = this.formBuilder.group({
       email:[null,[Validators.required,]],
     })
+  }
+
+  private _getPhoneNumberCode(){
+    this.phoneCodes = this.dataProvider.getPhoneCode();
   }
 
   private _otpFormInit(){
@@ -128,6 +139,9 @@ export class LoginComponent implements OnInit {
 
   public changeLoginType(){
     this.isAgent = !this.isAgent;
+    this.loginForm.reset();
+    this.signUpForm.reset();
+    this.isSubmitted = false;
     this.getLoginClientToken();
   }
 
@@ -138,6 +152,9 @@ export class LoginComponent implements OnInit {
       this.isLoading = true;
       const body = this.signUpForm.value;
       body['loginType'] = this.isEmail(body.email) ? 1 : 2;
+      const pn = '+' + this.selectedCode + body.phoneNumber;
+      delete body.phoneNumber;
+      body['phoneNumber'] = pn;
       console.log(this.clientToken);
       this.auth.signUp(this.signUpForm.value, this.clientToken).subscribe({
         next:(res:any)=>{
@@ -370,4 +387,18 @@ export class LoginComponent implements OnInit {
     this.step = this.resetStep.enterEmail;
   }
 
+  onSearchChange(event: any) {
+    const searchTerm = event.target.value.toLowerCase();
+    if (!searchTerm) {
+      this.phoneCodes = [...this.allPhoneCodes];
+      return;
+    }
+    this.phoneCodes = this.allPhoneCodes.filter(item =>
+      item.country.toLowerCase().includes(searchTerm) ||
+      item.code.includes(searchTerm)
+    );
+  }
+
 }
+
+
