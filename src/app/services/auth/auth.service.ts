@@ -4,7 +4,19 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { TokenResult } from '../../models/index.model';
 
-
+import {
+  Auth,
+  authState,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut,
+  UserCredential,
+  GoogleAuthProvider,
+  FacebookAuthProvider,
+  signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult
+} from '@angular/fire/auth';
 @Injectable({
   providedIn: 'root'
 })
@@ -26,28 +38,21 @@ export class AuthService {
     );
   }
 
+  //SING UP
   public signUp(body:any, clientToken:any){
-    const headers = new HttpHeaders()
-      .set('content-type', 'application/json')
-      .set('Access-Control-Allow-Origin', '*')
-      .set('Authorization', `Bearer ${clientToken}`);
+    const headers = this._getHeader(clientToken);
     return this.http.post<any>(this.baseUrl + 'Auth/register', body, { 'headers': headers });
   }
 
+  //LOGIN
   public login(body:any,clientToken:string){
-    const headers = new HttpHeaders()
-    .set('content-type', 'application/json')
-    .set('Access-Control-Allow-Origin', '*')
-    .set('Authorization', `Bearer ${clientToken}`);
+    const headers = this._getHeader(clientToken);
     return this.http.post<any>(this.baseUrl + 'Auth/login', body, { 'headers': headers });
   }
 
+  //FORGOT PASSWORD
   public forgotPassword(isEmail:boolean,clientToken:string,param:string){
-    console.log(clientToken);
-    const headers = new HttpHeaders()
-    .set('content-type', 'application/json')
-    .set('Access-Control-Allow-Origin', '*')
-    .set('Authorization', `Bearer ${clientToken}`);
+    const headers = this._getHeader(clientToken);
     return this.http.get(this.baseUrl + `Password/forgot-password?${isEmail ? 'email' : 'phoneNumber'}=${param}`,{ 'headers': headers }).pipe(
       map((res: any) => {
         return new TokenResult(res.Result);
@@ -55,25 +60,58 @@ export class AuthService {
     );
   }
 
+  //OTP VERIFICATION
   public verifyOtp(body:any,clientToken:string){
+    const headers = this._getHeader(clientToken);
+    return this.http.post<any>(this.baseUrl + 'Password/otp-verification', body, { 'headers': headers });
+  }
+
+  //CREATE PASSWORD
+  public createPassword(body: any, clientToken: string): Observable<any> {
+    const headers = this._getHeader(clientToken);
+    return this.http.post<any>(`${this.baseUrl}Password/reset-password`, body, { headers })
+      .pipe(
+        catchError(error => {
+        console.error('Error resetting password:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  //SOCIAL LOGIN
+  // public async signInWithGoogle() {
+  //   try {
+  //     const provider = new firebase.auth.GoogleAuthProvider();
+  //     provider.setCustomParameters({
+  //       prompt: 'select_account'
+  //     });
+  //     const result = await this.afAuth.signInWithPopup(provider);
+  //     return result;
+  //   } catch (error) {
+  //     console.error('Error during Google sign in', error);
+  //     throw error;
+  //   }
+  // }
+
+  // public async signInWithFacebook() {
+  //   try {
+  //     const provider = new firebase.auth.FacebookAuthProvider();
+  //     const result = await this.afAuth.signInWithPopup(provider);
+  //     return result;
+  //   } catch (error) {
+  //     console.error('Error during Facebook sign in', error);
+  //     throw error;
+  //   }
+  // }
+
+
+  //HEDER
+  private _getHeader(clientToken:string){
     const headers = new HttpHeaders()
     .set('content-type', 'application/json')
     .set('Access-Control-Allow-Origin', '*')
     .set('Authorization', `Bearer ${clientToken}`);
-    return this.http.post<any>(this.baseUrl + 'Password/otp-verification', body, { 'headers': headers });
-  }
-  public createPassword(body: any, clientToken: string): Observable<any> {
-    const headers = new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('Authorization', `Bearer ${clientToken}`);
-
-    return this.http.post<any>(`${this.baseUrl}Password/reset-password`, body, { headers })
-      .pipe(
-        catchError(error => {
-          console.error('Error resetting password:', error);
-          return throwError(() => error);
-        })
-      );
+    return headers;
   }
 
   public setAuthToken(token: string) {
@@ -104,7 +142,6 @@ export class AuthService {
 
   public getTokenDecodeData() {
     const token: any = localStorage.getItem('token');
-    console.log(token);
     let decodeToken = this.payload(token);
     if(decodeToken['UserType'] === 'Member') {
       decodeToken['LoginUserType'] = 'Member';

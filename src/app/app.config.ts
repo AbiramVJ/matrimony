@@ -6,16 +6,19 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AuthInterceptor } from './middleware/auth.interceptor';
 import { provideAngularSvgIcon } from 'angular-svg-icon';
-
+import { firebaseEnvironment } from './environments/environment';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getAuth, provideAuth } from '@angular/fire/auth';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes),
+    provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimations(),
     provideToastr(),
     provideAngularSvgIcon(),
     provideHttpClient(withInterceptors([AuthInterceptor])),
+    provideFirebaseApp(() => initializeApp(firebaseEnvironment.firebase)),
+    provideAuth(() => getAuth())
   ]
 };
-

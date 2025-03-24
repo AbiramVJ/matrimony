@@ -1,5 +1,4 @@
-import { clientData, matrimonyAgentConfig, matrimonyMemberConfig } from './../../../helpers/util';
-import { routes } from './../../../app.routes';
+import { matrimonyAgentConfig, matrimonyMemberConfig } from './../../../helpers/util';
 import { Component, OnInit } from '@angular/core';
 import { FORM_MODULES, ROUTER_MODULES } from '../../../common/common-imports';
 import { CommonModule } from '@angular/common';
@@ -9,9 +8,9 @@ import { matrimonyConfig } from '../../../helpers/util';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { TokenResult } from '../../../models/index.model';
-import { SvgIconComponent } from 'angular-svg-icon';
 import { ResetPasswordStep } from '../../../helpers/enum';
 import { DataProviderService } from '../../../services/data-provider.service';
+import { SocialLoginService } from '../../../services/auth/social-login.service';
 @Component({
   selector: 'app-login',
   imports: [FORM_MODULES, CommonModule, ROUTER_MODULES, FORM_MODULES],
@@ -19,7 +18,6 @@ import { DataProviderService } from '../../../services/data-provider.service';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnInit {
-  private _clientTokenData = matrimonyConfig.clientData;
   private _agentClientData = matrimonyAgentConfig.clientData;
   private _memberClientData = matrimonyMemberConfig.clientData;
   private _resetToken:string = '';
@@ -32,6 +30,7 @@ export class LoginComponent implements OnInit {
   public isAgent:boolean = false;
   public isSingUp:boolean = false;
   public isMatchPwd:boolean = true;
+
   public step:number = 1;
   public length: number = 4;
 
@@ -48,17 +47,19 @@ export class LoginComponent implements OnInit {
   public phoneCodes:any = [];
   public selectedCode:any;
   public allPhoneCodes: any[] = [];
+
   constructor(
     private auth:AuthService,
     private router:Router,
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
-    private dataProvider:DataProviderService
+    private dataProvider:DataProviderService,
+    private socialService:SocialLoginService
 
   ){}
   ngOnInit(): void {
-    this._loginFormInit();
     this.getLoginClientToken();
+    this._loginFormInit();
     this._signInFormInit();
     this._forgotFormInit();
     this._otpFormInit();
@@ -194,6 +195,28 @@ export class LoginComponent implements OnInit {
         }
       })
     }
+  }
+
+  public loginWithGoogle(){
+    this.socialService.signInWithGoogle()
+      .then(result => {
+        console.log(result);
+      })
+      .catch(error => {
+        this.toastr.error(error.detail, 'Error!');
+        console.log(error);
+      })
+  }
+
+  public loginWithFacebook(){
+    this.socialService.signInWithFacebook()
+    .then(result => {
+     // console.log((result.credential as any)?.accessToken);
+    })
+    .catch(error => {
+      this.toastr.error(error.detail, 'Error!');
+
+    });
   }
 
   private isEmail(input: string): boolean {
