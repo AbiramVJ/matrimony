@@ -15,3 +15,5 @@ export const firebaseEnvironment = {
     measurementId: "G-LW8EHE4MXE"
   }
 };
+
+export const fbAppId:string = '2480872695583098';

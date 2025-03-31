@@ -1,44 +1,41 @@
-import { inject, Injectable } from '@angular/core';
-import { Auth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, OAuthProvider } from '@angular/fire/auth';
+import { Injectable } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
+import { SocialFirebaseResponse } from '../../models/index.model';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocialLoginService {
-  private auth = inject(Auth); // Use Angular’s inject function
+
+  constructor(private afAuth: AngularFireAuth,) { }
 
   public async signInWithGoogle() {
     try {
-      const provider = new GoogleAuthProvider();
-      provider.setCustomParameters({ prompt: 'select_account' });
-      return await signInWithPopup(this.auth, provider);
+      const provider = new firebase.auth.GoogleAuthProvider();
+      provider.setCustomParameters({
+        prompt: 'select_account'
+      });
+      const res = await this.afAuth.signInWithPopup(provider);
+      console.log(res);
+      const result = new SocialFirebaseResponse(res);
+      return result;
     } catch (error) {
-      console.error('Error during Google sign in', error);
       throw error;
     }
   }
+
 
   public async signInWithFacebook() {
     try {
-      const provider = new FacebookAuthProvider();
-      return await signInWithPopup(this.auth, provider);
+      const provider = new firebase.auth.FacebookAuthProvider();
+      const res = await this.afAuth.signInWithPopup(provider);
+      const result = new SocialFirebaseResponse(res);
+      return result;
     } catch (error) {
-      console.error('Error during Facebook sign in', error);
       throw error;
     }
   }
 
-  public async signInWithApple() {
-    try {
-      const provider = new OAuthProvider('apple.com');
-      provider.addScope('email');
-      provider.addScope('name');
-      provider.setCustomParameters({ locale: navigator.language || 'en' });
-      return await signInWithPopup(this.auth, provider);
-    } catch (error) {
-      console.error('Error during Apple sign in', error);
-      throw error;
-    }
-  }
 }

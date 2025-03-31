@@ -46,7 +46,7 @@
                     <form [formGroup]="loginForm">
                       <div class="mb-3 mt-3">
                         <label for="email" class="form-label" >Email or Phone number</label>
-                        <input type="email" class="form-control" formControlName="email" id="email" placeholder="name@example.com"  [ngClass]="{'errorBorder' : isSubmitted && loginForm.get('email')?.errors}">
+                        <input type="email" class="form-control" formControlName="email" id="email" placeholder="email"  [ngClass]="{'errorBorder' : isSubmitted && loginForm.get('email')?.errors}">
                       </div>
                       <div class="mb-3">
                         <label for="password" class="form-label" >password</label>
@@ -59,17 +59,17 @@
                     <form [formGroup]="signUpForm">
                       <div class="mb-3 mt-3">
                         <label for="firstname" class="form-label">First name</label>
-                        <input type="text" class="form-control" id="first-name" formControlName="firstName" placeholder="john" [ngClass]="{'errorBorder' : isSubmitted && signUpForm.get('firstName')?.errors}">
+                        <input type="text" class="form-control" id="first-name" formControlName="firstName" placeholder="first name" [ngClass]="{'errorBorder' : isSubmitted && signUpForm.get('firstName')?.errors}">
                       </div>
 
                       <div class="mb-3">
                         <label for="lasttname" class="form-label">Last name</label>
-                        <input type="text" class="form-control" id="last-name" formControlName="lastName" placeholder="wick" [ngClass]="{'errorBorder' : isSubmitted && signUpForm.get('lastName')?.errors}">
+                        <input type="text" class="form-control" id="last-name" formControlName="lastName" placeholder="last name" [ngClass]="{'errorBorder' : isSubmitted && signUpForm.get('lastName')?.errors}">
                       </div>
 
                       <div class="mb-3">
                         <label for="s-email" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="email-singup" formControlName="email" placeholder="name@example.com"  [ngClass]="{'errorBorder' : isSubmitted && signUpForm.get('email')?.errors}">
+                        <input type="email" class="form-control" id="email-singup" formControlName="email" placeholder="email"  [ngClass]="{'errorBorder' : isSubmitted && signUpForm.get('email')?.errors}">
                       </div>
 
                       <div class="mb-3">
@@ -93,7 +93,7 @@
                                       <input
                                         type="text"
                                         class="form-control search-input"
-                                        placeholder="Search country or code"
+                                        placeholder="Search"
                                         (input)="onSearchChange($event)">
                                     </div>
                                   </ng-template>
@@ -123,7 +123,7 @@
                         </div>
                       </div>
                       <div class="mb-3">
-                        <label for="password-singnup" class="form-label">password</label>
+                        <label for="password-singnup" class="form-label">Password</label>
                         <input type="password" class="form-control" id="password-singnup" formControlName="password" placeholder="password"  [ngClass]="{'errorBorder' : isSubmitted && signUpForm.get('password')?.errors}">
                       </div>
                     </form>
@@ -135,17 +135,16 @@
                     <div class="mt-2 text-right pointer"  data-bs-toggle="modal" href="#exampleModalToggle" *ngIf="!isSingUp">forgot password?</div>
                     <!-- <button class="btn btn-danger me-3" (click)="isSingUp = true">SING-UP</button> -->
                   </div>
-                  <div class="divider">
+                  <div class="divider"  *ngIf="!isSingUp">
                     <span>OR</span>
                   </div>
-                  <div class="d-flex justify-content-center">
+                  <div class="d-flex justify-content-center"  *ngIf="!isSingUp">
                     <div class="btn btn-light me-2" (click)="loginWithGoogle()"><svg xmlns="http://www.w3.org/2000/svg" class="me-2" width="30px" height="30px" viewBox="-3 0 262 262" preserveAspectRatio="xMidYMid"><path d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027" fill="#4285F4"/><path d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055-34.523 0-63.824-22.773-74.269-54.25l-1.531.13-40.298 31.187-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1" fill="#34A853"/><path d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82 0-8.994 1.595-17.697 4.206-25.82l-.073-1.73L15.26 71.312l-1.335.635C5.077 89.644 0 109.517 0 130.55s5.077 40.905 13.925 58.602l42.356-32.782" fill="#FBBC05"/><path d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251" fill="#EB4335"/></svg></div>
                     <div class="btn btn-light" (click)="loginWithFacebook()" ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="30px" height="30px"><path fill="#039be5" d="M24 5A19 19 0 1 0 24 43A19 19 0 1 0 24 5Z"/><path fill="#fff" d="M26.572,29.036h4.917l0.772-4.995h-5.69v-2.73c0-2.075,0.678-3.915,2.619-3.915h3.119v-4.359c-0.548-0.074-1.707-0.236-3.897-0.236c-4.573,0-7.254,2.415-7.254,7.917v3.323h-4.701v4.995h4.701v13.729C22.089,42.905,23.032,43,24,43c0.875,0,1.729-0.08,2.572-0.194V29.036z"/></svg></div>
                   </div>
                   <div class="mt-3" *ngIf="!isSingUp">Need and account? <u class="pointer" (click)="isSingUp = true; loginForm.reset(); isSubmitted = false">SIGN UP</u></div>
                   <div class="mt-3" *ngIf="isSingUp">Already have and account? <u class="pointer" (click)="isSingUp = false ; signUpForm.reset(); isSubmitted = false">SIGN IN</u></div>
                 </div>
-
               </div>
             </div>
           </div>
@@ -161,7 +160,7 @@
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header border-bottom-0 pb-0">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="formsReset()"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-btn" (click)="formsReset()"></button>
       </div>
 
       <div class="modal-body pt-0">
@@ -185,7 +184,7 @@
                   <form [formGroup]="forgotForm">
                     <div class="mb-3 mt-3">
                       <label for="f-email" class="form-label" >Email or Phone number</label>
-                      <input type="email" class="form-control" formControlName="email" id="f-email" placeholder="name@example.com"  [ngClass]="{'errorBorder' : isSubmitted && forgotForm.get('email')?.errors}">
+                      <input type="email" class="form-control" formControlName="email" id="f-email" placeholder="email"  [ngClass]="{'errorBorder' : isSubmitted && forgotForm.get('email')?.errors}">
                     </div>
                   </form>
                 </div>

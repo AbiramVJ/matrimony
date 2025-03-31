@@ -2,21 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { TokenResult } from '../../models/index.model';
-
-import {
-  Auth,
-  authState,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  signOut,
-  UserCredential,
-  GoogleAuthProvider,
-  FacebookAuthProvider,
-  signInWithPopup,
-  signInWithRedirect,
-  getRedirectResult
-} from '@angular/fire/auth';
+import { TokenResult } from '../../models/clientToken.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -78,33 +64,16 @@ export class AuthService {
     );
   }
 
-  //SOCIAL LOGIN
-  // public async signInWithGoogle() {
-  //   try {
-  //     const provider = new firebase.auth.GoogleAuthProvider();
-  //     provider.setCustomParameters({
-  //       prompt: 'select_account'
-  //     });
-  //     const result = await this.afAuth.signInWithPopup(provider);
-  //     return result;
-  //   } catch (error) {
-  //     console.error('Error during Google sign in', error);
-  //     throw error;
-  //   }
-  // }
-
-  // public async signInWithFacebook() {
-  //   try {
-  //     const provider = new firebase.auth.FacebookAuthProvider();
-  //     const result = await this.afAuth.signInWithPopup(provider);
-  //     return result;
-  //   } catch (error) {
-  //     console.error('Error during Facebook sign in', error);
-  //     throw error;
-  //   }
-  // }
-
-
+  public socialLogin(body: any, clientToken: string){
+    const headers = this._getHeader(clientToken);
+    return this.http.post<any>(`${this.baseUrl}Auth/social-login`, body, { headers })
+      .pipe(
+        catchError(error => {
+        console.error('Error resetting password:', error);
+        return throwError(() => error);
+      })
+    );
+  }
   //HEDER
   private _getHeader(clientToken:string){
     const headers = new HttpHeaders()

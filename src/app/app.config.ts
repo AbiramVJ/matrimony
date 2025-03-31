@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideToastr } from 'ngx-toastr';
 import { routes } from './app.routes';
@@ -7,8 +7,8 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AuthInterceptor } from './middleware/auth.interceptor';
 import { provideAngularSvgIcon } from 'angular-svg-icon';
 import { firebaseEnvironment } from './environments/environment';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire/compat';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,7 +18,7 @@ export const appConfig: ApplicationConfig = {
     provideToastr(),
     provideAngularSvgIcon(),
     provideHttpClient(withInterceptors([AuthInterceptor])),
-    provideFirebaseApp(() => initializeApp(firebaseEnvironment.firebase)),
+    importProvidersFrom(AngularFireModule.initializeApp(firebaseEnvironment.firebase)),
     provideAuth(() => getAuth())
   ]
 };

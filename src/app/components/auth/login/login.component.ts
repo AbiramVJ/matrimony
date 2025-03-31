@@ -4,13 +4,14 @@ import { FORM_MODULES, ROUTER_MODULES } from '../../../common/common-imports';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth/auth.service';
 import { Router } from '@angular/router';
-import { matrimonyConfig } from '../../../helpers/util';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { TokenResult } from '../../../models/index.model';
-import { ResetPasswordStep } from '../../../helpers/enum';
+import { SocialFirebaseResponse, TokenResult } from '../../../models/index.model';
+import { LoginType, ResetPasswordStep } from '../../../helpers/enum';
 import { DataProviderService } from '../../../services/data-provider.service';
 import { SocialLoginService } from '../../../services/auth/social-login.service';
+import { fbAppId } from '../../../environments/environment';
+
 @Component({
   selector: 'app-login',
   imports: [FORM_MODULES, CommonModule, ROUTER_MODULES, FORM_MODULES],
@@ -54,7 +55,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private dataProvider:DataProviderService,
-    private socialService:SocialLoginService
+    private SocialLogin:SocialLoginService
 
   ){}
   ngOnInit(): void {
@@ -198,9 +199,9 @@ export class LoginComponent implements OnInit {
   }
 
   public loginWithGoogle(){
-    this.socialService.signInWithGoogle()
-      .then(result => {
-        console.log(result);
+    this.SocialLogin.signInWithGoogle()
+      .then((result:SocialFirebaseResponse) => {
+        this._makeSocialLogin(result, true);
       })
       .catch(error => {
         this.toastr.error(error.detail, 'Error!');
@@ -208,16 +209,33 @@ export class LoginComponent implements OnInit {
       })
   }
 
-  public loginWithFacebook(){
-    this.socialService.signInWithFacebook()
-    .then(result => {
-     // console.log((result.credential as any)?.accessToken);
-    })
-    .catch(error => {
-      this.toastr.error(error.detail, 'Error!');
 
-    });
+
+  public loginWithFacebook() {
+    this.SocialLogin.signInWithFacebook()
+      .then((result: SocialFirebaseResponse) => {
+        this._makeSocialLogin(result, false);
+      })
+      .catch(error => {
+
+      });
   }
+
+  private _makeSocialLogin(result:SocialFirebaseResponse, isGoogle:boolean){
+    const body =
+      {
+        loginType: isGoogle ? LoginType.Google :LoginType.Facebook ,
+        socialToken: isGoogle ? result.socialToken : result.accessToken,
+        socialClientId: isGoogle ? '' : fbAppId,
+        firstName:result.firstName,
+        lastName:result.lastName,
+      }
+    this.auth.socialLogin(body, this.clientToken).subscribe((res:any) => {
+      console.log(res);
+    })
+  }
+
+
 
   private isEmail(input: string): boolean {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input);
@@ -291,6 +309,10 @@ export class LoginComponent implements OnInit {
           this.auth.setUser();
         },
         complete:()=>{
+          var retryPop: HTMLElement = document.getElementById('close-btn') as HTMLElement;
+          if(retryPop) {
+            retryPop.click();
+          }
           this.isLoading = false;
           this.router.navigateByUrl('home');
         },
