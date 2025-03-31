@@ -31,6 +31,7 @@ export class SocialLoginService {
     try {
       const provider = new firebase.auth.FacebookAuthProvider();
       const res = await this.afAuth.signInWithPopup(provider);
+      console.log(res);
       const result = new SocialFirebaseResponse(res);
       return result;
     } catch (error) {
