@@ -20,8 +20,8 @@ export class SocialFirebaseResponse {
     this.email = obj.additionalUserInfo.profile.email ?? '';
     this.socialClientId = obj.additionalUserInfo.profile.id ?? '';
     this.isNameAvailable = obj.additionalUserInfo.profile.name ?? false;
-    this.firstName = obj.additionalUserInfo.profile.family_name ?? '';
-    this.lastName = obj.additionalUserInfo.profile.given_name ?? ''
+    this.firstName = obj.additionalUserInfo.profile.family_name ?? obj.additionalUserInfo.profile.first_name;
+    this.lastName = obj.additionalUserInfo.profile.given_name ?? obj.additionalUserInfo.profile.last_name;
 
   }
 }
