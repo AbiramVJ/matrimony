@@ -1,6 +1,6 @@
 
 export const environment = {
-  baseUrl: 'http://matrimony.runasp.net/api/',
+  baseUrl: 'https://mgate.runasp.net/api/',
 };
 
 export const firebaseEnvironment = {

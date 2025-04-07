@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
   public isAgent:boolean = false;
   public isSingUp:boolean = false;
   public isMatchPwd:boolean = true;
+  public isEmailLogin:boolean = true;
 
   public step:number = 1;
   public length: number = 4;
@@ -39,7 +40,7 @@ export class LoginComponent implements OnInit {
   public signUpForm!:FormGroup;
   public forgotForm!:FormGroup;
   public otpForm!:FormGroup;
-  public passwordReset!:FormGroup;
+  public passwordResetForm!:FormGroup;
 
   public inputControls: string[] = [];
   public clientToken: string = '';
@@ -48,7 +49,11 @@ export class LoginComponent implements OnInit {
   public phoneCodes:any = [];
   public selectedCode:any;
   public allPhoneCodes: any[] = [];
-
+  public passwordStrength = {
+    value: 0,
+    text: 'None',
+    class: ''
+  };
   constructor(
     private auth:AuthService,
     private router:Router,
@@ -115,7 +120,7 @@ export class LoginComponent implements OnInit {
   }
 
   private _restPwdFormsInit(){
-    this.passwordReset = this.formBuilder.group({
+    this.passwordResetForm = this.formBuilder.group({
       password:[null,[Validators.required,Validators.minLength(8)]],
       confirmPassword:[null,[Validators.required,Validators.minLength(8)]],
     })
@@ -235,7 +240,9 @@ export class LoginComponent implements OnInit {
     })
   }
 
-
+  public loginWithPhoneNumber(value:boolean){
+    this.isEmailLogin = value;
+  }
 
   private isEmail(input: string): boolean {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input);
@@ -294,7 +301,7 @@ export class LoginComponent implements OnInit {
   }
 
   public createPassword(){
-    const pwdValues = this.passwordReset.value;
+    const pwdValues = this.passwordResetForm.value;
     if(pwdValues.password === pwdValues.confirmPassword ){
       this.isLoading = true;
       this.isSubmitted = true;
@@ -427,7 +434,7 @@ export class LoginComponent implements OnInit {
   public formsReset(){
     this.forgotForm.reset();
     this.otpForm.reset();
-    this.passwordReset.reset();
+    this.passwordResetForm.reset();
     this.isSubmitted = false;
     this.step = this.resetStep.enterEmail;
   }
@@ -442,6 +449,57 @@ export class LoginComponent implements OnInit {
       item.country.toLowerCase().includes(searchTerm) ||
       item.code.includes(searchTerm)
     );
+  }
+
+
+  public updatePasswordStrength(isSignUp = true): void {
+    let password = null;
+    isSignUp ? password = this.signUpForm.get('password')?.value : this.passwordResetForm.get('confirmPassword')?.value;
+    this.passwordStrength = { value: 0, text: 'None', class: '' };
+    if (!password || password.length === 0) return;
+    let strength = 0;
+    if (password.length >= 8) strength += 25;
+    if (/[A-Z]/.test(password)) strength += 25;
+    if (/[a-z]/.test(password)) strength += 15;
+    if (/[0-9]/.test(password)) strength += 15;
+    if (/[^A-Za-z0-9]/.test(password)) strength += 20;
+
+    this.passwordStrength.value = strength;
+    if (strength < 30) {
+      this.passwordStrength.class = 'bg-danger';
+      this.passwordStrength.text = 'Weak';
+    } else if (strength < 60) {
+      this.passwordStrength.class = 'bg-warning';
+      this.passwordStrength.text = 'Fair';
+    } else if (strength < 80) {
+      this.passwordStrength.class = 'bg-info';
+      this.passwordStrength.text = 'Good';
+    } else {
+      this.passwordStrength.class = 'bg-success';
+      this.passwordStrength.text = 'Excellent';
+    }
+  }
+
+  public changeSignUpStatus(){
+    this.isSingUp = true;
+    this.loginForm.reset();
+    this.isSubmitted = false;
+    this.passwordStrength = {
+      value: 0,
+      text: 'None',
+      class: ''
+    };
+  }
+
+  public changeSignInStatus(){
+    this.isSingUp = false ;
+    this.signUpForm.reset();
+    this.isSubmitted = false;
+    this.passwordStrength = {
+      value: 0,
+      text: 'None',
+      class: ''
+    };
   }
 
 }
