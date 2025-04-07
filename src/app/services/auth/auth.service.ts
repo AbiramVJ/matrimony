@@ -38,6 +38,7 @@ export class AuthService {
 
   //FORGOT PASSWORD
   public forgotPassword(isEmail:boolean,clientToken:string,param:string){
+    console.log(isEmail);
     const headers = this._getHeader(clientToken);
     return this.http.get(this.baseUrl + `Password/forgot-password?${isEmail ? 'email' : 'phoneNumber'}=${param}`,{ 'headers': headers }).pipe(
       map((res: any) => {

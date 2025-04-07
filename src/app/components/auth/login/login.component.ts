@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
   public isSingUp:boolean = false;
   public isMatchPwd:boolean = true;
   public isEmailLogin:boolean = true;
+  public isForgotSubmitted:boolean = false;
 
   public step:number = 1;
   public length: number = 4;
@@ -158,11 +159,10 @@ export class LoginComponent implements OnInit {
     if(this.signUpForm.valid){
       this.isLoading = true;
       const body = this.signUpForm.value;
-      body['loginType'] = this.isEmail(body.email) ? 1 : 2;
+      body['loginType'] = this.isEmail(body.email) ? 1 : 1;
       const pn = '+' + this.selectedCode + body.phoneNumber;
       delete body.phoneNumber;
       body['phoneNumber'] = pn;
-      console.log(this.clientToken);
       this.auth.signUp(this.signUpForm.value, this.clientToken).subscribe({
         next:(res:any)=>{
           this.auth.setAuthToken(res.Result.token);
@@ -183,7 +183,7 @@ export class LoginComponent implements OnInit {
   public login(){
     this.isSubmitted = true;
     const body = this.loginForm.value;
-    body['loginType'] = this.isEmail(body.email) ? 1 : 2;
+    body['loginType'] = this.isEmail(body.email) ? 1 : 1;
     if(this.loginForm.valid){
       this.isLoading = true;
       this.auth.login(body,this.clientToken).subscribe({
@@ -245,19 +245,22 @@ export class LoginComponent implements OnInit {
   }
 
   private isEmail(input: string): boolean {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input);
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.trim());
   }
+
 
   public sendOtp(){
     const body = this.forgotForm.value;
+    this.isForgotSubmitted = true;
     if(this.forgotForm.valid){
       this.isLoading = true;
-      this.auth.forgotPassword(this.isEmail(body.email),this.clientToken,body.email).subscribe({
+      this.auth.forgotPassword(true,this.clientToken,body.email).subscribe({
         next:(res:TokenResult)=>{
           this._resetToken = res.token;
         },
         complete:()=>{
           this.isLoading = false;
+          this.isForgotSubmitted = false;
           this.step = this.resetStep.verification;
         },
         error:(error:any)=>{
@@ -292,6 +295,11 @@ export class LoginComponent implements OnInit {
           this.isLoading = false;
         },
         error:(error:any)=>{
+          this.otpForm.reset();
+          const firstInput = document.querySelector('.otp-input') as HTMLElement;
+          if (firstInput) {
+            setTimeout(() => firstInput.focus(), 50);
+          }
           this.isLoading = false;
           this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
         }
@@ -344,16 +352,32 @@ export class LoginComponent implements OnInit {
   onInput(event: any, index: number): void {
     const input = event.target;
     const value = input.value;
+
     if (value && value.length === 1 && /^\d$/.test(value)) {
-      // Move to next input if not the last one
       if (index < this.length - 1) {
         const nextInput = input.nextElementSibling;
         if (nextInput) {
           nextInput.focus();
         }
       }
+
+      const allFilled = this.inputControls.every(control =>
+        this.otpForm.get(control)?.value?.length === 1
+      );
+
+      if (allFilled) {
+        const otp = this.inputControls
+          .map(control => this.otpForm.get(control)?.value)
+          .join('');
+
+        this.verifyOtp();
+      }
+    } else {
+      // Clear invalid input
+      this.otpForm.get(this.inputControls[index])?.setValue('');
     }
   }
+
 
   public onPaste(event: ClipboardEvent): void {
     event.preventDefault();
