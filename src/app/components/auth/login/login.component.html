@@ -84,7 +84,7 @@
                       <div class="mb-3">
                         <label for="phonenumber" class="form-label">Phone number</label>
 
-                        <div class="mb-3 mt-3">
+                        <div class="">
                             <div class="d-flex">
                               <div class="pn">
                                 <ng-select
@@ -161,7 +161,7 @@
                     <button class="btn btn-danger me-3 w-100" (click)="login()" [disabled]="isLoading" *ngIf="!isSingUp">
                       <div class="spinner-border spinner-border-sm text-light me-1" role="status" *ngIf="isLoading"></div>LOGIN</button>
                     <button class="btn btn-danger me-3 w-100"  (click)="signUp()" [disabled]="isLoading" *ngIf="isSingUp">SIGN UP</button>
-                    <div class="mt-2 text-right pointer"  data-bs-toggle="modal" href="#exampleModalToggle" *ngIf="!isSingUp">forgot password?</div>
+                    <div class="mt-2 text-right pointer"  data-bs-toggle="modal" href="#exampleModalToggle" *ngIf="!isSingUp">Forgot password?</div>
                     <!-- <button class="btn btn-danger me-3" (click)="isSingUp = true">SING-UP</button> -->
                   </div>
                   <div class="divider"  *ngIf="!isSingUp">
@@ -259,7 +259,7 @@
                 <div class="pointer" (click)="backToStep()" *ngIf="step > resetStep.enterEmail">
                   <i class="fas fa-arrow-left fs-5 mt-2"></i>
                 </div>
-                <div><h4 class="modal-title fw-bold" id="exampleModalToggleLabel"> {{step === resetStep.enterEmail ? 'Reset password' : step === resetStep.verification ? 'Enter your verification code' : 'Create new password'}}</h4></div>
+                <div><h4 class="modal-title fw-bold" id="exampleModalToggleLabel"> {{step === resetStep.enterEmail ? 'Forgot password' : step === resetStep.verification ? 'Enter your verification code' : 'Create new password'}}</h4></div>
                 <div></div>
               </div>
                 <!-- STEP ONE -->
