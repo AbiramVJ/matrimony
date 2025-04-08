@@ -38,7 +38,6 @@ export class AuthService {
 
   //FORGOT PASSWORD
   public forgotPassword(isEmail:boolean,clientToken:string,param:string){
-    console.log(isEmail);
     const headers = this._getHeader(clientToken);
     return this.http.get(this.baseUrl + `Password/forgot-password?${isEmail ? 'email' : 'phoneNumber'}=${param}`,{ 'headers': headers }).pipe(
       map((res: any) => {
@@ -51,6 +50,12 @@ export class AuthService {
   public verifyOtp(body:any,clientToken:string){
     const headers = this._getHeader(clientToken);
     return this.http.post<any>(this.baseUrl + 'Password/otp-verification', body, { 'headers': headers });
+  }
+
+  //EMAIL VERIFICATION
+  public emailVerification(body:any,clientToken:string){
+    const headers = this._getHeader(clientToken);
+    return this.http.post<any>(this.baseUrl + 'Auth/email/verification', body, { 'headers': headers });
   }
 
   //CREATE PASSWORD

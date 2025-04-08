@@ -1,4 +1,5 @@
 export enum ResetPasswordStep {
+  login = 0,
   enterEmail = 1,
   verification = 2,
   resetPassword = 3
@@ -10,3 +11,13 @@ export enum LoginType
   Google = 3,
   Facebook = 4
 }
+
+export enum TokenType
+{
+    ClientToken = 1,
+    LoginToken = 2,
+    ForgotPasswordToken = 3,
+    ResetPasswordToken = 4,
+    UserVerificationToken = 5,
+}
+

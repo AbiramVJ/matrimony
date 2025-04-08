@@ -7,14 +7,15 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { SocialFirebaseResponse, TokenResult } from '../../../models/index.model';
-import { LoginType, ResetPasswordStep } from '../../../helpers/enum';
+import { LoginType, ResetPasswordStep, TokenType } from '../../../helpers/enum';
 import { DataProviderService } from '../../../services/data-provider.service';
 import { SocialLoginService } from '../../../services/auth/social-login.service';
 import { fbAppId } from '../../../environments/environment';
+import { VerificationComponent } from "../verification/verification.component";
 
 @Component({
   selector: 'app-login',
-  imports: [FORM_MODULES, CommonModule, ROUTER_MODULES, FORM_MODULES],
+  imports: [FORM_MODULES, CommonModule, ROUTER_MODULES, FORM_MODULES, VerificationComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -33,14 +34,15 @@ export class LoginComponent implements OnInit {
   public isMatchPwd:boolean = true;
   public isEmailLogin:boolean = true;
   public isForgotSubmitted:boolean = false;
-
+  public isForgot:boolean = false;
+  public isOtpVerification:boolean = false;
   public step:number = 1;
   public length: number = 4;
+  public otpCode:number = 0;
 
   public loginForm!:FormGroup;
   public signUpForm!:FormGroup;
   public forgotForm!:FormGroup;
-  public otpForm!:FormGroup;
   public passwordResetForm!:FormGroup;
 
   public inputControls: string[] = [];
@@ -69,8 +71,7 @@ export class LoginComponent implements OnInit {
     this._loginFormInit();
     this._signInFormInit();
     this._forgotFormInit();
-    this._otpFormInit();
-    this._restPwdFormsInit();
+    this._resetPwdFormsInit();
     this._getPhoneNumberCode();
     this.allPhoneCodes = [...this.phoneCodes];
     this.selectedCode = this.phoneCodes[0].code;
@@ -103,24 +104,7 @@ export class LoginComponent implements OnInit {
     this.phoneCodes = this.dataProvider.getPhoneCode();
   }
 
-  private _otpFormInit(){
-    this.otpForm = this.formBuilder.group({});
-    this.inputControls = Array(this.length).fill('').map((_, i) => `otp-${i}`);
-    const otpControls: any = {};
-    this.inputControls.forEach(controlName => {
-      otpControls[controlName] = ['', [Validators.required, Validators.pattern('^[0-9]$')]];
-    });
-
-    this.otpForm = this.formBuilder.group(otpControls);
-    this.otpForm.valueChanges.subscribe(() => {
-      const otp = this.getOtpValue();
-      if (this.otpForm.valid && otp.length === this.length) {
-       // this.otpCompleted.emit(otp);
-      }
-    });
-  }
-
-  private _restPwdFormsInit(){
+  private _resetPwdFormsInit(){
     this.passwordResetForm = this.formBuilder.group({
       password:[null,[Validators.required,Validators.minLength(8)]],
       confirmPassword:[null,[Validators.required,Validators.minLength(8)]],
@@ -145,32 +129,58 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  public changeLoginType(){
-    this.isAgent = !this.isAgent;
-    this.loginForm.reset();
-    this.signUpForm.reset();
-    this.isSubmitted = false;
-    this.getLoginClientToken();
-  }
+  // public changeLoginType(){
+  //   this.isAgent = !this.isAgent;
+  //   this.loginForm.reset();
+  //   this.signUpForm.reset();
+  //   this.isSubmitted = false;
+  //   this.getLoginClientToken();
+  // }
 
-  //SING UP
-  public signUp(){
-    this.isSubmitted = true;
-    if(this.signUpForm.valid){
-      this.isLoading = true;
-      const body = this.signUpForm.value;
-      body['loginType'] = this.isEmail(body.email) ? 1 : 1;
-      const pn = '+' + this.selectedCode + body.phoneNumber;
-      delete body.phoneNumber;
-      body['phoneNumber'] = pn;
-      this.auth.signUp(this.signUpForm.value, this.clientToken).subscribe({
-        next:(res:any)=>{
+  //OTP EMITTER
+  public getOtpFromChild(event:any){
+   this.otpCode = event;
+   if(!this.isForgot){
+    this._emailVerification()
+   }else{
+    this.verifyOtp()
+   }
+  }
+  //EMAIL OTP VERIFICATION
+  private _emailVerification(){
+    this.isLoading = true;
+     const body ={
+       token: this._resetToken,
+       otpCode: this.otpCode,
+     }
+     this.auth.emailVerification(body,this.clientToken).subscribe({
+       next:(res:any)=>{
           this.auth.setAuthToken(res.Result.token);
           this.auth.setUser();
+       },
+       complete:()=>{
+        this.isLoading = false;
+        this.router.navigateByUrl('/home')
+       },
+       error:(error:any) =>{
+        this.isLoading = false;
+        this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
+       }
+     })
+  }
+  public sendOtp(){
+    const body = this.forgotForm.value;
+    this.isForgotSubmitted = true;
+    if(this.forgotForm.valid){
+      this.isLoading = true;
+      this.auth.forgotPassword(true,this.clientToken,body.email).subscribe({
+        next:(res:TokenResult)=>{
+          this._resetToken = res.token;
         },
         complete:()=>{
           this.isLoading = false;
-          this.router.navigateByUrl('home');
+          this.isForgotSubmitted = false;
+          this.step = this.resetStep.verification;
         },
         error:(error:any)=>{
           this.isLoading = false;
@@ -180,16 +190,50 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  //SING UP
+  public signUp(){
+    this.isSubmitted = true;
+    if(this.signUpForm.valid){
+      this.isLoading = true;
+      const body = this.signUpForm.value;
+      body['loginType'] = 1;
+      let pn = '';
+      pn = '+' + this.selectedCode + body.phoneNumber;
+      delete body.phoneNumber;
+      body['phoneNumber'] = pn;
+      this.auth.signUp(this.signUpForm.value, this.clientToken).subscribe({
+        next:(res:any)=>{
+          this._resetToken = res.Result.Token;
+        },
+        complete:()=>{
+          this.isLoading = false;
+          this.isOtpVerification = true;
+        },
+        error:(error:any)=>{
+          this.isLoading = false;
+          this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
+        }
+      })
+    }
+  }
+
+  // LOGIN
   public login(){
     this.isSubmitted = true;
     const body = this.loginForm.value;
-    body['loginType'] = this.isEmail(body.email) ? 1 : 1;
+    body['loginType'] = 1;
     if(this.loginForm.valid){
       this.isLoading = true;
       this.auth.login(body,this.clientToken).subscribe({
         next:(res:any) => {
-          this.auth.setAuthToken(res.Result.token);
-          this.auth.setUser();
+          if(res.Result.tokenType === TokenType.UserVerificationToken){
+            this._resetToken = res.Result.token;
+            this.isOtpVerification = true;
+          }else{
+            this.isOtpVerification = false;
+            this.auth.setAuthToken(res.Result.token);
+            this.auth.setUser();
+          }
         },
         complete:()=>{
           this.isLoading = false;
@@ -213,8 +257,6 @@ export class LoginComponent implements OnInit {
         console.log(error);
       })
   }
-
-
 
   public loginWithFacebook() {
     this.SocialLogin.signInWithFacebook()
@@ -244,33 +286,11 @@ export class LoginComponent implements OnInit {
     this.isEmailLogin = value;
   }
 
-  private isEmail(input: string): boolean {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.trim());
-  }
-
-
-  public sendOtp(){
-    const body = this.forgotForm.value;
-    this.isForgotSubmitted = true;
-    if(this.forgotForm.valid){
-      this.isLoading = true;
-      this.auth.forgotPassword(true,this.clientToken,body.email).subscribe({
-        next:(res:TokenResult)=>{
-          this._resetToken = res.token;
-        },
-        complete:()=>{
-          this.isLoading = false;
-          this.isForgotSubmitted = false;
-          this.step = this.resetStep.verification;
-        },
-        error:(error:any)=>{
-          this.isLoading = false;
-          this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
-        }
-      })
-    }
-  }
   public backToStep(){
+    if(this.step = this.resetStep.enterEmail){
+      this.isForgot = false;
+      return;
+    }
     if(this.step = this.resetStep.verification){
       this.step = this.resetStep.enterEmail;
     }else if(this.step = this.resetStep.resetPassword ){
@@ -279,12 +299,10 @@ export class LoginComponent implements OnInit {
   }
 
   public verifyOtp(){
-    if(this.otpForm.valid){
       this.isLoading = true;
-      const otpString = Object.values(this.otpForm.value).join('');
       const body ={
         token: this._resetToken,
-        otpCode: Number(otpString)
+        otpCode: Number(this.otpCode)
       }
       this.auth.verifyOtp(body, this.clientToken).subscribe({
         next:(res:any)=>{
@@ -292,10 +310,10 @@ export class LoginComponent implements OnInit {
         },
         complete:() => {
           this.step = this.resetStep.resetPassword;
+          this.passwordResetForm.reset();
           this.isLoading = false;
         },
         error:(error:any)=>{
-          this.otpForm.reset();
           const firstInput = document.querySelector('.otp-input') as HTMLElement;
           if (firstInput) {
             setTimeout(() => firstInput.focus(), 50);
@@ -304,7 +322,6 @@ export class LoginComponent implements OnInit {
           this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
         }
       })
-    }
 
   }
 
@@ -324,10 +341,6 @@ export class LoginComponent implements OnInit {
           this.auth.setUser();
         },
         complete:()=>{
-          var retryPop: HTMLElement = document.getElementById('close-btn') as HTMLElement;
-          if(retryPop) {
-            retryPop.click();
-          }
           this.isLoading = false;
           this.router.navigateByUrl('home');
         },
@@ -345,124 +358,6 @@ export class LoginComponent implements OnInit {
     this.isMatchPwd = true;
   }
 
-  trackByFn(index: number): number {
-    return index;
-  }
-
-  onInput(event: any, index: number): void {
-    const input = event.target;
-    const value = input.value;
-
-    if (value && value.length === 1 && /^\d$/.test(value)) {
-      if (index < this.length - 1) {
-        const nextInput = input.nextElementSibling;
-        if (nextInput) {
-          nextInput.focus();
-        }
-      }
-
-      const allFilled = this.inputControls.every(control =>
-        this.otpForm.get(control)?.value?.length === 1
-      );
-
-      if (allFilled) {
-        const otp = this.inputControls
-          .map(control => this.otpForm.get(control)?.value)
-          .join('');
-
-        this.verifyOtp();
-      }
-    } else {
-      // Clear invalid input
-      this.otpForm.get(this.inputControls[index])?.setValue('');
-    }
-  }
-
-
-  public onPaste(event: ClipboardEvent): void {
-    event.preventDefault();
-
-    if (!event.clipboardData) {
-      return;
-    }
-    const pastedData = event.clipboardData.getData('text');
-    const digits = pastedData.replace(/\D/g, '').split('').slice(0, this.length);
-
-    if (digits.length > 0) {
-      digits.forEach((digit, i) => {
-        if (i < this.length) {
-          this.otpForm.get(this.inputControls[i])?.setValue(digit);
-        }
-      });
-      const focusIndex = Math.min(digits.length, this.length - 1);
-      const inputElements = document.querySelectorAll('.otp-input');
-      if (inputElements && inputElements[focusIndex]) {
-        (inputElements[focusIndex] as HTMLInputElement).focus();
-      }
-    }
-  }
-
-  public onKeyDown(event: KeyboardEvent, index: number): void {
-    const input = event.target as HTMLInputElement;
-
-    if (event.key === 'Backspace') {
-      if (input.value === '') {
-        if (index > 0) {
-          const prevInput = input.previousElementSibling as HTMLInputElement;
-          if (prevInput) {
-            prevInput.focus();
-            prevInput.select();
-          }
-        }
-      }
-    } else if (event.key === 'ArrowLeft') {
-      if (index > 0) {
-        const prevInput = input.previousElementSibling as HTMLInputElement;
-        if (prevInput) {
-          prevInput.focus();
-          prevInput.select();
-        }
-      }
-      event.preventDefault();
-    } else if (event.key === 'ArrowRight') {
-      if (index < this.length - 1) {
-        const nextInput = input.nextElementSibling as HTMLInputElement;
-        if (nextInput) {
-          nextInput.focus();
-          nextInput.select();
-        }
-      }
-      event.preventDefault();
-    }
-  }
-
-  public getOtpValue(): string {
-    if (!this.otpForm || !this.otpForm.value) {
-      return '';
-    }
-    return this.inputControls
-      .map(controlName => this.otpForm.get(controlName)?.value || '')
-      .join('');
-  }
-
-  public clear(): void {
-    this.inputControls.forEach(controlName => {
-      this.otpForm.get(controlName)?.setValue('');
-    });
-    const firstInput = document.querySelector('.otp-input') as HTMLInputElement;
-    if (firstInput) {
-      firstInput.focus();
-    }
-  }
-
-  public formsReset(){
-    this.forgotForm.reset();
-    this.otpForm.reset();
-    this.passwordResetForm.reset();
-    this.isSubmitted = false;
-    this.step = this.resetStep.enterEmail;
-  }
-
   onSearchChange(event: any) {
     const searchTerm = event.target.value.toLowerCase();
     if (!searchTerm) {
@@ -476,9 +371,9 @@ export class LoginComponent implements OnInit {
   }
 
 
-  public updatePasswordStrength(isSignUp = true): void {
+  public updatePasswordStrength(isSignUp:boolean): void {
     let password = null;
-    isSignUp ? password = this.signUpForm.get('password')?.value : this.passwordResetForm.get('confirmPassword')?.value;
+    isSignUp ? password = this.signUpForm.get('password')?.value : password = this.passwordResetForm.get('confirmPassword')?.value;
     this.passwordStrength = { value: 0, text: 'None', class: '' };
     if (!password || password.length === 0) return;
     let strength = 0;
