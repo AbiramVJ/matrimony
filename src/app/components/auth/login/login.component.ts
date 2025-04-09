@@ -168,7 +168,7 @@ export class LoginComponent implements OnInit {
       body = this._phoneNumber;
     }
     this.isForgotSubmitted = true;
-    if(this.forgotForm.valid){
+    if(body){
       this.isLoading = true;
       this.auth.forgotPassword(this.isEmailLogin,this.clientToken,body).subscribe({
         next:(res:TokenResult)=>{
@@ -299,6 +299,7 @@ export class LoginComponent implements OnInit {
       this.isForgot = false;
       this.isSubmitted = false;
       this.isForgotSubmitted = false;
+      this.forgotForm.reset();
       return;
     }
     if(this.step = this.resetStep.verification){

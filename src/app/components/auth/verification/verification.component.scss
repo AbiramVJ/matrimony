@@ -50,3 +50,10 @@
   border-color: #ea4335;
   background-color: rgba(234, 67, 53, 0.05);
 }
+@media (max-width: 480px) {
+  .otp-input {
+    width: 34px !important;
+    height: 37px !important;
+
+}
+}
