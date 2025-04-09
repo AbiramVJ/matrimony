@@ -12,7 +12,7 @@
     height: 42px;
   }
 
-  .ng-select .ng-select-container {
+  ::ng-deep .ng-select .ng-select-container {
     color: #333;
     background-color: #fff;
     border-radius: 4px;
