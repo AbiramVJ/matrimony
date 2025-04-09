@@ -1,0 +1,58 @@
+<div class="mb-3">
+  <label for="phonenumber" class="form-label">Phone number</label>
+  <div class="">
+    <div class="d-flex">
+      <div class="pn">
+        <ng-select
+          [items]="phoneCodes"
+          bindLabel="country"
+          bindValue="code"
+          [ngModelOptions]="{standalone: true}"
+          [clearable]="false"
+          [searchable]="false"
+          [(ngModel)]="selectedCode">
+
+          <!-- Custom header template with search input -->
+          <ng-template ng-header-tmp>
+            <div class="search-container p-2">
+              <input
+                type="text"
+                class="form-control search-input"
+                placeholder="Search"
+                (input)="onSearchChange($event)">
+            </div>
+          </ng-template>
+
+          <!-- Label template -->
+          <ng-template ng-label-tmp let-item="item">
+            <div class="d-flex">
+              <div>
+                <img src={{item.flags.svg}} alt="" width="30px">
+              </div>
+              <div>
+                +{{item.code}}
+              </div>
+            </div>
+          </ng-template>
+          <!-- Option template -->
+          <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+            <div class="d-flex">
+              <div>
+                <img src={{item.flags.svg}} alt="" width="30px" class="me-2">
+              </div>
+              <div class="me-3">
+                +{{item.code}}
+              </div>
+              <div class="">
+                {{item.country}}
+              </div>
+            </div>
+          </ng-template>
+        </ng-select>
+      </div>
+      <div class="w-100 pi">
+        <input type="number" class="form-control" id="pn-number" [(ngModel)]="phoneNumber" placeholder="" (ngModelChange)="emitPhoneNumber()"  [ngClass]="{'errorBorder' : isSubmitted && !isValidPn}" autocomplete="disabled">
+      </div>
+    </div>
+  </div>
+</div>

@@ -99,6 +99,7 @@ export class AuthService {
 
   public removeAuthToken() {
     localStorage.removeItem('token');
+    localStorage.removeItem('userType');
   }
 
   public setUser(){

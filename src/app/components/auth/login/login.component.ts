@@ -12,10 +12,11 @@ import { DataProviderService } from '../../../services/data-provider.service';
 import { SocialLoginService } from '../../../services/auth/social-login.service';
 import { fbAppId } from '../../../environments/environment';
 import { VerificationComponent } from "../verification/verification.component";
+import { PhoneNumberInputComponent } from "../../../common/phone-number-input/phone-number-input.component";
 
 @Component({
   selector: 'app-login',
-  imports: [FORM_MODULES, CommonModule, ROUTER_MODULES, FORM_MODULES, VerificationComponent],
+  imports: [FORM_MODULES, CommonModule, ROUTER_MODULES, FORM_MODULES, VerificationComponent, PhoneNumberInputComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
   private _memberClientData = matrimonyMemberConfig.clientData;
   private _resetToken:string = '';
   private _verifyToken:string = '';
+  private _phoneNumber:string = '';
 
 
   public isLoading:boolean = false;
@@ -36,8 +38,8 @@ export class LoginComponent implements OnInit {
   public isForgotSubmitted:boolean = false;
   public isForgot:boolean = false;
   public isOtpVerification:boolean = false;
+
   public step:number = 1;
-  public length: number = 4;
   public otpCode:number = 0;
 
   public loginForm!:FormGroup;
@@ -47,11 +49,7 @@ export class LoginComponent implements OnInit {
 
   public inputControls: string[] = [];
   public clientToken: string = '';
-
   public resetStep = ResetPasswordStep;
-  public phoneCodes:any = [];
-  public selectedCode:any;
-  public allPhoneCodes: any[] = [];
   public passwordStrength = {
     value: 0,
     text: 'None',
@@ -62,7 +60,6 @@ export class LoginComponent implements OnInit {
     private router:Router,
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
-    private dataProvider:DataProviderService,
     private SocialLogin:SocialLoginService
 
   ){}
@@ -72,9 +69,6 @@ export class LoginComponent implements OnInit {
     this._signInFormInit();
     this._forgotFormInit();
     this._resetPwdFormsInit();
-    this._getPhoneNumberCode();
-    this.allPhoneCodes = [...this.phoneCodes];
-    this.selectedCode = this.phoneCodes[0].code;
   }
 
   private _loginFormInit(){
@@ -90,7 +84,6 @@ export class LoginComponent implements OnInit {
       lastName:[null,[Validators.required]],
       email:[null,[Validators.required, Validators.email,Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,50}$/)]],
       password:[null,[Validators.required,Validators.minLength(8)]],
-      phoneNumber:[null,[Validators.required]]
     })
   }
 
@@ -100,9 +93,6 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  private _getPhoneNumberCode(){
-    this.phoneCodes = this.dataProvider.getPhoneCode();
-  }
 
   private _resetPwdFormsInit(){
     this.passwordResetForm = this.formBuilder.group({
@@ -149,31 +139,38 @@ export class LoginComponent implements OnInit {
   //EMAIL OTP VERIFICATION
   private _emailVerification(){
     this.isLoading = true;
-     const body ={
-       token: this._resetToken,
-       otpCode: this.otpCode,
-     }
-     this.auth.emailVerification(body,this.clientToken).subscribe({
-       next:(res:any)=>{
-          this.auth.setAuthToken(res.Result.token);
-          this.auth.setUser();
-       },
-       complete:()=>{
-        this.isLoading = false;
-        this.router.navigateByUrl('/home')
-       },
-       error:(error:any) =>{
-        this.isLoading = false;
-        this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
-       }
-     })
+    const body ={
+      token: this._resetToken,
+      otpCode: this.otpCode,
+    }
+    this.auth.emailVerification(body,this.clientToken).subscribe({
+      next:(res:any)=>{
+        this.auth.setAuthToken(res.Result.token);
+        this.auth.setUser();
+      },
+      complete:()=>{
+      this.isLoading = false;
+      this.router.navigateByUrl('/home')
+      },
+      error:(error:any) =>{
+      this.isLoading = false;
+      this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
+      }
+    })
   }
+
+  //OTP
   public sendOtp(){
-    const body = this.forgotForm.value;
+    let body = this.forgotForm.value.email;
+    if(!this.isEmailLogin){
+      this.forgotForm.get('email')?.setValidators([]);
+      this.forgotForm.get('email')?.updateValueAndValidity();
+      body = this._phoneNumber;
+    }
     this.isForgotSubmitted = true;
     if(this.forgotForm.valid){
       this.isLoading = true;
-      this.auth.forgotPassword(true,this.clientToken,body.email).subscribe({
+      this.auth.forgotPassword(this.isEmailLogin,this.clientToken,body).subscribe({
         next:(res:TokenResult)=>{
           this._resetToken = res.token;
         },
@@ -190,20 +187,22 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  //PHONE NUMBER
+  public getPhoneNumber(event:any){
+    this._phoneNumber = event;
+  }
+
   //SING UP
   public signUp(){
     this.isSubmitted = true;
     if(this.signUpForm.valid){
       this.isLoading = true;
       const body = this.signUpForm.value;
-      body['loginType'] = 1;
-      let pn = '';
-      pn = '+' + this.selectedCode + body.phoneNumber;
-      delete body.phoneNumber;
-      body['phoneNumber'] = pn;
+      body['loginType'] = LoginType.Email;
+      body['phoneNumber'] = this._phoneNumber;
       this.auth.signUp(this.signUpForm.value, this.clientToken).subscribe({
         next:(res:any)=>{
-          this._resetToken = res.Result.Token;
+          this._resetToken = res.Result.token;
         },
         complete:()=>{
           this.isLoading = false;
@@ -220,8 +219,17 @@ export class LoginComponent implements OnInit {
   // LOGIN
   public login(){
     this.isSubmitted = true;
-    const body = this.loginForm.value;
-    body['loginType'] = 1;
+    const formValue = this.loginForm.value;
+    const body = {
+      password: formValue.password,
+      loginType: this._phoneNumber ? LoginType.PhoneNumber : LoginType.Email,
+      ...(!this.isEmailLogin ? { phoneNumber: this._phoneNumber } : { email: formValue.email })
+    };
+    if(!this.isEmailLogin){
+      this.loginForm.get('email')?.setValidators([]);
+      this.loginForm.get('email')?.updateValueAndValidity();
+    }
+
     if(this.loginForm.valid){
       this.isLoading = true;
       this.auth.login(body,this.clientToken).subscribe({
@@ -289,6 +297,7 @@ export class LoginComponent implements OnInit {
   public backToStep(){
     if(this.step = this.resetStep.enterEmail){
       this.isForgot = false;
+      this.isSubmitted = false;
       return;
     }
     if(this.step = this.resetStep.verification){
@@ -299,30 +308,29 @@ export class LoginComponent implements OnInit {
   }
 
   public verifyOtp(){
-      this.isLoading = true;
-      const body ={
-        token: this._resetToken,
-        otpCode: Number(this.otpCode)
-      }
-      this.auth.verifyOtp(body, this.clientToken).subscribe({
-        next:(res:any)=>{
-          this._verifyToken = res.Result.token;
-        },
-        complete:() => {
-          this.step = this.resetStep.resetPassword;
-          this.passwordResetForm.reset();
-          this.isLoading = false;
-        },
-        error:(error:any)=>{
-          const firstInput = document.querySelector('.otp-input') as HTMLElement;
-          if (firstInput) {
-            setTimeout(() => firstInput.focus(), 50);
-          }
-          this.isLoading = false;
-          this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
+    this.isLoading = true;
+    const body ={
+      token: this._resetToken,
+      otpCode: Number(this.otpCode)
+    }
+    this.auth.verifyOtp(body, this.clientToken).subscribe({
+      next:(res:any)=>{
+        this._verifyToken = res.Result.token;
+      },
+      complete:() => {
+        this.step = this.resetStep.resetPassword;
+        this.passwordResetForm.reset();
+        this.isLoading = false;
+      },
+      error:(error:any)=>{
+        const firstInput = document.querySelector('.otp-input') as HTMLElement;
+        if (firstInput) {
+          setTimeout(() => firstInput.focus(), 50);
         }
-      })
-
+        this.isLoading = false;
+        this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
+      }
+    })
   }
 
   public createPassword(){
@@ -357,19 +365,6 @@ export class LoginComponent implements OnInit {
   public onInputChange() {
     this.isMatchPwd = true;
   }
-
-  onSearchChange(event: any) {
-    const searchTerm = event.target.value.toLowerCase();
-    if (!searchTerm) {
-      this.phoneCodes = [...this.allPhoneCodes];
-      return;
-    }
-    this.phoneCodes = this.allPhoneCodes.filter(item =>
-      item.country.toLowerCase().includes(searchTerm) ||
-      item.code.includes(searchTerm)
-    );
-  }
-
 
   public updatePasswordStrength(isSignUp:boolean): void {
     let password = null;
