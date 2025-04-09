@@ -298,6 +298,7 @@ export class LoginComponent implements OnInit {
     if(this.step = this.resetStep.enterEmail){
       this.isForgot = false;
       this.isSubmitted = false;
+      this.isForgotSubmitted = false;
       return;
     }
     if(this.step = this.resetStep.verification){
