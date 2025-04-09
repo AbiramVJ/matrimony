@@ -255,6 +255,31 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  //RESENT OTP
+  public resentOtp(){
+    this.isLoading = true;
+    const formValue = this.signUpForm.value;
+    const body = {
+      password: formValue.password,
+      email:formValue.email,
+      LoginType:LoginType.Email
+    };
+    this.auth.login(body,this.clientToken).subscribe({
+      next:(res:any) => {
+        if(res.Result.tokenType === TokenType.UserVerificationToken){
+          this._resetToken = res.Result.token;
+        }
+      },
+      complete:()=>{
+        this.isLoading = false;
+      },
+      error:(error:any)=>{
+        this.isLoading = false;
+        this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
+      }
+    })
+  }
+
   public loginWithGoogle(){
     this.SocialLogin.signInWithGoogle()
       .then((result:SocialFirebaseResponse) => {
