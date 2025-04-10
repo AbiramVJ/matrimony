@@ -162,10 +162,12 @@ export class LoginComponent implements OnInit {
   //OTP
   public sendOtp(){
     let body = this.forgotForm.value.email;
+    let phoneNumberText = this._phoneNumber.split('+');
+    let phoneNumber = '%2B' + phoneNumberText[1];
     if(!this.isEmailLogin){
       this.forgotForm.get('email')?.setValidators([]);
       this.forgotForm.get('email')?.updateValueAndValidity();
-      body = this._phoneNumber;
+      body = phoneNumber;
     }
     this.isForgotSubmitted = true;
     if(body){
