@@ -58,7 +58,7 @@ export class PhoneNumberInputComponent {
     if(isValid){
       this.isValidPn = true;
       let pn = '';
-      pn = '+' + this.selectedCode + this.phoneNumber;
+      pn = '%2B' + this.selectedCode + this.phoneNumber;
       this.phoneNumberEmitter.emit(pn);
     }else{
       this.isValidPn = false;
