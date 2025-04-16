@@ -234,6 +234,9 @@ export class LoginComponent implements OnInit {
     if(!this.isEmailLogin){
       this.loginForm.get('email')?.setValidators([]);
       this.loginForm.get('email')?.updateValueAndValidity();
+    }else{
+      this.loginForm.get('email')?.setValidators([Validators.required]);
+      this.loginForm.get('email')?.updateValueAndValidity();
     }
 
     if(this.loginForm.valid){
@@ -323,6 +326,7 @@ export class LoginComponent implements OnInit {
 
   public loginWithPhoneNumber(value:boolean){
     this.isEmailLogin = value;
+    this.isSubmitted = false;
   }
 
   public backToStep(){
