@@ -92,7 +92,7 @@
                             <label for="s-email" class="form-label">Email address</label>
                             <input type="email" class="form-control" id="email-singup" formControlName="email" placeholder=""  [ngClass]="{'errorBorder' : isSubmitted && signUpForm.get('email')?.errors}" autocomplete="disabled">
                           </div>
-                          <app-phone-number-input (phoneNumberEmitter)="getPhoneNumber($event)" [isSubmitted]="isForgotSubmitted"></app-phone-number-input>
+                          <app-phone-number-input (phoneNumberEmitter)="getPhoneNumber($event)" [isSubmitted]="isSubmitted"></app-phone-number-input>
                           <div class="mb-3">
                             <label for="password-singnup" class="form-label">Password</label>
                             <input type="password" class="form-control" id="password-singnup" formControlName="password" placeholder=""  [ngClass]="{'errorBorder' : isSubmitted && signUpForm.get('password')?.errors}" (keyup)="updatePasswordStrength(true)" autocomplete="new-password">
@@ -219,7 +219,7 @@
                             <div *ngIf="step === resetStep.enterEmail">
                               <div class="text-center">
                                 <img src="https://cdni.iconscout.com/illustration/premium/thumb/otp-authentication-illustration-download-in-svg-png-gif-file-formats--one-time-password-security-protection-business-pack-illustrations-5840953.png" alt="" width="150px">
-                                <div class="text-center text-muted">Please enter your email address to receive a verification code </div>
+                                <div class="text-center text-muted">Please enter your {{isEmailLogin ? 'email address' : 'phone number'}} to receive a verification code </div>
                               </div>
 
                               <form [formGroup]="forgotForm">

@@ -164,13 +164,17 @@ export class LoginComponent implements OnInit {
     let body = this.forgotForm.value.email;
     let phoneNumberText = this._phoneNumber.split('+');
     let phoneNumber = '%2B' + phoneNumberText[1];
+    let isValid:boolean = true;
     if(!this.isEmailLogin){
       this.forgotForm.get('email')?.setValidators([]);
       this.forgotForm.get('email')?.updateValueAndValidity();
       body = phoneNumber;
+      this._phoneNumber ? isValid = true : false;
+    }else{
+      isValid = this.forgotForm.valid;
     }
     this.isForgotSubmitted = true;
-    if(body){
+    if(isValid){
       this.isLoading = true;
       this.auth.forgotPassword(this.isEmailLogin,this.clientToken,body).subscribe({
         next:(res:TokenResult)=>{
