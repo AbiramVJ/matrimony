@@ -13,10 +13,11 @@ import { SocialLoginService } from '../../../services/auth/social-login.service'
 import { fbAppId } from '../../../environments/environment';
 import { VerificationComponent } from "../verification/verification.component";
 import { PhoneNumberInputComponent } from "../../../common/phone-number-input/phone-number-input.component";
+import { SocialLoginComponent } from "./social-login/social-login.component";
 
 @Component({
   selector: 'app-login',
-  imports: [FORM_MODULES, CommonModule, ROUTER_MODULES, FORM_MODULES, VerificationComponent, PhoneNumberInputComponent],
+  imports: [FORM_MODULES, CommonModule, ROUTER_MODULES, FORM_MODULES, VerificationComponent, PhoneNumberInputComponent, SocialLoginComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -109,6 +110,7 @@ export class LoginComponent implements OnInit {
     this.auth.getLoginClientToken(this.isAgent ? this._agentClientData : this._memberClientData).subscribe({
       next:(response:TokenResult)=>{
         this.clientToken = response.token;
+        localStorage.setItem('clientId',response.token);
       },
       complete:() =>{
         this.isLoading = false;
@@ -289,41 +291,6 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  public loginWithGoogle(){
-    this.SocialLogin.signInWithGoogle()
-      .then((result:SocialFirebaseResponse) => {
-        this._makeSocialLogin(result, true);
-      })
-      .catch(error => {
-        this.toastr.error(error.detail, 'Error!');
-        console.log(error);
-      })
-  }
-
-  public loginWithFacebook() {
-    this.SocialLogin.signInWithFacebook()
-      .then((result: SocialFirebaseResponse) => {
-        this._makeSocialLogin(result, false);
-      })
-      .catch(error => {
-
-      });
-  }
-
-  private _makeSocialLogin(result:SocialFirebaseResponse, isGoogle:boolean){
-    const body =
-      {
-        loginType: isGoogle ? LoginType.Google :LoginType.Facebook ,
-        socialToken: isGoogle ? result.socialToken : result.accessToken,
-        socialClientId: isGoogle ? '' : fbAppId,
-        firstName:result.firstName,
-        lastName:result.lastName,
-      }
-    this.auth.socialLogin(body, this.clientToken).subscribe((res:any) => {
-      console.log(res);
-    })
-  }
-
   public loginWithPhoneNumber(value:boolean){
     this.isEmailLogin = value;
     this.isSubmitted = false;
@@ -452,6 +419,9 @@ export class LoginComponent implements OnInit {
       class: ''
     };
   }
+
+
+
 
 }
 

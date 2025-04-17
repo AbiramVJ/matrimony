@@ -91,6 +91,9 @@
   border-color: #ea4335;
   background-color: rgba(234, 67, 53, 0.05);
 }
+.s-btn{
+  width: 50%;
+}
 
 @media (max-width: 480px) {
   .otp-input {
@@ -112,6 +115,10 @@
       border-top-color: hsl(0, 0%, 90%);
       margin-top: 2px;
     }
+  }
+
+  .s-btn{
+    width: 100%;
   }
 }
 .pn {

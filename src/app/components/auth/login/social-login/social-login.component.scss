@@ -1,0 +1,49 @@
+
+.google-btn {
+  background-color: #fff;
+  color: #757575;
+  border: 1px solid #ddd;
+}
+
+.google-btn:hover {
+  background-color: #f1f1f1;
+}
+
+.facebook-btn {
+  background-color: #3b5998;
+  color: white;
+  border-radius: 5px;
+}
+
+.facebook-btn:hover {
+  background-color: #344e86;
+}
+
+.login-buttons {
+  display: flex;
+  flex-direction: column;
+
+}
+.google-btn-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.facebook-btn {
+  background-color: #3b5998;
+  color: white;
+}
+.facebook-btn:hover {
+  background-color: #344e86;
+}
+
+.s-btn{
+  width: 50%;
+}
+
+@media (max-width: 480px) {
+  .s-btn{
+    width: 100%;
+  }
+}

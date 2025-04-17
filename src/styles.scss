@@ -91,6 +91,28 @@ input[type=number] {
   animation: spin 0.7s linear infinite;
 }
 
+
+//FONT SIZE
+.text-xs {
+  font-size:10px !important
+}
+
+.text-xs {
+  font-size:12px !important
+}
+
+.text-sm {
+  font-size:14px !important
+}
+
+.text-md {
+  font-size:16px !important
+}
+
+.text-lg {
+  font-size:20px !important
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);

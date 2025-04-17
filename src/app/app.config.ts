@@ -9,6 +9,7 @@ import { provideAngularSvgIcon } from 'angular-svg-icon';
 import { firebaseEnvironment } from './environments/environment';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire/compat';
+import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,6 +20,28 @@ export const appConfig: ApplicationConfig = {
     provideAngularSvgIcon(),
     provideHttpClient(withInterceptors([AuthInterceptor])),
     importProvidersFrom(AngularFireModule.initializeApp(firebaseEnvironment.firebase)),
-    provideAuth(() => getAuth())
+    provideAuth(() => getAuth()),
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        lang: 'en',
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '117842698865-6hra2dirvhn4gtdt543kdlf2pq19msnr.apps.googleusercontent.com'
+            )
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('2480872695583098')
+          }
+        ],
+        onError: (err) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
+    }
   ]
 };

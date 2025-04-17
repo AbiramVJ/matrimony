@@ -33,7 +33,7 @@ export class VerificationComponent {
 
     // Optional: Subscribe to value changes
     this.otpForm.valueChanges.subscribe(values => {
-      console.log('OTP form changed:', values);
+    //  console.log('OTP form changed:', values);
     });
   }
 
@@ -154,10 +154,6 @@ export class VerificationComponent {
 
   trackByFn(index: number): number {
     return index;
-  }
-
-  getOtp(){
-    console.log(this.getOtpValue());
   }
 
 }

@@ -13,7 +13,6 @@ export class DeActiveService implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const user = this.authService.getUserType();
-    console.log(this.authService.isLoggedIn());
     if(!this.authService.isLoggedIn()) {
       return !this.authService.isLoggedIn();
     }
