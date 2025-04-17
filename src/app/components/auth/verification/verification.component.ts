@@ -20,7 +20,7 @@ export class VerificationComponent {
   }
 
   private _otpFormInit() {
-    this.length = 6; // Set OTP length to 6
+    this.length = 6;
     this.otpForm = this.formBuilder.group({});
     this.inputControls = Array(this.length).fill('').map((_, i) => `otp-${i}`);
 
@@ -28,12 +28,8 @@ export class VerificationComponent {
     this.inputControls.forEach(controlName => {
       otpControls[controlName] = ['', [Validators.required, Validators.pattern('^[0-9]$')]];
     });
-
     this.otpForm = this.formBuilder.group(otpControls);
-
-    // Optional: Subscribe to value changes
     this.otpForm.valueChanges.subscribe(values => {
-    //  console.log('OTP form changed:', values);
     });
   }
 
@@ -61,7 +57,6 @@ export class VerificationComponent {
           this.otpEmitter.emit(Number(otp));
       }
     } else {
-      // Clear invalid input
       this.otpForm.get(this.inputControls[index])?.setValue('');
     }
   }
@@ -85,7 +80,6 @@ export class VerificationComponent {
       if (inputElements && inputElements[focusIndex]) {
         (inputElements[focusIndex] as HTMLInputElement).focus();
       }
-
       const allFilled = this.inputControls.every(control =>
         this.otpForm.get(control)?.value?.length === 1
       );
