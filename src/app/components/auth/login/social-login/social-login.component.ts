@@ -11,6 +11,7 @@ import { LoginType } from '../../../../helpers/enum';
 import { AuthService } from '../../../../services/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { fbAppId } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-social-login',
@@ -42,7 +43,7 @@ export class SocialLoginComponent {
 
   signInWithFacebook(): void {
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID)
-      .then(user => this.toastr.success('Successful',`Facebook sign-in successful with ${user.name}`))
+      .then(user => console.log(user))
       .catch(error => this.toastr.error('Facebook sign-in error',error));
   }
 
@@ -55,7 +56,7 @@ export class SocialLoginComponent {
       {
         loginType: this.isGoogle ? LoginType.Google :LoginType.Facebook ,
         socialToken: this.isGoogle ? this.user?.idToken : this.user?.authToken,
-        socialClientId: this.isGoogle ? '' : this.user?.id,
+        socialClientId: this.isGoogle ? '' : fbAppId,
         firstName: this.user?.firstName,
         lastName:this.user?.lastName,
       }
@@ -64,7 +65,7 @@ export class SocialLoginComponent {
         next:(res:any) => {
           this.auth.setAuthToken(res.Result.token);
           this.auth.setUser();
-          this.toastr.success('Successful',`Facebook sign-in successful with ${this.user?.name}`)
+          this.toastr.success('Successful',`Sign-in successful with ${this.user?.name}`)
         },
         complete:()=>{
           this.isLoading = false;

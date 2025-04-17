@@ -19,5 +19,6 @@ export class HomeComponent {
     window.location.href = "/";
     localStorage.removeItem('token');
     localStorage.removeItem('userType');
+    localStorage.removeItem('clientId');
   }
 }
