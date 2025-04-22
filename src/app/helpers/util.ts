@@ -4,6 +4,11 @@ export enum userType {
   MEMBER = 'member'
 }
 
+export const userRoleNames = {
+  adminUser: 'MgateAdmin',
+  member: 'Member'
+}
+
 export const clientData = {
   ADMIN: {
     name: 'admin',

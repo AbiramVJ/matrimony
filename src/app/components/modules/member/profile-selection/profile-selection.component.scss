@@ -1,0 +1,51 @@
+.bg-color{
+  background-image: linear-gradient(to bottom right, #111827, #1F2937);
+  background-size: cover;
+  height: 110vh;
+}
+
+.create-profile-card {
+  height: 352px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+.create-profile-icon {
+  width: 50px;
+  height: 50px;
+  background-color: rgba(7, 1, 1, 0.05);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.create-profile-text {
+  font-size: 16px;
+}
+
+
+.profile-card {
+  border-radius: 12px;
+  transition: transform 0.3s ease, outline 0.3s ease;
+  .name-card{
+    background-color: #1F2937;
+  }
+}
+
+.profile-card:hover {
+  transform: scale(1.08);
+  outline: 2px solid #007bff;
+  outline-offset: 4px;
+}
+
+@media only screen and (max-width: 576px) {
+  .m-center{
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+}

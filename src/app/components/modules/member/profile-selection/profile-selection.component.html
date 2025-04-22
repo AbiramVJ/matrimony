@@ -1,1 +1,52 @@
-<p>profile-selection works!</p>
+<section class="content">
+  <div class="component-content">
+    <div class="row m-0 bg-color">
+      <div class="col-12 col-md-12 col-lg-10 mx-auto">
+       <div class="row">
+          <div class="col-12">
+            <div class="d-flex justify-content-center align-items-center">
+              <div class="col-12 px-4 py-3 mt-3">
+                <div class="d-flex m-center">
+                  <img src="assets/images/logo.png" alt="" width="60px">
+                  <div>
+                    <div class="ms-2 fw-bold text-md text-danger">M GATE</div>
+                    <div class="text-white ms-2 fw-bold text-md">FOREVER BEGIN HERE</div>
+                  </div>
+                </div>
+                <div class="text-center fs-2 fw-bold text-white">
+                  Chose Your Profile
+                </div>
+                <div class="text-center fw-bold text-md text-white">
+                  Select a profile to continue to your personalized experiences
+                </div>
+
+                <div class="row mt-3">
+                  <div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-3" *ngFor="let p of memberProfiles">
+                    <div class="m-shadow p-3 profile-card pointer">
+                      <div>
+                        <img src={{p.profileImage}} alt="pf" class="object-fit-cover border rounded" width="100%" height="250px">
+                      </div>
+                      <div class="mt-2 name-card p-2">
+                        <div class="text-md  text-white fw-bold">{{p.name}}</div>
+                        <div class="text-white"><i class="fas fa-circle" [ngClass]="p.isActive ? 'active-color': 'in-active-color'" title="Online"></i> {{p.isActive ? 'Active' : '3 days ago'}}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-3">
+                    <div class="create-profile-card m-shadow p-3 text-center bg-white pointer">
+                      <div class="create-profile-icon">
+                        <span>+</span>
+                      </div>
+                      <div class="create-profile-text fw-bold">Add Profile</div>
+                    </div>
+                  </div>
+                </div>
+                <div><button class="btn btn-danger fw-bold mt-3" (click)="_authLogout()">Log out</button></div>
+              </div>
+            </div>
+          </div>
+       </div>
+      </div>
+    </div>
+  </div>
+</section>

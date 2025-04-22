@@ -151,8 +151,10 @@ export class LoginComponent implements OnInit {
         this.auth.setUser();
       },
       complete:()=>{
-      this.isLoading = false;
-      this.router.navigateByUrl('/home')
+        this.isLoading = false;
+        if(!this.isAgent){
+          this.router.navigateByUrl('member/profiles');
+        }
       },
       error:(error:any) =>{
       this.isLoading = false;
@@ -256,7 +258,10 @@ export class LoginComponent implements OnInit {
         },
         complete:()=>{
           this.isLoading = false;
-          this.router.navigateByUrl('home');
+          if(!this.isAgent){
+            this.router.navigateByUrl('member/profiles');
+          }
+
         },
         error:(error:any)=>{
           this.isLoading = false;
@@ -354,7 +359,9 @@ export class LoginComponent implements OnInit {
         },
         complete:()=>{
           this.isLoading = false;
-          this.router.navigateByUrl('home');
+          if(!this.isAgent){
+            this.router.navigateByUrl('member/profiles');
+          }
         },
         error:(error:any)=>{
           this.isLoading = false;

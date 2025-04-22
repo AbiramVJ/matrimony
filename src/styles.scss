@@ -4,7 +4,19 @@ html, body {
   font-optical-sizing: auto;
 
 }
+.bg-image{
+  background-image: url('./app/helpers/svg/background.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 110vh;
+}
 
+.bg-image-s{
+  background-image: url('./app/helpers/svg/background.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 130vh;
+}
 .pointer{
   cursor: pointer;
 }
@@ -55,6 +67,7 @@ input[type=number] {
 .m-shadow{
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 20px;
+  background-color: white;
 }
 .form-check-input:checked {
   background-color: #dc3545 !important;
@@ -114,6 +127,17 @@ input[type=number] {
   font-size:20px !important
 }
 
+.text-dark-blue{
+  color: #30307f;
+}
+
+.active-color{
+  color: rgb(38, 199, 38);
+}
+
+.in-active-color{
+  color: rgb(86, 90, 86);
+}
 @keyframes spin {
   to {
     transform: rotate(360deg);

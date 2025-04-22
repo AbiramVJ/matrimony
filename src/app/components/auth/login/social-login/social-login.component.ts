@@ -28,7 +28,7 @@ export class SocialLoginComponent {
   user: SocialUser | null = null;
   isGoogle:boolean = true;
   isLoading:boolean = false;
-
+  isAgent:boolean = false;
   constructor(private authService: SocialAuthService,private auth:AuthService, private toastr: ToastrService, private router:Router,) {}
 
   ngOnInit() {
@@ -69,7 +69,9 @@ export class SocialLoginComponent {
         },
         complete:()=>{
           this.isLoading = false;
-          this.router.navigateByUrl('home');
+          if(!this.isAgent){
+            this.router.navigateByUrl('member/profiles');
+          }
         },
         error:(error:any) =>{
           this.isLoading = false;

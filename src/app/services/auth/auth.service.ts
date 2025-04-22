@@ -108,7 +108,8 @@ export class AuthService {
   }
 
   public getUserType(){
-    return localStorage.getItem('token');
+    var userDetails = this.getTokenDecodeData()
+    return userDetails.UserType;
   }
 
   public isLoggedIn(): boolean {
