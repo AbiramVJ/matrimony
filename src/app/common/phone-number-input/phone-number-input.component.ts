@@ -1,7 +1,9 @@
-import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
+import { Component, effect, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { FORM_MODULES } from '../common-imports';
 import { CommonModule } from '@angular/common';
 import { DataProviderService } from '../../services/data-provider.service';
+import { IpLocation } from '../../models/index.model';
+
 
 
 @Component({
@@ -22,23 +24,22 @@ export class PhoneNumberInputComponent {
   public phoneNumber:any;
   public isValidPn:boolean = true;
 
-  constructor( private dataProvider:DataProviderService,){
 
+  constructor( private dataProvider:DataProviderService,){
+    this.phoneCodes = this.dataProvider.getPhoneCode();
+     effect(() => {
+      const userGeoLocationDetails = this.dataProvider.userGeoLocation();
+      const defaultCountryCode = this.phoneCodes.find((pc:any)=> pc.iso === userGeoLocationDetails?.country_code);
+      this.selectedCode = defaultCountryCode.code;
+    });
   }
 
-  ngOnInit(): void {
-    this._getPhoneNumberCode();
+  ngOnInit(): void {;
     this.allPhoneCodes = [...this.phoneCodes];
-    this.selectedCode = this.phoneCodes[0].code;
-
   }
 
   ngOnChanges(): void {
     this.isValidPn = this.isValidPhoneNumber(this.phoneNumber);
-  }
-
-  private _getPhoneNumberCode(){
-    this.phoneCodes = this.dataProvider.getPhoneCode();
   }
 
   onSearchChange(event: any) {
@@ -63,7 +64,6 @@ export class PhoneNumberInputComponent {
     }else{
       this.isValidPn = false;
     }
-
   }
 
   isValidPhoneNumber(phone: string): boolean {

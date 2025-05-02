@@ -1,3 +1,4 @@
+import { DataProviderService } from './services/data-provider.service';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
@@ -9,4 +10,11 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'matrimony';
+
+  constructor(private dataProviderService:DataProviderService){
+
+  }
+  ngOnInit(): void {
+    this.dataProviderService.getUserGeoLocation();
+  }
 }
