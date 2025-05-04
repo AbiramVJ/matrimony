@@ -1,0 +1,44 @@
+
+<section class="content">
+  <div class="component-content">
+    <div class="row m-0 bg-color">
+      <div class="col-12 col-md-12 col-lg-10 mx-auto">
+       <div class="row">
+          <div class="col-12">
+            <div class="d-flex justify-content-center align-items-center">
+              <div class="col-12 py-3">
+                  <app-top-bar></app-top-bar>
+                  <div class="row">
+                    <div class="col-12 col-sm-10 col-md-7 col-lg-6 mx-auto">
+                      <div class="m-shadow p-3 profile-card pointer">
+                        <div class="px-2">
+                          <div class="d-flex justify-content-between">
+                            <i class="fas fa-arrow-left fs-5 mt-2 text-danger" (click)="goBack()"></i>
+                            <div class="text-xl fw-bold text-center fs-4">USER REGISTRATION</div>
+                            <div></div>
+                          </div>
+
+                          <!-- <div class="mt-1">Complete this form to make your profile even better.</div> -->
+                          <div class="mt-4 fw-bold text-md">STEP 1 OF 6</div>
+                          <div class="text-muted text-md mb-1">Personal information</div>
+                          <div class="progress">
+                            <!-- <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div> -->
+                            <!-- <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div> -->
+
+                          </div>
+                          <!-- FORMS -->
+                          <div class="mt-4">
+                            <app-member-profile-form (basicDetailsEmitter)="getUserBasicDetailsEmitter($event)"></app-member-profile-form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

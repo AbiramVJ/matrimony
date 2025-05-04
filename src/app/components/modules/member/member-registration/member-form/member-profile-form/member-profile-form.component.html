@@ -1,0 +1,98 @@
+<form [formGroup]="userBasicFrom">
+  <div class="form-row">
+    <!-- First Name -->
+    <div class="form-group mb-3">
+      <label for="firstName" class="mb-1">First Name <span class="text-danger">*</span> </label>
+      <input type="text" id="firstName" formControlName="firstName" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userBasicFrom.get('firstName')?.errors}">
+      <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userBasicFrom.get('firstName')?.errors">First name is required</div>
+    </div>
+
+
+    <!-- Last Name -->
+    <div class="form-group mb-3">
+      <label for="lastName" class="mb-1" >Last Name <span class="text-danger">*</span></label>
+      <input type="text" id="lastName" formControlName="lastName" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userBasicFrom.get('lastName')?.errors}">
+      <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userBasicFrom.get('lastName')?.errors">Last name is required</div>
+    </div>
+  </div>
+
+  <!-- Date of Birth -->
+  <div class="form-group mb-3">
+    <label for="dateOfBirth" class="mb-1">Date of Birth <span class="text-danger">*</span></label>
+    <input type="date" id="dateOfBirth" formControlName="dateOfBirth" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userBasicFrom.get('dateOfBirth')?.errors}">
+    <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userBasicFrom.get('dateOfBirth')?.errors">Date of birth is required</div>
+  </div>
+
+  <div class="form-row">
+    <!-- Height -->
+    <div class="form-group mb-3">
+      <label for="height" class="mb-1">Height (cm) <span class="text-danger">*</span></label>
+      <input type="number" id="height" formControlName="height" class="form-control"  [ngClass]="{'errorBorder': isSubmitted && userBasicFrom.get('height')?.errors}">
+      <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userBasicFrom.get('height')?.errors" class="error-message">
+      <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userBasicFrom.get('height')?.errors?.['required']">Height is required</div>
+        <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userBasicFrom.get('height')?.errors?.['min']">Height must be a positive number</div>
+      </div>
+    </div>
+
+    <!-- Weight -->
+    <div class="form-group mb-3">
+      <label for="weight" class="mb-1">Weight (kg) <span class="text-danger">*</span> </label>
+      <input type="number" id="weight" formControlName="weight" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userBasicFrom.get('weight')?.errors}">
+      <div *ngIf="isSubmitted && userBasicFrom.get('weight')?.errors" class="error-message">
+        <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userBasicFrom.get('weight')?.errors?.['required']">Weight is required</div>
+        <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userBasicFrom.get('weight')?.errors?.['min']">Weight must be a positive number</div>
+      </div>
+    </div>
+  </div>
+<!-- Gender -->
+<div class="form-group mb-3">
+  <label class="mb-1">Gender</label>
+  <div class="d-flex">
+    <div class="me-3">
+      <div class="form-check">
+        <input class="form-check-input pointer" type="radio" name="gender" id="genderMale" value="male" formControlName="gender" checked>
+        <label class="form-check-label ms-2" for="genderMale">male</label>
+      </div>
+    </div>
+    <div class="me-3">
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="female" formControlName="gender">
+        <label class="form-check-label ms-2 pointer" for="genderFemale">female</label>
+      </div>
+    </div>
+    <div class="me-3">
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="gender" id="genderOther" value="other" formControlName="gender">
+        <label class="form-check-label ms-2 pointer" for="genderOther">other</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Marital Status -->
+<div class="form-group mb-3">
+  <label class="mb-1">Marital Status</label>
+  <div class="d-flex">
+    <div class="me-3">
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="maritalStatus" id="maritalSingle" value="single" formControlName="maritalStatus" checked>
+        <label class="form-check-label pointer ms-2" for="maritalSingle">
+          single
+        </label>
+      </div>
+    </div>
+    <div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="maritalStatus" id="maritalMarried" value="married" formControlName="maritalStatus">
+        <label class="form-check-label pointer ms-2" for="maritalMarried">
+          married
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <button class="btn btn-danger me-3 w-100 mt-5" (click)="next()">
+    <div class="spinner-border spinner-border-sm text-light me-1" *ngIf="isLoading"></div>NEXT</button>
+</form>
+
