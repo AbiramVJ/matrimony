@@ -15,6 +15,8 @@ export class MemberProfileFormComponent {
   public isSubmitted:Boolean = false;
   public userBasicFrom!:FormGroup;
   public isLoading:boolean = false;
+  images: string[] = [];
+
   constructor(private fb:FormBuilder){
     this._userBasicFromInit();
   }
@@ -33,6 +35,26 @@ export class MemberProfileFormComponent {
 
   private _validateFiled(){
     console.log(this.userBasicFrom.value);
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (!input.files || input.files.length === 0) return;
+
+    const file = input.files[0];
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      this.images.push(reader.result as string);
+    };
+
+    reader.readAsDataURL(file);
+
+    input.value = '';
+  }
+
+  removeImage(index: number): void {
+    this.images.splice(index, 1);
   }
 
   next(){
