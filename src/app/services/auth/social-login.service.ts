@@ -16,6 +16,10 @@ export class SocialLoginService {
   currentUser = signal<SocialUser | null>(null);
 
   constructor(private authService: SocialAuthService) {
+    this.getLoginUserDetails();
+  }
+
+  getLoginUserDetails(){
     this.authService.authState.subscribe((user) => {
       this.currentUser.set(user);
     });

@@ -1,4 +1,7 @@
+import { userType } from './../../helpers/util';
 import { Component } from '@angular/core';
+import { SocialLoginService } from '../../services/auth/social-login.service';
+
 
 @Component({
   selector: 'app-top-bar',
@@ -8,4 +11,9 @@ import { Component } from '@angular/core';
 })
 export class TopBarComponent {
 
+  public currentUser:any;
+
+  constructor(private socialLoginService:SocialLoginService){
+
+  }
 }

@@ -25,9 +25,9 @@ export class MemberProfileFormComponent {
     this.userBasicFrom = this.fb.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
-      gender: ['', [Validators.required]],
+      gender: ['male', [Validators.required]],
       dateOfBirth: ['', [Validators.required]],
-      maritalStatus: ['', [Validators.required]],
+      maritalStatus: ['single', [Validators.required]],
       height: ['', [Validators.required, Validators.min(1)]],
       weight: ['', [Validators.required, Validators.min(1)]]
     })
