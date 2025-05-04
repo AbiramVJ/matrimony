@@ -9,5 +9,13 @@ export const MembersRoutingModules: Routes = [
   loadComponent:()=> import('./profile-selection/profile-selection.component').then(m => m.ProfileSelectionComponent),
   canActivate:[AuthGuardService],
   data:{accessUsers: [role.member]}
+ },
+
+ {
+  path:'member-registration',
+  loadComponent:() => import('./member-registration/member-form/member-form.component').then(m => m.MemberFormComponent),
+  canActivate:[AuthGuardService],
+  data:{accessUsers: [role.member]}
  }
+
 ];

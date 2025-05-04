@@ -3,16 +3,18 @@ import { Component } from '@angular/core';
 import { COMMON_DIRECTIVES } from '../../../../common/common-imports';
 import { AuthService } from '../../../../services/auth/auth.service';
 import { SocialLoginService } from '../../../../services/auth/social-login.service';
+import { Router } from '@angular/router';
+import { TopBarComponent } from "../../../../common/top-bar/top-bar.component";
 
 @Component({
   selector: 'app-profile-selection',
-  imports: [CommonModule,COMMON_DIRECTIVES],
+  imports: [CommonModule, COMMON_DIRECTIVES, TopBarComponent],
   templateUrl: './profile-selection.component.html',
   styleUrl: './profile-selection.component.scss'
 })
 export class ProfileSelectionComponent {
 
-  constructor(private auth:AuthService,private socialLoginService:SocialLoginService){
+  constructor(private auth:AuthService,private socialLoginService:SocialLoginService,private router:Router){
 
   }
   public memberProfiles = [
@@ -40,5 +42,9 @@ export class ProfileSelectionComponent {
     localStorage.removeItem('token');
     localStorage.removeItem('userType');
     localStorage.removeItem('clientId');
+  }
+
+  public navigateToFrom(){
+    this.router.navigateByUrl('member/member-registration');
   }
 }

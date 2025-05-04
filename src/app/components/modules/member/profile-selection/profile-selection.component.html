@@ -5,14 +5,15 @@
        <div class="row">
           <div class="col-12">
             <div class="d-flex justify-content-center align-items-center">
-              <div class="col-12 px-4 py-3 mt-3">
-                <div class="d-flex m-center">
+              <div class="col-12 px-4 py-3">
+                <!-- <div class="d-flex m-center">
                   <img src="assets/images/logo.png" alt="" width="60px">
                   <div>
                     <div class="ms-2 fw-bold text-md text-danger">M GATE</div>
                     <div class="text-white ms-2 fw-bold text-md">FOREVER BEGIN HERE</div>
                   </div>
-                </div>
+                </div> -->
+                <app-top-bar></app-top-bar>
                 <div class="text-center fs-2 fw-bold text-white">
                   Choose Your Profile
                 </div>
@@ -32,7 +33,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-3">
+                  <div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-3" (click)="navigateToFrom()">
                     <div class="create-profile-card m-shadow p-3 text-center bg-white pointer">
                       <div class="create-profile-icon">
                         <span>+</span>
