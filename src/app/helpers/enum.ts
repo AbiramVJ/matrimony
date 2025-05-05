@@ -4,6 +4,7 @@ export enum ResetPasswordStep {
   verification = 2,
   resetPassword = 3
 }
+
 export enum LoginType
 {
   Email = 1,
@@ -19,5 +20,10 @@ export enum TokenType
     ForgotPasswordToken = 3,
     ResetPasswordToken = 4,
     UserVerificationToken = 5,
+}
+
+export enum MemberRegistrationStep {
+  basic = 1,
+  contact = 2,
 }
 

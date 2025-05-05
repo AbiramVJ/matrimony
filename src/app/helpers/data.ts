@@ -2,7 +2,7 @@ export enum user {
   admin = 1,
   agent = 2,
   user = 3
-}
+};
 export const countryCode = [
   {
     "country": "Sri Lanka",
@@ -2149,4 +2149,16 @@ export const countryCode = [
       "png": "https://flagcdn.com/w320/zw.png"
     }
   }
-]
+];
+
+export const residencyStatusList = [
+  { id: 1, name: 'Citizen' },
+  { id: 2, name: 'Permanent Resident' },
+  { id: 3, name: 'Temporary Resident' },
+  { id: 4, name: 'Visa Holder' },
+  { id: 5, name: 'Refugee' },
+  { id: 6, name: 'Other' }
+];
+
+
+

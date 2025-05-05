@@ -12,11 +12,11 @@ export class CanActiveService implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     const routeUserAccess = route.data['accessUsers'];
     const loginUserType = this.authService.getUserType();
-   console.log(this.authService.isLoggedIn())
+  // console.log(this.authService.isLoggedIn())
     if(this.authService.isLoggedIn()) {
       return this.authService.isLoggedIn();
     }
-    this.router.navigateByUrl('login');
+    this.router.navigateByUrl('member/profiles');
     return !this.authService.isLoggedIn();
   }
 }

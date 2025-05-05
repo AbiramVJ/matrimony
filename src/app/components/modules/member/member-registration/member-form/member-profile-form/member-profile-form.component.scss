@@ -1,6 +1,4 @@
-::ng-deep .progress, .progress-stacked {
-  height: 7px !important;
-}
+
 
 .dot-border {
   border: 2px dotted #1F2937;
@@ -12,4 +10,7 @@
     width: 80px;
     height: 80px;
   }
+}
+::ng-deep .progress, .progress-stacked {
+  height: 7px !important;
 }

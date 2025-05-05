@@ -7,3 +7,15 @@ export interface UserBasicForm {
   height: number;
   weight: number;
 }
+
+export interface UserContactForm {
+  email: string;
+  phoneNumber: string;
+  city: string;
+  stateProvince: string;
+  convenientTimeToCall: string;
+  country: string;
+  address: string;
+  residencyStatus: number;
+  addressType: 'permanent' | 'temporary' | string;
+}

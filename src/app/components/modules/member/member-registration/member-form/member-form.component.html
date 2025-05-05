@@ -9,7 +9,7 @@
               <div class="col-12 py-3">
                   <app-top-bar></app-top-bar>
                   <div class="row">
-                    <div class="col-12 col-sm-10 col-md-7 col-lg-6 mx-auto">
+                    <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto">
                       <div class="m-shadow p-3 profile-card pointer">
                         <div class="px-2">
                           <div class="d-flex justify-content-between">
@@ -19,16 +19,19 @@
                           </div>
 
                           <!-- <div class="mt-1">Complete this form to make your profile even better.</div> -->
-                          <div class="mt-4 fw-bold text-md">STEP 1 OF 6</div>
-                          <div class="text-muted text-md mb-1">Personal information</div>
+                          <div class="mt-4 fw-bold text-md">STEP {{currentStep}} OF 6</div>
+                          <div class="text-muted text-md mb-1" *ngIf="currentStep === steps.basic">Personal Information</div>
+                          <div class="text-muted text-md mb-1" *ngIf="currentStep === steps.contact">Contact Details</div>
                           <div class="progress">
-                            <!-- <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div> -->
-                            <!-- <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div> -->
+                            <div class="progress-bar" role="progressbar" [ngStyle]="{ width: currentStep === steps.contact ? '25%' : '0%' }"  aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
 
                           </div>
                           <!-- FORMS -->
-                          <div class="mt-4">
+                          <div class="mt-4" [ngClass]="{'d-none' :currentStep !== steps.basic }">
                             <app-member-profile-form (basicDetailsEmitter)="getUserBasicDetailsEmitter($event)"></app-member-profile-form>
+                          </div>
+                          <div class="mt-4" [ngClass]="{'d-none' :currentStep !== steps.contact }">
+                            <app-contact-info-form (contactDetailsEmitter)="getUserContactDetailsEmitter($event)"></app-contact-info-form>
                           </div>
                         </div>
                       </div>

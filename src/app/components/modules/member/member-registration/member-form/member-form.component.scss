@@ -3,3 +3,7 @@
   background-size: cover;
   height: auto;
 }
+
+::ng-deep .progress, .progress-stacked {
+  height: 7px !important;
+}

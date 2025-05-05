@@ -15,7 +15,7 @@ export class MemberProfileFormComponent {
   public isSubmitted:Boolean = false;
   public userBasicFrom!:FormGroup;
   public isLoading:boolean = false;
-  images: string[] = [];
+  public images: string[] = [];
 
   constructor(private fb:FormBuilder){
     this._userBasicFromInit();
@@ -59,9 +59,9 @@ export class MemberProfileFormComponent {
 
   next(){
     this.isSubmitted = true;
-    if(this.userBasicFrom.valid){
+    this.basicDetailsEmitter.emit(this.userBasicFrom.value);
+    if(this.userBasicFrom.valid && this.images.length > 0){
       this.basicDetailsEmitter.emit(this.userBasicFrom.value);
     }
-
   }
 }
