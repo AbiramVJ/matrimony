@@ -1,6 +1,6 @@
 <form [formGroup]="userContactFrom">
   <div class="row">
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-6 mb-3">
       <label for="email text-sm" class="mb-2">Email<span class="text-danger">*</span> </label>
       <input type="email" id="email" formControlName="email" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userContactFrom.get('email')?.errors}">
       <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userContactFrom.get('email')?.errors">Email is required</div>
@@ -15,7 +15,7 @@
       <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userContactFrom.get('city')?.errors">City is required</div>
     </div>
 
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-6 mb-3">
       <label for="email text-sm" class="mb-2">Country<span class="text-danger">*</span> </label>
       <ng-select
       [items]="countryList"
@@ -54,21 +54,20 @@
     </ng-select>
     </div>
 
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-6 mb-3">
       <label for="province text-sm" class="mb-2">State/Province<span class="text-danger">*</span> </label>
       <input type="text" id="province" formControlName="stateProvince" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userContactFrom.get('stateProvince')?.errors}"/>
       <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userContactFrom.get('stateProvince')?.errors">State/Province is required</div>
 
     </div>
 
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-6 mb-3">
       <label for="text-sm" class="mb-2">Residency Status<span class="text-danger">*</span> </label>
       <ng-select [items]="residencyStatusList" bindLabel="name" bindValue="id" [searchable]="false" [clearable]="false" formControlName="residencyStatus"></ng-select>
-
     </div>
 
     <div class="col-12 col-md-6">
-      <div class="form-group mb-3 mt-3">
+      <div class="form-group mb-3">
       <label for="text-sm" class="mb-2">Address<span class="text-danger">*</span> </label>
         <div class="d-flex">
           <div class="me-3">

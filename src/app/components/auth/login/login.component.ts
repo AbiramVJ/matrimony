@@ -379,7 +379,7 @@ export class LoginComponent implements OnInit {
 
   public updatePasswordStrength(isSignUp:boolean): void {
     let password = null;
-    isSignUp ? password = this.signUpForm.get('password')?.value : password = this.passwordResetForm.get('confirmPassword')?.value;
+    isSignUp ? password = this.signUpForm.get('password')?.value : password = this.passwordResetForm.get('password')?.value;
     this.passwordStrength = { value: 0, text: 'None', class: '' };
     if (!password || password.length === 0) return;
     let strength = 0;
