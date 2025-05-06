@@ -14,10 +14,11 @@ import { fbAppId } from '../../../environments/environment';
 import { VerificationComponent } from "../verification/verification.component";
 import { PhoneNumberInputComponent } from "../../../common/phone-number-input/phone-number-input.component";
 import { SocialLoginComponent } from "./social-login/social-login.component";
+import { TopBarComponent } from "../../../common/top-bar/top-bar.component";
 
 @Component({
   selector: 'app-login',
-  imports: [FORM_MODULES, CommonModule, ROUTER_MODULES, FORM_MODULES, VerificationComponent, PhoneNumberInputComponent, SocialLoginComponent],
+  imports: [FORM_MODULES, CommonModule, ROUTER_MODULES, FORM_MODULES, VerificationComponent, PhoneNumberInputComponent, SocialLoginComponent, TopBarComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })

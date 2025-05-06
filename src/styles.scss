@@ -8,7 +8,10 @@ html, body {
   background-image: url('./app/helpers/svg/background.svg');
   background-repeat: no-repeat;
   background-size: cover;
-  height: 110vh;
+  height: 120vh;
+  // background-image: linear-gradient(to bottom right, #111827, #1F2937);
+  // background-size: cover;
+  // height: 120vh;
 }
 
 .bg-image-s{
@@ -16,6 +19,9 @@ html, body {
   background-repeat: no-repeat;
   background-size: cover;
   height: 130vh;
+  // background-image: linear-gradient(to bottom right, #111827, #1F2937);
+  // background-size: cover;
+  // height: 130vh;
 }
 .pointer{
   cursor: pointer;
