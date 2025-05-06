@@ -18,6 +18,7 @@ export class ContactInfoFormComponent {
   public isSubmitted:boolean = false;
   public userContactFrom!:FormGroup;
   public isLoading:boolean = false;
+  public isTemporaryAddress = false;
 
   private _phoneNumber:string = '';
 
@@ -48,9 +49,14 @@ export class ContactInfoFormComponent {
       city: ['', Validators.required],
       stateProvince: ['', Validators.required],
       country: [''],
-      address: ['', Validators.required],
       residencyStatus: [1, Validators.required],
-      addressType:['permanent',Validators.required]
+      // addressType:['permanent',Validators.required],
+      temporaryAddress: this.fb.group({
+        city: [''],
+        stateProvince: [''],
+        country: [''],
+        residencyStatus: [1],
+      })
     });
   }
 
@@ -62,10 +68,27 @@ export class ContactInfoFormComponent {
 
   public next(){
     this.isSubmitted = true;
-    console.log(this.userContactFrom.value);
+    console.log(this.userContactFrom.valid);
     this.userContactFrom.get('country')?.setValue(this.selectedCountry);
     if(this.userContactFrom.valid){
       this.contactDetailsEmitter.emit(this.userContactFrom.value);
     }
   }
+
+  public addTemAddress() {
+    this.isTemporaryAddress = !this.isTemporaryAddress;
+    const fields = ['city', 'stateProvince', 'country', 'residencyStatus'];
+    fields.forEach(field => {
+      const control = this.userContactFrom.get(`temporaryAddress.${field}`);
+      if (control) {
+        if (!this.isTemporaryAddress) {
+          control.clearValidators();
+        } else {
+          control.addValidators(Validators.required);
+        }
+        control.updateValueAndValidity();
+      }
+    });
+  }
+
 }
