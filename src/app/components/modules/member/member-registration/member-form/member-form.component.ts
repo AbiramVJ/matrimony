@@ -20,7 +20,7 @@ import { EducationDetailsFormComponent } from "./education-details-form/educatio
 })
 export class MemberFormComponent {
 
-  public currentStep:number = 6;
+  public currentStep:number = 1;
   public steps = MemberRegistrationStep;
 
   constructor(private route:Router){
@@ -73,7 +73,7 @@ export class MemberFormComponent {
       this.currentStep = this.steps.religionBackground;
       return;
     }else if(this.currentStep === this.steps.education){
-      this.currentStep = this.steps.family;
+      this.currentStep = this.steps.religionBackground;
       return;
     }
   }
