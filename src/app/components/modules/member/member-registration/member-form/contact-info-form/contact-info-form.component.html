@@ -4,7 +4,8 @@
     <div class="col-12 col-md-6 mb-3">
       <label for="email text-sm" class="mb-2">Email<span class="text-danger">*</span> </label>
       <input type="email" id="email" formControlName="email" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userContactFrom.get('email')?.errors}">
-      <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userContactFrom.get('email')?.errors">Email is required</div>
+      <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userContactFrom.get('email')?.errors?.['required']">Email is required</div>
+      <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userContactFrom.get('email')?.errors?.['email']">Invalid email</div>
     </div>
     <div class="col-12 col-md-6">
       <app-phone-number-input (phoneNumberEmitter)="getPhoneNumber($event)" [isSubmitted]="isSubmitted"></app-phone-number-input>

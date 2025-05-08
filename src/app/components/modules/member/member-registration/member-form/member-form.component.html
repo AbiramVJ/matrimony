@@ -1,7 +1,7 @@
 
 <section class="content">
   <div class="component-content">
-    <div class="row m-0 bg-color">
+    <div class="row m-0 bg-color" [ngClass]="currentStep === steps.family ? 'bg-small':'bg-color'">
       <div class="col-12 col-md-12 col-lg-10 mx-auto">
        <div class="row">
           <div class="col-12">
@@ -13,9 +13,8 @@
                       <div class="m-shadow p-3 profile-card pointer">
                         <div class="px-2">
                           <div class="d-flex justify-content-between">
-                            <i class="fas fa-arrow-left fs-5 mt-2 text-danger" (click)="goBack()"></i>
+                            <i class="fas fa-arrow-left fs-5 mt-2 text-danger" (click)="goBack()" ></i>
                             <div class="text-xl fw-bold text-center fs-4">USER REGISTRATION</div>
-
                             <div></div>
                           </div>
 

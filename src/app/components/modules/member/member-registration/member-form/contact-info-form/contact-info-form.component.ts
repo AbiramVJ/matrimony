@@ -44,7 +44,7 @@ export class ContactInfoFormComponent {
 
   private _userContactFromInit(){
     this.userContactFrom = this.fb.group({
-      email: ['', Validators.required],
+      email: ['',[Validators.required, Validators.email]],
       phoneNumber: ['', Validators.required],
       city: ['', Validators.required],
       stateProvince: ['', Validators.required],
