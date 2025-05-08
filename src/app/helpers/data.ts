@@ -2160,5 +2160,60 @@ export const residencyStatusList = [
   { id: 6, name: 'Other' }
 ];
 
+export const motherTongue = [
+  {id:1, name:'Tamil'},
+  {id:2, name:'English'},
+  {id:3, name:'Chaniess'}
+]
+
+export const knownLanguages = [
+  {id:1, name:'Tamil'},
+  {id:2, name:'English'},
+  {id:3, name:'Chaniess'}
+]
+
+export const diet = [
+  { id: 1, name: 'Vegetarian' },
+  { id: 2, name: 'Non-Vegetarian' },
+];
+
+export const yesOrNo = [
+  { id: 1, name: 'Yes' },
+  { id: 2, name: 'No' },
+]
+
+export const bodyTypes = [
+  { id: 1, name: 'Ectomorph' },
+  { id: 2, name: 'Mesomorph' },
+  { id: 3, name: 'Endomorph' },
+  { id: 4, name: 'Athletic' },
+  { id: 5, name: 'Slim' },
+  { id: 6, name: 'Average' },
+  { id: 7, name: 'Curvy' },
+  { id: 8, name: 'Plus Size' },
+  { id: 9, name: 'Petite' },
+  { id: 10, name: 'Tall' }
+];
+
+export const familyTypeList = [
+  { id: 1, name: 'Joint Family' },
+  { id: 2, name: 'Nuclear Family' },
+  { id: 3, name: 'Extended Family' },
+  { id: 4, name: 'Single Parent Family' },
+  { id: 5, name: 'Live-in Family' },
+  { id: 6, name: 'Others' }
+];
+
+
+export const Religions = [
+  { id: 1, name: 'Christianity' },
+  { id: 2, name: 'Islam' },
+  { id: 3, name: 'Hinduism' },
+  { id: 4, name: 'Buddhism' },
+  { id: 5, name: 'Sikhism' },
+  { id: 6, name: 'Judaism' },
+  { id: 7, name: 'Other' }
+];
+
 
 

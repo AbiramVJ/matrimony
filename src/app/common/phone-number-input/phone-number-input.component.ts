@@ -30,7 +30,10 @@ export class PhoneNumberInputComponent {
      effect(() => {
       const userGeoLocationDetails = this.dataProvider.userGeoLocation();
       const defaultCountryCode = this.phoneCodes.find((pc:any)=> pc.iso === userGeoLocationDetails?.country_code);
-      this.selectedCode = defaultCountryCode.code;
+      if(defaultCountryCode){
+        this.selectedCode = defaultCountryCode.code;
+      }
+
     });
   }
 

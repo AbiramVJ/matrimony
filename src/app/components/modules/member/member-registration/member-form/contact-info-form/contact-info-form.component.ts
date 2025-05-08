@@ -68,7 +68,6 @@ export class ContactInfoFormComponent {
 
   public next(){
     this.isSubmitted = true;
-    console.log(this.userContactFrom.valid);
     this.userContactFrom.get('country')?.setValue(this.selectedCountry);
     if(this.userContactFrom.valid){
       this.contactDetailsEmitter.emit(this.userContactFrom.value);

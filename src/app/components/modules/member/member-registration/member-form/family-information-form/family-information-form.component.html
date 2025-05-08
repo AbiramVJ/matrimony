@@ -1,0 +1,53 @@
+<form [formGroup]="userFamilyInfoForm">
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <div class="form-group mb-3">
+        <label for="fatherName" class="mb-1">Father's Name<span class="text-danger">*</span> </label>
+        <input type="text" id="fatherName" formControlName="fatherName" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userFamilyInfoForm.get('fatherName')?.errors}">
+        <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userFamilyInfoForm.get('fatherName')?.errors">Father's Name is required</div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="form-group mb-3">
+        <label for="motherName" class="mb-1">Mother's Name<span class="text-danger">*</span> </label>
+        <input type="text" id="motherName" formControlName="motherName" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userFamilyInfoForm.get('motherName')?.errors}">
+        <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userFamilyInfoForm.get('motherName')?.errors">Mother's Name is required</div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="form-group mb-3">
+        <label for="fatherOccupation" class="mb-1">Father's Occupation<span class="text-danger">*</span> </label>
+        <input type="text" id="fatherOccupation" formControlName="fatherOccupation" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userFamilyInfoForm.get('fatherOccupation')?.errors}">
+        <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userFamilyInfoForm.get('fatherOccupation')?.errors">Father's Occupation is required</div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="form-group mb-3">
+        <label for="matherOccupation" class="mb-1">Mother's Occupation<span class="text-danger">*</span> </label>
+        <input type="text" id="matherOccupation" formControlName="matherOccupation" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userFamilyInfoForm.get('matherOccupation')?.errors}">
+        <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userFamilyInfoForm.get('matherOccupation')?.errors">Mother's Occupation is required</div>
+
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="form-group mb-3">
+        <label for="siblings" class="mb-1">Number of siblings<span class="text-danger">*</span> </label>
+        <input type="number" id="siblings" formControlName="siblings" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userFamilyInfoForm.get('siblings')?.errors}">
+        <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userFamilyInfoForm.get('siblings')?.errors?.['required']">Number of siblings is required</div>
+        <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userFamilyInfoForm.get('siblings')?.errors?.['min']">Enter the valid number</div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <label for="matherOccupation" class="mb-1">Family Type<span class="text-danger">*</span> </label>
+      <ng-select [items]="familyTypeList" bindLabel="name" bindValue="id" [searchable]="false" [clearable]="false" formControlName="familyType"></ng-select>
+    </div>
+
+    <button class="btn btn-danger me-3 w-100 mt-5" (click)="next()">
+      NEXT</button>
+  </div>
+</form>

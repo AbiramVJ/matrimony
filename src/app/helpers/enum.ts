@@ -25,6 +25,11 @@ export enum TokenType
 export enum MemberRegistrationStep {
   basic = 1,
   contact = 2,
-  personal = 3
+  personal = 3,
+  family = 4,
+  religionBackground = 5,
+  education = 6,
+  complete = 7
 }
+
 

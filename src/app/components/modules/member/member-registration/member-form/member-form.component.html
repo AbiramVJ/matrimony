@@ -15,6 +15,7 @@
                           <div class="d-flex justify-content-between">
                             <i class="fas fa-arrow-left fs-5 mt-2 text-danger" (click)="goBack()"></i>
                             <div class="text-xl fw-bold text-center fs-4">USER REGISTRATION</div>
+                            {{currentStep}}
                             <div></div>
                           </div>
 
@@ -23,6 +24,9 @@
                           <div class="text-muted text-md mb-1" *ngIf="currentStep === steps.basic">Personal Information</div>
                           <div class="text-muted text-md mb-1" *ngIf="currentStep === steps.contact">Contact Details</div>
                           <div class="text-muted text-md mb-1" *ngIf="currentStep === steps.personal">Personal Details</div>
+                          <div class="text-muted text-md mb-1" *ngIf="currentStep === steps.family">Family Information</div>
+                          <div class="text-muted text-md mb-1" *ngIf="currentStep === steps.religionBackground">Religious Background</div>
+                          <div class="text-muted text-md mb-1" *ngIf="currentStep === steps.education">Education & Career</div>
                           <div class="progress">
                             <div class="progress-bar" role="progressbar" [ngStyle]="{ width: getProgressWidth() }" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
 
@@ -35,7 +39,16 @@
                             <app-contact-info-form (contactDetailsEmitter)="getUserContactDetailsEmitter($event)"></app-contact-info-form>
                           </div>
                           <div class="mt-4"  [ngClass]="{'d-none' :currentStep !== steps.personal}">
-                            <app-personal-details-form></app-personal-details-form>
+                            <app-personal-details-form (personalDetailsEmitter)="getUserPersonalDetailsEmitter($event)"></app-personal-details-form>
+                          </div>
+                          <div class="mt-4"  [ngClass]="{'d-none' :currentStep !== steps.family}">
+                            <app-family-information-form (userFamilyEmitter)="getUserFamilyDetailsEmitter($event)"></app-family-information-form>
+                          </div>
+                          <div class="mt-4"  [ngClass]="{'d-none' :currentStep !== steps.religionBackground}">
+                            <app-religious-background-form (userReligiousEmitter)="getUserReligiousEmitter($event)"></app-religious-background-form>
+                          </div>
+                          <div class="mt-4"  [ngClass]="{'d-none' :currentStep !== steps.education}">
+                            <app-education-details-form (userEducationEmitter)="getEducationDetails($event)"></app-education-details-form>
                           </div>
                         </div>
                       </div>

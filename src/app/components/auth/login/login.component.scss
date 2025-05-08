@@ -26,6 +26,10 @@
   width: 250px !important;
 }
 
+.logo-svg{
+  width: 300px;
+}
+
 .logo-text{
   line-height: 16px;
 }
@@ -96,6 +100,9 @@
     gap: 8px;
   }
 
+  .logo-svg{
+    width: 200px !important;
+  }
   .pn {
     ::ng-deep .ng-dropdown-panel.ng-select-bottom,
     ::ng-deep .ng-dropdown-panel.ng-select-top {

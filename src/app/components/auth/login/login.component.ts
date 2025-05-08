@@ -18,7 +18,7 @@ import { TopBarComponent } from "../../../common/top-bar/top-bar.component";
 
 @Component({
   selector: 'app-login',
-  imports: [FORM_MODULES, CommonModule, ROUTER_MODULES, FORM_MODULES, VerificationComponent, PhoneNumberInputComponent, SocialLoginComponent, TopBarComponent],
+  imports: [FORM_MODULES, CommonModule, ROUTER_MODULES, FORM_MODULES, VerificationComponent, PhoneNumberInputComponent, SocialLoginComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
   public isForgotSubmitted:boolean = false;
   public isForgot:boolean = false;
   public isOtpVerification:boolean = false;
-
+  public showPassword:boolean = false;
   public step:number = 1;
   public otpCode:number = 0;
 
@@ -62,7 +62,6 @@ export class LoginComponent implements OnInit {
     private router:Router,
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
-    private SocialLogin:SocialLoginService
 
   ){}
   ngOnInit(): void {
@@ -404,6 +403,10 @@ export class LoginComponent implements OnInit {
       this.passwordStrength.class = 'bg-success';
       this.passwordStrength.text = 'Excellent';
     }
+  }
+
+  public togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 
   public changeSignUpStatus(){

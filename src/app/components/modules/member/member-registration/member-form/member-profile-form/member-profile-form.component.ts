@@ -59,7 +59,6 @@ export class MemberProfileFormComponent {
 
   next(){
     this.isSubmitted = true;
-    this.basicDetailsEmitter.emit(this.userBasicFrom.value);
     if(this.userBasicFrom.valid && this.images.length > 0){
       this.basicDetailsEmitter.emit(this.userBasicFrom.value);
     }
