@@ -23,7 +23,7 @@ import { LookingForFormComponent } from "./looking-for-form/looking-for-form.com
 export class MemberFormComponent {
 
   public questionData:any;
-  public currentStep:number = 3;
+  public currentStep:number = 0;
   public steps = MemberRegistrationStep;
 
   constructor(private route:Router, private _memberService:MemberService){
