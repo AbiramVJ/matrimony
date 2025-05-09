@@ -47,8 +47,8 @@ export class ReligiousBackgroundFormComponent {
       subCast:[''],
       starNakshathra:[''],
       raasi:[''],
-      chevvaiDosham:[1],
-      horoscopeMatching:[1],
+
+
 
       city: ['',Validators.required],
       stateProvince: ['',Validators.required],

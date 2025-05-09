@@ -38,7 +38,7 @@
         <label for="siblings" class="mb-1">Number of siblings<span class="text-danger">*</span> </label>
         <input type="number" id="siblings" formControlName="siblings" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userFamilyInfoForm.get('siblings')?.errors}">
         <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userFamilyInfoForm.get('siblings')?.errors?.['required']">Number of siblings is required</div>
-        <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userFamilyInfoForm.get('siblings')?.errors?.['min']">Enter the valid number</div>
+
       </div>
     </div>
 

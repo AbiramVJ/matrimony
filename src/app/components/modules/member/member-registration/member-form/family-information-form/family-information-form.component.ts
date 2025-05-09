@@ -25,7 +25,7 @@ export class FamilyInformationFormComponent {
       motherName:['',Validators.required],
       fatherOccupation:['',Validators.required],
       matherOccupation:['',Validators.required],
-      siblings:['',[Validators.required, Validators.min(1)]],
+      siblings:['',Validators.required],
       familyType:[1]
     })
   }

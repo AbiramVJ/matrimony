@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { COMMON_DIRECTIVES, FORM_MODULES } from '../../../../../../common/common-imports';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { bodyTypes, diet, knownLanguages, motherTongue, yesOrNo } from '../../../../../../helpers/data';
+import { bodyTypes, diet, DrinkHabit, knownLanguages, motherTongue, SmokeHabit, yesOrNo } from '../../../../../../helpers/data';
 import { PersonalDetails } from '../../../../../../models/index.model';
 
 @Component({
@@ -20,6 +20,10 @@ export class PersonalDetailsFormComponent {
   public selectedDiet = 1;
 
   public yesOrNoList = yesOrNo;
+
+  public drinkHabit = DrinkHabit;
+  public SmokeHabit = SmokeHabit;
+
   public selectedDrinking = 1;
   public selectedSmoke = 1;
 
@@ -35,7 +39,7 @@ export class PersonalDetailsFormComponent {
   private _userPersonalInfoFormInit(){
     this.userPersonalDetailsForm = this.fb.group({
       aboutMe:['', Validators.required],
-      disability:['', Validators.required],
+      disability:[''],
       motherTongue:[''],
       diet:[],
       smoking:[],

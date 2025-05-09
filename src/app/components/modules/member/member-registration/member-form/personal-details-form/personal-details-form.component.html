@@ -9,15 +9,14 @@
     </div>
 
     <div class="col-12 col-md-6">
-      <label for="disability" class="mb-1">Disability<span class="text-danger">*</span></label>
+      <label for="disability" class="mb-1">Disability</label>
       <div class="form-group mb-3">
-        <textarea class="text-area" id="disability" [rows]="4" formControlName = "disability" [ngClass]="{'errorBorder': isSubmitted && userPersonalDetailsForm.get('disability')?.errors}"></textarea>
-        <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userPersonalDetailsForm.get('disability')?.errors">Disability is required</div>
+        <textarea class="text-area" id="disability" [rows]="4" formControlName = "disability"></textarea>
       </div>
     </div>
 
     <div class="col-12 col-md-6 mb-3">
-      <label for="motherTongue" class="mb-1">mother Tongue<span class="text-danger">*</span></label>
+      <label for="motherTongue" class="mb-1">Mother Tongue<span class="text-danger">*</span></label>
       <ng-select
       [items]="motherTongueList"
       bindLabel="name"
@@ -47,7 +46,7 @@
     <div class="col-12 col-md-6 mb-3">
       <label for="diet" class="mb-1">Smoking<span class="text-danger">*</span></label>
       <ng-select
-      [items]="yesOrNoList"
+      [items]="SmokeHabit"
       bindLabel="name"
       bindValue="id"
       [ngModelOptions]="{standalone: true}"
@@ -61,7 +60,7 @@
     <div class="col-12 col-md-6 mb-3">
       <label for="diet" class="mb-1">Drinking<span class="text-danger">*</span></label>
       <ng-select
-      [items]="yesOrNoList"
+      [items]="drinkHabit"
       bindLabel="name"
       bindValue="id"
       [ngModelOptions]="{standalone: true}"

@@ -2173,6 +2173,7 @@ export const knownLanguages = [
 export const diet = [
   { id: 1, name: 'Vegetarian' },
   { id: 2, name: 'Non-Vegetarian' },
+  {id:3, name:'Vegan'}
 ];
 
 export const yesOrNo = [
@@ -2180,26 +2181,29 @@ export const yesOrNo = [
   { id: 2, name: 'No' },
 ]
 
+export const DrinkHabit = [
+  { id: 1, name: "Doesn't Drink" },
+  { id: 2, name: 'Drinks Occasionally' },
+  { id: 3, name: 'Drinks Regularly' }
+];
+
+export const SmokeHabit = [
+  { id: 1, name: "Doesn't Smoke" },
+  { id: 2, name: 'Occasionally' },
+  { id: 3, name: 'Regularly' }
+];
+
+
 export const bodyTypes = [
-  { id: 1, name: 'Ectomorph' },
-  { id: 2, name: 'Mesomorph' },
-  { id: 3, name: 'Endomorph' },
-  { id: 4, name: 'Athletic' },
-  { id: 5, name: 'Slim' },
-  { id: 6, name: 'Average' },
-  { id: 7, name: 'Curvy' },
-  { id: 8, name: 'Plus Size' },
-  { id: 9, name: 'Petite' },
-  { id: 10, name: 'Tall' }
+  { id: 1, name: 'Slim' },
+  { id: 2, name: 'Athletic' },
+  { id: 3, name: 'Average Build' },
+  { id: 4, name: 'Heavy' },
 ];
 
 export const familyTypeList = [
   { id: 1, name: 'Joint Family' },
   { id: 2, name: 'Nuclear Family' },
-  { id: 3, name: 'Extended Family' },
-  { id: 4, name: 'Single Parent Family' },
-  { id: 5, name: 'Live-in Family' },
-  { id: 6, name: 'Others' }
 ];
 
 
@@ -2215,7 +2219,7 @@ export const Religions = [
 
 //PROFILE
 export const LookingForList = [
-  {id:1, name:'my self'},
+  {id:1, name:'My self'},
   {id:2, name:'My Son'},
   {id:3, name:'My Daughter'}
 ];
