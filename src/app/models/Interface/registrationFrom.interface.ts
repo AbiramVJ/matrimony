@@ -68,3 +68,12 @@ export interface UserEducationDetails{
   isYearly: number;
 }
 
+export interface MatchPreferences {
+  profileFor: number;
+  gender: number;
+  minAge: number;
+  maxAge: number;
+  country: string;
+}
+
+

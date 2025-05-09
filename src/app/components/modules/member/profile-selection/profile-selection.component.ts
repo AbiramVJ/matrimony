@@ -1,22 +1,25 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { COMMON_DIRECTIVES } from '../../../../common/common-imports';
+import { Component, effect } from '@angular/core';
+import { COMMON_DIRECTIVES, FORM_MODULES } from '../../../../common/common-imports';
 import { AuthService } from '../../../../services/auth/auth.service';
 import { SocialLoginService } from '../../../../services/auth/social-login.service';
 import { Router } from '@angular/router';
 import { TopBarComponent } from "../../../../common/top-bar/top-bar.component";
-
 @Component({
   selector: 'app-profile-selection',
-  imports: [CommonModule, COMMON_DIRECTIVES, TopBarComponent],
+  imports: [CommonModule, COMMON_DIRECTIVES, TopBarComponent, FORM_MODULES],
   templateUrl: './profile-selection.component.html',
   styleUrl: './profile-selection.component.scss'
 })
 export class ProfileSelectionComponent {
 
-  constructor(private auth:AuthService,private socialLoginService:SocialLoginService,private router:Router){
+  constructor(
+    private auth:AuthService,
+    private socialLoginService:SocialLoginService,
+    private router:Router,
+  ){}
 
-  }
+
   public memberProfiles = [
     {
       profileImage: 'https://cdn.pixabay.com/photo/2022/09/08/15/16/cute-7441224_640.jpg',
@@ -43,6 +46,8 @@ export class ProfileSelectionComponent {
     localStorage.removeItem('userType');
     localStorage.removeItem('clientId');
   }
+
+
 
   public navigateToFrom(){
     this.router.navigateByUrl('member/member-registration');

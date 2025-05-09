@@ -2154,10 +2154,8 @@ export const countryCode = [
 export const residencyStatusList = [
   { id: 1, name: 'Citizen' },
   { id: 2, name: 'Permanent Resident' },
-  { id: 3, name: 'Temporary Resident' },
-  { id: 4, name: 'Visa Holder' },
-  { id: 5, name: 'Refugee' },
-  { id: 6, name: 'Other' }
+  { id: 3, name: 'Work Visa' },
+  { id: 4, name: 'Student Visa' },
 ];
 
 export const motherTongue = [
@@ -2214,6 +2212,15 @@ export const Religions = [
   { id: 6, name: 'Judaism' },
   { id: 7, name: 'Other' }
 ];
+
+//PROFILE
+export const LookingForList = [
+  {id:1, name:'my self'},
+  {id:2, name:'My Son'},
+  {id:3, name:'My Daughter'}
+];
+
+
 
 
 

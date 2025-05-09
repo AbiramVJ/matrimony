@@ -23,6 +23,7 @@ export enum TokenType
 }
 
 export enum MemberRegistrationStep {
+  lookingFor = 0,
   basic = 1,
   contact = 2,
   personal = 3,
