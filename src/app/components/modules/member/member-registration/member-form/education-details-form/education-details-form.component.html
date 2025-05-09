@@ -27,6 +27,10 @@
       <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userEducationFrom.get('institute')?.errors">institute is required</div>
     </div>
 
+
+    <div class="text-md fw-bold text-muted mb-3 mt-2">Job</div>
+
+
     <div class="col-12 col-md-6 mb-3">
       <label for="diet" class="mb-1">Sector<span class="text-danger">*</span></label>
       <ng-select
@@ -54,8 +58,6 @@
       >
       </ng-select>
     </div>
-
-    <div class="text-md fw-bold text-muted mb-3 mt-2">Job</div>
     <div class="col-12 col-md-6 mb-3">
       <label for="diet" class="mb-1">Job Title<span class="text-danger">*</span></label>
       <input type="text" id="jobTitle" formControlName="jobTitle" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userEducationFrom.get('jobTitle')?.errors}">
