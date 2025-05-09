@@ -1,7 +1,7 @@
 
 <section class="content">
   <div class="component-content">
-    <div class="row m-0 bg-color" [ngClass]="currentStep === steps.family ? 'bg-small':'bg-color'">
+    <div class="row m-0 bg-color" [ngClass]="currentStep === steps.family || currentStep === steps.lookingFor ? 'bg-small':'bg-color'">
       <div class="col-12 col-md-12 col-lg-10 mx-auto">
        <div class="row">
           <div class="col-12">
@@ -19,7 +19,8 @@
                           </div>
 
                           <!-- <div class="mt-1">Complete this form to make your profile even better.</div> -->
-                          <div class="mt-4 fw-bold text-md">STEP {{currentStep}} OF 6</div>
+                          <div class="mt-4 fw-bold text-md">STEP {{currentStep + 1}} OF 7</div>
+                          <div class="text-muted text-md mb-1" *ngIf="currentStep === steps.lookingFor">Matching Information</div>
                           <div class="text-muted text-md mb-1" *ngIf="currentStep === steps.basic">Personal Information</div>
                           <div class="text-muted text-md mb-1" *ngIf="currentStep === steps.contact">Contact Details</div>
                           <div class="text-muted text-md mb-1" *ngIf="currentStep === steps.personal">Personal Details</div>
@@ -31,6 +32,9 @@
 
                           </div>
                           <!-- FORMS -->
+                          <div class="mt-4" [ngClass]="{'d-none' :currentStep !== steps.lookingFor}">
+                            <app-looking-for-form (userMatchingDetailsEmitter)="getUserLookingForDetails($event)"></app-looking-for-form>
+                          </div>
                           <div class="mt-4" [ngClass]="{'d-none' :currentStep !== steps.basic }">
                             <app-member-profile-form (basicDetailsEmitter)="getUserBasicDetailsEmitter($event)"></app-member-profile-form>
                           </div>

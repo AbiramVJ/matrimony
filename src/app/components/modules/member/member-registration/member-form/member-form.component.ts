@@ -1,7 +1,8 @@
+import { MemberService } from '../../../../../services/member.service';
 import { Component } from '@angular/core';
 import { TopBarComponent } from "../../../../../common/top-bar/top-bar.component";
 import { MemberProfileFormComponent } from "./member-profile-form/member-profile-form.component";
-import { PersonalDetails, UserBasicForm, UserContactForm, UserEducationDetails, UserFamilyInfo, UserReligiousInfo } from '../../../../../models/index.model';
+import { MatchPreferences, PersonalDetails, UserBasicForm, UserContactForm, UserEducationDetails, UserFamilyInfo, UserReligiousInfo } from '../../../../../models/index.model';
 import { Router } from '@angular/router';
 import { COMMON_DIRECTIVES } from '../../../../../common/common-imports';
 import { MemberRegistrationStep } from '../../../../../helpers/enum';
@@ -10,23 +11,38 @@ import { PersonalDetailsFormComponent } from "./personal-details-form/personal-d
 import { FamilyInformationFormComponent } from "./family-information-form/family-information-form.component";
 import { ReligiousBackgroundFormComponent } from "./religious-background-form/religious-background-form.component";
 import { EducationDetailsFormComponent } from "./education-details-form/education-details-form.component";
+import { LookingForFormComponent } from "./looking-for-form/looking-for-form.component";
 
 
 @Component({
   selector: 'app-member-form',
-  imports: [TopBarComponent, MemberProfileFormComponent, COMMON_DIRECTIVES, ContactInfoFormComponent, PersonalDetailsFormComponent, FamilyInformationFormComponent, ReligiousBackgroundFormComponent, EducationDetailsFormComponent],
+  imports: [TopBarComponent, MemberProfileFormComponent, COMMON_DIRECTIVES, ContactInfoFormComponent, PersonalDetailsFormComponent, FamilyInformationFormComponent, ReligiousBackgroundFormComponent, EducationDetailsFormComponent, LookingForFormComponent],
   templateUrl: './member-form.component.html',
   styleUrl: './member-form.component.scss'
 })
 export class MemberFormComponent {
 
-  public currentStep:number = 1;
+  public questionData:any;
+  public currentStep:number = 0;
   public steps = MemberRegistrationStep;
 
-  constructor(private route:Router){
+  constructor(private route:Router, private _memberService:MemberService){
 
   }
 
+  ngOnInit(): void {
+    this.getProfileQusData();
+  }
+
+
+  public getProfileQusData(){
+    this.questionData = this._memberService.getQuestionData();
+    console.log(this.questionData);
+  }
+
+  public getUserLookingForDetails(event:MatchPreferences){
+    this.currentStep = MemberRegistrationStep.basic;
+  }
   public getUserBasicDetailsEmitter(event:UserBasicForm){
     this.currentStep = MemberRegistrationStep.contact;
   }
@@ -54,8 +70,11 @@ export class MemberFormComponent {
   }
 
   public goBack(){
-    if(this.currentStep === this.steps.basic){
+    if(this.currentStep === this.steps.lookingFor){
       this.route.navigateByUrl('member/profiles');
+      return;
+    }else if(this.currentStep === this.steps.basic){
+      this.currentStep = this.steps.lookingFor;
       return;
     }else if(this.currentStep === this.steps.contact){
       this.currentStep = this.steps.basic;
@@ -79,19 +98,21 @@ export class MemberFormComponent {
   }
 
   getProgressWidth(): string {
-    if(this.currentStep === this.steps.basic){
+    if(this.currentStep === this.steps.lookingFor){
       return '0%';
-    }else
-    if (this.currentStep === this.steps.contact) {
+    }else if (this.currentStep === this.steps.basic) {
       return '15%';
-    } else if (this.currentStep === this.steps.personal) {
+    }
+    else if (this.currentStep === this.steps.contact) {
       return '30%';
-    }else if (this.currentStep === this.steps.family){
+    } else if (this.currentStep === this.steps.personal) {
       return '45%';
-    }else if(this.currentStep === this.steps.religionBackground){
+    }else if (this.currentStep === this.steps.family){
       return '65%';
+    }else if(this.currentStep === this.steps.religionBackground){
+      return '70%';
     }else{
-      return '80%';
+      return '85%';
     }
     //  else if (this.currentStep === this.steps.review) {
     //   return '75%';

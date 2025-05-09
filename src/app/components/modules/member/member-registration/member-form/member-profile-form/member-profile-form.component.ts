@@ -1,3 +1,4 @@
+import { MemberService } from './../../../../../../services/member.service';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { COMMON_DIRECTIVES, FORM_MODULES } from '../../../../../../common/common-imports';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -15,9 +16,10 @@ export class MemberProfileFormComponent {
   public isSubmitted:Boolean = false;
   public userBasicFrom!:FormGroup;
   public isLoading:boolean = false;
+  public isUploading:boolean = false;
   public images: string[] = [];
 
-  constructor(private fb:FormBuilder){
+  constructor(private fb:FormBuilder, private _memberService:MemberService){
     this._userBasicFromInit();
   }
 
@@ -27,28 +29,32 @@ export class MemberProfileFormComponent {
       lastName: ['', [Validators.required]],
       gender: ['male', [Validators.required]],
       dateOfBirth: ['', [Validators.required]],
-      maritalStatus: ['single', [Validators.required]],
+      maritalStatus: [1, [Validators.required]],
       height: ['', [Validators.required, Validators.min(1)]],
       weight: ['', [Validators.required, Validators.min(1)]]
     })
   }
 
-  private _validateFiled(){
-    console.log(this.userBasicFrom.value);
-  }
-
   onFileSelected(event: Event): void {
+    this.isUploading = false;
     const input = event.target as HTMLInputElement;
     if (!input.files || input.files.length === 0) return;
-
     const file = input.files[0];
-    const reader = new FileReader();
+    const formData = new FormData();
+    formData.append('file', file);
 
-    reader.onload = () => {
-      this.images.push(reader.result as string);
-    };
-
-    reader.readAsDataURL(file);
+    this._memberService.uploadImageToBulb(formData).subscribe({
+      next: (res) => {
+        this.images.push(res.Result);
+      },
+      complete:() => {
+        this.isUploading = false;
+      },
+      error: (err) => {
+        console.error('Upload failed:', err);
+        this.isUploading = false;
+      }
+    });
 
     input.value = '';
   }

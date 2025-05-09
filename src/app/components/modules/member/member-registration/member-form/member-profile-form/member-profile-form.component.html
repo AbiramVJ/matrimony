@@ -28,7 +28,7 @@
       </div>
       <div class="col-12 col-md-3">
         <div class="form-group mb-3">
-          <label for="height" class="mb-1">Height (cm) <span class="text-danger">*</span></label>
+          <label for="height" class="mb-1">Height (Cm) <span class="text-danger">*</span></label>
           <input type="number" id="height" formControlName="height" class="form-control"  [ngClass]="{'errorBorder': isSubmitted && userBasicFrom.get('height')?.errors}">
           <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userBasicFrom.get('height')?.errors" class="error-message">
             <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userBasicFrom.get('height')?.errors?.['required']">Height is required</div>
@@ -38,7 +38,7 @@
       </div>
       <div class="col-12 col-md-3">
         <div class="form-group mb-3">
-          <label for="weight" class="mb-1">Weight (kg) <span class="text-danger">*</span> </label>
+          <label for="weight" class="mb-1">Weight (Kg) <span class="text-danger">*</span> </label>
           <input type="number" id="weight" formControlName="weight" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userBasicFrom.get('weight')?.errors}">
           <div *ngIf="isSubmitted && userBasicFrom.get('weight')?.errors" class="error-message">
             <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userBasicFrom.get('weight')?.errors?.['required']">Weight is required</div>
@@ -57,13 +57,13 @@
                 <!-- Render uploaded images with remove button -->
                 <div class="position-relative img-box" *ngFor="let img of images; let i = index">
                   <img [src]="img" class="object-fit-cover border rounded" width="80" height="80" />
-                  <button class="btn btn-sm position-absolute top-0 end-0 p-1 rounded-circle" (click)="removeImage(i)" style="transform: translate(30%, -30%);"
-                  >
+                  <button class="btn btn-sm position-absolute top-0 end-0 p-1 rounded-circle" (click)="removeImage(i)" style="transform: translate(30%, -30%);">
                   <i class="fa fa-window-close text-md text-danger" aria-hidden="true"></i>
                   </button>
                 </div>
                 <div *ngIf="images.length < 5" class="img-box border rounded pointer d-flex justify-content-center align-items-center" style="width: 80px; height: 80px;" (click)="fileInput.click()">
-                  <span class="text-md fw-bold">+</span>
+                  <span class="text-md fw-bold" *ngIf="!isUploading">+</span>
+                  <div class="spinner-border spinner-border-sm text-light me-1" role="status" *ngIf="isUploading"></div>
                 </div>
               </div>
             </div>
@@ -110,17 +110,41 @@
           <div class="d-flex">
             <div class="me-3">
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="maritalStatus" id="maritalSingle" value="single" formControlName="maritalStatus" checked>
+                <input class="form-check-input" type="radio" name="maritalStatus" id="maritalSingle" [value]="1" formControlName="maritalStatus" checked>
                 <label class="form-check-label pointer ms-2" for="maritalSingle">
                   Single
                 </label>
               </div>
             </div>
-            <div>
+            <div class="me-3">
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="maritalStatus" id="maritalMarried" value="married" formControlName="maritalStatus">
+                <input class="form-check-input" type="radio" name="maritalStatus" id="maritalMarried" [value]="2" formControlName="maritalStatus">
                 <label class="form-check-label pointer ms-2" for="maritalMarried">
                   Married
+                </label>
+              </div>
+            </div>
+            <div class="me-3">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="maritalStatus" id="Divorced" [value]="3" formControlName="maritalStatus">
+                <label class="form-check-label pointer ms-2" for="Divorced">
+                  Divorced
+                </label>
+              </div>
+            </div>
+            <div class="me-3">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="maritalStatus" id="Widowed" [value]="4" formControlName="maritalStatus">
+                <label class="form-check-label pointer ms-2" for="Widowed">
+                  Widowed
+                </label>
+              </div>
+            </div>
+            <div class="me-3">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="maritalStatus" id="Separated" [value]="4" formControlName="maritalStatus">
+                <label class="form-check-label pointer ms-2" for="Separated">
+                  Separated
                 </label>
               </div>
             </div>
