@@ -41,11 +41,11 @@ export interface UserFamilyInfo {
 }
 
 export interface UserReligiousInfo {
-  religion: number;
-  communityCast: number;
+  religion: string ;
+  communityCast: string;
   timeOfBirth: string;
 
-  subCast: number;
+  subCast: string;
   starNakshathra: number;
   raasi: number;
   chevvaiDosham: number;

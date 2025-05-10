@@ -3,4 +3,6 @@ export * from './error.model';
 export * from './Interface/auth.interface';
 export * from './Interface/geoLocation.interface';
 export * from './Interface/registrationFrom.interface'
+export * from './community.model'
+export * from './religion.model'
 
