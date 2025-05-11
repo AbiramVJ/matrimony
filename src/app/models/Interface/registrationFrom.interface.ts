@@ -6,7 +6,7 @@ export interface UserBasicForm {
   maritalStatus: string;
   height: number;
   weight: number;
-  profileImages:any;
+  profilesImg:any;
 }
 
 export interface UserContactForm {

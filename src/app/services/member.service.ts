@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
-import { Community, Education, Religion } from '../models/index.model';
+import { Community, Education, Religion, UserProfile } from '../models/index.model';
 
 
 @Injectable({
@@ -60,5 +60,13 @@ export class MemberService {
 
   public createProfile(body:any){
     return this.http.post<any>(this.baseUrl + 'profile', body);
+  }
+
+  public getProfiles(){
+    return this.http.get(this.baseUrl + 'Profile/user').pipe(
+        map((res: any) => {
+          return res.Result.map((data:any) => new UserProfile(data));
+      })
+    );
   }
 }

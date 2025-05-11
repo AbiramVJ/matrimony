@@ -21,14 +21,14 @@
                   Select a profile to continue to your personalized experiences
                 </div>
 
-                <div class="row mt-3">
+                <div class="row mt-3" *ngIf="memberProfiles">
                   <div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-3" *ngFor="let p of memberProfiles">
                     <div class="m-shadow p-3 profile-card pointer">
                       <div>
-                        <img src={{p.profileImage}} alt="pf" class="object-fit-cover border rounded" width="100%" height="250px">
+                        <img src={{p.profileImages[0].url}} alt="pf" class="object-fit-cover border rounded" width="100%" height="250px">
                       </div>
                       <div class="mt-2 name-card p-2">
-                        <div class="text-md  text-white fw-bold">{{p.name}}</div>
+                        <div class="text-md  text-white fw-bold">{{p.firstName}}</div>
                         <div class="text-white"><i class="fas fa-circle" [ngClass]="p.isActive ? 'active-color': 'in-active-color'" title="Online"></i> {{p.isActive ? 'Active' : '3 days ago'}}</div>
                       </div>
                     </div>

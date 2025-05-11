@@ -62,7 +62,8 @@ export class MemberFormComponent {
     this.scrollToTop();
   }
   public getUserBasicDetailsEmitter(event:UserBasicForm){
-    this.currentStep = MemberRegistrationStep.contact;
+   this.currentStep = MemberRegistrationStep.contact;
+ console.log(event)
     this.userBasicDetails = event;
     this.scrollToTop();
   }
@@ -217,7 +218,7 @@ private scrollToTop(): void {
         raasi: this.UserReligiousDetails?.raasi,
         timeOfBirth: this.UserReligiousDetails?.timeOfBirth,
       },
-      profileImages: this.userBasicDetails?.profileImages,
+      profileImages: this.userBasicDetails?.profilesImg,
       profileAddresses: this.userAddressList,
       profileEducations: [
         {

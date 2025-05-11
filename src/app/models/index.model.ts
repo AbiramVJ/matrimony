@@ -7,4 +7,5 @@ export * from './member/community.model'
 export * from './member/religion.model'
 export * from './member/education.model'
 export * from './Interface/userDetails.interface'
+export * from './member/member.model'
 

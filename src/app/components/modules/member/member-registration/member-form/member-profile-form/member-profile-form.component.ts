@@ -68,7 +68,7 @@ export class MemberProfileFormComponent {
   next(){
     this.isSubmitted = true;
     const profileImages = this.images.map((url, index) => ({ url, isProfile: index === 0, isVisible: this.userBasicFrom.value.isVisible }));
-    this.userBasicFrom.get('profilesImg')?.setValue(profileImages);
+    this.userBasicFrom.get('profilesImg')?.patchValue(profileImages);
     if(this.userBasicFrom.valid && this.images.length > 0){
       this.basicDetailsEmitter.emit(this.userBasicFrom.value);
     }
