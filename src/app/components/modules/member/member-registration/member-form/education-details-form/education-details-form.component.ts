@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { COMMON_DIRECTIVES, FORM_MODULES } from '../../../../../../common/common-imports';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserEducationDetails } from '../../../../../../models/index.model';
+import { Education, UserEducationDetails } from '../../../../../../models/index.model';
+import { MemberService } from '../../../../../../services/member.service';
 
 @Component({
   selector: 'app-education-details-form',
@@ -13,8 +14,9 @@ export class EducationDetailsFormComponent {
   @Output() userEducationEmitter = new EventEmitter<UserEducationDetails>();
   public userEducationFrom!:FormGroup;
   public isSubmitted:boolean = false;
+  public isLoading: boolean = false;
 
-  public educationList = [{id:1, name:'BICT'}];
+  public educationList:Education[] = [];
   public sectorList = [{id:1, name:'Government'}, {id:2, name:'Private'}];
   public incomeTypeList = [{id:1, name:'monthly'}, {id:2, name:'yearly'}]
 
@@ -26,13 +28,18 @@ export class EducationDetailsFormComponent {
   ];
 
 
-  public jobType = [{id:1,name:'Doctor'}]
-  public selectedEducation:number = 1;
+  public jobTypeList:Education[] = []
+  public selectedEducation:string = '';
   public selectedSector:number = 1;
-  public selectedJob:number = 1;
+  public selectedJob:string = '';
   public selectedCurrency:number = 1;
   public selectedIncomeType:number = 1;
-  constructor(private fb:FormBuilder){this.educationFormInit();}
+  constructor(private fb:FormBuilder,private memberService:MemberService){this.educationFormInit();}
+
+  ngOnInit(): void {
+    this._getEducationQualification();
+    this._getJobType();
+  }
 
   public educationFormInit(){
     this.userEducationFrom = this.fb.group({
@@ -45,14 +52,54 @@ export class EducationDetailsFormComponent {
       jobType:[''],
       salaryDetails:['',Validators.required],
       currency:[''],
-      isYearly:[1],
+      isYearly:[true],
+      isVisible:[true]
+    })
+  }
+
+
+  private _getEducationQualification(){
+    this.isLoading = true;
+    this.memberService.getEducationQualification().subscribe({
+      next:(res:Education[]) => {
+        this.educationList = res;
+        this.selectedEducation = res[0].id;
+
+      },
+      complete:() => {
+        this.isLoading = false;
+      },
+      error:(error:Error) => {
+        this.isLoading = false;
+      }
+    })
+  }
+  private _getJobType(){
+    this.isLoading = true;
+    this.memberService.getJobType().subscribe({
+      next:(res:Education[]) => {
+        this.jobTypeList = res;
+        this.selectedJob = res[0].id;
+
+      },
+      complete:() => {
+        this.isLoading = false;
+      },
+      error:(error:Error) => {
+        this.isLoading = false;
+      }
     })
   }
 
   public next(){
     this.isSubmitted = true;
+    let currency;
+     if (this.selectedCurrency) {
+      currency = this.currencies.find((c: any) => c.id === this.selectedCurrency);
+    }
 
     if(this.userEducationFrom.valid){
+      this.isLoading = true;
       const formValue = this.userEducationFrom.value;
       const userEducationValue:UserEducationDetails = {
         highestEducation:this.selectedEducation,
@@ -63,10 +110,12 @@ export class EducationDetailsFormComponent {
         sector:this.selectedSector,
         jobType:this.selectedJob,
         salaryDetails:formValue.salaryDetails,
-        currency:this.selectedCurrency,
-        isYearly:formValue.isYearly
+        currency:currency!.label,
+        isYearly:formValue.isYearly,
+        isVisible:formValue.isVisible
       }
       this.userEducationEmitter.emit(userEducationValue);
+      this.isLoading = false;
     }
   }
 }

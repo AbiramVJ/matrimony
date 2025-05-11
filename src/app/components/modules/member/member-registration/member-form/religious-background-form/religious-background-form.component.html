@@ -30,6 +30,10 @@
     [disabled]="isLoading"
     >
     </ng-select>
+    <div class="form-check mt-1">
+      <input class="form-check-input small-check" type="checkbox" [value]="true" id="flexCheckChecked" formControlName="isVisible">
+      <label class="form-check-label ms-2 text-sm" for="flexCheckChecked"> Make it visible.</label>
+    </div>
   </div>
 
   <div class="col-12 col-md-6 mb-3">
@@ -87,12 +91,25 @@
     </div>
   </div>
 
+<!-- DOOR NUMBER -->
+<!-- <div class="col-12 col-md-6 mb-3">
+  <label for="Door text-sm" class="mb-2">Door Number</label>
+  <input type="text" id="Door" formControlName="doorNumber" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('doorNumber')?.errors}"/>
 
-  <div class="col-12 col-md-6 mb-3">
-    <label for="city text-sm" class="mb-2">City<span class="text-danger">*</span> </label>
-    <input type="text" id="city" formControlName="city" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('city')?.errors}"/>
-    <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userReligiousForm.get('city')?.errors">City is required</div>
-  </div>
+</div> -->
+
+<!-- STREET -->
+<div class="col-12 col-md-6 mb-3">
+  <label for="Street text-sm" class="mb-2">Street<span class="text-danger">*</span> </label>
+  <input type="text" id="Street" formControlName="street" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('street')?.errors}"/>
+  <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userReligiousForm.get('street')?.errors">Street is required</div>
+</div>
+
+<div class="col-12 col-md-6 mb-3">
+  <label for="city text-sm" class="mb-2">City<span class="text-danger">*</span> </label>
+  <input type="text" id="city" formControlName="city" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('city')?.errors}"/>
+  <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userReligiousForm.get('city')?.errors">City is required</div>
+</div>
 
   <div class="col-12 col-md-6 mb-3">
     <label for="province text-sm" class="mb-2">State/Province<span class="text-danger">*</span> </label>
@@ -105,7 +122,7 @@
     <ng-select
     [items]="countryList"
     bindLabel="country"
-    bindValue="iso"
+    bindValue="country"
     [ngModelOptions]="{standalone: true}"
     [clearable]="false"
     [searchable]="false"
@@ -117,7 +134,7 @@
     <ng-template ng-label-tmp let-item="item">
       <div class="d-flex">
         <div>
-          <img class="me-2" src={{item.flags.svg}} alt="" width="30px">
+          <img class="me-2" src={{item.flags?.svg}} alt="" width="30px">
         </div>
         <div>
           {{item.country}}
@@ -128,7 +145,7 @@
     <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
       <div class="d-flex">
         <div>
-          <img src={{item.flags.svg}} alt="" width="30px" class="me-2">
+          <img src={{item.flags?.svg}} alt="" width="30px" class="me-2">
         </div>
 
         <div class="">
@@ -138,6 +155,12 @@
     </ng-template>
   </ng-select>
   </div>
+
+   <!-- <div class="col-12 col-md-6 mb-3">
+        <label for="province text-sm" class="mb-2">Zip Code<span class="text-danger">*</span> </label>
+        <input type="text" id="province" formControlName="zipCode" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('zipCode')?.errors}"/>
+        <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userReligiousForm.get('zipCode')?.errors">ZipCode is required</div>
+      </div> -->
 
   <button class="btn btn-danger me-3 w-100 mt-5" (click)="next()" [disabled]="isLoading">NEXT</button>
 </div>

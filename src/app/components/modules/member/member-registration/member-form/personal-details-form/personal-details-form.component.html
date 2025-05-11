@@ -86,6 +86,34 @@
     </div>
 
     <div class="col-12 col-md-6 mb-3">
+      <label for="diet" class="mb-1">Complexion<span class="text-danger">*</span></label>
+      <ng-select
+      [items]="complexionList"
+      bindLabel="name"
+      bindValue="id"
+      [ngModelOptions]="{standalone: true}"
+      [clearable]="false"
+      [searchable]="false"
+      [(ngModel)]="SelectedComplexion"
+      >
+      </ng-select>
+    </div>
+
+    <div class="col-12 col-md-6 mb-3">
+      <label for="diet" class="mb-1">Blood Group<span class="text-danger">*</span></label>
+      <ng-select
+      [items]="bloodGroupList"
+      bindLabel="name"
+      bindValue="id"
+      [ngModelOptions]="{standalone: true}"
+      [clearable]="false"
+      [searchable]="false"
+      [(ngModel)]="selectedBloodGroup"
+      >
+      </ng-select>
+    </div>
+
+    <div class="col-12 col-md-6 mb-3">
       <label for="motherTongue" class="mb-1">Languages know<span class="text-danger">*</span></label>
       <ng-select
       [multiple]="true"

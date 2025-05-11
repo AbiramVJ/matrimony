@@ -30,7 +30,7 @@ export enum MemberRegistrationStep {
   family = 4,
   religionBackground = 5,
   education = 6,
-  complete = 7
+  complete = 7,
 }
 
 

@@ -31,7 +31,7 @@ export class LookingForFormComponent {
       const userGeoLocationDetails = this.dataProvider.userGeoLocation();
       const defaultCountryCode = this.countryList.find((pc:any)=> pc.iso === userGeoLocationDetails?.country_code);
       if(defaultCountryCode){
-        this.selectedCountry = defaultCountryCode.iso;
+        this.selectedCountry = defaultCountryCode.country;
       }
     });
   }

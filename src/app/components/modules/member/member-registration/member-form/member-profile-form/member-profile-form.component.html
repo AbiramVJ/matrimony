@@ -73,6 +73,12 @@
           <!-- Hidden File Input -->
           <input type="file"  accept="image/*"  #fileInput (change)="onFileSelected($event)" style="display: none"/>
           <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && images.length === 0">Image is required</div>
+          <div class="form-check mt-1">
+            <input class="form-check-input small-check" type="checkbox" [value]="true" id="flexCheckChecked" formControlName="isVisible">
+            <label class="form-check-label ms-2 text-sm" for="flexCheckChecked">
+              Make it visible.
+            </label>
+          </div>
 
         </div>
       </div>
@@ -83,22 +89,17 @@
           <div class="d-flex">
             <div class="me-3">
               <div class="form-check">
-                <input class="form-check-input pointer" type="radio" name="gender" id="genderMale" value="male" formControlName="gender">
+                <input class="form-check-input pointer" type="radio" name="gender" id="genderMale" [value]="1" formControlName="gender">
                 <label class="form-check-label ms-2" for="genderMale">Male</label>
               </div>
             </div>
             <div class="me-3">
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="female" formControlName="gender">
+                <input class="form-check-input" type="radio" name="gender" id="genderFemale" [value]="2" formControlName="gender">
                 <label class="form-check-label ms-2 pointer" for="genderFemale">Female</label>
               </div>
             </div>
-            <div class="me-3">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="gender" id="genderOther" value="other" formControlName="gender">
-                <label class="form-check-label ms-2 pointer" for="genderOther">Other</label>
-              </div>
-            </div>
+
           </div>
         </div>
 

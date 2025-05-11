@@ -2269,6 +2269,26 @@ export const raasiList = [
   { id: 12, name: "Meenam (Pisces)" }
 ];
 
+export const Complexion = [
+  { id: 1, name: "Very Fair" },
+  { id: 2, name: "Fair" },
+  { id: 3, name: "Wheatish" },
+  { id: 4, name: "Dusky" },
+  { id: 5, name: "Dark" }
+]
+
+export const BloodGroup = [
+  { id: 1, name: "A+" },
+  { id: 2, name: "A−" },
+  { id: 3, name: "B+" },
+  { id: 4, name: "B−" },
+  { id: 5, name: "AB+" },
+  { id: 6, name: "AB−" },
+  { id: 7, name: "O+" },
+  { id: 8, name: "O−" }
+]
+
+
 
 
 

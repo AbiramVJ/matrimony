@@ -5,8 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { COMMON_DIRECTIVES, FORM_MODULES } from '../../../../../../common/common-imports';
 import { Natshathira, raasiList, Religions } from '../../../../../../helpers/data';
 import { UserReligiousInfo } from '../../../../../../models/Interface/registrationFrom.interface';
-import { Community, SubCommunity } from '../../../../../../models/community.model';
-import { Religion } from '../../../../../../models/religion.model';
+import { Community, SubCommunity } from '../../../../../../models/member/community.model';
+import { Religion } from '../../../../../../models/member/religion.model';
 
 @Component({
   selector: 'app-religious-background-form',
@@ -45,7 +45,7 @@ export class ReligiousBackgroundFormComponent {
       const userGeoLocationDetails = this.dataProvider.userGeoLocation();
       const defaultCountryCode = this.countryList.find((pc:any)=> pc.iso === userGeoLocationDetails?.country_code);
       if(defaultCountryCode){
-        this.selectedCountry = defaultCountryCode.iso;
+        this.selectedCountry = defaultCountryCode.country;
       }
     });
   }
@@ -103,15 +103,18 @@ export class ReligiousBackgroundFormComponent {
   private _userReligiousFormInit(){
     this.userReligiousForm = this.fb.group({
       religion:[''],
+
       communityCast:[''],
       timeOfBirth:['', Validators.required],
-
+      isVisible:[true],
       subCast:[''],
       starNakshathra:[''],
       raasi:[''],
 
 
-
+      //doorNumber:[],
+      street:['', Validators.required],
+     // zipCode:['',Validators.required],
       city: ['',Validators.required],
       stateProvince: ['',Validators.required],
       country: [''],
@@ -120,9 +123,20 @@ export class ReligiousBackgroundFormComponent {
 
   public next(){
     this.isSubmitted = true;
-    console.log(this.userReligiousForm.valid)
-    console.log(this.userReligiousForm.value)
     const formValue = this.userReligiousForm.value;
+    const address = {
+      number: null,
+      street: formValue.street,
+      city: formValue.city,
+      state: formValue.stateProvince,
+      zipcode: null,
+      country: this.selectedCountry ,
+      latitude: 0,
+      longitude: 0,
+      addressType: 3,
+      residentStatus: null,
+      isDefault: true
+    }
     const data = {
       religion:this.selectedReligions ,
       communityCast:this.selectedCommunity ,
@@ -132,9 +146,8 @@ export class ReligiousBackgroundFormComponent {
       raasi:this.selectedRaasi ,
       chevvaiDosham:formValue.chevvaiDosham ,
       horoscopeMatching:formValue.horoscopeMatching ,
-      city:formValue.city ,
-      stateProvince:formValue.stateProvince ,
-      country:this.selectedCountry ,
+      address:address,
+      isVisible:formValue.isVisible
     }
     if(this.userReligiousForm.valid){
       this.userReligiousEmitter.emit(data);

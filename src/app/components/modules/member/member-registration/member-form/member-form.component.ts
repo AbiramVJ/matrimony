@@ -1,8 +1,10 @@
+import { AuthService } from './../../../../../services/auth/auth.service';
+import { BloodGroup } from './../../../../../helpers/data';
 import { MemberService } from '../../../../../services/member.service';
 import { Component } from '@angular/core';
 import { TopBarComponent } from "../../../../../common/top-bar/top-bar.component";
 import { MemberProfileFormComponent } from "./member-profile-form/member-profile-form.component";
-import { MatchPreferences, PersonalDetails, UserBasicForm, UserContactForm, UserEducationDetails, UserFamilyInfo, UserReligiousInfo } from '../../../../../models/index.model';
+import { MatchPreferences, PersonalDetails, UserBasicForm, UserContactForm, UserDetails, UserEducationDetails, UserFamilyInfo, UserReligiousInfo } from '../../../../../models/index.model';
 import { Router } from '@angular/router';
 import { COMMON_DIRECTIVES } from '../../../../../common/common-imports';
 import { MemberRegistrationStep } from '../../../../../helpers/enum';
@@ -12,6 +14,7 @@ import { FamilyInformationFormComponent } from "./family-information-form/family
 import { ReligiousBackgroundFormComponent } from "./religious-background-form/religious-background-form.component";
 import { EducationDetailsFormComponent } from "./education-details-form/education-details-form.component";
 import { LookingForFormComponent } from "./looking-for-form/looking-for-form.component";
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -26,47 +29,80 @@ export class MemberFormComponent {
   public currentStep:number = 0;
   public steps = MemberRegistrationStep;
 
-  constructor(private route:Router, private _memberService:MemberService){
+  public matchingInfo!:MatchPreferences;
+  public userBasicDetails!:UserBasicForm;
+  public userContactDetails!:any;
+  public userPersonalDetails!:PersonalDetails;
+  public userFamilyDetails!:UserFamilyInfo;
+  public userEducationDetails!:UserEducationDetails;
+  public UserReligiousDetails!:UserReligiousInfo;
+
+  public userDetails!:UserDetails;
+
+  public userAddressList:any [] = [];
+  public isLoading:boolean = false;
+
+  constructor(private route:Router, private _memberService:MemberService, private AuthService:AuthService,private toastr: ToastrService){
 
   }
 
   ngOnInit(): void {
     this.getProfileQusData();
+    this.userDetails = this.AuthService.getTokenDecodeData();
   }
 
 
   public getProfileQusData(){
     this.questionData = this._memberService.getQuestionData();
-    console.log(this.questionData);
   }
 
   public getUserLookingForDetails(event:MatchPreferences){
+    this.matchingInfo = event;
     this.currentStep = MemberRegistrationStep.basic;
+    this.scrollToTop();
   }
   public getUserBasicDetailsEmitter(event:UserBasicForm){
     this.currentStep = MemberRegistrationStep.contact;
+    this.userBasicDetails = event;
+    this.scrollToTop();
   }
 
   public getUserContactDetailsEmitter(event:UserContactForm){
-    this.currentStep = MemberRegistrationStep.personal;
 
+    this.userAddressList.push(event.address[0]);
+    if(event.address[1]){
+      this.userAddressList.push(event.address[1]);
+    }
+    this.userContactDetails = event;
+    this.currentStep = MemberRegistrationStep.personal;
+    this.scrollToTop();
   }
 
   public getUserPersonalDetailsEmitter(event:PersonalDetails){
     this.currentStep = MemberRegistrationStep.family;
+    this.userPersonalDetails = event;
+    this.scrollToTop();
   }
 
   public getUserFamilyDetailsEmitter(event:UserFamilyInfo){
     this.currentStep = MemberRegistrationStep.religionBackground;
+    this.userFamilyDetails = event;
+    this.scrollToTop();
   }
 
   public getUserReligiousEmitter(event:UserReligiousInfo){
+    this.UserReligiousDetails = event;
+    this.userAddressList.push(this.UserReligiousDetails.address);
     this.currentStep = MemberRegistrationStep.education;
   }
 
   public getEducationDetails(event:UserEducationDetails){
-    this.route.navigateByUrl('member/profiles');
-    this.currentStep = MemberRegistrationStep.complete;
+    this.userEducationDetails = event;
+    this.scrollToTop();
+
+   // this.route.navigateByUrl('member/profiles');
+   // this.currentStep = MemberRegistrationStep.complete;
+     this._prePareUserPostBody()
   }
 
   public goBack(){
@@ -97,7 +133,7 @@ export class MemberFormComponent {
     }
   }
 
-  getProgressWidth(): string {
+  public getProgressWidth(): string {
     if(this.currentStep === this.steps.lookingFor){
       return '0%';
     }else if (this.currentStep === this.steps.basic) {
@@ -114,11 +150,103 @@ export class MemberFormComponent {
     }else{
       return '85%';
     }
-    //  else if (this.currentStep === this.steps.review) {
-    //   return '75%';
-    // } else if (this.currentStep === this.steps.confirm) {
-    //   return '100%';
-    // }
+  }
+
+private scrollToTop(): void {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+
+  private _prePareUserPostBody(){
+    const body = {
+      profileFor: this.matchingInfo?.profileFor,
+      isActive: true,
+      firstName: this.userBasicDetails?.firstName,
+      lastName: this.userBasicDetails?.lastName,
+      email:this.userContactDetails?.basicDetails.email ,
+      phoneNumber:this.userContactDetails?.basicDetails.phoneNumber ,
+      aboutMe: this.userPersonalDetails?.aboutMe,
+      gender: this.userBasicDetails?.gender,
+      dateOfBirth: this.userBasicDetails?.dateOfBirth,
+      foodHabit: this.userPersonalDetails?.diet,
+      drinksHabit: this.userPersonalDetails?.drinking,
+      smokeHabit: this.userPersonalDetails?.smoking,
+      marriageStatus: this.userBasicDetails?.maritalStatus,
+      bodyType: this.userPersonalDetails?.bodyType,
+      willingToRelocate: this.userPersonalDetails?.canReLocated,
+      height: this.userBasicDetails?.height,
+      weight: this.userBasicDetails?.weight,
+      disability: this.userPersonalDetails?.disability,
+      originCountry:  this.matchingInfo?.country,
+      motherTongue: this.userPersonalDetails?.motherTongue,
+      knownLanguages:this.userPersonalDetails.languages,
+      bloodGroup:this.userPersonalDetails?.bloodGroup,
+      userId: this.userDetails?.UserId,
+      religionId: this.UserReligiousDetails?.religion,
+      communityId: this.UserReligiousDetails?.communityCast,
+      subCommunityId: this.UserReligiousDetails?.subCast,
+      isVisibleCommunity: this.UserReligiousDetails?.isVisible,
+      profileJob: {
+        title: this.userEducationDetails?.jobTitle,
+        companyName: this.userEducationDetails?.companyName,
+        sector: this.userEducationDetails?.sector,
+        jobTypeId: this.userEducationDetails?.jobType,
+        profileSalary: {
+          isAnnual: this.userEducationDetails?.isYearly,
+          amount: this.userEducationDetails?.salaryDetails,
+          currencyCode: this.userEducationDetails?.currency,
+          isVisible: this.userEducationDetails?.isVisible,
+        }
+      },
+      profileLookingFor: {
+        gender: this.matchingInfo?.gender,
+        minAge: this.matchingInfo?.minAge,
+        maxAge: this.matchingInfo?.maxAge,
+        country: this.matchingInfo?.country
+      },
+      profileFamily: {
+        fatherName: this.userFamilyDetails?.fatherName,
+        fatherOccupation: this.userFamilyDetails?.fatherOccupation,
+        motherName: this.userFamilyDetails?.motherName,
+        motherOccupation: this.userFamilyDetails?.matherOccupation,
+        numberOfSiblings: this.userFamilyDetails?.siblings,
+        familyType: this.userFamilyDetails?.familyType
+      },
+      profileAstrology: {
+        nakshathiram: this.UserReligiousDetails?.starNakshathra,
+        raasi: this.UserReligiousDetails?.raasi,
+        timeOfBirth: this.UserReligiousDetails?.timeOfBirth,
+      },
+      profileImages: this.userBasicDetails?.profileImages,
+      profileAddresses: this.userAddressList,
+      profileEducations: [
+        {
+          qualification: this.userEducationDetails?.qualification,
+          institute: this.userEducationDetails?.institute,
+          sortNo: 0,
+          educationQualificationId: this.userEducationDetails?.highestEducation,
+        }
+      ]
+    }
+
+    this._createUser(body);
+  }
+
+  private _createUser(body:any){
+    this.isLoading = true;
+    this._memberService.createProfile(body).subscribe({
+      next:(res:any)=>{
+         this.toastr.success('Successful',`Profile created`)
+      },
+      complete:()=>{
+        this.isLoading = false;
+        this.route.navigateByUrl('member/profiles');
+      },
+      error:(error:any)=>{
+        this.isLoading = false;
+        this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
+      }
+    })
   }
 
 }

@@ -127,6 +127,8 @@ export class AuthService {
     } else {
       decodeToken['LoginUserType'] = 'Admin';
     }
+
+
     return decodeToken;
   }
 

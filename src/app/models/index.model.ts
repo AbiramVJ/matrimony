@@ -3,6 +3,8 @@ export * from './error.model';
 export * from './Interface/auth.interface';
 export * from './Interface/geoLocation.interface';
 export * from './Interface/registrationFrom.interface'
-export * from './community.model'
-export * from './religion.model'
+export * from './member/community.model'
+export * from './member/religion.model'
+export * from './member/education.model'
+export * from './Interface/userDetails.interface'
 

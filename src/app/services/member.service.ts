@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
-import { Community, Religion } from '../models/index.model';
+import { Community, Education, Religion } from '../models/index.model';
 
 
 @Injectable({
@@ -40,5 +40,25 @@ export class MemberService {
           return res.Result.data.map((data:any) => new Religion(data));
       })
     );
+  }
+
+  public getEducationQualification(){
+     return this.http.get(this.baseUrl + 'EducationQualification').pipe(
+        map((res: any) => {
+          return res.Result.data.map((data:any) => new Education(data));
+      })
+    );
+  }
+
+   public getJobType(){
+     return this.http.get(this.baseUrl + 'JobType').pipe(
+        map((res: any) => {
+          return res.Result.data.map((data:any) => new Education(data));
+      })
+    );
+  }
+
+  public createProfile(body:any){
+    return this.http.post<any>(this.baseUrl + 'profile', body);
   }
 }

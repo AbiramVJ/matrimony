@@ -27,11 +27,13 @@ export class MemberProfileFormComponent {
     this.userBasicFrom = this.fb.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
-      gender: ['male', [Validators.required]],
+      gender: [1, [Validators.required]],
       dateOfBirth: ['', [Validators.required]],
       maritalStatus: [1, [Validators.required]],
       height: ['', [Validators.required, Validators.min(1)]],
-      weight: ['', [Validators.required, Validators.min(1)]]
+      weight: ['', [Validators.required, Validators.min(1)]],
+      profilesImg:[],
+      isVisible:[true],
     })
   }
 
@@ -65,6 +67,8 @@ export class MemberProfileFormComponent {
 
   next(){
     this.isSubmitted = true;
+    const profileImages = this.images.map((url, index) => ({ url, isProfile: index === 0, isVisible: this.userBasicFrom.value.isVisible }));
+    this.userBasicFrom.get('profilesImg')?.setValue(profileImages);
     if(this.userBasicFrom.valid && this.images.length > 0){
       this.basicDetailsEmitter.emit(this.userBasicFrom.value);
     }

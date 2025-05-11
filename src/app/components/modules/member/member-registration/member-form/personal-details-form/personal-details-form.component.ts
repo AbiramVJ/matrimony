@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { COMMON_DIRECTIVES, FORM_MODULES } from '../../../../../../common/common-imports';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { bodyTypes, diet, DrinkHabit, knownLanguages, motherTongue, SmokeHabit, yesOrNo } from '../../../../../../helpers/data';
+import { BloodGroup, bodyTypes, Complexion, diet, DrinkHabit, knownLanguages, motherTongue, SmokeHabit, yesOrNo } from '../../../../../../helpers/data';
 import { PersonalDetails } from '../../../../../../models/index.model';
 
 @Component({
@@ -28,10 +28,18 @@ export class PersonalDetailsFormComponent {
   public selectedSmoke = 1;
 
   public knownLanguagesList = knownLanguages;
-  public selectedKnowLanguage = 1;
+  public selectedKnowLanguage:any;
 
   public bodyTypeList = bodyTypes;
   public selectedBodyType = 1;
+
+
+  public bloodGroupList = BloodGroup;
+  public selectedBloodGroup = 1;
+
+  public complexionList  = Complexion;
+  public SelectedComplexion = 1;
+
   constructor(private fb:FormBuilder){
     this._userPersonalInfoFormInit();
   }
@@ -46,23 +54,35 @@ export class PersonalDetailsFormComponent {
       drinking:[],
       languages:[[]],
       bodyType:[],
-      canReLocated:[1]
+      canReLocated:[1],
     })
   }
 
   public next(){
     this.isSubmitted = true
     const formsValue = this.userPersonalDetailsForm.value;
+    let names;
+    let motherTongue;
+    if(this.selectedKnowLanguage){
+       names = this.knownLanguagesList.filter(lang => this.selectedKnowLanguage.includes(lang.id)).map(lang => lang.name);
+    }
+    if (this.selectedMotherTongue) {
+      motherTongue = this.motherTongueList.find((lang: any) => lang.id === this.selectedMotherTongue);
+
+    }
+
     const personalDetailsValue:PersonalDetails = {
       aboutMe:formsValue.aboutMe,
       disability:formsValue.disability,
-      motherTongue:this.selectedMotherTongue,
+      motherTongue:motherTongue?.name,
       diet:this.selectedDiet,
       smoking:this.selectedSmoke,
       drinking:this.selectedDrinking,
-      languages:this.selectedKnowLanguage,
+      languages:names?.join(','),
       bodyType:this.selectedBodyType,
-      canReLocated:formsValue.canReLocated
+      canReLocated:formsValue.canReLocated,
+      bloodGroup:this.selectedBloodGroup,
+      complexion:this.SelectedComplexion
     }
     if(this.userPersonalDetailsForm.valid){
       this.personalDetailsEmitter.emit(personalDetailsValue);

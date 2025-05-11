@@ -6,6 +6,7 @@ export interface UserBasicForm {
   maritalStatus: string;
   height: number;
   weight: number;
+  profileImages:any;
 }
 
 export interface UserContactForm {
@@ -18,6 +19,7 @@ export interface UserContactForm {
   address: string;
   residencyStatus: number;
   addressType: 'permanent' | 'temporary' | string;
+
 }
 
 export interface PersonalDetails {
@@ -30,6 +32,8 @@ export interface PersonalDetails {
   languages: any;
   bodyType:number,
   canReLocated: boolean;
+  bloodGroup:number;
+  complexion:number;
 }
 export interface UserFamilyInfo {
   fatherName: string;
@@ -44,28 +48,27 @@ export interface UserReligiousInfo {
   religion: string ;
   communityCast: string;
   timeOfBirth: string;
-
+  isVisible : boolean;
   subCast: string;
   starNakshathra: number;
   raasi: number;
   chevvaiDosham: number;
   horoscopeMatching: number;
-  city: string;
-  stateProvince: string;
-  country: string;
+  address:any;
 }
 
 export interface UserEducationDetails{
-  highestEducation: number;
+  highestEducation: string;
   qualification: string;
   institute: string;
   jobTitle: string;
   companyName: string;
   sector: number;
-  jobType: number;
+  jobType: string;
   salaryDetails: string;
-  currency: number;
-  isYearly: number;
+  currency: string;
+  isYearly: boolean;
+  isVisible:boolean;
 }
 
 export interface MatchPreferences {
