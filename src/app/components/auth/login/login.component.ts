@@ -15,6 +15,7 @@ import { VerificationComponent } from "../verification/verification.component";
 import { PhoneNumberInputComponent } from "../../../common/phone-number-input/phone-number-input.component";
 import { SocialLoginComponent } from "./social-login/social-login.component";
 import { TopBarComponent } from "../../../common/top-bar/top-bar.component";
+import { MemberService } from '../../../services/member.service';
 
 @Component({
   selector: 'app-login',
@@ -62,6 +63,7 @@ export class LoginComponent implements OnInit {
     private router:Router,
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
+    private _memberService:MemberService
 
   ){}
   ngOnInit(): void {
@@ -429,6 +431,27 @@ export class LoginComponent implements OnInit {
       text: 'None',
       class: ''
     };
+  }
+
+  private _getMemberList(){
+    this._memberService.getProfiles().subscribe({
+      next:(res:any) => {
+        if(res.length === 0){
+          this.auth.setUserDetails(null);
+          this.router.navigateByUrl('member/member-registration');
+          return;
+        }else{
+          this.auth.setUserDetails(res[0].id);
+          this.router.navigateByUrl('home/member');
+        }
+      },
+      complete:() =>{
+
+      },
+      error:(error:any)=>{
+
+      }
+    })
   }
 
 }

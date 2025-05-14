@@ -6,6 +6,7 @@ import { NavigationBarComponent } from "./common/navigation-bar/navigation-bar.c
 import { CommonModule } from '@angular/common';
 import { COMMON_DIRECTIVES } from './common/common-imports';
 import { filter } from 'rxjs';
+import { MemberService } from './services/member.service';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,13 @@ export class AppComponent {
   public hideNavProps = false;
   public currentMemberDetails:any;
 
-  constructor(private dataProviderService:DataProviderService, private _authService:AuthService,private router: Router){
+  constructor(
+     private dataProviderService:DataProviderService,
+     private _authService:AuthService,
+     private router: Router,
+     private _memberService:MemberService
+    ){
+    this._getMemberList();
     this._authService.authStatus.subscribe(data => {
       this.isLogin = data;
     });
@@ -28,14 +35,33 @@ export class AppComponent {
   ngOnInit(): void {
     this.dataProviderService.getUserGeoLocation();
     this._authService.member$.subscribe((data)=>{
-      console.log(data);
         this.currentMemberDetails = data;
       })
 
-    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
-      this.hideNavProps = event.urlAfterRedirects.includes('/member/member-registration');
-    });
+    // this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
+    //   this.hideNavProps = event.urlAfterRedirects.includes('/member/member-registration');
+    // });
   }
 
+  private _getMemberList(){
+    this._memberService.getProfiles().subscribe({
+      next:(res:any) => {
+        if(res.length === 0){
+          this.hideNavProps = true;
+          this._authService.setMemberList(null);
+          return;
+        }else{
+          this._authService.setMemberList(res);
+           this.hideNavProps = false;
+        }
+      },
+      complete:() =>{
+
+      },
+      error:(error:any)=>{
+
+      }
+    })
+  }
 
 }

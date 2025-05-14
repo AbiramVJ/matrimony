@@ -77,24 +77,26 @@ export class NavigationBarComponent {
 
 
   private _getMemberProfiles(){
-    this.isLoading = true;
-    this._memberService.getProfiles().subscribe({
-      next:(res:any) => {
-        if(res.length === 0){
-          this._authService.setUserDetails(null);
-          this.router.navigateByUrl('member/member-registration');
-          return;
-        }
-        this.memberProfiles = res;
-        this.selectedMember = res[0].id;
-        this._authService.setUserDetails(res[0].id);
-      },
-      complete:() => {
-        this.isLoading = false;
-      },
-      error:(error:any) => {
-        this.isLoading = false;
-        this._toastr.error(error.error.Error.Detail,error.error.Error.Title);
+    // this.isLoading = true;
+    // this._memberService.getProfiles().subscribe({
+    //   next:(res:any) => {
+    //     this.memberProfiles = res;
+    //     this.selectedMember = res[0].id;
+    //   },
+    //   complete:() => {
+    //     this.isLoading = false;
+    //   },
+    //   error:(error:any) => {
+    //     this.isLoading = false;
+    //     this._toastr.error(error.error.Error.Detail,error.error.Error.Title);
+    //   }
+    // })
+
+     this._authService.memberList$.subscribe(data => {
+      console.log(data);
+      if(data){
+        this.memberProfiles = data;
+        this.selectedMember = data[0].id;
       }
     })
   }

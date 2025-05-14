@@ -12,8 +12,11 @@ export class AuthService {
   private memberSubject$ = new BehaviorSubject<any>(null);
   member$ = this.memberSubject$.asObservable();
 
- private _authStatus = new BehaviorSubject<boolean>(this.isLoggedIn());
- public authStatus = this._authStatus.asObservable();
+  private _authStatus = new BehaviorSubject<boolean>(this.isLoggedIn());
+  public authStatus = this._authStatus.asObservable();
+
+  private memberListSubject$ = new BehaviorSubject<any>(null);
+  memberList$ = this.memberListSubject$.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -150,6 +153,10 @@ export class AuthService {
 
   public setUserDetails(userDetails:any){
     this.memberSubject$.next(userDetails);
+  }
+
+  public setMemberList(memberList:any){
+    this.memberListSubject$.next(memberList);
   }
 
 

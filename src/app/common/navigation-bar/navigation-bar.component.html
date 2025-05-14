@@ -25,7 +25,7 @@
 
                 </div>
               </div> -->
-              <div class="mt-2 me-3 member" *ngIf="!isLoading && !hideProps">
+              <div class="mt-2 me-3 member" *ngIf="!isLoading && memberProfiles.length > 0">
                 <ng-select
                 class="member-select"
                 [items]="memberProfiles"
@@ -65,12 +65,12 @@
               </ng-select>
               </div>
                <!-- MESSAGE -->
-              <div class="circles border me-2 pointer position-relative mes" (click)="toggleDropdown('message')" *ngIf="!hideProps" >
+              <div class="circles border me-2 pointer position-relative mes" (click)="toggleDropdown('message')" *ngIf="memberProfiles.length > 0" >
                 <i class="fas fa-comments fa-lg"></i>
                 <div class="text-white bg-danger notification-bandage position-absolute p-2">1</div>
               </div>
               <!-- NOTIFICATION -->
-              <div class="circles border me-2 pointer position-relative noti" (click)="toggleDropdown('notification')" *ngIf="!hideProps">
+              <div class="circles border me-2 pointer position-relative noti" (click)="toggleDropdown('notification')" *ngIf="memberProfiles.length > 0">
                 <i class="fas fa-bell fa-lg"></i>
                 <div class="text-white bg-danger notification-bandage position-absolute p-2">5</div>
               </div>
@@ -80,7 +80,7 @@
             </div>
             <div class="boder rounded bg-white position-absolute message-box fw-bold" *ngIf="isNotificationOpen">Notifications</div>
             <div class="boder rounded bg-white position-absolute message-box fw-bold" *ngIf="isMessageOpen">Message</div>
-            <div class="boder rounded bg-white position-absolute  fw-bold" [ngClass]="hideProps ? 'register-drop' : 'message-box'" *ngIf="isProfileOpen">
+            <div class="boder rounded bg-white position-absolute  fw-bold" [ngClass]="memberProfiles.length === 0 ? 'register-drop' : 'message-box'" *ngIf="isProfileOpen">
               <div class="d-flex">
                 <div class="me-3">
                   <img  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2Ku57hHBcfOoQSu-_zNOtaao0V-MaY6MsEw&s" class="list-profile object-fit-cover" alt="...">
@@ -96,7 +96,7 @@
                 </div>
                  <div class="text-md fw-bold my-auto">Members</div>
               </div> -->
-              <div *ngIf="!hideProps">
+              <div *ngIf="memberProfiles.length > 0">
                 <div class="text-md fw-bold my-auto ps-2 pb-2">Members</div>
                 <div class="member-toggle-list pointer"  *ngFor="let p of memberProfiles">
                   <div class="d-flex p-2">

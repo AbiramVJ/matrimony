@@ -12,6 +12,7 @@ import { AuthService } from '../../../../services/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { fbAppId } from '../../../../environments/environment';
+import { MemberService } from '../../../../services/member.service';
 
 @Component({
   selector: 'app-social-login',
@@ -29,7 +30,12 @@ export class SocialLoginComponent {
   isGoogle:boolean = true;
   isLoading:boolean = false;
   isAgent:boolean = false;
-  constructor(private authService: SocialAuthService,private auth:AuthService, private toastr: ToastrService, private router:Router,) {}
+  constructor(private authService: SocialAuthService,
+    private auth:AuthService,
+    private toastr: ToastrService,
+    private router:Router,
+    private _memberService:MemberService,
+  ) {}
 
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
@@ -70,7 +76,7 @@ export class SocialLoginComponent {
         complete:()=>{
           this.isLoading = false;
           if(!this.isAgent){
-            this.router.navigateByUrl('home/member');
+           this._getMemberList();
           }
         },
         error:(error:any) =>{
@@ -80,5 +86,40 @@ export class SocialLoginComponent {
           this.authService.signOut();
         }
       })
+  }
+
+  //private _getMemberList(){
+    // this.auth.memberList$.subscribe(data => {
+    //    if(data === null){
+    //       this.auth.setUserDetails(null);
+    //       this.router.navigateByUrl('member/member-registration');
+    //       return;
+    //     }else{
+    //       this.auth.setUserDetails(data[0].id);
+    //       this.router.navigateByUrl('home/member');
+    //     }
+    // })
+
+//  }
+
+private _getMemberList(){
+    this._memberService.getProfiles().subscribe({
+      next:(res:any) => {
+       if(res.length === 0){
+          this.auth.setMemberList(null);
+          this.router.navigateByUrl('member/member-registration');
+          return;
+        }else{
+          this.auth.setMemberList(res);
+          this.router.navigateByUrl('home/member');
+        }
+      },
+      complete:() =>{
+
+      },
+      error:(error:any)=>{
+
+      }
+    })
   }
 }
