@@ -1,8 +1,6 @@
 import { AuthService } from './../../../../../services/auth/auth.service';
-import { BloodGroup } from './../../../../../helpers/data';
 import { MemberService } from '../../../../../services/member.service';
 import { Component } from '@angular/core';
-import { TopBarComponent } from "../../../../../common/top-bar/top-bar.component";
 import { MemberProfileFormComponent } from "./member-profile-form/member-profile-form.component";
 import { MatchPreferences, PersonalDetails, UserBasicForm, UserContactForm, UserDetails, UserEducationDetails, UserFamilyInfo, UserReligiousInfo } from '../../../../../models/index.model';
 import { Router } from '@angular/router';
@@ -19,7 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-member-form',
-  imports: [TopBarComponent, MemberProfileFormComponent, COMMON_DIRECTIVES, ContactInfoFormComponent, PersonalDetailsFormComponent, FamilyInformationFormComponent, ReligiousBackgroundFormComponent, EducationDetailsFormComponent, LookingForFormComponent],
+  imports: [MemberProfileFormComponent, COMMON_DIRECTIVES, ContactInfoFormComponent, PersonalDetailsFormComponent, FamilyInformationFormComponent, ReligiousBackgroundFormComponent, EducationDetailsFormComponent, LookingForFormComponent],
   templateUrl: './member-form.component.html',
   styleUrl: './member-form.component.scss'
 })
