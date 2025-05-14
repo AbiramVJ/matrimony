@@ -11,14 +11,11 @@ export class AuthGuardService {
 
   constructor(private authService: AuthService, private router: Router ) { }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-
     //const routeUser = route.data['user'];
     //const roles = userRoleNames;
     const user = this.authService.getUserType();
     const routeUserAccess = route.data['accessUsers'];
 
-    console.log(routeUserAccess, user);
-    console.log(user)
     if (routeUserAccess.includes(user)) {
       return true;
     } else {

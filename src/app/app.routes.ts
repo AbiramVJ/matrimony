@@ -16,7 +16,7 @@ export const routes: Routes = [
   },
   {
     path: 'home',
-    loadComponent: () => import('./components/modules/home/home.component').then(m => m.HomeComponent),
+    loadChildren: () => import('./components/modules/home/home.routing.module').then(m => m.HomeRoutingModules),
     canActivate:[CanActiveService]
   },
   {

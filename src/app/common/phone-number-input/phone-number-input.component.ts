@@ -2,7 +2,7 @@ import { Component, effect, EventEmitter, Input, Output, SimpleChanges } from '@
 import { FORM_MODULES } from '../common-imports';
 import { CommonModule } from '@angular/common';
 import { DataProviderService } from '../../services/data-provider.service';
-import { IpLocation } from '../../models/index.model';
+
 
 
 
@@ -33,7 +33,6 @@ export class PhoneNumberInputComponent {
       if(defaultCountryCode){
         this.selectedCode = defaultCountryCode.code;
       }
-
     });
   }
 

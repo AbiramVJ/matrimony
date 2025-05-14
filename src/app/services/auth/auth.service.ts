@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { TokenResult } from '../../models/clientToken.model';
 @Injectable({
@@ -8,6 +8,12 @@ import { TokenResult } from '../../models/clientToken.model';
 })
 export class AuthService {
   private baseUrl = (environment as any).baseUrl;
+
+  private memberSubject$ = new BehaviorSubject<any>(null);
+  member$ = this.memberSubject$.asObservable();
+
+ private _authStatus = new BehaviorSubject<boolean>(this.isLoggedIn());
+ public authStatus = this._authStatus.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -91,6 +97,7 @@ export class AuthService {
 
   public setAuthToken(token: string) {
     localStorage.setItem('token', token);
+    this._authStatus.next(true);
   }
 
   public getAuthToken() {
@@ -100,6 +107,7 @@ export class AuthService {
   public removeAuthToken() {
     localStorage.removeItem('token');
     localStorage.removeItem('userType');
+    this._authStatus.next(false);
   }
 
   public setUser(){
@@ -115,7 +123,6 @@ export class AuthService {
   public isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
-
 
   public getTokenDecodeData() {
     const token: any = localStorage.getItem('token');
@@ -140,5 +147,10 @@ export class AuthService {
   public decode(payload: string) {
     return JSON.parse(atob(payload));
   }
+
+  public setUserDetails(userDetails:any){
+    this.memberSubject$.next(userDetails);
+  }
+
 
 }

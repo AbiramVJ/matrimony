@@ -5,12 +5,11 @@ import { COMMON_DIRECTIVES, FORM_MODULES } from '../../../../common/common-impor
 import { AuthService } from '../../../../services/auth/auth.service';
 import { SocialLoginService } from '../../../../services/auth/social-login.service';
 import { Router } from '@angular/router';
-import { TopBarComponent } from "../../../../common/top-bar/top-bar.component";
 import { ToastrService } from 'ngx-toastr';
 import { UserProfile } from '../../../../models/index.model';
 @Component({
   selector: 'app-profile-selection',
-  imports: [CommonModule, COMMON_DIRECTIVES, TopBarComponent, FORM_MODULES],
+  imports: [CommonModule, COMMON_DIRECTIVES, FORM_MODULES],
   templateUrl: './profile-selection.component.html',
   styleUrl: './profile-selection.component.scss'
 })
@@ -22,7 +21,9 @@ export class ProfileSelectionComponent {
     private router:Router,
     private _memberService:MemberService,
     private _toastr: ToastrService,
-  ){}
+  ){
+
+  }
 
 
   public memberProfiles:UserProfile[] = [];
@@ -47,7 +48,6 @@ export class ProfileSelectionComponent {
     this._memberService.getProfiles().subscribe({
       next:(res:any) => {
         this.memberProfiles = res;
-        console.log(res)
         this.isLoading = false;
       },
       complete:() => {
@@ -63,5 +63,11 @@ export class ProfileSelectionComponent {
 
   public navigateToFrom(){
     this.router.navigateByUrl('member/member-registration');
+  }
+
+  public navigateToHome(memberId:string){
+    this.router.navigateByUrl('home/member/'+ memberId);
+    this.auth.setUserDetails(memberId);
+  //  this.auth.setMember(memberId);
   }
 }

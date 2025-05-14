@@ -70,7 +70,7 @@ export class SocialLoginComponent {
         complete:()=>{
           this.isLoading = false;
           if(!this.isAgent){
-            this.router.navigateByUrl('member/profiles');
+            this.router.navigateByUrl('home/member');
           }
         },
         error:(error:any) =>{

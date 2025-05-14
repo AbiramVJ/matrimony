@@ -1,4 +1,4 @@
-import { LoginComponent } from './../../auth/login/login.component';
+
 import { Routes } from '@angular/router';
 import { AuthGuardService } from '../../../middleware/auth-guard.service';
 import { userRoleNames as role } from '../../../helpers/util';

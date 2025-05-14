@@ -108,7 +108,7 @@ export class MemberFormComponent {
 
   public goBack(){
     if(this.currentStep === this.steps.lookingFor){
-      this.route.navigateByUrl('member/profiles');
+     // this.route.navigateByUrl('member/profiles');
       return;
     }else if(this.currentStep === this.steps.basic){
       this.currentStep = this.steps.lookingFor;
