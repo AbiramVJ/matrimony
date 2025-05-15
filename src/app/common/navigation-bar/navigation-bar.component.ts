@@ -20,6 +20,9 @@ export class NavigationBarComponent {
   public isDropOpen:boolean = false;
   public isShowBox:boolean = false;
   public isLoading:boolean = false;
+
+  public canAddProfile:boolean = false;
+
   public isMessageOpen = false;
   public isProfileOpen = false;
   public isNotificationOpen = false;
@@ -123,6 +126,12 @@ export class NavigationBarComponent {
     localStorage.removeItem('userType');
     localStorage.removeItem('clientId');
     this._authService.setUserDetails(null);
+  }
+
+  navigateToRegister(){
+    this.isProfileOpen = false;
+    this.canAddProfile = false;
+    this.router.navigateByUrl('member/member-registration');
   }
 
 }

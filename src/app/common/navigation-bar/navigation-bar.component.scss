@@ -70,6 +70,7 @@
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 10px;
   width: 100%;
+  border-radius: 15px;
  // right: -129px;
 }
 .member-select {
@@ -87,8 +88,8 @@
 }
 
 .small-circle{
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   border-radius: 100%;
   display: flex;
   align-items: center;
@@ -108,4 +109,30 @@
   padding: 10px;
   width: 420%;
   right: -7px;
+}
+
+.member-card{
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+
+@media (max-width: 480px) {
+  .circles{
+    width: 40px;
+    height: 40px;
+  }
+
+  .circles:hover {
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+  }
+  .message-box {
+    top: 70px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 10px;
+    width: 259%;
+    right: 0px;
+    border-radius: 15px;
+  }
+
 }

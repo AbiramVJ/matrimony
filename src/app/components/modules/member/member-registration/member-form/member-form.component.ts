@@ -106,7 +106,7 @@ export class MemberFormComponent {
 
   public goBack(){
     if(this.currentStep === this.steps.lookingFor){
-     // this.route.navigateByUrl('member/profiles');
+      this.route.navigateByUrl('home/member');
       return;
     }else if(this.currentStep === this.steps.basic){
       this.currentStep = this.steps.lookingFor;
@@ -239,7 +239,7 @@ private scrollToTop(): void {
       },
       complete:()=>{
         this.isLoading = false;
-        this.route.navigateByUrl('member/profiles');
+        this.route.navigateByUrl('home/member');
       },
       error:(error:any)=>{
         this.isLoading = false;
