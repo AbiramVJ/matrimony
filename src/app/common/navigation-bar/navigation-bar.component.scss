@@ -7,11 +7,15 @@
   width: 240px !important;
 }
 
-@media (max-width: 480px) {
-  .logo-svg{
-    width: 200px !important;
-  }
+.active-link {
+  font-weight: bold;
+  color: #007bff !important;
 }
+.active-link i {
+  color: #007bff !important; /* Bootstrap's primary blue */
+}
+
+
 .circles {
   border-radius: 100%;
   width: 50px;
@@ -134,5 +138,10 @@
     right: 0px;
     border-radius: 15px;
   }
+
+   .logo-svg{
+    width: 200px !important;
+  }
+
 
 }

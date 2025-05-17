@@ -3,7 +3,7 @@ import { MemberService } from '../../../../../services/member.service';
 import { Component } from '@angular/core';
 import { MemberProfileFormComponent } from "./member-profile-form/member-profile-form.component";
 import { MatchPreferences, PersonalDetails, UserBasicForm, UserContactForm, UserDetails, UserEducationDetails, UserFamilyInfo, UserReligiousInfo } from '../../../../../models/index.model';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { COMMON_DIRECTIVES } from '../../../../../common/common-imports';
 import { MemberRegistrationStep } from '../../../../../helpers/enum';
 import { ContactInfoFormComponent } from "./contact-info-form/contact-info-form.component";
@@ -40,8 +40,9 @@ export class MemberFormComponent {
   public userAddressList:any [] = [];
   public isLoading:boolean = false;
 
-  constructor(private route:Router, private _memberService:MemberService, private AuthService:AuthService,private toastr: ToastrService){
+  public isEditFlow:boolean = true;
 
+  constructor(private route:Router,private activeRoute: ActivatedRoute, private _memberService:MemberService, private AuthService:AuthService,private toastr: ToastrService){
   }
 
   ngOnInit(): void {
@@ -60,14 +61,12 @@ export class MemberFormComponent {
     this.scrollToTop();
   }
   public getUserBasicDetailsEmitter(event:UserBasicForm){
-   this.currentStep = MemberRegistrationStep.contact;
- console.log(event)
+    this.currentStep = MemberRegistrationStep.contact;
     this.userBasicDetails = event;
     this.scrollToTop();
   }
 
   public getUserContactDetailsEmitter(event:UserContactForm){
-
     this.userAddressList.push(event.address[0]);
     if(event.address[1]){
       this.userAddressList.push(event.address[1]);

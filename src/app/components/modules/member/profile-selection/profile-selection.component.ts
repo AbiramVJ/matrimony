@@ -1,7 +1,7 @@
 import { MemberService } from './../../../../services/member.service';
 import { CommonModule } from '@angular/common';
 import { Component, effect } from '@angular/core';
-import { COMMON_DIRECTIVES, FORM_MODULES } from '../../../../common/common-imports';
+import { COMMON_DIRECTIVES, FORM_MODULES, ROUTER_MODULES } from '../../../../common/common-imports';
 import { AuthService } from '../../../../services/auth/auth.service';
 import { SocialLoginService } from '../../../../services/auth/social-login.service';
 import { Router } from '@angular/router';
@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UserProfile } from '../../../../models/index.model';
 @Component({
   selector: 'app-profile-selection',
-  imports: [CommonModule, COMMON_DIRECTIVES, FORM_MODULES],
+  imports: [CommonModule, COMMON_DIRECTIVES, FORM_MODULES,ROUTER_MODULES],
   templateUrl: './profile-selection.component.html',
   styleUrl: './profile-selection.component.scss'
 })
@@ -44,18 +44,24 @@ export class ProfileSelectionComponent {
   }
 
   private _getMemberProfiles(){
-    this.isLoading = true;
-    this._memberService.getProfiles().subscribe({
-      next:(res:any) => {
-        this.memberProfiles = res;
-        this.isLoading = false;
-      },
-      complete:() => {
+    // this.isLoading = true;
+    // this._memberService.getProfiles().subscribe({
+    //   next:(res:any) => {
+    //     this.memberProfiles = res;
+    //     this.isLoading = false;
+    //   },
+    //   complete:() => {
 
-      },
-      error:(error:any) => {
-        this.isLoading = false;
-        this._toastr.error(error.error.Error.Detail,error.error.Error.Title);
+    //   },
+    //   error:(error:any) => {
+    //     this.isLoading = false;
+    //     this._toastr.error(error.error.Error.Detail,error.error.Error.Title);
+    //   }
+    // })
+
+     this.auth.memberList$.subscribe(data => {
+      if(data){
+        this.memberProfiles = data;
       }
     })
   }
@@ -65,9 +71,13 @@ export class ProfileSelectionComponent {
     this.router.navigateByUrl('member/member-registration');
   }
 
-  public navigateToHome(memberId:string){
-    this.router.navigateByUrl('home/member/'+ memberId);
-    this.auth.setUserDetails(memberId);
+  public navigateToEditForm(memberId:string){
+   this.router.navigate(['member/member-registration/edit', memberId]);
+  }
+
+  public navigateToHome(){
+   // this.router.navigateByUrl('home/member/'+ memberId);
+  //  this.auth.setUserDetails(memberId);
   //  this.auth.setMember(memberId);
   }
 }

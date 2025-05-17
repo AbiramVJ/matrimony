@@ -1,3 +1,4 @@
+import { ROUTER_MODULES } from './../common-imports';
 import { SocialLoginService } from './../../services/auth/social-login.service';
 import { AuthService } from './../../services/auth/auth.service';
 import { MemberService } from './../../services/member.service';
@@ -11,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-navigation-bar',
-  imports: [FORM_MODULES,COMMON_DIRECTIVES,CommonModule],
+  imports: [FORM_MODULES,COMMON_DIRECTIVES,ROUTER_MODULES,CommonModule],
   templateUrl: './navigation-bar.component.html',
   styleUrl: './navigation-bar.component.scss'
 })
