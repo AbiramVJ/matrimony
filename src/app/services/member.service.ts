@@ -69,4 +69,12 @@ export class MemberService {
       })
     );
   }
+
+  public getMemberProfileById(id:string){
+  return this.http.get(this.baseUrl + `Profile/${id}`).pipe(
+        map((res: any) => {
+          return new UserProfile(res.Result);
+      })
+    );
+  }
 }

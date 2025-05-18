@@ -97,7 +97,6 @@ export class NavigationBarComponent {
     // })
 
      this._authService.memberList$.subscribe(data => {
-      console.log(data);
       if(data){
         this.memberProfiles = data;
         this.selectedMember = data[0].id;

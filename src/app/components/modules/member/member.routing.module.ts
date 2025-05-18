@@ -20,7 +20,7 @@ export const MembersRoutingModules: Routes = [
 
  {
   path:'member-registration/edit/:id',
-  loadComponent:() => import('./member-registration/member-form/member-form.component').then(m => m.MemberFormComponent),
+  loadComponent:() => import('./member-registration/member-edit-form/member-edit-form.component').then(m => m.MemberEditFormComponent),
   canActivate:[AuthGuardService],
   data:{accessUsers: [role.member]}
  }
