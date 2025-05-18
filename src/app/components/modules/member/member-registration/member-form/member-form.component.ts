@@ -42,7 +42,7 @@ export class MemberFormComponent {
 
   public isEditFlow:boolean = true;
 
-  constructor(private route:Router,private activeRoute: ActivatedRoute, private _memberService:MemberService, private AuthService:AuthService,private toastr: ToastrService){
+  constructor(private route:Router,private activeRoute: ActivatedRoute, private _memberService:MemberService, private   AuthService:AuthService,private toastr: ToastrService){
   }
 
   ngOnInit(): void {

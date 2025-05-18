@@ -1,4 +1,4 @@
-import { Component, effect, EventEmitter, Output } from '@angular/core';
+import { Component, effect, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataProviderService } from '../../../../../../services/data-provider.service';
 import { COMMON_DIRECTIVES, FORM_MODULES } from '../../../../../../common/common-imports';
@@ -13,6 +13,7 @@ import { MatchPreferences } from '../../../../../../models/index.model';
 })
 export class LookingForFormComponent {
   @Output() userMatchingDetailsEmitter = new EventEmitter<MatchPreferences>();
+  @Input() UserMatchingSetData!:MatchPreferences;
   public lookingForList:any = LookingForList;
   public countryList:any [] = [];
   public selectedCountry:any;
@@ -56,5 +57,16 @@ export class LookingForFormComponent {
       }
       this.userMatchingDetailsEmitter.emit(quesData);
     }
+  }
+
+  public ngOnChanges(){
+    this.profileMatchingForm.get('gender')?.patchValue(this.UserMatchingSetData.gender);
+    this.profileMatchingForm.get('minAge')?.patchValue(this.UserMatchingSetData.minAge);
+    this.profileMatchingForm.get('maxAge')?.patchValue(this.UserMatchingSetData.maxAge);
+    this.SelectedLookingFor = this.UserMatchingSetData.profileFor;
+    this.selectedCountry = this.UserMatchingSetData.country;
+  }
+  public setFormData(){
+
   }
 }

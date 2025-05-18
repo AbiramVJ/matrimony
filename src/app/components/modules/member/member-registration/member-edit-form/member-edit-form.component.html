@@ -1,0 +1,61 @@
+<section class="content">
+  <div class="component-content">
+    <div class="bg-color-bar row m-0 p-0 ">
+      <div class="bg-white mt-1">
+        <div class="d-flex justify-content-between mx-5">
+            <div class="text-md pointer py-2 form-title" [ngClass]="{'text-primary border-bottom-title fw-bold' : currentStep === steps.lookingFor }" (click)="changeStep(steps.lookingFor)">Matching</div>
+            <div class="text-sm pointer py-2 form-title" [ngClass]="{'text-primary border-bottom-title fw-bold' : currentStep === steps.basic }" (click)="changeStep(steps.basic)">Personal Information</div>
+            <div class="text-sm pointer py-2 form-title" [ngClass]="{'text-primary border-bottom-title fw-bold' : currentStep === steps.contact }" (click)="changeStep(steps.contact)">Contact Details</div>
+            <div class="text-sm pointer py-2 form-title" [ngClass]="{'text-primary border-bottom-title fw-bold' : currentStep === steps.personal }" (click)="changeStep(steps.personal)">Personal Details</div>
+            <div class="text-sm pointer py-2 form-title" [ngClass]="{'text-primary border-bottom-title fw-bold' : currentStep === steps.family }"  (click)="changeStep(steps.family)">Family Information</div>
+            <div class="text-sm pointer py-2 form-title" [ngClass]="{'text-primary border-bottom-title fw-bold' : currentStep === steps.religionBackground}" (click)="changeStep(steps.religionBackground)">Religious Background</div>
+            <div class="text-sm pointer py-2 form-title" [ngClass]="{'text-primary border-bottom-title fw-bold' : currentStep === steps.education }" (click)="changeStep(steps.education)">Education & Career</div>
+          </div>
+      </div>
+      <div class="bg-color ">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-10 mx-auto mt-3 mb-5">
+          <div class="row ">
+            <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto">
+              <div div class="m-shadow p-3 profile-card pointer mt-5">
+                <div class="text-center text-md fw-bold">
+                  <div class="" *ngIf="currentStep  === steps.lookingFor">{{'Matching' | uppercase }}</div>
+                  <div class="" *ngIf="currentStep === steps.basic" >{{"Personal Information"  | uppercase}}</div>
+                  <div class="" *ngIf="currentStep === steps.contact">{{"Contact Details" | uppercase }}</div>
+                  <div class="" *ngIf="currentStep === steps.personal">{{"Personal Details" | uppercase}}</div>
+                  <div class="" *ngIf="currentStep === steps.family">{{"Family Information" | uppercase}}</div>
+                  <div class="" *ngIf="currentStep === steps.religionBackground" >{{"Religious Background" | uppercase}}</div>
+                  <div class="" *ngIf="currentStep === steps.education" >{{"Education & Career" | uppercase}}</div>
+                </div>
+
+              <div class="px-2">
+                <div class="mt-4" [ngClass]="{'d-none' :currentStep  !==steps.lookingFor}">
+                  <app-looking-for-form (userMatchingDetailsEmitter)="getUserLookingForDetails($event)" [UserMatchingSetData]="userMatchingSetData"></app-looking-for-form>
+                 </div>
+                 <div class="mt-4" [ngClass]="{'d-none' :currentStep !== steps.basic }">
+                <app-member-profile-form (basicDetailsEmitter)="getUserBasicDetailsEmitter($event)"></app-member-profile-form>
+              </div>
+              <div class="mt-4" [ngClass]="{'d-none' :currentStep !== steps.contact }">
+                <app-contact-info-form (contactDetailsEmitter)="getUserContactDetailsEmitter($event)"></app-contact-info-form>
+              </div>
+              <div class="mt-4"  [ngClass]="{'d-none' :currentStep !== steps.personal}">
+                <app-personal-details-form (personalDetailsEmitter)="getUserPersonalDetailsEmitter($event)"></app-personal-details-form>
+              </div>
+              <div class="mt-4"  [ngClass]="{'d-none' :currentStep !== steps.family}">
+                <app-family-information-form (userFamilyEmitter)="getUserFamilyDetailsEmitter($event)"></app-family-information-form>
+              </div>
+              <div class="mt-4"  [ngClass]="{'d-none' :currentStep !== steps.religionBackground}">
+                <app-religious-background-form (userReligiousEmitter)="getUserReligiousEmitter($event)"></app-religious-background-form>
+              </div>
+              <div class="mt-4"  [ngClass]="{'d-none' :currentStep !== steps.education}">
+                <app-education-details-form (userEducationEmitter)="getEducationDetails($event)"></app-education-details-form>
+              </div>
+               </div>
+            </div>
+            </div>
+          </div>
+      </div>
+      </div>
+
+    </div>
+  </div>
+</section>
