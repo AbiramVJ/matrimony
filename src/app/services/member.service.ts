@@ -77,4 +77,8 @@ export class MemberService {
       })
     );
   }
+
+   public updateMemberProfile(id:string, body:any){
+    return this.http.put<any>(this.baseUrl + `profile/${id}`, body);
+  }
 }

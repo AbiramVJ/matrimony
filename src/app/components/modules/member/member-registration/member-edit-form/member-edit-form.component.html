@@ -27,29 +27,40 @@
                   <div class="" *ngIf="currentStep === steps.education" >{{"Education & Career" | uppercase}}</div>
                 </div>
 
-              <div class="px-2">
+              <div class="px-2"  *ngIf="!isLoading">
                 <div class="mt-4" [ngClass]="{'d-none' :currentStep  !==steps.lookingFor}">
-                  <app-looking-for-form (userMatchingDetailsEmitter)="getUserLookingForDetails($event)" [UserMatchingSetData]="userMatchingSetData"></app-looking-for-form>
-                 </div>
-                 <div class="mt-4" [ngClass]="{'d-none' :currentStep !== steps.basic }">
-                <app-member-profile-form (basicDetailsEmitter)="getUserBasicDetailsEmitter($event)"></app-member-profile-form>
+                  <app-looking-for-form  [isEditFrom]="true" [memberProfile]="memberProfile"></app-looking-for-form>
+                </div>
+                <div class="mt-4" [ngClass]="{'d-none' :currentStep !== steps.basic }">
+                  <app-member-profile-form  [memberProfile]="memberProfile" [isEditFrom]="true"></app-member-profile-form>
+                </div>
+                <div class="mt-4" [ngClass]="{'d-none' :currentStep !== steps.contact }">
+                  <app-contact-info-form ></app-contact-info-form>
+                </div>
+                <div class="mt-4"  [ngClass]="{'d-none' :currentStep !== steps.personal}">
+                  <app-personal-details-form ></app-personal-details-form>
+                </div>
+                <div class="mt-4"  [ngClass]="{'d-none' :currentStep !== steps.family}">
+                  <app-family-information-form ></app-family-information-form>
+                </div>
+                <div class="mt-4"  [ngClass]="{'d-none' :currentStep !== steps.religionBackground}">
+                  <app-religious-background-form ></app-religious-background-form>
+                </div>
+                <div class="mt-4"  [ngClass]="{'d-none' :currentStep !== steps.education}">
+                  <app-education-details-form ></app-education-details-form>
+                </div>
               </div>
-              <div class="mt-4" [ngClass]="{'d-none' :currentStep !== steps.contact }">
-                <app-contact-info-form (contactDetailsEmitter)="getUserContactDetailsEmitter($event)"></app-contact-info-form>
+              <div class="d-flex justify-content-center mt-5" *ngIf="isLoading">
+                <div class="spinner-grow text-danger me-1" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow text-warning me-1" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow text-danger" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
               </div>
-              <div class="mt-4"  [ngClass]="{'d-none' :currentStep !== steps.personal}">
-                <app-personal-details-form (personalDetailsEmitter)="getUserPersonalDetailsEmitter($event)"></app-personal-details-form>
-              </div>
-              <div class="mt-4"  [ngClass]="{'d-none' :currentStep !== steps.family}">
-                <app-family-information-form (userFamilyEmitter)="getUserFamilyDetailsEmitter($event)"></app-family-information-form>
-              </div>
-              <div class="mt-4"  [ngClass]="{'d-none' :currentStep !== steps.religionBackground}">
-                <app-religious-background-form (userReligiousEmitter)="getUserReligiousEmitter($event)"></app-religious-background-form>
-              </div>
-              <div class="mt-4"  [ngClass]="{'d-none' :currentStep !== steps.education}">
-                <app-education-details-form (userEducationEmitter)="getEducationDetails($event)"></app-education-details-form>
-              </div>
-               </div>
             </div>
             </div>
           </div>

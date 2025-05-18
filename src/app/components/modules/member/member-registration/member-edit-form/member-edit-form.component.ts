@@ -26,7 +26,7 @@ export class MemberEditFormComponent {
   public isLoading:boolean = false;
   public memberProfile!:UserProfile;
   public memberId:string = '' ;
-  public matchingInfo!:MatchPreferences;
+
   public userBasicDetails!:UserBasicForm;
   public userContactDetails!:any;
   public userPersonalDetails!:PersonalDetails;
@@ -37,6 +37,8 @@ export class MemberEditFormComponent {
   public currentStep:number = 0;
   public steps = MemberRegistrationStep;
   public userMatchingSetData!:MatchPreferences;
+  public memberBasicDetails!:UserBasicForm;
+
   constructor(private activatedRoute:ActivatedRoute,
     private _memberService:MemberService,
     private toastr: ToastrService
@@ -65,67 +67,26 @@ export class MemberEditFormComponent {
    })
   }
 
-   public getUserLookingForDetails(event:MatchPreferences){
-    this.matchingInfo = event;
-   // this.currentStep = MemberRegistrationStep.basic;
+  public changeStep(step:number){
+    this.currentStep = step;
+    // if(this.currentStep === this.steps.lookingFor){
+    //   const quesData = {
+    //     profileFor:this.memberProfile.profileFor,
+    //     gender:this.memberProfile.profileLookingFor.gender,
+    //     minAge:this.memberProfile.profileLookingFor.minAge,
+    //     maxAge:this.memberProfile.profileLookingFor.maxAge,
+    //     country:this.memberProfile.originCountry,
+    //   }
+    //   this.userMatchingSetData = quesData;
+    // }
+    // else if(this.currentStep === this.steps.basic){
+    //   const data:UserBasicForm = {
+    //     firstName:this.memberProfile.firstName,
+    //     lastName:this.memberProfile.lastName,
+
+    //   }
+    // }
   }
-  public getUserBasicDetailsEmitter(event:UserBasicForm){
-     // this.currentStep = MemberRegistrationStep.contact;
-    //  this.userBasicDetails = event;
-    //  this.scrollToTop();
-    }
-
-    public getUserContactDetailsEmitter(event:UserContactForm){
-      // this.userAddressList.push(event.address[0]);
-      // if(event.address[1]){
-      //   this.userAddressList.push(event.address[1]);
-      // }
-      // this.userContactDetails = event;
-      // this.currentStep = MemberRegistrationStep.personal;
-      // this.scrollToTop();
-    }
-
-    public getUserPersonalDetailsEmitter(event:PersonalDetails){
-      // this.currentStep = MemberRegistrationStep.family;
-      // this.userPersonalDetails = event;
-      // this.scrollToTop();
-    }
-
-    public getUserFamilyDetailsEmitter(event:UserFamilyInfo){
-      // this.currentStep = MemberRegistrationStep.religionBackground;
-      // this.userFamilyDetails = event;
-      // this.scrollToTop();
-    }
-
-    public getUserReligiousEmitter(event:UserReligiousInfo){
-      // this.UserReligiousDetails = event;
-      // this.userAddressList.push(this.UserReligiousDetails.address);
-      // this.currentStep = MemberRegistrationStep.education;
-    }
-
-    public getEducationDetails(event:UserEducationDetails){
-    //   this.userEducationDetails = event;
-    //   this.scrollToTop();
-
-    //  // this.route.navigateByUrl('member/profiles');
-    //  // this.currentStep = MemberRegistrationStep.complete;
-    //    this._prePareUserPostBody()
-    }
-
-    public changeStep(step:number){
-      this.currentStep = step;
-      if(this.currentStep === this.steps.lookingFor){
-        const quesData = {
-        profileFor:this.memberProfile.profileFor,
-        gender:this.memberProfile.profileLookingFor.gender,
-        minAge:this.memberProfile.profileLookingFor.minAge,
-        maxAge:this.memberProfile.profileLookingFor.maxAge,
-        country:this.memberProfile.originCountry,
-        }
-
-        this.userMatchingSetData = quesData;
-      }
-    }
 
 
 }

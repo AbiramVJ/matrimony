@@ -1,9 +1,11 @@
+import { MemberService } from './../../../../../../services/member.service';
 import { Component, effect, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataProviderService } from '../../../../../../services/data-provider.service';
 import { COMMON_DIRECTIVES, FORM_MODULES } from '../../../../../../common/common-imports';
 import { LookingForList } from '../../../../../../helpers/data';
-import { MatchPreferences } from '../../../../../../models/index.model';
+import { MatchPreferences, UserProfile } from '../../../../../../models/index.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-looking-for-form',
@@ -13,7 +15,9 @@ import { MatchPreferences } from '../../../../../../models/index.model';
 })
 export class LookingForFormComponent {
   @Output() userMatchingDetailsEmitter = new EventEmitter<MatchPreferences>();
-  @Input() UserMatchingSetData!:MatchPreferences;
+  // @Input() UserMatchingSetData!:MatchPreferences;
+  @Input() isEditFrom:boolean = false;
+  @Input() memberProfile!:UserProfile;
   public lookingForList:any = LookingForList;
   public countryList:any [] = [];
   public selectedCountry:any;
@@ -24,8 +28,14 @@ export class LookingForFormComponent {
   public selectedMatch:number = 1;
 
   public isSubmitted:boolean = false;
-  constructor(private _fb:FormBuilder,
-    private dataProvider:DataProviderService){
+  public isLoading:boolean = false;
+  constructor(
+    private _fb:FormBuilder,
+    private dataProvider:DataProviderService,
+    private _memberService:MemberService,
+    private toastr: ToastrService
+
+  ){
     this._matchingProfileFormInit();
     this.countryList = this.dataProvider.getPhoneCode();
     effect(() => {
@@ -55,18 +65,48 @@ export class LookingForFormComponent {
         maxAge:formValue.maxAge,
         country:this.selectedCountry,
       }
-      this.userMatchingDetailsEmitter.emit(quesData);
+      if(!this.isEditFrom){
+       this.userMatchingDetailsEmitter.emit(quesData);
+       return;
+      }
+      else
+      {
+        this.isLoading = true;
+        const updatedProfile = {
+          ...this.memberProfile,
+          profileFor: quesData.profileFor,
+          originCountry: quesData.country,
+          profileLookingFor: {
+          ...this.memberProfile.profileLookingFor,
+          gender: quesData.gender,
+          minAge: quesData.minAge,
+          maxAge: quesData.maxAge,
+        }
+      };
+
+        this._memberService.updateMemberProfile(this.memberProfile.id, updatedProfile).subscribe({
+          next:(res:any) => {},
+          complete:()=>{
+            this.isLoading = false;
+            this.toastr.success("Update successfully",'success');
+          },
+          error:(error:any) => {
+            this.isLoading = false;
+            this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
+          }
+        })
+      }
     }
   }
 
   public ngOnChanges(){
-    this.profileMatchingForm.get('gender')?.patchValue(this.UserMatchingSetData.gender);
-    this.profileMatchingForm.get('minAge')?.patchValue(this.UserMatchingSetData.minAge);
-    this.profileMatchingForm.get('maxAge')?.patchValue(this.UserMatchingSetData.maxAge);
-    this.SelectedLookingFor = this.UserMatchingSetData.profileFor;
-    this.selectedCountry = this.UserMatchingSetData.country;
+    if(this.memberProfile){
+      this.profileMatchingForm.get('gender')?.patchValue(this.memberProfile.profileLookingFor.gender);
+      this.profileMatchingForm.get('minAge')?.patchValue(this.memberProfile.profileLookingFor.minAge);
+      this.profileMatchingForm.get('maxAge')?.patchValue(this.memberProfile.profileLookingFor.maxAge);
+      this.SelectedLookingFor = this.memberProfile.profileFor;
+      this.selectedCountry = this.memberProfile.originCountry;
+    }
   }
-  public setFormData(){
 
-  }
 }
