@@ -17,6 +17,7 @@ import { MemberService } from './services/member.service';
 export class AppComponent {
   title = 'matrimony';
   public isLogin:boolean = false;
+  public isLoading:boolean = false;
   public hideNavProps = false;
   public currentMemberDetails:any;
 
@@ -44,6 +45,7 @@ export class AppComponent {
   }
 
   private _getMemberList(){
+    this.isLoading = true;
     this._memberService.getProfiles().subscribe({
       next:(res:any) => {
         if(res.length === 0){
@@ -56,10 +58,10 @@ export class AppComponent {
         }
       },
       complete:() =>{
-
+        this.isLoading = false;
       },
       error:(error:any)=>{
-
+      this.isLoading = false;
       }
     })
   }

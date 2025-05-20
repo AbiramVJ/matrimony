@@ -1,3 +1,15 @@
-<app-navigation-bar *ngIf="isLogin" [hideProps]="hideNavProps"></app-navigation-bar>
-<router-outlet class="main-content"></router-outlet>
+<app-navigation-bar *ngIf="isLogin && !isLoading" [hideProps]="hideNavProps"></app-navigation-bar>
+<router-outlet class="main-content" *ngIf="!isLoading"></router-outlet>
+
+<div class="d-flex justify-content-center align-items-center min-vh-100" *ngIf="isLoading">
+  <div class="spinner-grow text-danger me-1" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+  <div class="spinner-grow text-warning me-1" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+  <div class="spinner-grow text-danger" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
 

@@ -58,6 +58,7 @@ export class SocialLoginComponent {
   }
 
   private _makeSocialLogin(){
+    this.isLoading = true;
     const body =
       {
         loginType: this.isGoogle ? LoginType.Google :LoginType.Facebook ,
@@ -74,7 +75,7 @@ export class SocialLoginComponent {
           this.toastr.success('Successful',`Sign-in successful with ${this.user?.name}`);
         },
         complete:()=>{
-          this.isLoading = false;
+          // this.isLoading = false;
           if(!this.isAgent){
            this._getMemberList();
           }
@@ -115,10 +116,10 @@ private _getMemberList(){
         }
       },
       complete:() =>{
-
+        this.isLoading = false;
       },
       error:(error:any)=>{
-
+      this.isLoading = false;
       }
     })
   }
