@@ -28,16 +28,14 @@
                 </a>
               </li>
               <li class="nav-item m-top-20">
-                <!-- <a class="nav-link" [routerLink]="['/member/profiles']" routerLinkActive="active-link"   [class.active-link]="router.isActive('/member', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })">
-                  <i class="fas fa-users fa-lg me-1 text-muted"></i> Members
-                </a> -->
+
                 <a
-  class="nav-link"
-  [routerLink]="['/member']"
-  [class.active-link]="router.isActive('/member', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })"
->
-  Members
-</a>
+                  class="nav-link"
+                  [routerLink]="['/member/profiles']"
+                  [class.active-link]="router.isActive('/member', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })"
+                >
+                  Members
+                </a>
               </li>
             </ul>
           </div>
