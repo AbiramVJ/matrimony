@@ -10,7 +10,9 @@
           [ngModelOptions]="{standalone: true}"
           [clearable]="false"
           [searchable]="false"
-          [(ngModel)]="selectedCode">
+          [(ngModel)]="selectedCode"
+           (ngModelChange)="emitPhoneNumber()"
+          >
 
           <!-- Custom header template with search input -->
           <ng-template ng-header-tmp>

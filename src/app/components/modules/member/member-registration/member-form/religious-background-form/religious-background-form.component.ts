@@ -1,12 +1,14 @@
 import { MemberService } from './../../../../../../services/member.service';
 import { DataProviderService } from './../../../../../../services/data-provider.service';
-import { Component, effect, EventEmitter, Output } from '@angular/core';
+import { Component, effect, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { COMMON_DIRECTIVES, FORM_MODULES } from '../../../../../../common/common-imports';
 import { Natshathira, raasiList, Religions } from '../../../../../../helpers/data';
 import { UserReligiousInfo } from '../../../../../../models/Interface/registrationFrom.interface';
 import { Community, SubCommunity } from '../../../../../../models/member/community.model';
 import { Religion } from '../../../../../../models/member/religion.model';
+import { ProfileAddress, UserProfile } from '../../../../../../models/index.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-religious-background-form',
@@ -16,6 +18,8 @@ import { Religion } from '../../../../../../models/member/religion.model';
 })
 export class ReligiousBackgroundFormComponent {
   @Output() userReligiousEmitter = new EventEmitter<UserReligiousInfo>();
+  @Input() isEditFrom:boolean = false;
+  @Input() memberProfile!:UserProfile;
   public userReligiousForm!:FormGroup;
   public religionList:Religion [] = [];
   public selectedReligions:string = '';
@@ -38,13 +42,14 @@ export class ReligiousBackgroundFormComponent {
   public SubCommunityList:SubCommunity[] = [];
   public selectedSubCommunity:string = '';
 
-  constructor(private fb:FormBuilder, private dataProvider:DataProviderService, private memberService:MemberService){
+  constructor(private fb:FormBuilder, private dataProvider:DataProviderService, private memberService:MemberService,
+      private toastr: ToastrService){
     this._userReligiousFormInit();
     this.countryList = this.dataProvider.getPhoneCode();
     effect(() => {
       const userGeoLocationDetails = this.dataProvider.userGeoLocation();
       const defaultCountryCode = this.countryList.find((pc:any)=> pc.iso === userGeoLocationDetails?.country_code);
-      if(defaultCountryCode){
+      if(defaultCountryCode && !this.isEditFrom){
         this.selectedCountry = defaultCountryCode.country;
       }
     });
@@ -61,8 +66,11 @@ export class ReligiousBackgroundFormComponent {
       next:(res:Community[]) => {
         this.communityList = res;
         this.SubCommunityList = res[0].subCommunities;
-        this.selectedCommunity = res[0].id;
-        this.selectedSubCommunity = res[0].subCommunities[0].id;
+        if(!this.isEditFrom){
+          this.selectedCommunity = res[0].id;
+          this.selectedSubCommunity = res[0].subCommunities[0].id;
+        }
+
       },
       complete:() => {
         this.isLoading = false;
@@ -78,7 +86,10 @@ export class ReligiousBackgroundFormComponent {
     this.memberService.getReligion().subscribe({
       next:(res:Religion[]) => {
         this.religionList = res;
-        this.selectedReligions = res[0].id;
+         if(!this.isEditFrom){
+            this.selectedReligions = res[0].id;
+         }
+
       },
       complete:() => {
         this.isLoading = false;
@@ -124,7 +135,7 @@ export class ReligiousBackgroundFormComponent {
   public next(){
     this.isSubmitted = true;
     const formValue = this.userReligiousForm.value;
-    const address = {
+    const address : ProfileAddress = {
       number: null,
       street: formValue.street,
       city: formValue.city,
@@ -150,8 +161,79 @@ export class ReligiousBackgroundFormComponent {
       isVisible:formValue.isVisible
     }
     if(this.userReligiousForm.valid){
-      this.userReligiousEmitter.emit(data);
+      if(!this.isEditFrom){
+        this.userReligiousEmitter.emit(data);
+      }else{
+        this.isLoading = true;
+
+        this.memberProfile.profileAddresses.forEach((a: any) => {
+          if (a.addressType === 3) {
+            a.number = null;
+            a.street = formValue.street;
+            a.city = formValue.city;
+            a.state = formValue.stateProvince;
+            a.zipcode = null;
+            a.country = this.selectedCountry;
+            a.latitude = 0;
+            a.longitude = 0;
+            a.addressType = 3;
+            a.residentStatus = null;
+            a.isDefault = true;
+          }
+        });
+      // let isHaveBirthAddress = this.memberProfile.profileAddresses.some((a: any) => a.addressType === 3);
+      // if(!isHaveBirthAddress){
+      //   this.memberProfile.profileAddresses.push(address)
+      // }
+        const updatedProfile = {
+          ...this.memberProfile,
+          religionId: this.selectedReligions ,
+          communityId: this.selectedCommunity ,
+          subCommunityId: this.selectedSubCommunity ,
+          isVisibleCommunity: formValue.isVisible,
+
+          profileAstrology: {
+            id:this.memberProfile.profileAstrology.id,
+            nakshathiram: this.selectedStar ,
+            raasi: this.selectedRaasi ,
+            timeOfBirth: formValue.timeOfBirth ,
+          },
+          profileAddresses: this.memberProfile.profileAddresses
+        }
+        console.log(updatedProfile);
+        this.memberService.updateMemberProfile(this.memberProfile.id, updatedProfile).subscribe({
+          next:(res:any) => {},
+          complete:()=>{
+            this.isLoading = false;
+            this.toastr.success("Update successfully",'success');
+          },
+          error:(error:any) => {
+            this.isLoading = false;
+            this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
+          }
+        })
+      };
+
     }
+  }
+
+  ngOnChanges() {
+     const birthAddress = this.memberProfile.profileAddresses?.find(
+      (add: any) => add.addressType === 3
+    );
+    console.log(this.memberProfile.subCommunityId)
+    this.selectedReligions = this.memberProfile.religionId;
+    this.selectedCommunity = this.memberProfile.communityId;
+    this.selectedSubCommunity = this.memberProfile.subCommunityId;
+    this.selectedStar = this.memberProfile.profileAstrology.nakshathiram;
+    this.selectedRaasi = this.memberProfile.profileAstrology.raasi;
+
+    this.userReligiousForm.get('timeOfBirth')?.patchValue(this.memberProfile.profileAstrology.timeOfBirth);
+    this.userReligiousForm.get('street')?.patchValue(birthAddress?.street);
+    this.userReligiousForm.get('city')?.patchValue(birthAddress?.city);
+    this.userReligiousForm.get('stateProvince')?.patchValue(birthAddress?.state);
+    this.userReligiousForm.get('isVisible')?.patchValue(this.memberProfile.isVisibleCommunity);
+    this.selectedCountry = birthAddress?.country;
   }
 
 }

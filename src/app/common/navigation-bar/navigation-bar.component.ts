@@ -115,7 +115,6 @@ export class NavigationBarComponent {
 
   public _getLoginUserDetails(){
    this.loginUserDetails = this._authService.getTokenDecodeData();
-   console.log(this.loginUserDetails)
   }
 
    _authLogout() {

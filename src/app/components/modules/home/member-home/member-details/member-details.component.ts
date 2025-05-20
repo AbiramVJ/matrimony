@@ -9,6 +9,5 @@ import { Component } from '@angular/core';
 })
 export class MemberDetailsComponent {
 constructor(){
-  console.log("hi")
 }
 }

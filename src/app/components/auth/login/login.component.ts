@@ -201,7 +201,7 @@ export class LoginComponent implements OnInit {
 
   //PHONE NUMBER
   public getPhoneNumber(event:any){
-    this._phoneNumber = event;
+    this._phoneNumber = event.phoneNumber;
   }
 
   //SING UP

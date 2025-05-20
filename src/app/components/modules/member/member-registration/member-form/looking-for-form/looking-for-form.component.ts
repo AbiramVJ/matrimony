@@ -15,7 +15,6 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LookingForFormComponent {
   @Output() userMatchingDetailsEmitter = new EventEmitter<MatchPreferences>();
-  // @Input() UserMatchingSetData!:MatchPreferences;
   @Input() isEditFrom:boolean = false;
   @Input() memberProfile!:UserProfile;
   public lookingForList:any = LookingForList;

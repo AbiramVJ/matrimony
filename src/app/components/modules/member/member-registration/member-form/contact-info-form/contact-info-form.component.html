@@ -8,7 +8,7 @@
       <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userContactFrom.get('email')?.errors?.['email']">Invalid email</div>
     </div>
     <div class="col-12 col-md-6">
-      <app-phone-number-input (phoneNumberEmitter)="getPhoneNumber($event)" [isSubmitted]="isSubmitted"></app-phone-number-input>
+      <app-phone-number-input (phoneNumberEmitter)="getPhoneNumber($event)" [isSubmitted]="isSubmitted" [setPhoneNumber]="setPhoneNumber" [phoneCode]="PhoneCode"></app-phone-number-input>
     </div>
     <!-- DOOR NUMBER -->
     <div class="col-12 col-md-6 mb-3">
@@ -205,7 +205,7 @@
       </div>
     </div>
 
-    <button class="btn btn-danger me-3 w-100 mt-5" (click)="next()">
-      <div class="spinner-border spinner-border-sm text-light me-1" *ngIf="isLoading"></div>NEXT</button>
+    <button class="btn btn-danger me-3 w-100 mt-5" (click)="next()" [disabled]="isLoading">
+      <div class="spinner-border spinner-border-sm text-light me-1" *ngIf="isLoading"></div>{{isEditFrom ? 'UPDATE' : 'NEXT'}}</button>
   </div>
 </form>

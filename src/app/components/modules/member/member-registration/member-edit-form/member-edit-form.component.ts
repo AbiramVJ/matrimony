@@ -69,23 +69,6 @@ export class MemberEditFormComponent {
 
   public changeStep(step:number){
     this.currentStep = step;
-    // if(this.currentStep === this.steps.lookingFor){
-    //   const quesData = {
-    //     profileFor:this.memberProfile.profileFor,
-    //     gender:this.memberProfile.profileLookingFor.gender,
-    //     minAge:this.memberProfile.profileLookingFor.minAge,
-    //     maxAge:this.memberProfile.profileLookingFor.maxAge,
-    //     country:this.memberProfile.originCountry,
-    //   }
-    //   this.userMatchingSetData = quesData;
-    // }
-    // else if(this.currentStep === this.steps.basic){
-    //   const data:UserBasicForm = {
-    //     firstName:this.memberProfile.firstName,
-    //     lastName:this.memberProfile.lastName,
-
-    //   }
-    // }
   }
 
 

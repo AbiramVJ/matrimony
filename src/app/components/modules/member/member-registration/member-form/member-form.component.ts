@@ -163,6 +163,7 @@ private scrollToTop(): void {
       lastName: this.userBasicDetails?.lastName,
       email:this.userContactDetails?.basicDetails.email ,
       phoneNumber:this.userContactDetails?.basicDetails.phoneNumber ,
+      phoneCode:this.userContactDetails?.basicDetails.phoneCode,
       aboutMe: this.userPersonalDetails?.aboutMe,
       gender: this.userBasicDetails?.gender,
       dateOfBirth: this.userBasicDetails?.dateOfBirth,
@@ -184,6 +185,7 @@ private scrollToTop(): void {
       communityId: this.UserReligiousDetails?.communityCast,
       subCommunityId: this.UserReligiousDetails?.subCast,
       isVisibleCommunity: this.UserReligiousDetails?.isVisible,
+      skinComplexion:this.userPersonalDetails.complexion,
       profileJob: {
         title: this.userEducationDetails?.jobTitle,
         companyName: this.userEducationDetails?.companyName,

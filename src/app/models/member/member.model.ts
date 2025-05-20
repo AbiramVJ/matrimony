@@ -95,13 +95,13 @@ export class ProfileImage {
 export class ProfileAddress {
   id?: string;
   addressType: number;
-  residentStatus?: number;
+  residentStatus?: number | null;
   isDefault: boolean;
-  number?: string;
+  number?: string | null;
   street: string;
   city: string;
   state: string;
-  zipcode?: string;
+  zipcode?: string | null;
   country: string;
   latitude: number;
   longitude: number;
@@ -175,6 +175,7 @@ export class UserProfile {
   profileImages: ProfileImage[];
   profileAddresses: ProfileAddress[];
   profileEducations: ProfileEducation[];
+  phoneCode:string;
 
   constructor(obj: any = {}) {
     this.id = obj?.id ?? '';
@@ -213,5 +214,6 @@ export class UserProfile {
     this.profileImages = (obj?.profileImages ?? []).map((i: any) => new ProfileImage(i));
     this.profileAddresses = (obj?.profileAddresses ?? []).map((a: any) => new ProfileAddress(a));
     this.profileEducations = (obj?.profileEducations ?? []).map((e: any) => new ProfileEducation(e));
+    this.phoneCode = obj.phoneCode ?? '';
   }
 }
