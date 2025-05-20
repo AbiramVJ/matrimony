@@ -34,7 +34,7 @@ export class NavigationBarComponent {
   constructor(private eRef: ElementRef,
     private _memberService:MemberService,
     private _toastr: ToastrService,
-    private router:Router,
+    public router:Router,
     private _authService:AuthService,
     private _socialLoginService:SocialLoginService
   ){
