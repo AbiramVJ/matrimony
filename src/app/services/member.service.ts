@@ -81,4 +81,8 @@ export class MemberService {
    public updateMemberProfile(id:string, body:any){
     return this.http.put<any>(this.baseUrl + `profile/${id}`, body);
   }
+
+  public deleteMember(id:string) {
+    return this.http.delete<any>(this.baseUrl + `Profile/${id}`);
+  }
 }

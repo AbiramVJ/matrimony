@@ -1,5 +1,15 @@
-.bg-color{
+.bg-color {
   background-color: #d2d5da;
   background-size: cover;
   height: 100vh;
+}
+
+.side-bar {
+  position: fixed;
+  height: 80vh;
+  overflow: hidden;
+  width: 20%;
+}
+.home-box{
+ margin-left: 23%;
 }

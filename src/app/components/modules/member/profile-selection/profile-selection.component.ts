@@ -28,6 +28,7 @@ export class ProfileSelectionComponent {
 
   public memberProfiles:UserProfile[] = [];
   public isLoading:boolean = false;
+  public deleteMemberId:string = '';
 
   ngOnInit(): void {
    this._getMemberProfiles();
@@ -76,8 +77,42 @@ export class ProfileSelectionComponent {
   }
 
   public navigateToHome(){
-   // this.router.navigateByUrl('home/member/'+ memberId);
+  // this.router.navigateByUrl('home/member/'+ memberId);
   //  this.auth.setUserDetails(memberId);
   //  this.auth.setMember(memberId);
+  }
+
+  public deleteMember(){
+    this.isLoading = true;
+    this._memberService.deleteMember(this.deleteMemberId).subscribe({
+      next:(res:any) => {
+        this._getMemberList();
+      },
+      complete:() => {
+
+      },
+      error:(error:any) => {
+       this.isLoading = false;
+       this._toastr.error(error.error.Error.Detail,error.error.Error.Title);
+      }
+    })
+  }
+
+  private _getMemberList(){
+    this.isLoading = true;
+    this._memberService.getProfiles().subscribe({
+      next:(res:any) => {
+        this.auth.setMemberList(res);
+        this.isLoading = false;
+        let deleteModal: HTMLElement = document.getElementById('deleteMemberModalId') as HTMLElement;
+        deleteModal.click();
+      },
+      complete:() =>{
+        this.isLoading = false;
+      },
+      error:(error:any)=>{
+      this.isLoading = false;
+      }
+    })
   }
 }

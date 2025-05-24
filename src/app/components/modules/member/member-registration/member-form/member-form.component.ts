@@ -240,11 +240,32 @@ private scrollToTop(): void {
       },
       complete:()=>{
         this.isLoading = false;
-        this.route.navigateByUrl('home/member');
+        if(this.AuthService.isLoggedIn()){
+          this._getMemberList();
+
+        }else{
+          this.route.navigateByUrl('home/member');
+        }
       },
       error:(error:any)=>{
         this.isLoading = false;
         this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
+      }
+    })
+  }
+
+  private _getMemberList(){
+    this.isLoading = true;
+    this._memberService.getProfiles().subscribe({
+      next:(res:any) => {
+        this.AuthService.setMemberList(res);
+        this.route.navigateByUrl('member/profiles');
+      },
+      complete:() =>{
+        this.isLoading = false;
+      },
+      error:(error:any)=>{
+      this.isLoading = false;
       }
     })
   }

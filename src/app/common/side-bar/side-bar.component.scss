@@ -1,0 +1,14 @@
+.content-side{
+   height: 80vh;
+   overflow: auto;
+scroll-behavior: smooth;
+}
+.content-side::-webkit-scrollbar {
+  width: 4px;   /* make scrollbar thinner vertically */
+  height: 4px;  /* if horizontal scrollbar */
+}
+
+.content-side::-webkit-scrollbar-thumb {
+  background-color: rgba(197, 197, 197, 0.3); /* color of the scroll thumb */
+  border-radius: 3px;
+}

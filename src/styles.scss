@@ -84,6 +84,10 @@ input[type=number] {
   border-radius: 20px;
   background-color: white;
 }
+.shadow-without-radious{
+   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+   background-color: white;
+}
 .form-check-input:checked {
   background-color: #dc3545 !important;
   border-color: #ffffff;
@@ -144,6 +148,14 @@ input[type=number] {
 
 .text-lg {
   font-size:20px !important
+}
+
+.text-xl{
+  font-size: 25px;
+}
+
+.text-xxl{
+  font-size: 35px;
 }
 
 .text-dark-blue{
