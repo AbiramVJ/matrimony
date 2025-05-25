@@ -11,6 +11,7 @@
   "private": true,
   "dependencies": {
     "@abacritt/angularx-social-login": "^2.3.0",
+    "@angular-slider/ngx-slider": "^19.0.0",
     "@angular/animations": "^18.2.8",
     "@angular/common": "^19.2.0",
     "@angular/compiler": "^19.2.0",
@@ -25,6 +26,7 @@
     "angular-svg-icon": "^17.0.0",
     "bootstrap": "^5.3.3",
     "ngx-pagination": "^6.0.3",
+    "ngx-slider": "^0.0.5",
     "ngx-toastr": "^19.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

@@ -1,21 +1,42 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  Router,
+  RouterStateSnapshot,
+  UrlTree
+} from '@angular/router';
 import { AuthService } from '../services/auth/auth.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CanActiveService implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) { }
+export class CanActivateService implements CanActivate {
+  constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    const routeUserAccess = route.data['accessUsers'];
-    const loginUserType = this.authService.getUserType();
-    if(this.authService.isLoggedIn()) {
-      return this.authService.isLoggedIn();
-    }
-    this.router.navigateByUrl('home/member');
-    return !this.authService.isLoggedIn();
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean | UrlTree> {
+    return this.authService.memberList$.pipe(
+      take(1),
+      map((memberList) => {
+        const isLoggedIn = this.authService.isLoggedIn();
+
+        if (isLoggedIn) {
+          return true;
+        }
+
+        if (memberList && memberList.length > 0) {
+          // Redirect to registration if members exist but not logged in
+          return this.router.createUrlTree(['/member/member-registration']);
+        }
+
+        // Redirect to login page
+        return this.router.createUrlTree(['/home/member']);
+      })
+    );
   }
 }

@@ -1,24 +1,306 @@
+import { SubCommunity } from './../../models/member/community.model';
+import { MemberService } from './../../services/member.service';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, effect } from '@angular/core';
+import { DataProviderService } from '../../services/data-provider.service';
+import { COMMON_DIRECTIVES, FORM_MODULES } from '../common-imports';
+import { NgxSliderModule, Options } from '@angular-slider/ngx-slider';
+import { bodyTypes, Complexion, diet, DrinkHabit, knownLanguages, sectorList, SmokeHabit, willingToRelocate } from '../../helpers/data';
+import { Community, Education, Religion } from '../../models/index.model';
 
 @Component({
   selector: 'app-side-bar',
-  imports: [CommonModule],
+  imports: [CommonModule, COMMON_DIRECTIVES,FORM_MODULES,NgxSliderModule],
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.scss'
 })
 export class SideBarComponent {
-activeIndex: number | null = null;
+  public countryList: any[] = [];
+  public selectedCountry: any;
+  public minAgeValue: number = 18;
+  public maxAgeValue: number = 60;
 
-  items = [
-    { title: 'Country', content: 'Country details...' },
-    { title: 'Community', content: 'Community details...' },
-    { title: 'A third item', content: 'Third item details...' },
-    { title: 'A fourth item', content: 'Fourth item details...' },
-    { title: 'And a fifth one', content: 'Fifth item details...' },
-  ];
+  public minHeightValue: number = 0.5;
+  public maxHeightValue: number = 3;
 
-  toggle(index: number) {
-    this.activeIndex = this.activeIndex === index ? null : index;
+
+  public minWeightValue: number = 25;
+  public maxWeightValue: number = 150;
+
+
+  public ageOptions: Options = {
+    floor: 18,
+    ceil: 60,
+    step: 1
+  };
+
+  public HeightOptions: Options = {
+    floor: 0.5,
+    ceil: 3,
+    step: 0.1
+  };
+
+  public weightOptions: Options = {
+    floor: 25,
+    ceil: 150,
+    step: 0.1
+  };
+
+  public dietList = diet;
+  public drinkHabitList = DrinkHabit;
+  public SmokeHabitList = SmokeHabit;
+  public welcomeRelocateList = willingToRelocate;
+  public bodyTypeList = bodyTypes;
+  public complexionList = Complexion;
+  public religionList:Religion [] = [];
+  public communityList:Community[] = [];
+  public SubCommunityList:SubCommunity[] = [];
+  public knownLanguagesList = knownLanguages;
+  public sectorList = sectorList;
+  public jobTypeList:Education[] = []
+
+  public foodHabit: number[] = [];
+  public drinkHabit: number[] = [];
+  public smokeHabit: number[] = [];
+  public welcomeRelocate: number[] = [];
+  public bodyType: number[] = [];
+  public complexion: number[] = [];
+  public religion: string[] = [];
+  public community: string[] = [];
+  public subCommunity: string[] = [];
+  public knownLanguages: string[] = [];
+  public sector: number[] = [];
+  public jobType:string[] = []
+
+
+  public isLoading:boolean = false;
+
+  constructor( private dataProvider: DataProviderService,private memberService:MemberService){
+    this.countryList = this.dataProvider.getPhoneCode();
+    effect(() => {
+      const userGeoLocationDetails = this.dataProvider.userGeoLocation();
+      const defaultCountryCode = this.countryList.find(
+        (pc: any) => pc.iso === userGeoLocationDetails?.country_code
+      );
+      if (defaultCountryCode) {
+        this.selectedCountry = defaultCountryCode.country;
+
+      }
+    });
   }
+
+  public ngOnInit(): void {
+    this._getReligion();
+    this._getCommunity();
+    this._getJobType();
+
+  }
+
+
+public onDietChange(event: Event) {
+  const checkbox = event.target as HTMLInputElement;
+  const id = +checkbox.value;
+
+  if (checkbox.checked) {
+    if (!this.foodHabit.includes(id)) {
+      this.foodHabit.push(id);
+    }
+  } else {
+    this.foodHabit = this.foodHabit.filter(val => val !== id);
+  }
+}
+
+public onDrinkChange(event: Event) {
+  const checkbox = event.target as HTMLInputElement;
+  const id = +checkbox.value;
+
+  if (checkbox.checked) {
+    if (!this.drinkHabit.includes(id)) {
+      this.drinkHabit.push(id);
+    }
+  } else {
+    this.drinkHabit = this.drinkHabit.filter(val => val !== id);
+  }
+}
+
+public onSmokeChange(event: Event) {
+  const checkbox = event.target as HTMLInputElement;
+  const id = +checkbox.value;
+
+  if (checkbox.checked) {
+    if (!this.smokeHabit.includes(id)) {
+      this.smokeHabit.push(id);
+    }
+  } else {
+    this.smokeHabit = this.smokeHabit.filter(val => val !== id);
+  }
+}
+
+public onRelocateChange(event: Event) {
+  const checkbox = event.target as HTMLInputElement;
+  const id = +checkbox.value;
+
+  if (checkbox.checked) {
+    if (!this.welcomeRelocate.includes(id)) {
+      this.welcomeRelocate.push(id);
+    }
+  } else {
+    this.welcomeRelocate = this.welcomeRelocate.filter(val => val !== id);
+  }
+}
+
+public onBodyTypeChange(event: Event) {
+  const checkbox = event.target as HTMLInputElement;
+  const id = +checkbox.value;
+
+  if (checkbox.checked) {
+    if (!this.bodyType.includes(id)) {
+      this.bodyType.push(id);
+    }
+  } else {
+    this.bodyType = this.bodyType.filter(val => val !== id);
+  }
+}
+
+
+public onComplexionChange(event: Event) {
+  const checkbox = event.target as HTMLInputElement;
+  const id = +checkbox.value;
+
+  if (checkbox.checked) {
+    if (!this.complexion.includes(id)) {
+      this.complexion.push(id);
+    }
+  } else {
+    this.complexion = this.complexion.filter(val => val !== id);
+  }
+}
+
+public onReligionChange(event: Event) {
+  const checkbox = event.target as HTMLInputElement;
+  const id = +checkbox.value;
+
+  if (checkbox.checked) {
+    if (!this.religion.includes(id.toString())) {
+      this.religion.push(id.toString());
+    }
+  } else {
+    this.religion = this.religion.filter(val => val !== id.toString());
+  }
+}
+
+public onCommunityChange(event: Event) {
+  const checkbox = event.target as HTMLInputElement;
+  const id = +checkbox.value;
+
+  if (checkbox.checked) {
+    if (!this.community.includes(id.toString())) {
+      this.community.push(id.toString());
+    }
+  } else {
+    this.community = this.community.filter(val => val !== id.toString());
+  }
+}
+
+public onSubCommunityChange(event: Event) {
+  const checkbox = event.target as HTMLInputElement;
+  const id = +checkbox.value;
+
+  if (checkbox.checked) {
+    if (!this.subCommunity.includes(id.toString())) {
+      this.subCommunity.push(id.toString());
+    }
+  } else {
+    this.subCommunity = this.subCommunity.filter(val => val !== id.toString());
+  }
+}
+
+public onKnowLanguageChange(event: Event) {
+  const checkbox = event.target as HTMLInputElement;
+  const id = +checkbox.value;
+
+  if (checkbox.checked) {
+    if (!this.knownLanguages.includes(id.toString())) {
+      this.knownLanguages.push(id.toString());
+    }
+  } else {
+    this.knownLanguages = this.knownLanguages.filter(val => val !== id.toString());
+  }
+}
+
+public onJobSectorChange(event: Event) {
+  const checkbox = event.target as HTMLInputElement;
+  const id = +checkbox.value;
+
+  if (checkbox.checked) {
+    if (!this.sector.includes(id)) {
+      this.sector.push(id);
+    }
+  } else {
+    this.sector = this.sector.filter(val => val !== id);
+  }
+}
+
+public onJobTypeChange(event: Event) {
+  const checkbox = event.target as HTMLInputElement;
+  const id = +checkbox.value;
+
+  if (checkbox.checked) {
+    if (!this.sector.includes(id)) {
+      this.sector.push(id);
+    }
+  } else {
+    this.sector = this.sector.filter(val => val !== id);
+  }
+}
+
+//========================================= API CALL ======================================#
+ private _getReligion(){
+    this.isLoading = true;
+    this.memberService.getReligion().subscribe({
+      next:(res:Religion[]) => {
+        this.religionList = res;
+      },
+      complete:() => {
+        this.isLoading = false;
+      },
+      error:(error:Error) => {
+        this.isLoading = false;
+      }
+    })
+  }
+
+   private _getCommunity(){
+    this.isLoading = true;
+    this.memberService.getCommunity().subscribe({
+      next:(res:Community[]) => {
+        this.communityList = res;
+        this.SubCommunityList = res[0].subCommunities;
+
+      },
+      complete:() => {
+        this.isLoading = false;
+      },
+      error:(error:Error) => {
+        this.isLoading = false;
+      }
+    })
+  }
+
+   private _getJobType(){
+    this.isLoading = true;
+    this.memberService.getJobType().subscribe({
+      next:(res:Education[]) => {
+        this.jobTypeList = res;
+      },
+      complete:() => {
+        this.isLoading = false;
+      },
+      error:(error:Error) => {
+        this.isLoading = false;
+      }
+    })
+  }
+
+
 }

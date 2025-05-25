@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { DeActiveService } from './middleware/de-active.service';
-import { CanActiveService } from './middleware/can-active.service';
 import { userRoleNames as role } from './helpers/util';
 import { AuthGuardService } from './middleware/auth-guard.service';
+import { CanActivateService } from './middleware/can-active.service';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
@@ -17,7 +17,7 @@ export const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./components/modules/home/home.routing.module').then(m => m.HomeRoutingModules),
-    canActivate:[CanActiveService]
+    canActivate:[CanActivateService]
   },
   {
     path:'member',

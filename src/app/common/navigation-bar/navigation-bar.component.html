@@ -126,12 +126,11 @@
               </div>
               <div class="d-flex p-2 member-card border-radios-15 pointer" (click)="navigateToRegister()" *ngIf="canAddProfile">
                 <div class="small-circle border me-2 pointer position-relative mes" *ngIf="memberProfiles.length > 0" >
-               <i class="fas fa-user-plus fa-lg"></i>
-               </div>
+                  <i class="fas fa-user-plus fa-lg"></i>
+                </div>
                <div class="my-auto">
                   create new member profile
                </div>
-
               </div>
               <div class="my-2 pointer">
                 <button class="btn w-100 my-auto" [ngClass]="canAddProfile ? 'btn-secondary' : ' btn-danger'" (click)="canAddProfile = !canAddProfile">{{canAddProfile ? 'cancel' :'See all members' }}</button>
@@ -139,6 +138,15 @@
 
               <div class="text-md fw-bold ps-2 pb-2" >Settings</div>
             </div>
+
+             <div class="d-flex p-2 member-card border-radios-15 pointer mb-3" (click)="navigateToRegister()" *ngIf="memberProfiles.length === 0">
+                <div class="small-circle border me-2 pointer position-relative mes" >
+                  <i class="fas fa-user-plus fa-lg"></i>
+                </div>
+               <div class="my-auto">
+                  create new member profile
+               </div>
+              </div>
 
             <div class="member-toggle-list " (click)="_authLogout()" >
               <div div class="pointer d-flex p-2">

@@ -1,11 +1,10 @@
 import { AuthService } from './services/auth/auth.service';
 import { DataProviderService } from './services/data-provider.service';
 import { Component } from '@angular/core';
-import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { NavigationBarComponent } from "./common/navigation-bar/navigation-bar.component";
 import { CommonModule } from '@angular/common';
 import { COMMON_DIRECTIVES } from './common/common-imports';
-import { filter } from 'rxjs';
 import { MemberService } from './services/member.service';
 
 @Component({
@@ -16,7 +15,7 @@ import { MemberService } from './services/member.service';
 })
 export class AppComponent {
   title = 'matrimony';
-  public isLogin:boolean = false;
+  public isLogin:boolean = true;
   public isLoading:boolean = false;
   public hideNavProps = false;
   public currentMemberDetails:any;
@@ -27,10 +26,7 @@ export class AppComponent {
      private router: Router,
      private _memberService:MemberService
     ){
-    this._getMemberList();
-    this._authService.authStatus.subscribe(data => {
-      this.isLogin = data;
-    });
+
   }
 
   ngOnInit(): void {
@@ -42,6 +38,13 @@ export class AppComponent {
     // this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
     //   this.hideNavProps = event.urlAfterRedirects.includes('/member/member-registration');
     // });
+
+
+    this._authService.authStatus.subscribe(data => {
+      this.isLogin = data;
+    });
+
+    this._getMemberList();
   }
 
   private _getMemberList(){
@@ -51,14 +54,17 @@ export class AppComponent {
         if(res.length === 0){
           this.hideNavProps = true;
           this._authService.setMemberList(null);
+          this.isLoading =  false;
+         // this.router.navigateByUrl('member/member-registration');
           return;
         }else{
           this._authService.setMemberList(res);
-           this.hideNavProps = false;
+          this.hideNavProps = false;
+          this.isLoading = false;
         }
       },
       complete:() =>{
-        this.isLoading = false;
+
       },
       error:(error:any)=>{
       this.isLoading = false;

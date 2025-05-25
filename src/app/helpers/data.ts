@@ -2288,7 +2288,14 @@ export const BloodGroup = [
   { id: 8, name: "O−" }
 ]
 
+export const willingToRelocate = [
+   { id: 1, name: "Yes" },
+   { id: 2, name: "No" }
+]
 
+export const sectorList = [{id:1, name:'Government'}, {id:2, name:'Private'}];
+
+export const  incomeTypeList = [{id:1, name:'monthly'}, {id:2, name:'yearly'}]
 
 
 

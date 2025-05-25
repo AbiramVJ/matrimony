@@ -1,9 +1,9 @@
-.nav-parent{
+.nav-parent {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 10px;
 }
 
-.logo-svg{
+.logo-svg {
   width: 240px !important;
 }
 
@@ -15,7 +15,6 @@
   color: #007bff !important; /* Bootstrap's primary blue */
 }
 
-
 .circles {
   border-radius: 100%;
   width: 50px;
@@ -26,8 +25,8 @@
   background-color: rgb(219, 213, 213);
 }
 
-.icon-color{
-  color: #1F2937;
+.icon-color {
+  color: #1f2937;
 }
 
 .circles:hover {
@@ -40,49 +39,49 @@
   background-color: rgb(187, 179, 179);
 }
 
-.member-box{
-  .member-name{
+.member-box {
+  .member-name {
     display: flex;
     align-items: center;
   }
 
-  .drop-list{
+  .drop-list {
     background-color: white;
     width: 100%;
-    .member-list-box:hover{
+    .member-list-box:hover {
       background-color: #dce1e7;
     }
   }
-
-
 }
 
-.notification-bandage{
-    border-radius: 100%;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: -7px;
-    right: 0px;
-  }
+.notification-bandage {
+  border-radius: 100%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: -7px;
+  right: 0px;
+}
 
-.message-box{
+.message-box {
   //bottom: -70px;
   top: 70px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 10px;
   width: 100%;
   border-radius: 15px;
- // right: -129px;
+  max-height: 75vh;
+  overflow: auto;
+  // right: -129px;
 }
 .member-select {
   width: 200px; // or 100%, or whatever fits your design
   justify-content: center;
 }
 
-.list-profile{
+.list-profile {
   border-radius: 100%;
   width: 40px;
   height: 40px;
@@ -91,7 +90,7 @@
   justify-content: center;
 }
 
-.small-circle{
+.small-circle {
   width: 40px;
   height: 40px;
   border-radius: 100%;
@@ -101,26 +100,26 @@
   background-color: rgb(219, 213, 213);
 }
 
-.member-toggle-list :hover{
+.member-toggle-list :hover {
   background-color: rgb(235, 235, 235);
   transform: scale(1.04);
-};
+}
 
-
-.register-drop{
+.register-drop {
   top: 70px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 10px;
-  width: 420%;
+  width: 670%;
   right: -7px;
 }
 
-.member-card{
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+.member-card {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }
 
 @media (max-width: 480px) {
-  .circles{
+  .circles {
     width: 40px;
     height: 40px;
   }
@@ -130,18 +129,27 @@
     width: 40px;
     height: 40px;
   }
-  .message-box {
-    top: 70px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    padding: 10px;
-    width: 259%;
-    right: 0px;
-    border-radius: 15px;
-  }
+  // .message-box {
+  //   top: 70px;
+  //   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  //   padding: 10px;
+  //   width: 259%;
+  //   right: 0px;
+  //   border-radius: 15px;
 
-   .logo-svg{
+  // }
+
+  .logo-svg {
     width: 200px !important;
   }
 
+  .message-box::-webkit-scrollbar {
+    width: 4px; /* make scrollbar thinner vertically */
+    height: 4px; /* if horizontal scrollbar */
+  }
 
+  .message-box::-webkit-scrollbar-thumb {
+    background-color: rgba(197, 197, 197, 0.3); /* color of the scroll thumb */
+    border-radius: 3px;
+  }
 }

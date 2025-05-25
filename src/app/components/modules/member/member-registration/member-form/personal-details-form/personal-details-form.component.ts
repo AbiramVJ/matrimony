@@ -47,7 +47,7 @@ export class PersonalDetailsFormComponent {
   public SelectedComplexion = 1;
 
   constructor(private fb:FormBuilder ,private _memberService:MemberService,
-      private toastr: ToastrService){
+    private toastr: ToastrService){
     this._userPersonalInfoFormInit();
   }
 

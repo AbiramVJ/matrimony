@@ -155,7 +155,8 @@ export class LoginComponent implements OnInit {
       complete:()=>{
         this.isLoading = false;
         if(!this.isAgent){
-          this.router.navigateByUrl('home/member');
+           window.location.href = "/";
+        //  this.router.navigateByUrl('home/member');
         }
       },
       error:(error:any) =>{
@@ -261,7 +262,8 @@ export class LoginComponent implements OnInit {
         complete:()=>{
           this.isLoading = false;
           if(!this.isAgent){
-            this.router.navigateByUrl('home/member');
+         //   this.router.navigateByUrl('home/member');
+          window.location.href = "/";
           }
 
         },
@@ -362,7 +364,8 @@ export class LoginComponent implements OnInit {
         complete:()=>{
           this.isLoading = false;
           if(!this.isAgent){
-            this.router.navigateByUrl('home/member');
+             window.location.href = "/";
+           // this.router.navigateByUrl('home/member');
           }
         },
         error:(error:any)=>{
@@ -438,11 +441,13 @@ export class LoginComponent implements OnInit {
       next:(res:any) => {
         if(res.length === 0){
           this.auth.setUserDetails(null);
-          this.router.navigateByUrl('member/member-registration');
+          window.location.href = "/";
+         // this.router.navigateByUrl('member/member-registration');
           return;
         }else{
           this.auth.setUserDetails(res[0].id);
-          this.router.navigateByUrl('home/member');
+           window.location.href = "/";
+        //  this.router.navigateByUrl('home/member');
         }
       },
       complete:() =>{

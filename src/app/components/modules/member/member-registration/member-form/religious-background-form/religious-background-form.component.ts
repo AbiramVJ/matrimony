@@ -43,7 +43,7 @@ export class ReligiousBackgroundFormComponent {
   public selectedSubCommunity:string = '';
 
   constructor(private fb:FormBuilder, private dataProvider:DataProviderService, private memberService:MemberService,
-      private toastr: ToastrService){
+    private toastr: ToastrService){
     this._userReligiousFormInit();
     this.countryList = this.dataProvider.getPhoneCode();
     effect(() => {
@@ -106,10 +106,7 @@ export class ReligiousBackgroundFormComponent {
   );
 
   this.SubCommunityList = selectedCommunity?.subCommunities ?? [];
-}
-
-
-
+  }
 
   private _userReligiousFormInit(){
     this.userReligiousForm = this.fb.group({

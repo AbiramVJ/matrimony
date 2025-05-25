@@ -77,7 +77,8 @@ export class SocialLoginComponent {
         complete:()=>{
           // this.isLoading = false;
           if(!this.isAgent){
-           this._getMemberList();
+          // this._getMemberList();
+           window.location.href = "/";
           }
         },
         error:(error:any) =>{

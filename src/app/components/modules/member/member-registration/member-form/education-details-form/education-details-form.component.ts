@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Education, UserEducationDetails, UserProfile } from '../../../../../../models/index.model';
 import { MemberService } from '../../../../../../services/member.service';
 import { ToastrService } from 'ngx-toastr';
+import { incomeTypeList, sectorList } from '../../../../../../helpers/data';
 
 @Component({
   selector: 'app-education-details-form',
@@ -20,8 +21,8 @@ export class EducationDetailsFormComponent {
   public isLoading: boolean = false;
 
   public educationList:Education[] = [];
-  public sectorList = [{id:1, name:'Government'}, {id:2, name:'Private'}];
-  public incomeTypeList = [{id:1, name:'monthly'}, {id:2, name:'yearly'}]
+  public sectorList = sectorList;
+  public incomeTypeList = incomeTypeList
 
   public currencies = [
     {id:1, label: '₹ (INR)', value: 'INR' },
