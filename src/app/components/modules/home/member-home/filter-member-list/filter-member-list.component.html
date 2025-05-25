@@ -1,0 +1,48 @@
+<div class="row" *ngIf="memberProfiles.length === 0">
+  <div class="col-6 ">
+    <div class="m-shadow p-2">
+      <div class="row">
+        <div class="col-4">
+          <div class="profile-img me-2">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2Ku57hHBcfOoQSu-_zNOtaao0V-MaY6MsEw&s" alt="pf" class="object-fit-cover border rounded" width="150px" height="150px">
+        </div>
+        </div>
+        <div class="col-4 ">
+
+          <div class="text-md fw-bold text-muted"> Vijayakumar Abiram </div>
+          <div class="mt-1 text-sm"><i class="fas fa-briefcase text-primary me-2"></i>Software Engineer</div>
+          <div class="mt-1 text-sm"><i class="fas fa-map-marker-alt me-2 text-danger"></i>Srilanka</div>
+          <div class="mt-1 text-sm"><i class="fas fa-user-clock me-2 text-secondary"></i>25 years old</div>
+          <div class="mt-1 text-sm"><i class="fas fa-language me-2 text-info"></i>Tamil,english</div>
+          <div class="mt-1 text-sm"><i class="fas fa-star me-2 text-warning"></i>Ashvini</div>
+
+        </div>
+
+        <div class="col-4 mt-auto">
+           <div class="d-flex align-items-end mt-auto">
+          <div class="ms-2 d-flex justify-content-between">
+            <div class="me-2">
+              <button class="btn btn-primary"><i class="fas fa-comment-dots text-white"></i></button>
+            </div>
+            <div>
+              <button class="btn btn-danger">view more</button>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="d-flex justify-content-center align-items-center m-shadow empty-card" *ngIf="memberProfiles.length !== 0">
+  <div class="text-center">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSadlux1273cB0AkVXr679QPJmLVpbL_BENSg&s" alt="pf" class="object-fit-cover rounded" width="350px" height="350px">
+     <div class="text-lg fw-bold text-muted">No matching profiles found</div>
+    <div class="text-sm text-muted">Please adjust your filters and try again you'll likely find profiles that better match your criteria.</div>
+
+  </div>
+</div>
+

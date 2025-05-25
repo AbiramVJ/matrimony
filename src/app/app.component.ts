@@ -15,9 +15,10 @@ import { MemberService } from './services/member.service';
 })
 export class AppComponent {
   title = 'matrimony';
-  public isLogin:boolean = true;
-  public isLoading:boolean = false;
+  public isLogin:boolean = false;
+  public isLoading:boolean = true;
   public hideNavProps = false;
+  public isCanRenderSideBar:boolean = false;
   public currentMemberDetails:any;
 
   constructor(
@@ -54,12 +55,21 @@ export class AppComponent {
         if(res.length === 0){
           this.hideNavProps = true;
           this._authService.setMemberList(null);
+          this._authService.setUserDetails(null);
           this.isLoading =  false;
-         // this.router.navigateByUrl('member/member-registration');
+          this.router.navigateByUrl('member/member-registration');
           return;
         }else{
           this._authService.setMemberList(res);
           this.hideNavProps = false;
+          const currentMemberId = localStorage.getItem('currentMemberId');
+          if(currentMemberId){
+            const member = res.find((member:any) => member.id === currentMemberId);
+            this._authService.setUserDetails(member);
+          }else{
+            localStorage.setItem('currentMemberId',res[0].id);
+            this._authService.setUserDetails(res[0]);
+          }
           this.isLoading = false;
         }
       },

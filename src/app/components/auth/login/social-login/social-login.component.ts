@@ -77,8 +77,10 @@ export class SocialLoginComponent {
         complete:()=>{
           // this.isLoading = false;
           if(!this.isAgent){
-          // this._getMemberList();
-           window.location.href = "/";
+          // this._getMemberLi();
+         //this._getMemberList();
+         window.location.href = "/";
+
           }
         },
         error:(error:any) =>{
@@ -109,11 +111,15 @@ private _getMemberList(){
       next:(res:any) => {
        if(res.length === 0){
           this.auth.setMemberList(null);
-          this.router.navigateByUrl('member/member-registration');
+          localStorage.removeItem('currentMember');
+          window.location.href = "/";
           return;
         }else{
           this.auth.setMemberList(res);
-          this.router.navigateByUrl('home/member');
+          this.auth.setUserDetails(res[0]);
+          localStorage.setItem('currentMember',res[0].id);
+          window.location.href = "/";
+        //  this.router.navigateByUrl('home/member');
         }
       },
       complete:() =>{

@@ -5,7 +5,7 @@ import { Component, effect } from '@angular/core';
 import { DataProviderService } from '../../services/data-provider.service';
 import { COMMON_DIRECTIVES, FORM_MODULES } from '../common-imports';
 import { NgxSliderModule, Options } from '@angular-slider/ngx-slider';
-import { bodyTypes, Complexion, diet, DrinkHabit, knownLanguages, sectorList, SmokeHabit, willingToRelocate } from '../../helpers/data';
+import { bodyTypes, Complexion, diet, DrinkHabit, knownLanguages, Natshathira, raasiList, sectorList, SmokeHabit, willingToRelocate } from '../../helpers/data';
 import { Community, Education, Religion } from '../../models/index.model';
 
 @Component({
@@ -27,6 +27,9 @@ export class SideBarComponent {
   public minWeightValue: number = 25;
   public maxWeightValue: number = 150;
 
+  public minSalaryValue: number = 0;
+  public maxSalaryValue: number = 1000000;
+
 
   public ageOptions: Options = {
     floor: 18,
@@ -46,18 +49,27 @@ export class SideBarComponent {
     step: 0.1
   };
 
+    public salaryOptions: Options = {
+    floor: 0,
+    ceil: 1000000,
+    step: 10000
+  };
+
   public dietList = diet;
   public drinkHabitList = DrinkHabit;
   public SmokeHabitList = SmokeHabit;
   public welcomeRelocateList = willingToRelocate;
   public bodyTypeList = bodyTypes;
   public complexionList = Complexion;
+  public natshathiraList = Natshathira;
   public religionList:Religion [] = [];
   public communityList:Community[] = [];
   public SubCommunityList:SubCommunity[] = [];
   public knownLanguagesList = knownLanguages;
   public sectorList = sectorList;
   public jobTypeList:Education[] = []
+  public educationList:Education[] = [];
+  public rasiList = raasiList;
 
   public foodHabit: number[] = [];
   public drinkHabit: number[] = [];
@@ -65,12 +77,16 @@ export class SideBarComponent {
   public welcomeRelocate: number[] = [];
   public bodyType: number[] = [];
   public complexion: number[] = [];
+  public natshathira: number[] = [];
   public religion: string[] = [];
   public community: string[] = [];
   public subCommunity: string[] = [];
   public knownLanguages: string[] = [];
   public sector: number[] = [];
-  public jobType:string[] = []
+  public jobType:string[] = [];
+  public education:string[] = [];
+  public rasi:number[] = [];
+
 
 
   public isLoading:boolean = false;
@@ -93,7 +109,15 @@ export class SideBarComponent {
     this._getReligion();
     this._getCommunity();
     this._getJobType();
+    this._getEducationQualification();
 
+  }
+
+  ngAfterViewInit(){
+    let deleteModal: HTMLElement = document.getElementById('default-coll') as HTMLElement;
+    if(deleteModal){
+      deleteModal.click();
+    }
   }
 
 
@@ -254,6 +278,44 @@ public onJobTypeChange(event: Event) {
   }
 }
 
+public onEducationChange(event: Event) {
+  const checkbox = event.target as HTMLInputElement;
+  const id = +checkbox.value;
+
+  if (checkbox.checked) {
+    if (!this.education.includes(id.toString())) {
+      this.education.push(id.toString());
+    }
+  } else {
+    this.education = this.education.filter(val => val !== id.toString());
+  }
+}
+
+public onNatsathiraChange(event: Event) {
+  const checkbox = event.target as HTMLInputElement;
+  const id = +checkbox.value;
+
+  if (checkbox.checked) {
+    if (!this.natshathira.includes(id)) {
+      this.natshathira.push(id);
+    }
+  } else {
+    this.natshathira = this.natshathira.filter(val => val !== id);
+  }
+}
+
+public onRasiChange(event: Event) {
+  const checkbox = event.target as HTMLInputElement;
+  const id = +checkbox.value;
+
+  if (checkbox.checked) {
+    if (!this.rasi.includes(id)) {
+      this.rasi.push(id);
+    }
+  } else {
+    this.rasi = this.rasi.filter(val => val !== id);
+  }
+}
 //========================================= API CALL ======================================#
  private _getReligion(){
     this.isLoading = true;
@@ -292,6 +354,22 @@ public onJobTypeChange(event: Event) {
     this.memberService.getJobType().subscribe({
       next:(res:Education[]) => {
         this.jobTypeList = res;
+      },
+      complete:() => {
+        this.isLoading = false;
+      },
+      error:(error:Error) => {
+        this.isLoading = false;
+      }
+    })
+  }
+
+  private _getEducationQualification(){
+    this.isLoading = true;
+    this.memberService.getEducationQualification().subscribe({
+      next:(res:Education[]) => {
+        this.educationList = res;
+
       },
       complete:() => {
         this.isLoading = false;

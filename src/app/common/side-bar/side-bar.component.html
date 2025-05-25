@@ -6,7 +6,7 @@
   <ul class="list-group">
 
     <!-- Basic Info -->
-    <li class="list-group-item pointer fw-bold" data-bs-toggle="collapse" data-bs-target="#filterBasic"> <i class="fas fa-user me-2 text-primary"></i>Basic Info</li>
+    <li class="list-group-item pointer fw-bold" data-bs-toggle="collapse" data-bs-target="#filterBasic" id="default-coll"> <i class="fas fa-user me-2 text-primary"></i>Basic Info</li>
     <div class="collapse" id="filterBasic">
       <div class="card card-body">
 
@@ -341,11 +341,38 @@
 
         <div class="mt-3">
           <label class="fw-500">Education Qualifications</label>
+          <div class="form-check mt-2" *ngFor="let ed of educationList">
+            <input
+              class="form-check-input small-check"
+              type="checkbox"
+              [id]="'ed_' + ed.id"
+              [value]="ed.id"
+              (change)="onEducationChange($event)"
+              [checked]="education.includes(ed.id)"
+            >
+            <label class="form-check-label ms-2 text-sm" [for]="'ed_' + ed.id">
+              {{ ed.name }}
+            </label>
+          </div>
         </div>
-
 
         <div class="mt-3">
            <label class="fw-500">Salary</label>
+            <div class="row mt-2">
+              <div class="col-6">
+                <div class="text-sm">Min</div>
+                <input id="minAge" type="number" class="form-control" [(ngModel)]="minSalaryValue" disabled="">
+              </div>
+              <div class="col-6">
+                <div class="text-sm">Max</div>
+                <input id="minAge" type="number" class="form-control" [(ngModel)]="maxSalaryValue" disabled="">
+              </div>
+            </div>
+            <ngx-slider
+            [(value)]="minSalaryValue"
+            [(highValue)]="maxSalaryValue"
+            [options]="salaryOptions">
+        </ngx-slider>
         </div>
 
         <!-- currencyCode + min/max salary inputs -->
@@ -356,9 +383,38 @@
     <li class="list-group-item pointer fw-bold" data-bs-toggle="collapse" data-bs-target="#filterAstro"><i class="fas fa-star me-2 text-warning"></i>Astrology</li>
     <div class="collapse" id="filterAstro">
       <div class="card card-body">
-        <label>Nakshathiram</label>
-
-        <label>Raasi</label>
+        <div class="mt-3">
+          <label class="fw-500" >Nakshathiram</label>
+          <div class="form-check mt-2" *ngFor="let nt of natshathiraList">
+            <input
+              class="form-check-input small-check"
+              type="checkbox"
+              [id]="'ed_' + nt.id"
+              [value]="nt.id"
+              (change)="onNatsathiraChange($event)"
+              [checked]="natshathira.includes(nt.id)"
+            >
+            <label class="form-check-label ms-2 text-sm" [for]="'ed_' + nt.id">
+              {{ nt.name }}
+            </label>
+          </div>
+        </div>
+        <div class="mt-3">
+          <label class="fw-500" >Raasi</label>
+          <div class="form-check mt-2" *ngFor="let ra of rasiList">
+            <input
+              class="form-check-input small-check"
+              type="checkbox"
+              [id]="'ed_' + ra.id"
+              [value]="ra.id"
+              (change)="onRasiChange($event)"
+              [checked]="rasi.includes(ra.id)"
+            >
+            <label class="form-check-label ms-2 text-sm" [for]="'ed_' + ra.id">
+              {{ ra.name }}
+            </label>
+          </div>
+        </div>
       </div>
     </div>
 

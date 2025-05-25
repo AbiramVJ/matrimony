@@ -2,7 +2,7 @@ import { ROUTER_MODULES } from './../common-imports';
 import { SocialLoginService } from './../../services/auth/social-login.service';
 import { AuthService } from './../../services/auth/auth.service';
 import { MemberService } from './../../services/member.service';
-import { Component, ElementRef, HostListener, Input } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, Output, output } from '@angular/core';
 import { COMMON_DIRECTIVES, FORM_MODULES } from '../common-imports';
 import { CommonModule } from '@angular/common';
 
@@ -27,7 +27,7 @@ export class NavigationBarComponent {
   public isMessageOpen = false;
   public isProfileOpen = false;
   public isNotificationOpen = false;
-  public selectedMember :string= '';
+  public selectedMember!:UserProfile;
   public memberProfiles:UserProfile[] = [];
   public loginUserDetails:any;
 
@@ -38,8 +38,7 @@ export class NavigationBarComponent {
     private _authService:AuthService,
     private _socialLoginService:SocialLoginService
   ){
-  this._getMemberProfiles();
-  this._getLoginUserDetails();
+
   }
  @HostListener('document:click', ['$event'])
   handleClickOutside(event: MouseEvent) {
@@ -59,6 +58,9 @@ export class NavigationBarComponent {
   }
 
   ngOnInit(): void {
+    this._getMemberProfiles();
+    this._getLoginUserDetails();
+    this._getCurrentMember();
   }
 
   toggleDropdown(type: 'message' | 'notification' | 'profile'): void {
@@ -81,25 +83,20 @@ export class NavigationBarComponent {
 
 
   private _getMemberProfiles(){
-    // this.isLoading = true;
-    // this._memberService.getProfiles().subscribe({
-    //   next:(res:any) => {
-    //     this.memberProfiles = res;
-    //     this.selectedMember = res[0].id;
-    //   },
-    //   complete:() => {
-    //     this.isLoading = false;
-    //   },
-    //   error:(error:any) => {
-    //     this.isLoading = false;
-    //     this._toastr.error(error.error.Error.Detail,error.error.Error.Title);
-    //   }
-    // })
 
      this._authService.memberList$.subscribe(data => {
       if(data){
         this.memberProfiles = data;
-        this.selectedMember = data[0].id;
+      }
+    })
+  }
+
+  private _getCurrentMember(){
+  this._authService.member$.subscribe(data => {
+    console.log(data);
+
+      if(data){
+        this.selectedMember = data;
       }
     })
   }
@@ -120,17 +117,25 @@ export class NavigationBarComponent {
    _authLogout() {
     this._authService.removeAuthToken();
     this._socialLoginService.signOut();
-    window.location.href = "/";
     localStorage.removeItem('token');
     localStorage.removeItem('userType');
     localStorage.removeItem('clientId');
+     localStorage.removeItem('currentMemberId');
     this._authService.setUserDetails(null);
+    window.location.href = "/";
+
   }
 
   navigateToRegister(){
     this.isProfileOpen = false;
     this.canAddProfile = false;
     this.router.navigateByUrl('member/member-registration');
+  }
+
+  public changeMemberProfile(id:string){
+    localStorage.removeItem('currentMemberId');
+    localStorage.setItem('currentMemberId',id);
+    window.location.href = "/";
   }
 
 }

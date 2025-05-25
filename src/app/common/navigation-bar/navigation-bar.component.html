@@ -2,8 +2,9 @@
   <div class="col-12 p-0">
     <div class="nav-parent">
       <div class="d-flex justify-content-between">
-        <div class="my-auto">
-            <img src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png" alt="logo" class="logo-svg" >
+        <div class="my-auto d-flex">
+            <img class="me-2" src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png" alt="logo" class="logo-svg" >
+
         </div>
 
         <!-- TAP BAR -->
@@ -41,44 +42,10 @@
         <div class="me-2 position-relative">
           <div class="d-flex">
             <div class="mt-2 me-3 member d-none d-sm-block" *ngIf="!isLoading && memberProfiles.length > 0">
-              <ng-select
-              class="member-select"
-              [items]="memberProfiles"
-              [disabled]="true"
-              bindLabel="name"
-              bindValue="id"
-              [ngModelOptions]="{standalone: true}"
-              [clearable]="false"
-              [searchable]="false"
-              [(ngModel)]="selectedMember"
-              (ngModelChange)="changeMember()"
-              >
-
-              <!-- Label template -->
-              <ng-template ng-label-tmp let-item="item">
-                <div class="d-flex" >
-                  <div class="me-2">
-                    <img [src]="item.profileImages[0].url" alt="" width="30px">
-                  </div>
-                  <div>
-                    {{item.firstName}}
-                  </div>
-
-                </div>
-              </ng-template>
-              <!-- Option template -->
-              <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
-                <div class="d-flex justify-content-between">
-                  <div class="d-flex">
-                    <img [src]="item.profileImages[0].url" alt="" width="30px" class="me-2">
-                      <div class="me-3">
-                    {{item.firstName}}
-                    </div>
-                  </div>
-                  <div class="text-primary text-xs" (click)="viewMemberProfile(item.id)">view</div>
-                </div>
-              </ng-template>
-            </ng-select>
+              <div class="d-flex">
+                <img class="object-fit-cover me-2" src={{selectedMember.profileImages[0].url}} alt="profile" width="40px" height="40px">
+                <div class="my-auto fw-bold text-sm">{{selectedMember.firstName + ' ' + selectedMember.lastName}}</div>
+              </div>
             </div>
             <!-- MESSAGE -->
             <div class="circles border me-2 pointer position-relative mes" (click)="toggleDropdown('message')" *ngIf="memberProfiles.length > 0" >
@@ -115,7 +82,7 @@
             <div class="text-sm" *ngIf="memberProfiles.length > 0">
               <div class="text-md fw-bold my-auto ps-2 pb-2">Members</div>
               <div class="member-toggle-list pointer"  *ngFor="let p of memberProfiles">
-                <div class="d-flex p-2 member-card border-radios-15">
+                <div class="d-flex p-2 member-card border-radios-15" (click)="changeMemberProfile(p.id)">
                   <div class="me-3">
                     <img [src]="p.profileImages[0].url" class="list-profile object-fit-cover" alt="...">
                   </div>
