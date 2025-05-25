@@ -81,6 +81,10 @@ export class NavigationBarComponent {
   }
 }
 
+get displayedProfiles() {
+  return this.canAddProfile ? this.memberProfiles : this.memberProfiles.slice(0, 3);
+}
+
 
   private _getMemberProfiles(){
 
