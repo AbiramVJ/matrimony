@@ -1,18 +1,3 @@
-// .bg-color{
-//   background-color: #d2d5da;
-//   background-size: cover;
-//   height: auto;
-// }
-
-.bg-small{
-  background-color: #f2f4f7;
-  background-size: cover;
-  height: 110vh;
-}
-
-::ng-deep .progress, .progress-stacked {
-  height: 7px !important;
-}
 .loading-overlay {
   position: fixed;
   top: 0;

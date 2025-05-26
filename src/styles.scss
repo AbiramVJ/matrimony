@@ -5,11 +5,11 @@ html, body {
 }
 .content{
   padding-top: 80px;
-  background-color: #d2d5da;
+  background-color: #f2f4f7;
 }
 
 .bg-color{
-  background-color: #d2d5da;
+  background-color: #f2f4f7;
 }
 .bg-image{
   background-image: linear-gradient(to bottom right, #111827, #1F2937);
@@ -21,7 +21,7 @@ html, body {
   background-image: url('./app/helpers/svg/background.svg');
   background-repeat: no-repeat;
   background-size: cover;
-  height: 130vh;
+  min-height: 110vh;
 }
 
 .pointer{

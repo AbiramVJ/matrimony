@@ -32,7 +32,11 @@ export class ProfileSelectionComponent {
 
   ngOnInit(): void {
    this._getMemberProfiles();
+  this.scrollToTop();
+  }
 
+  private scrollToTop(): void {
+   window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   _authLogout() {

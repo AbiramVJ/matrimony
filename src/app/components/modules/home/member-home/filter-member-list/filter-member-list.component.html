@@ -1,9 +1,9 @@
 <div class="bg-danger text-white m-shadow p-3 mb-4">
-  <div class="text-md fw-bold">Matching Profile</div>
-  <div class="text-sm">Browse the profile below to learn more about their background and experience.</div>
+  <div class="text-lg fw-bold">Matching Profile</div>
+  <div class="text-md">Browse the profile below to learn more about their background and experience.</div>
 </div>
-<div class="text-lg fw-bold text-muted py-2">{{totalItemCount}} matching profiles</div>
-<div class="row m-0 member-list bg-white">
+<div class="text-lg fw-bold text-muted p-2">{{totalItemCount}} matching profiles</div>
+<div class="row m-0 member-list">
   <div class="d-flex justify-content-center my-auto" *ngIf="isLoading">
     <div class="spinner-grow text-danger me-1" role="status">
       <span class="visually-hidden">Loading...</span>
@@ -20,17 +20,16 @@
       <div class="row">
         <div class="col-4">
           <div class="profile-img me-2">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2Ku57hHBcfOoQSu-_zNOtaao0V-MaY6MsEw&s" alt="pf" class="object-fit-cover border rounded" width="150px" height="150px">
+          <img src="{{member.profileImages[0].url}}" alt="pf" class="object-fit-cover border rounded" width="150px" height="150px">
         </div>
         </div>
         <div class="col-4 ">
-
-          <div class="text-md fw-bold text-muted"> Vijayakumar Abiram </div>
-          <div class="mt-1 text-sm"><i class="fas fa-briefcase text-primary me-2"></i>Software Engineer</div>
-          <div class="mt-1 text-sm"><i class="fas fa-map-marker-alt me-2 text-danger"></i>Srilanka</div>
-          <div class="mt-1 text-sm"><i class="fas fa-user-clock me-2 text-secondary"></i>25 years old</div>
-          <div class="mt-1 text-sm"><i class="fas fa-language me-2 text-info"></i>Tamil,english</div>
-          <div class="mt-1 text-sm"><i class="fas fa-star me-2 text-warning"></i>Ashvini</div>
+          <div class="text-md fw-bold text-muted text-truncate">{{member.firstName + ' ' + member.lastName}} </div>
+          <div class="mt-1 text-sm text-truncate"><i class="fas fa-briefcase text-primary me-2"></i>{{member.profileJob.title}}</div>
+          <div class="mt-1 text-sm"><i class="fas fa-map-marker-alt me-2 text-danger"></i>{{member.originCountry}}</div>
+          <div class="mt-1 text-sm"><i class="fas fa-user-clock me-2 text-secondary"></i>{{member.age}} years old</div>
+          <div class="mt-1 text-sm text-truncate"><i class="fas fa-language me-2 text-info"></i>{{member.knownLanguages}}</div>
+          <div class="mt-1 text-sm"><i class="fas fa-star me-2 text-warning"></i>{{'API'}}</div>
 
         </div>
 
@@ -54,7 +53,7 @@
   </div>
 
 
-  <div class="text-center" *ngIf="memberProfiles.length === 0 && !isLoading">
+  <div class="text-center bg-white rounded" *ngIf="memberProfiles.length === 0 && !isLoading">
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSadlux1273cB0AkVXr679QPJmLVpbL_BENSg&s" alt="pf" class="object-fit-cover rounded" width="350px" height="250px">
     <div class="text-lg fw-bold text-muted">No matching profiles found</div>
     <div class="text-sm text-muted">Please adjust your filters and try again you'll likely find profiles that better match your criteria.</div>

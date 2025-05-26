@@ -13,11 +13,12 @@ import { ReligiousBackgroundFormComponent } from "./religious-background-form/re
 import { EducationDetailsFormComponent } from "./education-details-form/education-details-form.component";
 import { LookingForFormComponent } from "./looking-for-form/looking-for-form.component";
 import { ToastrService } from 'ngx-toastr';
+import { LoadingComponent } from "../../../../../common/loading/loading.component";
 
 
 @Component({
   selector: 'app-member-form',
-  imports: [MemberProfileFormComponent, COMMON_DIRECTIVES, ContactInfoFormComponent, PersonalDetailsFormComponent, FamilyInformationFormComponent, ReligiousBackgroundFormComponent, EducationDetailsFormComponent, LookingForFormComponent],
+  imports: [MemberProfileFormComponent, COMMON_DIRECTIVES, ContactInfoFormComponent, PersonalDetailsFormComponent, FamilyInformationFormComponent, ReligiousBackgroundFormComponent, EducationDetailsFormComponent, LookingForFormComponent, LoadingComponent],
   templateUrl: './member-form.component.html',
   styleUrl: './member-form.component.scss'
 })
@@ -105,7 +106,7 @@ export class MemberFormComponent {
 
   public goBack(){
     if(this.currentStep === this.steps.lookingFor){
-      this.route.navigateByUrl('home/member');
+     this.isEditFlow ? this.route.navigateByUrl('member/profiles') : this.route.navigateByUrl('home/member');
       return;
     }else if(this.currentStep === this.steps.basic){
       this.currentStep = this.steps.lookingFor;

@@ -44,6 +44,10 @@ export class EducationDetailsFormComponent {
   ngOnInit(): void {
     this._getEducationQualification();
     this._getJobType();
+    this.scrollToTop();
+  }
+  private scrollToTop(): void {
+   window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   public educationFormInit(){

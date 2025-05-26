@@ -68,7 +68,9 @@ export class ContactInfoFormComponent {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.scrollToTop();
+  }
 
   private _userContactFromInit() {
     this.userContactFrom = this.fb.group({
@@ -255,4 +257,8 @@ export class ContactInfoFormComponent {
     );
     this.setPhoneNumber = Number(phoneNumber[1]);
   }
+
+  private scrollToTop(): void {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 }

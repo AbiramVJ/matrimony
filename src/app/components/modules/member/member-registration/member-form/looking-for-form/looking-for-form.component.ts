@@ -45,6 +45,14 @@ export class LookingForFormComponent {
       }
     });
   }
+
+  ngOnInit(): void {
+    this.scrollToTop();
+  }
+
+   private scrollToTop(): void {
+     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
   private _matchingProfileFormInit(){
     this.profileMatchingForm = this._fb.group({
       gender:[1],

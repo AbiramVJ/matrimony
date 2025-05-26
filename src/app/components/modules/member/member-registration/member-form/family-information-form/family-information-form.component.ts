@@ -22,7 +22,7 @@ export class FamilyInformationFormComponent {
   public familyTypeList = familyTypeList;
   public selectedFamily:number = 0;
   constructor(private fb:FormBuilder, private _memberService:MemberService,
-        private toastr: ToastrService){
+    private toastr: ToastrService){
     this._userFamilyInfoFormInit();
   }
 

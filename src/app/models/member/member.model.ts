@@ -176,6 +176,7 @@ export class UserProfile {
   profileAddresses: ProfileAddress[];
   profileEducations: ProfileEducation[];
   phoneCode:string;
+  age:number;
 
   constructor(obj: any = {}) {
     this.id = obj?.id ?? '';
@@ -215,5 +216,6 @@ export class UserProfile {
     this.profileAddresses = (obj?.profileAddresses ?? []).map((a: any) => new ProfileAddress(a));
     this.profileEducations = (obj?.profileEducations ?? []).map((e: any) => new ProfileEducation(e));
     this.phoneCode = obj.phoneCode ?? '';
+    this.age = obj.age ?? 0;
   }
 }

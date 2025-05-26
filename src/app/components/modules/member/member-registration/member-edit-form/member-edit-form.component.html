@@ -13,21 +13,26 @@
           </div>
       </div>
       <div class="bg-color ">
-        <div class="col-12 col-sm-10 col-md-8 col-lg-10 mx-auto mt-3 mb-5">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-10 mx-auto mt-3 mb-5" *ngIf="!isLoading">
           <div class="row ">
             <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto">
               <div div class="m-shadow p-3 profile-card pointer mt-5">
-                <div class="text-center text-md fw-bold">
-                  <div class="" *ngIf="currentStep  === steps.lookingFor">{{'Matching' | uppercase }}</div>
-                  <div class="" *ngIf="currentStep === steps.basic" >{{"Personal Information"  | uppercase}}</div>
-                  <div class="" *ngIf="currentStep === steps.contact">{{"Contact Details" | uppercase }}</div>
-                  <div class="" *ngIf="currentStep === steps.personal">{{"Personal Details" | uppercase}}</div>
-                  <div class="" *ngIf="currentStep === steps.family">{{"Family Information" | uppercase}}</div>
-                  <div class="" *ngIf="currentStep === steps.religionBackground" >{{"Religious Background" | uppercase}}</div>
-                  <div class="" *ngIf="currentStep === steps.education" >{{"Education & Career" | uppercase}}</div>
-                </div>
+              <div class="d-flex justify-content-between">
+                  <i class="fas fa-arrow-left fs-5 mt-2 text-danger" (click)="goBack()" ></i>
+                  <div class="text-center text-md fw-bold">
+                    <div class="" *ngIf="currentStep  === steps.lookingFor">{{'Matching' | uppercase }}</div>
+                    <div class="" *ngIf="currentStep === steps.basic" >{{"Personal Information"  | uppercase}}</div>
+                    <div class="" *ngIf="currentStep === steps.contact">{{"Contact Details" | uppercase }}</div>
+                    <div class="" *ngIf="currentStep === steps.personal">{{"Personal Details" | uppercase}}</div>
+                    <div class="" *ngIf="currentStep === steps.family">{{"Family Information" | uppercase}}</div>
+                    <div class="" *ngIf="currentStep === steps.religionBackground" >{{"Religious Background" | uppercase}}</div>
+                    <div class="" *ngIf="currentStep === steps.education" >{{"Education & Career" | uppercase}}</div>
+                  </div>
+                  <div></div>
+              </div>
 
-              <div class="px-2"  *ngIf="!isLoading">
+
+              <div class="px-2"  >
                 <div class="mt-4" [ngClass]="{'d-none' :currentStep  !==steps.lookingFor}">
                   <app-looking-for-form  [isEditFrom]="true" [memberProfile]="memberProfile"></app-looking-for-form>
                 </div>
@@ -50,21 +55,12 @@
                   <app-education-details-form   [isEditFrom]="true" [memberProfile]="memberProfile" ></app-education-details-form>
                 </div>
               </div>
-              <div class="d-flex justify-content-center mt-5" *ngIf="isLoading">
-                <div class="spinner-grow text-danger me-1" role="status">
-                  <span class="visually-hidden">Loading...</span>
-                </div>
-                <div class="spinner-grow text-warning me-1" role="status">
-                  <span class="visually-hidden">Loading...</span>
-                </div>
-                <div class="spinner-grow text-danger" role="status">
-                  <span class="visually-hidden">Loading...</span>
-                </div>
-              </div>
+
             </div>
             </div>
           </div>
       </div>
+       <app-loading *ngIf="isLoading" ></app-loading>
       </div>
 
     </div>

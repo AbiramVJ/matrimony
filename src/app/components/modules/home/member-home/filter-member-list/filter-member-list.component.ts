@@ -16,7 +16,7 @@ export class FilterMemberListComponent {
   public memberProfiles:UserProfile[] = [];
   public currentsUser!:UserProfile;
   public totalItemCount: number = 0;
-  public itemsPerPage: number = 2;
+  public itemsPerPage: number = 10;
   public currentPage: number = 1;
   public isLoading:boolean = false;
   public filter:any;
@@ -33,6 +33,11 @@ export class FilterMemberListComponent {
       this.getAllMatchingProfiles();
     }
   });
+  // this.auth.memberList$.subscribe(data => {
+  //     if(data){
+  //       this.memberProfiles = data;
+  //     }
+  //   })
   }
     public changePerPageValue(pageNumber: number) {
     if (pageNumber != 0 && pageNumber != null) {
@@ -41,7 +46,6 @@ export class FilterMemberListComponent {
       this.getAllMatchingProfiles();
     }
   }
-
 
   public pageChanged(event: any) {
     this.currentPage = event;

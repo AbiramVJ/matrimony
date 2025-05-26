@@ -10,8 +10,44 @@
                   <!-- <app-top-bar></app-top-bar> -->
                   <div class="row mt-4">
                     <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto">
+                     <div class="bg-danger text-white m-shadow p-3 mb-3">
+                      <div *ngIf="currentStep === steps.lookingFor">
+                        <div class="text-md fw-bold">Profile Matching Criteria</div>
+                        <div class="text-sm">The following information is used to match user profiles based on preferences.</div>
+                      </div>
+                      <div *ngIf="currentStep === steps.basic">
+                        <div class="text-md fw-bold">Personal Information</div>
+                        <div class="text-sm">Please provide your basic personal details to get started.</div>
+                      </div>
+                      <div *ngIf="currentStep === steps.contact">
+                        <div class="text-md fw-bold">Contact Details</div>
+                        <div class="text-sm">These details help your matched connections reach out to you.</div>
+                      </div>
+
+                      <div *ngIf="currentStep === steps.personal">
+                        <div class="text-md fw-bold">Personal Details</div>
+                        <div class="text-sm">These details describe your lifestyle and can help you connect with like-minded individuals.</div>
+                      </div>
+
+                      <div *ngIf="currentStep === steps.family">
+                        <div class="text-md fw-bold">Family Information</div>
+                        <div class="text-sm">This information helps match profiles based on family background and values.</div>
+                      </div>
+                     <div *ngIf="currentStep === steps.religionBackground">
+                      <div class="text-md fw-bold">Religious Background</div>
+                      <div class="text-sm">
+                        This information, helps find matches that align with your religious and cultural beliefs.
+                      </div>
+                    </div>
+                     <div *ngIf="currentStep === steps.education">
+                      <div class="text-md fw-bold">Education & Career</div>
+                      <div class="text-sm">
+                        Your education and career details help match profiles with similar professional and academic backgrounds.
+                      </div>
+                    </div>
+                     </div>
                       <div class="m-shadow p-3 profile-card pointer">
-                        <div class="px-2">
+                        <div class="px-2" >
                           <div class="d-flex justify-content-between">
                             <i class="fas fa-arrow-left fs-5 mt-2 text-danger" (click)="goBack()" ></i>
                             <div class="text-xl fw-bold text-center fs-4">USER REGISTRATION</div>
@@ -54,6 +90,7 @@
                             <app-education-details-form (userEducationEmitter)="getEducationDetails($event)"></app-education-details-form>
                           </div>
                         </div>
+                        <app-loading *ngIf="isLoading"></app-loading>
                       </div>
                     </div>
                   </div>
