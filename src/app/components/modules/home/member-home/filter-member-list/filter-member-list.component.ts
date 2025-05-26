@@ -5,6 +5,7 @@ import { COMMON_DIRECTIVES, FORM_MODULES } from '../../../../../common/common-im
 import { CommonModule } from '@angular/common';
 import { UserProfile } from '../../../../../models/index.model';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-filter-member-list',
   imports: [FORM_MODULES,COMMON_DIRECTIVES, CommonModule,NgxPaginationModule],
@@ -20,7 +21,7 @@ export class FilterMemberListComponent {
   public isLoading:boolean = false;
   public filter:any;
 
-  constructor(private auth:AuthService, private memberService:MemberService){
+  constructor(private auth:AuthService, private memberService:MemberService,  private _toastr: ToastrService,){
      this.auth.member$.subscribe(data => {
       if(data){
        this.currentsUser = data;
@@ -50,11 +51,20 @@ export class FilterMemberListComponent {
   public getAllMatchingProfiles() {
   this.isLoading = true;
   const userId = this.currentsUser.id;
-  this.memberService.getMatchingData(this.filter, userId, this.currentPage, this.itemsPerPage).subscribe((res: any) => {
+  this.memberService.getMatchingData(this.filter, userId, this.currentPage, this.itemsPerPage).subscribe({
+    next:(res:any) => {
     this.memberProfiles = res.data;
     this.totalItemCount = res.totalCount;
-     this.isLoading = false;
-  });
-}
+    this.isLoading = false;
+    },
+    complete:() => {
 
+    },
+    error:(error:any) => {
+      this.isLoading = false;
+      this._toastr.error(error.error.Error.Detail,error.error.Error.Title);
+    }
+
+  });
+  }
 }

@@ -202,7 +202,7 @@ public onComplexionChange(event: Event) {
 
 public onReligionChange(event: Event) {
   const checkbox = event.target as HTMLInputElement;
-  const id = +checkbox.value;
+  const id = checkbox.value;
 
   if (checkbox.checked) {
     if (!this.religion.includes(id.toString())) {
@@ -215,8 +215,7 @@ public onReligionChange(event: Event) {
 
 public onCommunityChange(event: Event) {
   const checkbox = event.target as HTMLInputElement;
-  const id = +checkbox.value;
-
+  const id = checkbox.value;
   if (checkbox.checked) {
     if (!this.community.includes(id.toString())) {
       this.community.push(id.toString());
@@ -228,7 +227,7 @@ public onCommunityChange(event: Event) {
 
 public onSubCommunityChange(event: Event) {
   const checkbox = event.target as HTMLInputElement;
-  const id = +checkbox.value;
+  const id = checkbox.value;
 
   if (checkbox.checked) {
     if (!this.subCommunity.includes(id.toString())) {
@@ -241,7 +240,7 @@ public onSubCommunityChange(event: Event) {
 
 public onKnowLanguageChange(event: Event) {
   const checkbox = event.target as HTMLInputElement;
-  const id = +checkbox.value;
+  const id = checkbox.value;
 
   if (checkbox.checked) {
     if (!this.knownLanguages.includes(id.toString())) {
@@ -255,7 +254,7 @@ public onKnowLanguageChange(event: Event) {
 public onJobSectorChange(event: Event) {
   const checkbox = event.target as HTMLInputElement;
   const id = +checkbox.value;
-
+  console.log(id);
   if (checkbox.checked) {
     if (!this.sector.includes(id)) {
       this.sector.push(id);
@@ -267,20 +266,20 @@ public onJobSectorChange(event: Event) {
 
 public onJobTypeChange(event: Event) {
   const checkbox = event.target as HTMLInputElement;
-  const id = +checkbox.value;
+  const id = checkbox.value;
 
   if (checkbox.checked) {
-    if (!this.sector.includes(id)) {
-      this.sector.push(id);
+    if (!this.jobType.includes(id.toString())) {
+      this.jobType.push(id);
     }
   } else {
-    this.sector = this.sector.filter(val => val !== id);
+    this.jobType = this.jobType.filter(val => val !== id);
   }
 }
 
 public onEducationChange(event: Event) {
   const checkbox = event.target as HTMLInputElement;
-  const id = +checkbox.value;
+  const id = checkbox.value;
 
   if (checkbox.checked) {
     if (!this.education.includes(id.toString())) {

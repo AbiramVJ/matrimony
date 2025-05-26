@@ -177,7 +177,7 @@
               type="checkbox"
               [id]="'c_' + c.id"
               [value]="c.id"
-              (change)="onBodyTypeChange($event)"
+              (change)="onComplexionChange($event)"
               [checked]="complexion.includes(c.id)"
             >
             <label class="form-check-label ms-2 text-sm" [for]="'c_' + c.id">
@@ -310,6 +310,7 @@
         <div class="mt-3"></div>
         <label class="fw-500">Job Sectors</label>
         <div class="form-check mt-2" *ngFor="let sec of sectorList">
+
             <input
               class="form-check-input small-check"
               type="checkbox"
