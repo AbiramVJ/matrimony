@@ -15,8 +15,6 @@ export class MemberHomeComponent {
 
   constructor(private _authService:AuthService,private route: ActivatedRoute,){
 
-
-
-}
+  }
 
 }

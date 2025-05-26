@@ -6,7 +6,10 @@
           <div class="col-12">
             <div class="d-flex justify-content-center align-items-center">
               <div class="col-12 px-4 py-3">
-                <div class="text-xl fw-bold">Members List</div>
+                <div class="bg-danger text-white m-shadow p-3">
+                  <div class="text-md fw-bold">Member list</div>
+                  <div class="text-sm">View and manage all the members with m-gate.</div>
+                </div>
                 <div class="row mt-3">
                   <div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-3" *ngFor="let p of memberProfiles">
                     <div class="m-shadow p-2 profile-card pointer position-relative" (click)="navigateToHome()">

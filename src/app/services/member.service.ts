@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 import { Community, Education, Religion, UserProfile } from '../models/index.model';
+import { CommonResponse } from '../models/commonResponse.model';
 
 
 @Injectable({
@@ -20,6 +21,13 @@ export class MemberService {
 
   public getQuestionData() : any{
    return this.profileQuestionData;
+  }
+
+  private filterSource = new BehaviorSubject<any>(null);
+  filter$ = this.filterSource.asObservable();
+
+  setFilter(data: any) {
+    this.filterSource.next(data);
   }
 
   public uploadImageToBulb(body:any){
@@ -85,4 +93,13 @@ export class MemberService {
   public deleteMember(id:string) {
     return this.http.delete<any>(this.baseUrl + `Profile/${id}`);
   }
+
+  public getMatchingData(body: any, id: string, pageNumber:number, pageSize:number) {
+    return this.http.post(`${this.baseUrl}ProfileMatching/matching/${id}?&pageNumber=${pageNumber}&pageSize=${pageSize}`, body).pipe(
+      map((res: any) => {
+        return new CommonResponse<UserProfile>(res.Result, UserProfile);
+      })
+    );
+  }
+
 }

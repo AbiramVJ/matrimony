@@ -20,7 +20,7 @@ html, body {
   // height: 120vh;
   background-image: linear-gradient(to bottom right, #111827, #1F2937);
   background-size: cover;
-  height: 110vh;
+  min-height: 110vh;
 }
 
 .bg-image-s{
@@ -173,6 +173,47 @@ input[type=number] {
 .in-active-color{
   color: rgb(86, 90, 86);
 }
+.text-right{
+  text-align: right;
+}
+
+
+// ngx-pagination design
+.ngx-pagination .current {
+  background-color:#a0a0a7 !important;
+  border-radius: 5px !important;
+  color: #ffffff !important;
+}
+
+.ngx-pagination li {
+  border: solid 1px var(--app-color) !important;
+  border-radius: 5px !important;
+  color: white !important;
+  background-color: #e03c3c !important;
+}
+.ngx-pagination .disabled {
+  padding: .1875rem .625rem;
+  color: white !important;
+  cursor: default;
+  border:solid 1px #cacaca !important;
+  background-color: #e03c3c;
+}
+
+.disabled-pagination{
+  .ngx-pagination li{
+    border: solid 1px #d3d3d3 !important;
+    border-radius: 5px !important;
+    color: white !important;
+
+  }
+
+  .ngx-pagination .current {
+    background-color:#d3d3d3 !important;
+    border-radius: 5px !important;
+    color: #ffffff !important;
+  }
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);

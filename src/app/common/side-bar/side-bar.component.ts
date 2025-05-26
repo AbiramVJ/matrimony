@@ -380,5 +380,40 @@ public onRasiChange(event: Event) {
     })
   }
 
+  public applyFilters() {
+    const filterPayload = {
+      minAge: this.minAgeValue,
+      maxAge: this.maxAgeValue,
+      gender: 1,
+      country: this.selectedCountry,
+      foodHabits: this.foodHabit,
+      drinkHabits: this.drinkHabit,
+      smokeHabits: this.smokeHabit,
+      marriageStatus: [1],
+      bodyTypes: this.bodyType,
+      willingToRelocate: this.welcomeRelocate,
+      skinComplexions: this.complexion,
+      minHeight: this.minHeightValue,
+      maxHeight: this.maxHeightValue,
+      minWeight: this.minWeightValue,
+      maxWeight: this.maxWeightValue,
+      knownLanguages: this.knownLanguages,
+      religionIds: this.religion,
+      communityIds: this.community,
+      subCommunityIds: this.subCommunity,
+      jobSectors: this.sector,
+      jobTypeIds: this.jobType,
+      educationQualificationIds: this.education,
+      nakshathiram: this.natshathira,
+      raasi: this.rasi,
+      salaryFilter: {
+        currencyCode: 'INR',
+        minMonthlyAmount: this.minSalaryValue,
+        maxMonthlyAmount: this.maxSalaryValue,
+      }
+    };
+
+    this.memberService.setFilter(filterPayload);
+  }
 
 }
