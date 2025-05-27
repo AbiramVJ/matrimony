@@ -60,7 +60,6 @@
 
 </div>
 </div>
-
 <!-- PAGINATION -->
 <div class="row mb-auto pagination mt-4" *ngIf="totalItemCount > 0">
   <div class="col-6 col-sm-4 mt-auto">
@@ -77,7 +76,7 @@
 
   <div class="col-sm-8 text-right">
     <div class="text-xs">
-      <pagination-controls (pageChange)="pageChanged($event)" *ngIf="itemsPerPage" [maxSize]="5" [previousLabel]="'Prev'"></pagination-controls>
+      <pagination-controls (pageChange)="pageChanged($event)" [maxSize]="5" [previousLabel]="'Prev'"></pagination-controls>
     </div>
   </div>
 </div>

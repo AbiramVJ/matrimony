@@ -179,6 +179,7 @@ export class UserProfile {
   age:number;
 
   constructor(obj: any = {}) {
+    const images = obj?.profileImages ?? [];
     this.id = obj?.id ?? '';
     this.profileFor = obj?.profileFor ?? 0;
     this.isActive = obj?.isActive ?? false;
@@ -212,7 +213,10 @@ export class UserProfile {
     this.profileLookingFor = new ProfileLookingFor(obj?.profileLookingFor);
     this.profileFamily = new ProfileFamily(obj?.profileFamily);
     this.profileAstrology = new ProfileAstrology(obj?.profileAstrology);
-    this.profileImages = (obj?.profileImages ?? []).map((i: any) => new ProfileImage(i));
+    // this.profileImages = (obj?.profileImages ?? []).map((i: any) => new ProfileImage(i));
+    this.profileImages = images.length > 0
+  ? images.map((i: any) => new ProfileImage(i))
+  : [new ProfileImage({ url: 'https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740' })];
     this.profileAddresses = (obj?.profileAddresses ?? []).map((a: any) => new ProfileAddress(a));
     this.profileEducations = (obj?.profileEducations ?? []).map((e: any) => new ProfileEducation(e));
     this.phoneCode = obj.phoneCode ?? '';

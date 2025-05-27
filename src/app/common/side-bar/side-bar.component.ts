@@ -20,8 +20,8 @@ export class SideBarComponent {
   public minAgeValue: number = 18;
   public maxAgeValue: number = 60;
 
-  public minHeightValue: number = 0.5;
-  public maxHeightValue: number = 3;
+  public minHeightValue: number = 0;
+  public maxHeightValue: number = 400;
 
 
   public minWeightValue: number = 25;
@@ -38,9 +38,9 @@ export class SideBarComponent {
   };
 
   public HeightOptions: Options = {
-    floor: 0.5,
-    ceil: 3,
-    step: 0.1
+    floor: 0,
+    ceil: 300,
+    step: 5
   };
 
   public weightOptions: Options = {
@@ -103,6 +103,7 @@ export class SideBarComponent {
 
       }
     });
+
   }
 
   public ngOnInit(): void {
@@ -372,6 +373,7 @@ public onRasiChange(event: Event) {
       },
       complete:() => {
         this.isLoading = false;
+         this.applyFilters();
       },
       error:(error:Error) => {
         this.isLoading = false;
@@ -405,11 +407,12 @@ public onRasiChange(event: Event) {
       educationQualificationIds: this.education,
       nakshathiram: this.natshathira,
       raasi: this.rasi,
-      salaryFilter: {
-        currencyCode: 'INR',
-        minMonthlyAmount: this.minSalaryValue,
-        maxMonthlyAmount: this.maxSalaryValue,
-      }
+      salaryFilter: null,
+      // {
+      //   currencyCode: 'INR',
+      //   minMonthlyAmount: this.minSalaryValue,
+      //   maxMonthlyAmount: this.maxSalaryValue,
+      // }
     };
 
     this.memberService.setFilter(filterPayload);

@@ -16,7 +16,7 @@ export class FilterMemberListComponent {
   public memberProfiles:UserProfile[] = [];
   public currentsUser!:UserProfile;
   public totalItemCount: number = 0;
-  public itemsPerPage: number = 10;
+  public itemsPerPage: number = 6;
   public currentPage: number = 1;
   public isLoading:boolean = false;
   public filter:any;
@@ -27,6 +27,7 @@ export class FilterMemberListComponent {
        this.currentsUser = data;
       }
     });
+
     this.memberService.filter$.subscribe(filter => {
     if (filter) {
       this.filter =  filter;
