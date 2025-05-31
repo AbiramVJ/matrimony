@@ -1,6 +1,7 @@
 <div class="row m-0">
   <div class="col-12">
     <div class="row">
+      <!-- HEDER -->
       <div class="col-12 bg-danger p-3">
          <div class="modal-header p-0 border-bottom-0">
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -11,7 +12,7 @@
               <div class="me-4">
                  <img src="{{memberProfile.profileImages[0].url}}" alt="pf" class="profile-pic object-fit-cover" >
               </div>
-              <div class="text-white">
+              <div class="text-white my-auto">
                 <div class="text-lg fw-bold my-auto">{{memberProfile.firstName + ' ' + memberProfile.lastName}}</div>
                 <div class="d-flex">
                   <div class="me-2">25 years</div>
@@ -25,11 +26,251 @@
             </div>
 
           </div>
-          <div class="col-6">
+          <div class="col-6 my-auto">
+            <div class="d-flex justify-content-end">
+              <button class="btn bt-danger-light bg-danger text-white me-3"><i class="fas fa-heart text-white me-2"></i> Interest</button>
+              <button class="btn btn-light"><i class="fas fa-phone text-primary"></i> Contact</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAP BAR -->
+       <div class="row">
+        <div class="col-10">
+         <div class="d-flex justify-content-between">
+          <div class="p-3 pointer" *ngFor="let tab of tabs" [ngClass]="{ 'bar-active': currentTap === tab.id }" (click)="currentTap = tab.id">
+            <i [class]="tab.icon + ' me-2'"></i>{{ tab.label }}
+          </div>
+        </div>
+        </div>
+       </div>
+
+       <!-- //OVER VIEW -->
+       <div class="row mt-4 p-3" *ngIf="currentTap === 1">
+        <div class="col-12">
+          <div class="text-lg fw-bold">About</div>
+          <div class="mt-2 text-sm text-muted">Looking for a meaningful connection and life partner</div>
+        </div>
+        <div class="col-12 mt-3">
+          <div class="text-lg fw-bold">Quick Information</div>
+          <div class="row mt-3">
+            <div class="col-5 me-2 bg-light p-3 mb-2">
+             <div class="text-xs">Height</div>
+             <div class="text-sm fw-bold">{{memberProfile.height}}</div>
+            </div>
+            <div class="col-5 me-2 bg-light p-3 mb-2">
+              <div class="text-xs">Marriage Status</div>
+              <div class="text-sm fw-bold">{{memberProfile.marriageStatus}}</div>
+            </div>
+            <div class="col-5 me-2 bg-light p-3 mb-2">
+              <div class="text-xs">Food Habit</div>
+              <div class="text-sm fw-bold">{{memberProfile.foodHabit}}</div>
+            </div>
+            <div class="col-5 me-2 bg-light p-3 mb-2">
+              <div class="text-xs">Willing to Relocate</div>
+              <div class="text-sm fw-bold">{{memberProfile.willingToRelocate}}</div>
+            </div>
+            <div class="col-5 me-2 bg-light p-3 mb-2">
+              <div class="text-xs">Mother Tongue</div>
+              <div class="text-sm fw-bold">{{memberProfile.motherTongue}}</div>
+            </div>
+            <div class="col-5 me-2 bg-light p-3  mb-2">
+              <div class="text-xs">Blood Group</div>
+              <div class="text-sm fw-bold">{{memberProfile.bloodGroup}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 mt-3">
+          <div class="text-lg fw-bold">Photos</div>
+          <div class="row mt-3">
+            <div class="col-3 p-0 pointer" *ngFor="let m of memberProfile.profileImages">
+              <div class="div p-2">
+                <img class="object-fit-cover profile-photo" src="{{m.url}}" alt="photos" >
+              </div>
+            </div>
+          </div>
+        </div>
+       </div>
+
+    <div class="row mt-4 p-3" *ngIf="currentTap === 2">
+      <div class="col-12">
+        <div class="text-lg fw-bold">Personal Details</div>
+        <div class="row mt-3 m-0">
+          <div class="col-10 p-3 bg-light">
+            <div class="row text-sm">
+              <div class="col-6 mb-2"><strong>Gender:</strong> {{memberProfile.gender}}</div>
+              <div class="col-6 mb-2"><strong>Age:</strong> {{'API'}} years</div>
+              <div class="col-6 mb-2"><strong>Height:</strong> {{memberProfile.height}}</div>
+              <div class="col-6 mb-2"><strong>Weight:</strong> {{memberProfile.weight}}</div>
+              <div class="col-6 mb-2"><strong>Body Type:</strong> {{memberProfile.bodyType}}</div>
+              <div class="col-6 mb-2"><strong>Skin Complexion:</strong> {{memberProfile.skinComplexion}}</div>
+              <div class="col-6 mb-2"><strong>Food Habit:</strong> {{memberProfile.foodHabit}}</div>
+              <div class="col-6 mb-2"><strong>Drinks:</strong> {{memberProfile.drinksHabit}}</div>
+              <div class="col-6 mb-2"><strong>Smoking:</strong> {{memberProfile.smokeHabit}}</div>
+              <div class="col-6 mb-2"><strong>Blood Group:</strong> {{memberProfile.bloodGroup}}</div>
+              <div class="col-6 mb-2"><strong>Willing to Relocate:</strong> {{memberProfile.willingToRelocate}}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-lg fw-bold mt-4">Languages & Location</div>
+        <div class="row mt-3 m-0">
+          <div class="col-10 p-3 bg-light">
+            <div class="row text-sm">
+              <div class="col-6 mb-2"><strong>Mother Tongue:</strong> {{memberProfile.motherTongue}}</div>
+              <div class="col-6 mb-2"><strong>Known Languages:</strong> {{memberProfile.knownLanguages}}</div>
+              <div class="col-6 mb-2"><strong>Origin Country:</strong> {{memberProfile.originCountry}}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-lg fw-bold mt-4">Addresses</div>
+        <div class="row mt-3 m-0">
+          <div class="col-10 p-3 bg-light mb-2">
+            <div class="fw-bold mb-1"><i class="fas fa-map-marker-alt me-2"></i>Current Address</div>
+            <div class="text-sm">{{memberProfile.profileAddresses[0].street + ', ' + memberProfile.profileAddresses[0].city + ' ' + memberProfile.profileAddresses[0].country}}</div>
+          </div>
+          <div class="col-10 p-3 bg-light">
+            <div class="fw-bold mb-1"><i class="fas fa-home me-2"></i>Permanent Address</div>
+            <div class="text-sm">{{memberProfile.profileAddresses[1].street + ', ' + memberProfile.profileAddresses[1].city + ' ' + memberProfile.profileAddresses[1].country}}</div>
+          </div>
+        </div>
+      </div>
+</div>
+
+
+      <div class="row mt-4 p-3" *ngIf="currentTap === 3">
+        <div class="col-12">
+          <div class="text-lg fw-bold">Professional Information</div>
+           <div class="row mt-3 m-0">
+            <div class="col-10 p-3 bg-light">
+              <div class="d-flex">
+                  <div class="me-3"><i class="fas fa-briefcase"></i></div>
+                  <div class="text-sm fw-bold">{{memberProfile.profileJob.title}}
+                    <div class="text-xs fw-normal">{{memberProfile.profileJob.companyName}}</div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between mt-3 text-sm">
+                <div>Sector: {{memberProfile.profileJob.sector}}</div>
+                <div>Salary: {{memberProfile.profileJob.profileSalary.amount}}{{memberProfile.profileJob.profileSalary.currencyCode}}</div>
+              </div>
+            </div>
+           </div>
+        </div>
+        <div class="col-12 mt-3">
+          <div class="text-lg fw-bold">Education</div>
+           <div class="row mt-3 m-0">
+            <div class="col-10 p-3 bg-light">
+              <div class="d-flex">
+                  <div class="me-3"><i class="fas fa-graduation-cap"></i></div>
+                  <div class="text-sm fw-bold">{{memberProfile.profileEducations[0].qualification}}
+                    <div class="text-xs fw-normal">{{memberProfile.profileEducations[0].institute}}</div>
+                </div>
+              </div>
+            </div>
+           </div>
+        </div>
+        <div class="col-12 mt-3">
+          <div class="text-lg fw-bold">Partner Preferences</div>
+           <div class="row mt-3 m-0">
+            <div class="col-10 p-3 bg-light">
+              <div class="d-flex mt-2">
+                <div class="text-xs me-2">Preferred Gender:</div>
+                <div class="fw-bold text-sm">{{memberProfile.profileLookingFor.gender}}</div>
+              </div>
+               <div class="d-flex mt-2">
+                <div class="text-xs me-2">Preferred Country:</div>
+                <div class="fw-bold text-sm">{{memberProfile.profileLookingFor.country}}</div>
+              </div>
+              <div class="d-flex mt-2">
+                <div class="text-xs me-2">Age Range:</div>
+                <div class="fw-bold text-sm">{{memberProfile.profileLookingFor.minAge + '-' + memberProfile.profileLookingFor.maxAge}}</div>
+              </div>
+            </div>
+           </div>
+        </div>
+      </div>
+
+      <div class="col-12 mt-3" *ngIf="currentTap === 4">
+        <div class="text-lg fw-bold">Family Details</div>
+        <div class="row mt-3 m-0">
+          <div class="col-10 p-3 bg-light rounded">
+
+            <!-- Father's Info -->
+            <div class="mb-3">
+              <div class="text-xs fw-normal">Father's Name:</div>
+              <div class="fw-bold text-sm">{{ memberProfile.profileFamily.fatherName }}</div>
+              <div class="text-xs">{{ memberProfile.profileFamily.fatherOccupation }}</div>
+            </div>
+
+            <!-- Mother's Info -->
+            <div class="mb-3">
+              <div class="text-xs fw-normal">Mother's Name:</div>
+              <div class="fw-bold text-sm">{{ memberProfile.profileFamily.motherName }}</div>
+              <div class="text-xs">{{ memberProfile.profileFamily.motherOccupation }}</div>
+            </div>
+
+            <!-- Siblings -->
+            <div class="mb-3">
+              <div class="text-xs fw-normal">Number of Siblings:</div>
+              <div class="fw-bold text-sm">{{ memberProfile.profileFamily.numberOfSiblings }}</div>
+            </div>
+
+            <!-- profileFamily Type -->
+            <div>
+              <div class="text-xs fw-normal">Family Type:</div>
+              <div class="fw-bold text-sm">{{ memberProfile.profileFamily.familyType }}</div>
+            </div>
 
           </div>
         </div>
       </div>
+      <div class="col-12 mt-3" *ngIf="currentTap === 5">
+        <div class="text-lg fw-bold mb-3">Astrological Information</div>
+
+        <div class="d-flex justify-content-center bg-light rounded p-4 text-center flex-column align-items-center" style="background: linear-gradient(to bottom right, #f6f3ff, #eef5ff);">
+
+          <!-- Nakshathiram -->
+          <div class="mb-4">
+            <div class="rounded-circle bg-white d-flex justify-content-center align-items-center" style="width: 48px; height: 48px; margin: 0 auto;">
+              <i class="fas fa-star" style="color: #a855f7;"></i>
+            </div>
+            <div class="mt-2 text-xs text-muted">Nakshathiram</div>
+            <div class="fw-bold text-sm" style="color: #a855f7;">{{ memberProfile.profileAstrology.nakshathiram }}</div>
+          </div>
+
+          <!-- Raasi -->
+          <div class="mb-4">
+            <div class="rounded-circle bg-white d-flex justify-content-center align-items-center" style="width: 48px; height: 48px; margin: 0 auto;">
+              <i class="fas fa-star" style="color: #2563eb;"></i>
+            </div>
+            <div class="mt-2 text-xs text-muted">Raasi</div>
+            <div class="fw-bold text-sm text-primary">{{ memberProfile.profileAstrology.raasi }}</div>
+          </div>
+
+          <!-- Time of Birth -->
+          <div>
+            <div class="rounded-circle bg-white d-flex justify-content-center align-items-center" style="width: 48px; height: 48px; margin: 0 auto;">
+              <i class="fas fa-calendar-alt" style="color: #16a34a;"></i>
+            </div>
+            <div class="mt-2 text-xs text-muted">Time of Birth</div>
+            <div class="fw-bold text-sm" style="color: #16a34a;">{{ memberProfile.profileAstrology.timeOfBirth }}</div>
+          </div>
+
+        </div>
+      </div>
+
+
+       <div class="mt-3"  >
+        <div class="col-12 p-0">
+          <div class="d-flex bg-light p-3">
+            <div class="text-sm me-3"><i class="fas fa-envelope me-2"></i>{{memberProfile.email}}</div>
+            <div class="text-sm"><i class="fas fa-phone text-primary me-2"></i> {{memberProfile.phoneNumber}}</div>
+             <!-- <div class="float-right text-sm text-truncate">Profile id : {{memberProfile.id}}</div> -->
+          </div>
+        </div>
+       </div>
     </div>
   </div>
 </div>

@@ -8,5 +8,24 @@
   justify-content: center;
 
 }
+.bt-danger-light{
+  background-color: #eb8a8a !important;
+}
 
+.bar-active{
+  border-bottom: 3px solid blue;
+  color: blue;
+}
+.profile-photo {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
 
+.profile-photo:hover {
+  transform: scale(1.5); /* Zoom to 2x size */
+  z-index: 10;
+  position: relative;
+}
