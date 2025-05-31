@@ -40,7 +40,7 @@ export class MemberProfileModalComponent {
             "subCommunityId": "0196b4e0-24c3-7e9b-a8e8-c38a21347a31",
             "profileJob": {
                 "id": "0196c01d-aaa5-75bf-854d-93c5324c2905",
-                "title": "fdsg",
+                "title": "Software engineer",
                 "companyName": "sdfasd",
                 "sector": 1,
                 "jobTypeId": "0196b434-25c7-703a-ae1e-c6db3d0f0914",

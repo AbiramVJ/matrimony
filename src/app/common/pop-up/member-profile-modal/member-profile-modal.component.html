@@ -11,10 +11,10 @@
               <div class="me-2">
                  <img src="{{memberProfile.profileImages[0].url}}" alt="pf" class="profile-pic object-fit-cover" >
               </div>
-              <div>
-                <div class="text-lg text-white fw-bold my-auto">{{memberProfile.firstName + ' ' + memberProfile.lastName}}</div>
+              <div class="text-white">
+                <div class="text-lg fw-bold my-auto">{{memberProfile.firstName + ' ' + memberProfile.lastName}}</div>
                 <div class="mt-2">25 years</div>
-                <li>Software enginner</li>
+                <span ><li>{{memberProfile.profileJob.title}}</li></span>
               </div>
             </div>
 

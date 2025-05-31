@@ -151,7 +151,6 @@ export class LoginComponent implements OnInit {
       next:(res:any)=>{
         this.auth.setAuthToken(res.Result.token);
         this.auth.setUser();
-
       },
       complete:()=>{
         this.isLoading = false;
@@ -259,14 +258,15 @@ export class LoginComponent implements OnInit {
             this.isOtpVerification = false;
             this.auth.setAuthToken(res.Result.token);
             this.auth.setUser();
+             this.isLoading = false;
+              if(!this.isAgent){
+            //   this.router.navigateByUrl('home/member');
+              window.location.href = "/";
+          }
           }
         },
         complete:()=>{
-          this.isLoading = false;
-          if(!this.isAgent){
-         //   this.router.navigateByUrl('home/member');
-          window.location.href = "/";
-          }
+
 
         },
         error:(error:any)=>{
@@ -445,7 +445,7 @@ export class LoginComponent implements OnInit {
           this.auth.setUserDetails(null);
           window.location.href = "/";
          // this.router.navigateByUrl('member/member-registration');
-          return;
+
         }else{
           this.auth.setUserDetails(res[0].id);
            window.location.href = "/";
