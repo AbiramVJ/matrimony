@@ -253,7 +253,8 @@ export class LoginComponent implements OnInit {
           if(res.Result.tokenType === TokenType.UserVerificationToken){
             this._resetToken = res.Result.token;
             this.isOtpVerification = true;
-            return;
+            this.isLoading = false;
+
           }else{
             this.isOtpVerification = false;
             this.auth.setAuthToken(res.Result.token);
