@@ -43,7 +43,7 @@
               <button class="btn btn-light"><i class="fas fa-phone text-success"></i></button>
             </div>
             <div>
-              <button class="btn btn-danger"><i class="fas fa-eye text-white"></i></button>
+              <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fas fa-eye text-white"></i></button>
             </div>
           </div>
         </div>
@@ -81,6 +81,19 @@
   </div>
 </div>
 
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div> -->
+      <div class="modal-body p-0">
+       <app-member-profile-modal></app-member-profile-modal>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 

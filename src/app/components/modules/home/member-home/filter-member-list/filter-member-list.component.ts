@@ -6,9 +6,11 @@ import { CommonModule } from '@angular/common';
 import { UserProfile } from '../../../../../models/index.model';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ToastrService } from 'ngx-toastr';
+import { AdminHomeComponent } from "../../admin-home/admin-home.component";
+import { MemberProfileModalComponent } from "../../../../../common/pop-up/member-profile-modal/member-profile-modal.component";
 @Component({
   selector: 'app-filter-member-list',
-  imports: [FORM_MODULES,COMMON_DIRECTIVES, CommonModule,NgxPaginationModule],
+  imports: [FORM_MODULES, COMMON_DIRECTIVES, CommonModule, NgxPaginationModule, AdminHomeComponent, MemberProfileModalComponent],
   templateUrl: './filter-member-list.component.html',
   styleUrl: './filter-member-list.component.scss'
 })
