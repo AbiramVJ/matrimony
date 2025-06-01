@@ -12,7 +12,7 @@
     <div class="collapse" id="filterBasic">
       <div class="card card-body">
 
-        <label class="fw-500">Country</label>
+        <label class="fw-500">Origin Country</label>
         <!-- country dropdown -->
         <div class="my-2">
            <ng-select
@@ -22,6 +22,7 @@
             [ngModelOptions]="{standalone: true}"
             [clearable]="false"
             [searchable]="false"
+            [multiple]="true"
             [(ngModel)]="selectedCountry"
            >
 
@@ -50,6 +51,47 @@
             </ng-template>
           </ng-select>
         </div>
+
+        <label class="fw-500">Living Country</label>
+        <!-- country dropdown -->
+        <div class="my-2">
+           <ng-select
+            [items]="countryList"
+            bindLabel="country"
+            bindValue="country"
+            [ngModelOptions]="{standalone: true}"
+            [clearable]="false"
+            [searchable]="false"
+            [multiple]="true"
+            [(ngModel)]="selectedLivingCountry"
+           >
+
+            <!-- Label template -->
+            <ng-template ng-label-tmp let-item="item">
+              <div class="d-flex">
+                <div>
+                  <img class="me-2" src={{item.flags?.svg}} alt="" width="30px">
+                </div>
+                <div>
+                  {{item.country}}
+                </div>
+              </div>
+            </ng-template>
+            <!-- Option template -->
+            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+              <div class="d-flex">
+                <div>
+                  <img src={{item.flags?.svg}} alt="" width="30px" class="me-2">
+                </div>
+
+                <div class="">
+                  {{item.country}}
+                </div>
+              </div>
+            </ng-template>
+          </ng-select>
+        </div>
+
         <div class="mt-3">
           <label class="fw-500">Age Range</label>
           <div class="row mt-2">
@@ -364,18 +406,18 @@
             <div class="row mt-2">
               <div class="col-6">
                 <div class="text-sm">Min</div>
-                <input id="minAge" type="number" class="form-control" [(ngModel)]="minSalaryValue" disabled="">
+                <input id="minAge" type="number" class="form-control" [(ngModel)]="minSalaryValue" >
               </div>
               <div class="col-6">
                 <div class="text-sm">Max</div>
-                <input id="minAge" type="number" class="form-control" [(ngModel)]="maxSalaryValue" disabled="">
+                <input id="minAge" type="number" class="form-control" [(ngModel)]="maxSalaryValue">
               </div>
             </div>
-            <ngx-slider
+            <!-- <ngx-slider
             [(value)]="minSalaryValue"
             [(highValue)]="maxSalaryValue"
             [options]="salaryOptions">
-        </ngx-slider>
+        </ngx-slider> -->
         </div>
 
         <!-- currencyCode + min/max salary inputs -->

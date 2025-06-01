@@ -102,4 +102,8 @@ export class MemberService {
     );
   }
 
+  public getSingleMember(id:string){
+
+  }
+
 }

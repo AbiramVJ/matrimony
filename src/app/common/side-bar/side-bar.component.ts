@@ -17,6 +17,7 @@ import { Community, Education, Religion } from '../../models/index.model';
 export class SideBarComponent {
   public countryList: any[] = [];
   public selectedCountry: any;
+  public selectedLivingCountry: any;
   public minAgeValue: number = 18;
   public maxAgeValue: number = 60;
 
@@ -99,7 +100,8 @@ export class SideBarComponent {
         (pc: any) => pc.iso === userGeoLocationDetails?.country_code
       );
       if (defaultCountryCode) {
-        this.selectedCountry = defaultCountryCode.country;
+        this.selectedCountry = [defaultCountryCode.country];
+        this.selectedLivingCountry = [defaultCountryCode.country];
 
       }
     });
@@ -386,7 +388,7 @@ public onRasiChange(event: Event) {
       minAge: this.minAgeValue,
       maxAge: this.maxAgeValue,
       gender: 1,
-      country: this.selectedCountry,
+      country: this.selectedCountry[0],
       foodHabits: this.foodHabit,
       drinkHabits: this.drinkHabit,
       smokeHabits: this.smokeHabit,
