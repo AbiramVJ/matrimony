@@ -21,7 +21,7 @@ export class MemberProfileFormComponent {
   public userBasicFrom!:FormGroup;
   public isLoading:boolean = false;
   public isUploading:boolean = false;
-  public images: string[] = [];
+  public images: string[] = ['https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740'];
 
   constructor(private fb:FormBuilder, private _memberService:MemberService,private toastr: ToastrService){
     this._userBasicFromInit();
@@ -36,7 +36,7 @@ export class MemberProfileFormComponent {
       maritalStatus: [1, [Validators.required]],
       height: ['', [Validators.required, Validators.min(1)]],
       weight: ['', [Validators.required, Validators.min(1)]],
-      profilesImg:['https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740'],
+      profilesImg:[],
       isVisible:[true],
     })
   }
