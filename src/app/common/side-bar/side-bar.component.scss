@@ -1,7 +1,7 @@
 .content-side{
    height: 80vh;
    overflow: auto;
-scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 .content-side::-webkit-scrollbar {
   width: 4px;   /* make scrollbar thinner vertically */
@@ -17,4 +17,33 @@ scroll-behavior: smooth;
 .small-check{
   height: 18px !important;
   width: 18px !important;
+}
+
+.custom-slider {
+  .ngx-slider {
+    .ngx-slider-pointer {
+      background-color: #0db9f0;
+      width: 25px;
+      height: 25px;
+      top: -11px;
+      border-radius: 16px;
+    }
+    .ngx-slider-pointer:after {
+      content: "";
+      width: 8px;
+      height: 8px;
+      position: absolute;
+      top: 8px;
+      left: 9px;
+      background: #fff;
+      border-radius: 4px;
+    }
+  }
+}
+@media (max-width: 764px) {
+ .content-side{
+   height: 90vh;
+   overflow: auto;
+  scroll-behavior: smooth;
+}
 }

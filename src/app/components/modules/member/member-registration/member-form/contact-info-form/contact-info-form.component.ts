@@ -14,15 +14,11 @@ import {
 import { CommonModule } from '@angular/common';
 import { MemberService } from '../../../../../../services/member.service';
 import { ToastrService } from 'ngx-toastr';
+import { AddressType } from '../../../../../../helpers/enum';
 
 @Component({
   selector: 'app-contact-info-form',
-  imports: [
-    COMMON_DIRECTIVES,
-    FORM_MODULES,
-    PhoneNumberInputComponent,
-    CommonModule,
-  ],
+  imports: [COMMON_DIRECTIVES,FORM_MODULES,PhoneNumberInputComponent,CommonModule],
   templateUrl: './contact-info-form.component.html',
   styleUrl: './contact-info-form.component.scss',
   standalone: true,
@@ -41,6 +37,10 @@ export class ContactInfoFormComponent {
   public setPhoneNumber!: number;
   public PhoneCode!: string;
   private phoneNumberDetails: any;
+
+  private exitingPermanentAddress:any;
+  private exTempPermanentAddress:any;
+
 
   public countryList: any[] = [];
   public selectedCountry: any;
@@ -104,7 +104,8 @@ export class ContactInfoFormComponent {
 
   public next() {
     this.isSubmitted = true;
-    const permanentAddress = {
+    const permanentAddress:any = {
+      id:this.exitingPermanentAddress.id,
       number: this.userContactFrom.value.doorNumber,
       street: this.userContactFrom.value.street,
       city: this.userContactFrom.value.city,
@@ -118,7 +119,8 @@ export class ContactInfoFormComponent {
       isDefault: true,
     };
 
-    const temAddress = {
+    const temAddress:any = {
+      id:this.exTempPermanentAddress.id,
       number: this.userContactFrom.value.temporaryAddress?.doorNumber,
       street: this.userContactFrom.value.temporaryAddress?.street,
       city: this.userContactFrom.value.temporaryAddress?.city,
@@ -131,13 +133,20 @@ export class ContactInfoFormComponent {
       residentStatus: this.selectedTempResidency,
       isDefault: true,
     };
+
+    if (!this.isEditFrom) {
+        delete permanentAddress.id;
+        delete temAddress.id;
+      }
+
+
     const basicDetails = {
       email: this.userContactFrom.value.email,
-      phoneNumber: this.userContactFrom.value.phoneNumber ,
+      phoneNumber: this.userContactFrom.value.phoneNumber,
       phoneCode: this.phoneNumberDetails ? this.phoneNumberDetails.code : this.memberProfile.phoneCode,
     };
 
-    const formValues = {
+    const formValues: any = {
       address: [permanentAddress],
       basicDetails: basicDetails,
     };
@@ -151,7 +160,15 @@ export class ContactInfoFormComponent {
         this.contactDetailsEmitter.emit(formValues);
         return;
       } else {
+        //update flow
         this.isLoading = true;
+        let isHaveBirthAddress = this.memberProfile.profileAddresses.some((a: any) => a.addressType === AddressType.birth);
+        if (isHaveBirthAddress) {
+          const birthAddress = this.memberProfile.profileAddresses.find((a: any) => a.addressType === AddressType.birth);
+          if (birthAddress) {
+            formValues.address.push(birthAddress);
+          }
+        }
         const updatedProfile = {
           ...this.memberProfile,
           email: formValues.basicDetails.email,
@@ -159,10 +176,9 @@ export class ContactInfoFormComponent {
           profileAddresses: formValues.address,
           phoneCode: formValues.basicDetails.phoneCode,
         };
+        console.log(updatedProfile);
 
-        this._memberService
-          .updateMemberProfile(this.memberProfile.id, updatedProfile)
-          .subscribe({
+        this._memberService.updateMemberProfile(this.memberProfile.id, updatedProfile).subscribe({
             next: () => {},
             complete: () => {
               this.isLoading = false;
@@ -205,16 +221,18 @@ export class ContactInfoFormComponent {
 
   public ngOnChanges(): void {
     const permanentAddress = this.memberProfile.profileAddresses?.find(
-      (add: any) => add.addressType === 2
+      (add: any) => add.addressType === AddressType.permanent
     );
     const tempAddress = this.memberProfile.profileAddresses?.find(
-      (add: any) => add.addressType === 1
+      (add: any) => add.addressType === AddressType.temporary
     );
     if (tempAddress) {
       this.isTemporaryAddress = true;
     } else {
       this.isTemporaryAddress = false;
     }
+    this.exitingPermanentAddress = permanentAddress;
+    this.exTempPermanentAddress = tempAddress;
 
     this.selectedCountry = permanentAddress?.country;
     this.selectedTempCountry = tempAddress?.country;
@@ -246,19 +264,13 @@ export class ContactInfoFormComponent {
   }
 
   private _setPhoneNumberValues() {
-    let selectedCountry = this.countryList.find(
-      (c: any) =>
-        c.iso?.toLowerCase() === this.memberProfile.phoneCode?.toLowerCase()
-    );
-
+    let selectedCountry = this.countryList.find((c: any) => c.iso?.toLowerCase() === this.memberProfile.phoneCode?.toLowerCase());
     this.PhoneCode = selectedCountry.iso;
-    let phoneNumber = this.memberProfile.phoneNumber.split(
-      '+' + selectedCountry.code
-    );
+    let phoneNumber = this.memberProfile.phoneNumber.split('+' + selectedCountry.code);
     this.setPhoneNumber = Number(phoneNumber[1]);
   }
 
   private scrollToTop(): void {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 }

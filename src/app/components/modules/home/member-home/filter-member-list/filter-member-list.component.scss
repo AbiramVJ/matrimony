@@ -9,3 +9,14 @@
 .active-color-border{
   border-left: 5px solid green
 }
+
+.no-member-card{
+  height: 80vh;
+}
+
+@media (max-width: 764px) {
+  .profile-img{
+    width:100% !important;
+
+  }
+}

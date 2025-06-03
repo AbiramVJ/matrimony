@@ -1,3 +1,5 @@
+import { routes } from './../../../../../app.routes';
+import { Router } from '@angular/router';
 import { MemberService } from './../../../../../services/member.service';
 import { AuthService } from './../../../../../services/auth/auth.service';
 import { Component } from '@angular/core';
@@ -10,7 +12,7 @@ import { AdminHomeComponent } from "../../admin-home/admin-home.component";
 import { MemberProfileModalComponent } from "../../../../../common/pop-up/member-profile-modal/member-profile-modal.component";
 @Component({
   selector: 'app-filter-member-list',
-  imports: [FORM_MODULES, COMMON_DIRECTIVES, CommonModule, NgxPaginationModule, AdminHomeComponent, MemberProfileModalComponent],
+  imports: [FORM_MODULES, COMMON_DIRECTIVES, CommonModule, NgxPaginationModule, MemberProfileModalComponent],
   templateUrl: './filter-member-list.component.html',
   styleUrl: './filter-member-list.component.scss'
 })
@@ -23,7 +25,7 @@ export class FilterMemberListComponent {
   public isLoading:boolean = false;
   public filter:any;
 
-  constructor(private auth:AuthService, private memberService:MemberService,  private _toastr: ToastrService,){
+  constructor(private auth:AuthService, private memberService:MemberService,  private _toastr: ToastrService,private router:Router){
      this.auth.member$.subscribe(data => {
       if(data){
        this.currentsUser = data;
@@ -42,7 +44,7 @@ export class FilterMemberListComponent {
   //     }
   //   })
   }
-    public changePerPageValue(pageNumber: number) {
+  public changePerPageValue(pageNumber: number) {
     if (pageNumber != 0 && pageNumber != null) {
       this.currentPage = 1;
       this.itemsPerPage = pageNumber;
@@ -73,5 +75,9 @@ export class FilterMemberListComponent {
     }
 
   });
+  }
+
+  public addMember(){
+    this.router.navigateByUrl("member/member-registration");
   }
 }

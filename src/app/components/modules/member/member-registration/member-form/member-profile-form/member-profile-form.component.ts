@@ -1,7 +1,7 @@
 import { MemberService } from './../../../../../../services/member.service';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { COMMON_DIRECTIVES, FORM_MODULES } from '../../../../../../common/common-imports';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { UserBasicForm, UserProfile } from '../../../../../../models/index.model';
 import { ToastrService } from 'ngx-toastr';
 
@@ -21,7 +21,7 @@ export class MemberProfileFormComponent {
   public userBasicFrom!:FormGroup;
   public isLoading:boolean = false;
   public isUploading:boolean = false;
-  public images: string[] = ['https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740'];
+  public images: string[] = [];
 
   constructor(private fb:FormBuilder, private _memberService:MemberService,private toastr: ToastrService){
     this._userBasicFromInit();
@@ -32,7 +32,7 @@ export class MemberProfileFormComponent {
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       gender: [1, [Validators.required]],
-      dateOfBirth: ['', [Validators.required]],
+      dateOfBirth: ['', [Validators.required,minimumAgeValidator(18)]],
       maritalStatus: [1, [Validators.required]],
       height: ['', [Validators.required, Validators.min(1)]],
       weight: ['', [Validators.required, Validators.min(1)]],
@@ -137,3 +137,21 @@ export class MemberProfileFormComponent {
   }
 }
 
+export function minimumAgeValidator(minAge: number) {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const dobValue = control.value;
+    if (!dobValue) return null;
+
+    const today = new Date();
+    const birthDate = new Date(dobValue);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+
+    // Adjust if birthdate hasn't occurred this year yet
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+
+    return age >= minAge ? null : { underage: { requiredAge: minAge, actualAge: age } };
+  };
+}

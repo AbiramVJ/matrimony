@@ -116,6 +116,7 @@
     <div class="col-12 col-md-6 mb-3">
       <label for="motherTongue" class="mb-1">Languages know<span class="text-danger">*</span></label>
       <ng-select
+       [ngClass]="{'errorSelect': isSubmitted && selectedKnowLanguage.length < 1}"
       [multiple]="true"
       [items]="knownLanguagesList"
       bindLabel="name"

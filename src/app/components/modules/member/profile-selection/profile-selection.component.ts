@@ -106,10 +106,15 @@ export class ProfileSelectionComponent {
     this.isLoading = true;
     this._memberService.getProfiles().subscribe({
       next:(res:any) => {
-        this.auth.setMemberList(res);
-        this.isLoading = false;
-        let deleteModal: HTMLElement = document.getElementById('deleteMemberModalId') as HTMLElement;
-        deleteModal.click();
+        if(res.length  === 0){
+          window.location.href = "/";
+        }else{
+          this.auth.setMemberList(res);
+          this.isLoading = false;
+          let deleteModal: HTMLElement = document.getElementById('deleteMemberModalId') as HTMLElement;
+          deleteModal.click();
+        }
+
       },
       complete:() =>{
         this.isLoading = false;

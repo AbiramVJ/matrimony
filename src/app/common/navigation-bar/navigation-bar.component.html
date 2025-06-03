@@ -81,8 +81,8 @@
             </div> -->
             <div class="text-sm" *ngIf="memberProfiles.length > 0">
               <div class="text-md fw-bold my-auto ps-2 pb-2">Members</div>
-              <div class="member-toggle-list pointer"  *ngFor="let p of displayedProfiles">
-                <div class="d-flex p-2 member-card border-radios-15" (click)="changeMemberProfile(p.id)">
+              <div class="member-toggle-list pointer mt-2"  *ngFor="let p of displayedProfiles">
+                <div class="d-flex p-2 member-card border-radios-15" (click)="changeMemberProfile(p.id)"  [ngClass]="{'active-user' : p.id == selectedMember.id }">
                   <div class="me-3">
                     <img [src]="p.profileImages[0].url" class="list-profile object-fit-cover" alt="...">
                   </div>

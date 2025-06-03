@@ -1,4 +1,5 @@
-<div class="bg-danger text-white m-shadow p-3 mb-4">
+<div *ngIf="currentsUser">
+  <div class="bg-danger text-white m-shadow p-3 mb-4">
   <div class="text-lg fw-bold">Matching Profile</div>
   <div class="text-md">Browse the profile below to learn more about their background and experience.</div>
 </div>
@@ -15,22 +16,21 @@
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
-  <div class="col-6 my-3" *ngFor="let member of memberProfiles |  paginate: { itemsPerPage: itemsPerPage , currentPage: currentPage, totalItems: totalItemCount }">
+  <div class="col-12 col-md-6 my-1" *ngFor="let member of memberProfiles |  paginate: { itemsPerPage: itemsPerPage , currentPage: currentPage, totalItems: totalItemCount }">
     <div class="m-shadow p-2 active-color-border" *ngIf="!isLoading">
       <div class="row">
-        <div class="col-4">
-          <div class="profile-img me-2">
-          <img src="{{member.profileImages[0].url}}" alt="pf" class="object-fit-cover border rounded" width="150px" height="150px">
+        <div class="col-12 col-md-4">
+          <div class="me-2">
+          <img src="{{member.profileImages[0].url}}" alt="pf" class="object-fit-cover border rounded profile-img" width="150px" height="150px">
         </div>
         </div>
-        <div class="col-4 ">
+        <div class="col-12 col-md-4 ">
           <div class="text-md fw-bold text-muted text-truncate">{{member.firstName + ' ' + member.lastName}} </div>
           <div class="mt-1 text-sm text-truncate"><i class="fas fa-briefcase text-primary me-2"></i>{{member.profileJob.title}}</div>
           <div class="mt-1 text-sm"><i class="fas fa-map-marker-alt me-2 text-danger"></i>{{member.originCountry}}</div>
           <div class="mt-1 text-sm"><i class="fas fa-user-clock me-2 text-secondary"></i>{{member.age}} years old</div>
           <div class="mt-1 text-sm text-truncate"><i class="fas fa-language me-2 text-info"></i>{{member.knownLanguages}}</div>
           <div class="mt-1 text-sm"><i class="fas fa-star me-2 text-warning"></i>{{'API'}}</div>
-
         </div>
 
         <div class="col-4 mt-auto">
@@ -94,6 +94,13 @@
     </div>
   </div>
 </div>
+</div>
+<div class="bg-white rounded no-member-card" *ngIf="!currentsUser">
+  <div class="my-auto text-center">
+  <img src="https://cdn-icons-png.freepik.com/256/11329/11329073.png?semt=ais_incoming" alt="Profile" class="object-fit-cover rounded mt-5" width="350px" height="250px">
+    <div class="text-lg fw-bold text-muted mt-2">You haven't created any members yet</div>
+    <div class="text-sm text-muted">Please create at least one member to get matching results</div>
+    <div class="class btn btn-danger mt-3" (click)="addMember()">Create Member</div>
+  </div>
 
-
-
+</div>

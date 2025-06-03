@@ -178,10 +178,10 @@ export class ReligiousBackgroundFormComponent {
             a.isDefault = true;
           }
         });
-      // let isHaveBirthAddress = this.memberProfile.profileAddresses.some((a: any) => a.addressType === 3);
-      // if(!isHaveBirthAddress){
-      //   this.memberProfile.profileAddresses.push(address)
-      // }
+      let isHaveBirthAddress = this.memberProfile.profileAddresses.some((a: any) => a.addressType === 3);
+      if(!isHaveBirthAddress){
+        this.memberProfile.profileAddresses.push(address)
+      }
         const updatedProfile = {
           ...this.memberProfile,
           religionId: this.selectedReligions ,

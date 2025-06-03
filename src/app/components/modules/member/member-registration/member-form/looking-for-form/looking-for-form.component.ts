@@ -1,6 +1,6 @@
 import { MemberService } from './../../../../../../services/member.service';
 import { Component, effect, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { DataProviderService } from '../../../../../../services/data-provider.service';
 import { COMMON_DIRECTIVES, FORM_MODULES } from '../../../../../../common/common-imports';
 import { LookingForList } from '../../../../../../helpers/data';
@@ -54,11 +54,17 @@ export class LookingForFormComponent {
      window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   private _matchingProfileFormInit(){
-    this.profileMatchingForm = this._fb.group({
-      gender:[1],
-      minAge:['',Validators.required],
-      maxAge:['', Validators.required],
-    })
+   this.profileMatchingForm = this._fb.group(
+  {
+    gender: [1],
+    minAge: ['', [Validators.required, Validators.min(18)]],
+    maxAge: ['', [Validators.required, Validators.max(60)]],
+  },
+  {
+    validators: [minLessThanMaxValidator('minAge', 'maxAge')]
+  }
+);
+
   }
 
   public next(){
@@ -116,4 +122,17 @@ export class LookingForFormComponent {
     }
   }
 
+}
+
+export function minLessThanMaxValidator(minField: string, maxField: string): ValidatorFn {
+  return (group: AbstractControl): ValidationErrors | null => {
+    const min = group.get(minField)?.value;
+    const max = group.get(maxField)?.value;
+
+    if (min !== null && max !== null && min !== '' && max !== '' && Number(min) >= Number(max)) {
+      return { minGreaterThanMax: true };
+    }
+
+    return null;
+  };
 }

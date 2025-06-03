@@ -2293,10 +2293,24 @@ export const willingToRelocate = [
    { id: 2, name: "No" }
 ]
 
+export const currencies = [
+    {id:1, label: '₹ (INR)', value: 'INR' },
+    {id:2, label: '$ (USD)', value: 'USD' },
+    {id:3, label: '€ (EUR)', value: 'EUR' },
+  ];
+
+
 export const sectorList = [{id:1, name:'Government'}, {id:2, name:'Private'}];
 
 export const  incomeTypeList = [{id:1, name:'monthly'}, {id:2, name:'yearly'}]
 
+export const maritalStatusOptions = [
+  { id: 1, name: 'Single' },
+  { id: 2, name: 'Married' },
+  { id: 3, name: 'Divorced' },
+  { id: 4, name: 'Widowed' },
+  { id: 5, name: 'Separated' }
+];
 
 
 

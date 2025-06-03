@@ -87,7 +87,6 @@ get displayedProfiles() {
 
 
   private _getMemberProfiles(){
-
      this._authService.memberList$.subscribe(data => {
       if(data){
         this.memberProfiles = data;
@@ -97,8 +96,6 @@ get displayedProfiles() {
 
   private _getCurrentMember(){
   this._authService.member$.subscribe(data => {
-    console.log(data);
-
       if(data){
         this.selectedMember = data;
       }

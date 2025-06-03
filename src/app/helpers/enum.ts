@@ -33,4 +33,8 @@ export enum MemberRegistrationStep {
   complete = 7,
 }
 
-
+export enum AddressType {
+  permanent = 2,
+  temporary = 1,
+  birth = 3
+}

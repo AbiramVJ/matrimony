@@ -12,4 +12,18 @@
 }
 .home-box{
  margin-left: 23%;
+ width: 75%;
+}
+.side-bar {
+  position: fixed;
+  height: 80vh;
+  overflow: hidden;
+  width: 20%;
+}
+
+@media (max-width: 764px) {
+  .home-box{
+    margin-left: 0%;
+    width: 100%;
+    }
 }

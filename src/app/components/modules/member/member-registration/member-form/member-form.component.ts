@@ -147,7 +147,7 @@ export class MemberFormComponent {
     }else if(this.currentStep === this.steps.religionBackground){
       return '70%';
     }else{
-      return '85%';
+      return '100%';
     }
   }
 
@@ -260,6 +260,9 @@ private scrollToTop(): void {
     this._memberService.getProfiles().subscribe({
       next:(res:any) => {
         this.AuthService.setMemberList(res);
+        if(res.length === 1){
+          window.location.href = "/";
+        }
         this.route.navigateByUrl('member/profiles');
       },
       complete:() =>{

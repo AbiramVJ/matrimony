@@ -20,7 +20,7 @@ export class FamilyInformationFormComponent {
   public isSubmitted:boolean = false;
   public isLoading:boolean = false;
   public familyTypeList = familyTypeList;
-  public selectedFamily:number = 0;
+  public selectedFamily:number = 1;
   constructor(private fb:FormBuilder, private _memberService:MemberService,
     private toastr: ToastrService){
     this._userFamilyInfoFormInit();
@@ -79,6 +79,6 @@ export class FamilyInformationFormComponent {
     this.userFamilyInfoForm.get('fatherOccupation')?.patchValue(this.memberProfile.profileFamily.fatherOccupation);
     this.userFamilyInfoForm.get('matherOccupation')?.patchValue(this.memberProfile.profileFamily.motherOccupation);
     this.userFamilyInfoForm.get('siblings')?.patchValue(this.memberProfile.profileFamily.numberOfSiblings);
-    this.userFamilyInfoForm.get('siblings')?.patchValue(this.memberProfile.profileFamily.familyType);
+    this.userFamilyInfoForm.get('familyType')?.patchValue(this.memberProfile.profileFamily.familyType);
   }
 }

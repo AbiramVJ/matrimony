@@ -34,7 +34,7 @@ export class PersonalDetailsFormComponent {
   public selectedSmoke = 1;
 
   public knownLanguagesList = knownLanguages;
-  public selectedKnowLanguage:any;
+  public selectedKnowLanguage:number[] = [];
 
   public bodyTypeList = bodyTypes;
   public selectedBodyType = 1;
@@ -91,7 +91,7 @@ export class PersonalDetailsFormComponent {
       bloodGroup:this.selectedBloodGroup,
       complexion:this.SelectedComplexion
     }
-    if(this.userPersonalDetailsForm.valid){
+    if(this.userPersonalDetailsForm.valid && this.selectedKnowLanguage.length > 0){
       if(!this.isEditFrom){
         this.personalDetailsEmitter.emit(personalDetailsValue);
       }else{

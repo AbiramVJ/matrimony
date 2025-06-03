@@ -37,7 +37,7 @@
     </div>
 
     <div class="col-12 col-md-6 mb-3">
-      <label for="province text-sm" class="mb-2">Zip Code<span class="text-danger">*</span> </label>
+      <label for="province text-sm" class="mb-2">Zip/Postal Code<span class="text-danger">*</span> </label>
       <input type="text" id="province" formControlName="zipCode" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userContactFrom.get('zipCode')?.errors}"/>
       <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userContactFrom.get('zipCode')?.errors">ZipCode is required</div>
     </div>
@@ -50,7 +50,7 @@
       bindValue="country"
       [ngModelOptions]="{standalone: true}"
       [clearable]="false"
-      [searchable]="false"
+      [searchable]="true"
       [(ngModel)]="selectedCountry"
 
       >
@@ -85,7 +85,7 @@
 
     <div class="col-12 col-md-6 mb-3">
       <label for="text-sm" class="mb-2">Residency Status<span class="text-danger">*</span> </label>
-      <ng-select [items]="residencyStatusList" bindLabel="name" bindValue="id" [searchable]="false" [clearable]="false" formControlName="residencyStatus" [(ngModel)]="selectedResidency"></ng-select>
+      <ng-select [items]="residencyStatusList" bindLabel="name" bindValue="id" [searchable]="true" [clearable]="false" formControlName="residencyStatus" [(ngModel)]="selectedResidency"></ng-select>
     </div>
 
     <div class="mt-3">
@@ -154,7 +154,7 @@
         </div>
 
       <div class="col-12 col-md-6 mb-3">
-        <label for="province text-sm" class="mb-2">Zip Code<span class="text-danger">*</span> </label>
+        <label for="province text-sm" class="mb-2">Zip/Postal Code<span class="text-danger">*</span> </label>
         <input type="text" id="province" formControlName="zipCode" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userContactFrom.get('zipCode')?.errors}"/>
         <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userContactFrom.get('zipCode')?.errors">ZipCode is required</div>
       </div>
@@ -167,7 +167,7 @@
           bindValue="country"
           [ngModelOptions]="{standalone: true}"
           [clearable]="false"
-          [searchable]="false"
+          [searchable]="true"
           [(ngModel)]="selectedTempCountry"
 
           >
@@ -200,7 +200,7 @@
 
         <div class="col-12 col-md-6 mb-3">
           <label for="text-sm" class="mb-2">Residency Status<span class="text-danger">*</span> </label>
-          <ng-select [items]="residencyStatusList" bindLabel="name" bindValue="id" [searchable]="false" [clearable]="false" formControlName="residencyStatus" [(ngModel)]="selectedTempResidency"></ng-select>
+          <ng-select [items]="residencyStatusList" bindLabel="name" bindValue="id" [searchable]="true" [clearable]="false" formControlName="residencyStatus" [(ngModel)]="selectedTempResidency"></ng-select>
         </div>
       </div>
     </div>

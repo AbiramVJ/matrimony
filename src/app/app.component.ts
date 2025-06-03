@@ -56,6 +56,7 @@ export class AppComponent {
           this.hideNavProps = true;
           this._authService.setMemberList(null);
           this._authService.setUserDetails(null);
+          localStorage.removeItem('currentMemberId');
           this.isLoading =  false;
           this.router.navigateByUrl('member/member-registration');
           return;
