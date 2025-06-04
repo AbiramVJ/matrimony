@@ -54,7 +54,7 @@
 
 
   <div class="text-center bg-white rounded" *ngIf="memberProfiles.length === 0 && !isLoading">
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSadlux1273cB0AkVXr679QPJmLVpbL_BENSg&s" alt="pf" class="object-fit-cover rounded" width="350px" height="250px">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSadlux1273cB0AkVXr679QPJmLVpbL_BENSg&s" alt="pf" class="object-fit-cover rounded" width="30%" height="250px">
     <div class="text-lg fw-bold text-muted">No matching profiles found</div>
     <div class="text-sm text-muted">Please adjust your filters and try again you'll likely find profiles that better match your criteria.</div>
 
@@ -102,5 +102,4 @@
     <div class="text-sm text-muted">Please create at least one member to get matching results</div>
     <div class="class btn btn-danger mt-3" (click)="addMember()">Create Member</div>
   </div>
-
 </div>

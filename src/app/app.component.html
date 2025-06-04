@@ -1,4 +1,7 @@
 <app-navigation-bar *ngIf="!isLoading && isLogin" [hideProps]="hideNavProps"></app-navigation-bar>
+ <div class="m-shadow" *ngIf="!isLoading && isLogin">
+      <app-mobile-top-bar></app-mobile-top-bar>
+    </div>
 <router-outlet class="main-content" *ngIf="!isLoading"></router-outlet>
 
 <div class="d-flex justify-content-center align-items-center min-vh-100" *ngIf="isLoading">

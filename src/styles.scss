@@ -232,3 +232,10 @@ input[type=number] {
   color-adjust: exact;
   print-color-adjust: exact;
 }
+
+@media (max-width: 764px) {
+  .content{
+    padding-top: 0px;
+    padding-bottom: 80px;
+  }
+}

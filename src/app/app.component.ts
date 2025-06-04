@@ -6,10 +6,11 @@ import { NavigationBarComponent } from "./common/navigation-bar/navigation-bar.c
 import { CommonModule } from '@angular/common';
 import { COMMON_DIRECTIVES } from './common/common-imports';
 import { MemberService } from './services/member.service';
+import { MobileTopBarComponent } from "./common/mobile-top-bar/mobile-top-bar.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, COMMON_DIRECTIVES, NavigationBarComponent],
+  imports: [RouterOutlet, CommonModule, COMMON_DIRECTIVES, NavigationBarComponent, MobileTopBarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

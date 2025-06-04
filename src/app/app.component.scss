@@ -6,3 +6,17 @@ app-navigation-bar {
   z-index: 1000; /* Ensure it stays on top */
 }
 
+@media (max-width: 764px) {
+  .profile-img{
+    width:100% !important;
+
+  }
+  app-navigation-bar {
+    position: fixed;
+    top: unset;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1000;
+}
+}
