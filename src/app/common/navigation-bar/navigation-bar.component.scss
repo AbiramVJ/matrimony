@@ -162,3 +162,28 @@
 
 
 }
+.bottom-nav {
+  border-radius: 1rem 1rem 0 0;
+  overflow: hidden;
+}
+
+.bottom-nav .nav-link {
+  color: #888;
+  font-weight: 500;
+}
+
+.bottom-nav .nav-link.active {
+  color: #e91e63;
+  position: relative;
+}
+
+.bottom-nav .nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 25%;
+  width: 50%;
+  height: 3px;
+  background-color: #e91e63;
+  border-radius: 3px;
+}

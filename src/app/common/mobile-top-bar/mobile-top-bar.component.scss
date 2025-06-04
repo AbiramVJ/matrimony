@@ -1,0 +1,25 @@
+  .logo-svg {
+    width: 200px !important;
+  }
+.circles {
+  border-radius: 100%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(219, 213, 213);
+}
+
+
+
+.notification-bandage {
+  border-radius: 100%;
+  width: 8px;
+  height: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: -7px;
+  right: 0px;
+}

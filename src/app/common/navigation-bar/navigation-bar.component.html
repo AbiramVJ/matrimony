@@ -2,11 +2,10 @@
   <div class="col-12 p-0">
     <div class="nav-parent">
       <div class="d-flex justify-content-between">
-        <div class="my-auto d-flex">
+        <div class="my-auto d-flex d-none d-md-block">
             <img class="me-2" src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png" alt="logo" class="logo-svg" >
 
         </div>
-
         <!-- TAP BAR -->
         <!-- <div class="my-auto">
           <div class="d-flex justify-content-between">
@@ -19,45 +18,74 @@
             <div></div>
           </div>
         </div> -->
-       <nav class="navbar navbar-expand-sm p-0">
+       <nav class="navbar navbar-expand-sm p-0 d-none">
         <div class="container-fluid">
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/home/member']" [class.active-link]="router.isActive('/home', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })" >
-                  <i class="fas fa-home fa-lg me-1 text-muted"></i> Home
-                </a>
-              </li>
-              <li class="nav-item m-top-20">
-                <a class="nav-link" [routerLink]="['/member/profiles']"
-                  [class.active-link]="router.isActive('/member', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })"
-                >
-                  Members
-                </a>
-              </li>
-            </ul>
-          </div>
+          <ul class="navbar-nav d-flex flex-row gap-3">
+            <li class="nav-item">
+              <a class="nav-link"
+                [routerLink]="['/home/member']"
+                [class.active-link]="router.isActive('/home', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })">
+                <i class="fas fa-home fa-lg me-1 text-muted"></i> Home
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link"
+                [routerLink]="['/member/profiles']"
+                [class.active-link]="router.isActive('/member', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })">
+                <i class="fas fa-users me-1 text-muted"></i> Members
+              </a>
+            </li>
+          </ul>
         </div>
       </nav>
-        <div class="me-2 position-relative">
+      <nav class="bottom-nav navbar fixed-bottom bg-white border-top shadow-sm py-2 d-block d-dm-block d-md-none">
+          <div class="container d-flex justify-content-around text-center">
+
+            <a class="nav-item nav-link"   [routerLink]="['/home/member']"
+                [class.active-link]="router.isActive('/home', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })">
+              <i class="fas fa-home fa-lg d-block"></i>
+              <small>Home</small>
+            </a>
+
+            <a class="nav-item nav-link" [routerLink]="['/member/profiles']"
+                [class.active-link]="router.isActive('/member', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })">
+              <i class="fas fa-users fa-lg d-block"></i>
+              <small>Members</small>
+            </a>
+
+            <a class="nav-item nav-link" [routerLink]="['/analytics']">
+              <i class="fas fa-comments fa-lg d-block"></i>
+              <small>Chat</small>
+            </a>
+
+            <a class="nav-item nav-link" [routerLink]="['/settings']">
+              <img  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2Ku57hHBcfOoQSu-_zNOtaao0V-MaY6MsEw&s" class="list-profile object-fit-cover" alt="...">
+              <small>Profile</small>
+            </a>
+
+          </div>
+        </nav>
+
+
+        <div class="me-2 position-relative d-none d-md-block">
           <div class="d-flex">
-            <div class="mt-2 me-3 member d-none d-sm-block" *ngIf="!isLoading && selectedMember">
+            <div class="mt-2 me-3 member  " *ngIf="!isLoading && selectedMember">
               <div class="d-flex">
                 <img class="object-fit-cover me-2" src={{selectedMember.profileImages[0].url}} alt="profile" width="40px" height="40px">
                 <div class="my-auto fw-bold text-sm">{{selectedMember.firstName + ' ' + selectedMember.lastName}}</div>
               </div>
             </div>
             <!-- MESSAGE -->
-            <div class="circles border me-2 pointer position-relative mes" (click)="toggleDropdown('message')" *ngIf="memberProfiles.length > 0" >
+            <div class="circles border me-2 pointer position-relative mes " (click)="toggleDropdown('message')" *ngIf="memberProfiles.length > 0" >
               <i class="fas fa-comments fa-lg"></i>
               <div class="text-white bg-danger notification-bandage position-absolute p-2">1</div>
             </div>
             <!-- NOTIFICATION -->
-            <div class="circles border me-2 pointer position-relative noti" (click)="toggleDropdown('notification')" *ngIf="memberProfiles.length > 0">
+            <div class="circles border me-2 pointer position-relative noti " (click)="toggleDropdown('notification')" *ngIf="memberProfiles.length > 0">
               <i class="fas fa-bell fa-lg"></i>
               <div class="text-white bg-danger notification-bandage position-absolute p-2">5</div>
             </div>
-            <div class="profile-image pointer profi"  (click)="toggleDropdown('profile')" >
+            <div class="profile-image pointer profi  "  (click)="toggleDropdown('profile')" >
               <img class="circles" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2Ku57hHBcfOoQSu-_zNOtaao0V-MaY6MsEw&s" class="circles object-fit-cover" alt="...">
             </div>
           </div>

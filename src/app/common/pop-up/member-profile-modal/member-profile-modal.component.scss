@@ -29,3 +29,15 @@
   z-index: 10;
   position: relative;
 }
+@media (max-width: 764px) {
+
+.profile-pic{
+    width: 50%;
+    border-radius: 100%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
