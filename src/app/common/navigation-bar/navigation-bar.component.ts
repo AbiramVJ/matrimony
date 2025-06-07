@@ -61,6 +61,7 @@ export class NavigationBarComponent {
     this._getMemberProfiles();
     this._getLoginUserDetails();
     this._getCurrentMember();
+    this.getMainUser();
   }
 
   toggleDropdown(type: 'message' | 'notification' | 'profile'): void {
@@ -98,6 +99,14 @@ get displayedProfiles() {
   this._authService.member$.subscribe(data => {
       if(data){
         this.selectedMember = data;
+      }
+    })
+  }
+
+  private getMainUser(){
+    this._memberService.getMainUser().subscribe({
+      next:(res:any)=>{
+        console.log(res);
       }
     })
   }

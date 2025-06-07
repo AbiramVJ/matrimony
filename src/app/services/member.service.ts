@@ -106,4 +106,12 @@ export class MemberService {
 
   }
 
+  public getMainUser(){
+    return this.http.get(this.baseUrl + 'User').pipe(
+        map((res: any) => {
+          return res.Result;
+      })
+    );
+  }
+
 }

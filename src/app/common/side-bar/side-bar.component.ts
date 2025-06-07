@@ -7,6 +7,7 @@ import { COMMON_DIRECTIVES, FORM_MODULES } from '../common-imports';
 import { NgxSliderModule, Options } from '@angular-slider/ngx-slider';
 import { bodyTypes, Complexion, currencies, diet, DrinkHabit, knownLanguages, maritalStatusOptions, Natshathira, raasiList, sectorList, SmokeHabit, willingToRelocate } from '../../helpers/data';
 import { Community, Education, Religion } from '../../models/index.model';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -105,9 +106,10 @@ export class SideBarComponent {
 
 
 
+
   public isLoading:boolean = false;
 
-  constructor( private dataProvider: DataProviderService,private memberService:MemberService){
+  constructor( private dataProvider: DataProviderService,private memberService:MemberService, private _authService:AuthService,){
     this.countryList = this.dataProvider.getPhoneCode();
     effect(() => {
       const userGeoLocationDetails = this.dataProvider.userGeoLocation();
@@ -115,7 +117,7 @@ export class SideBarComponent {
         (pc: any) => pc.iso === userGeoLocationDetails?.country_code
       );
       if (defaultCountryCode) {
-        this.selectedCountry = [defaultCountryCode.country];
+      //  this.selectedCountry = [defaultCountryCode.country];
         this.selectedLivingCountry = [defaultCountryCode.country];
 
       }
@@ -128,6 +130,7 @@ export class SideBarComponent {
     this._getCommunity();
     this._getJobType();
     this._getEducationQualification();
+    this._getCurrentMember();
 
   }
 
@@ -138,6 +141,16 @@ export class SideBarComponent {
     }
   }
 
+private _getCurrentMember(){
+  this._authService.member$.subscribe(data => {
+      if(data){
+       this.minAgeValue = data.profileLookingFor.minAge;
+       this.maxAgeValue = data.profileLookingFor.maxAge;
+       this.selectedCountry = [data.originCountry];
+
+      }
+    })
+  }
 
 public onDietChange(event: Event) {
   const checkbox = event.target as HTMLInputElement;

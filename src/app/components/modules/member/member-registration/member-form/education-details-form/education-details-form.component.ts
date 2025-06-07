@@ -59,7 +59,7 @@ export class EducationDetailsFormComponent {
       companyName:[{ value: '', disabled: true },Validators.required],
       sector:[''],
       jobType:[''],
-      salaryDetails:[''],
+      salaryDetails:[null],
       currency:[''],
       isYearly:[{ value: '', disabled: true }],
       isVisible:[{ value: '', disabled: true }]
@@ -270,7 +270,7 @@ public changeSalary(){
       salary.removeValidators(Validators.required);
       isVisible.patchValue(false);
       isYearly.patchValue(false);
-
+      salary.patchValue(null);
       isYearly.disable();
       isVisible.disable();
     }

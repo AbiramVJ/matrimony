@@ -99,9 +99,7 @@
       [ngClass]="{'errorSelect': isSubmitted && selectedCurrency < 1 && userEducationFrom.get('salaryDetails')!.value !== null}"
       [disabled]="!userEducationFrom.get('salaryDetails')!.value"
       [(ngModel)]="selectedCurrency">
-
     </ng-select>
-
     </div>
     <div class="col-12 col-md-6 mb-3">
       <label for="diet" class="mb-1">Salary Type</label>
