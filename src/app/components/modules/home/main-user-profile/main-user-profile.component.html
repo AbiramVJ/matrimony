@@ -1,0 +1,105 @@
+
+<section class="content">
+  <div class="component-content">
+    <div class="container mt-4">
+      <div class="row justify-content-center pb-3">
+        <div class="col-md-8 col-lg-6">
+          <div class="card shadow-lg border-0">
+            <!-- Card Header -->
+            <div class="card-header bg-gradient-primary text-white text-center py-4 position-relative bg-danger">
+              <div class="profile-header-bg bg-danger"></div>
+              <!-- Profile Image Section -->
+              <div class="profile-avatar mx-auto position-relative">
+                <!-- Image Preview -->
+                <div class="avatar-container">
+                  <img [src]="mainUser.image" [alt]="" class="avatar-img">
+                  <div class="avatar-overlay">
+                    <button type="button" class="btn btn-sm btn-light avatar-btn">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- Edit Image Button -->
+                <div  class="avatar-edit-btn">
+                  <label for="imageInput" class="btn btn-sm btn-light rounded-circle">
+                    <i class="fas fa-camera"></i>
+                  </label>
+                  <input type="file" id="imageInput" class="d-none" accept="image/*" (change)="onImageSelected($event)">
+                </div>
+              </div>
+
+              <!-- Name Display -->
+              <h3 class="mt-3 mb-1 text-white">{{'' }}</h3>
+              <p class="text-white-50 mb-0">{{ '' }}</p>
+            </div>
+
+            <!-- Form Body -->
+            <div class="card-body p-4">
+              <form [formGroup]="profileForm" >
+                <!-- First Name -->
+                <div class="form-group mb-3">
+                  <label class="form-label">
+                    <i class="fas fa-user me-2"></i>First Name
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="firstName"
+                    [readonly]="true"
+                    placeholder="Enter first name">
+
+                </div>
+
+                <!-- Last Name -->
+                <div class="form-group mb-3">
+                  <label class="form-label">
+                    <i class="fas fa-user me-2"></i>Last Name
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="lastName"
+                    [readonly]="true"
+                    placeholder="Enter last name">
+
+                </div>
+
+                <!-- Email -->
+                <div class="form-group mb-3">
+                  <label class="form-label">
+                    <i class="fas fa-envelope me-2"></i>Email Address
+                  </label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    formControlName="email"
+                    [readonly]="true"
+                    placeholder="Enter email address">
+                </div>
+
+                <!-- Phone Number -->
+                <div class="form-group mb-4">
+                  <label class="form-label">
+                    <i class="fas fa-phone me-2"></i>Phone Number
+                  </label>
+                  <input type="tel" class="form-control" formControlName="phoneNumber" [readonly]="true" placeholder="Enter phone number">
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="d-flex gap-2">
+                    <button class="btn btn-light flex-fill" [disabled]="isLoading">Cancel
+                    </button>
+                    <button type="submit" class="btn btn-danger flex-fill" [disabled]="isLoading">
+                      <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2"></span>
+                        Update
+                    </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
