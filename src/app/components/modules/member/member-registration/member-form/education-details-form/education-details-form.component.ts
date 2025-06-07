@@ -34,10 +34,10 @@ export class EducationDetailsFormComponent {
 
   public jobTypeList:Education[] = []
   public selectedEducation:string = '';
-  public selectedSector:number = 1;
+  public selectedSector:number = 0;
   public selectedJob:string = '';
-  public selectedCurrency:number = 1;
-  public selectedIncomeType:number = 1;
+  public selectedCurrency:number = 0;
+  public selectedIncomeType:number = 0;
   constructor(private fb:FormBuilder,private memberService:MemberService,
       private toastr: ToastrService){this.educationFormInit();}
 
@@ -53,16 +53,16 @@ export class EducationDetailsFormComponent {
   public educationFormInit(){
     this.userEducationFrom = this.fb.group({
       highestEducation:[''],
-      qualification:['', Validators.required],
-      institute:['', Validators.required],
-      jobTitle:['',Validators.required],
-      companyName:['',Validators.required],
+      qualification:[{ value: '', disabled: true }, Validators.required],
+      institute:[{ value: '', disabled: true }, Validators.required],
+      jobTitle:[{ value: '', disabled: true },Validators.required],
+      companyName:[{ value: '', disabled: true },Validators.required],
       sector:[''],
       jobType:[''],
-      salaryDetails:['',Validators.required],
+      salaryDetails:[''],
       currency:[''],
-      isYearly:[true],
-      isVisible:[true]
+      isYearly:[{ value: '', disabled: true }],
+      isVisible:[{ value: '', disabled: true }]
     })
   }
 
@@ -73,7 +73,7 @@ export class EducationDetailsFormComponent {
       next:(res:Education[]) => {
         this.educationList = res;
         if(!this.isEditFrom){
-          this.selectedEducation = res[0].id;
+        //  this.selectedEducation = res[0].id;
         }
       },
       complete:() => {
@@ -90,7 +90,7 @@ export class EducationDetailsFormComponent {
       next:(res:Education[]) => {
         this.jobTypeList = res;
         if(!this.isEditFrom){
-          this.selectedJob = res[0].id;
+        //  this.selectedJob = res[0].id;
         }
       },
       complete:() => {
@@ -103,6 +103,8 @@ export class EducationDetailsFormComponent {
   }
 
   public next(){
+    console.log(this.userEducationFrom.valid);
+    console.log(this.userEducationFrom.value)
     this.isSubmitted = true;
     let currency;
      if (this.selectedCurrency) {
@@ -112,17 +114,19 @@ export class EducationDetailsFormComponent {
     if(this.userEducationFrom.valid){
       const formValue = this.userEducationFrom.value;
       const userEducationValue:UserEducationDetails = {
-        highestEducation:this.selectedEducation,
-        qualification:formValue.qualification,
-        institute:formValue.institute,
-        jobTitle:formValue.jobTitle,
-        companyName:formValue.companyName,
+        highestEducation:this.selectedEducation ?? null,
+        qualification:this.selectedEducation ? formValue.qualification : null,
+        institute:this.selectedEducation ?formValue.institute : null,
+
+        jobTitle: this.selectedSector ? formValue.jobTitle : null,
+        companyName:this.selectedSector ? formValue.companyName : null,
         sector:this.selectedSector,
-        jobType:this.selectedJob,
+        jobType: this.selectedSector? this.selectedJob : null,
+
         salaryDetails:formValue.salaryDetails,
-        currency:currency!.label,
-        isYearly:formValue.isYearly,
-        isVisible:formValue.isVisible
+        currency:currency ? currency!.label : null,
+        isYearly:formValue.salaryDetails !== null && formValue.salaryDetails !== '' ? formValue.isYearly : null,
+        isVisible:formValue.isVisible ? formValue.isVisible: null,
       }
       if(!this.isEditFrom){
         this.userEducationEmitter.emit(userEducationValue);
@@ -132,21 +136,21 @@ export class EducationDetailsFormComponent {
             ...this.memberProfile,
             profileJob: {
             id:this.memberProfile.profileJob.id,
-            title: formValue.jobTitle,
-            companyName: formValue.companyName,
+            title: this.selectedSector ? formValue.jobTitle : null,
+            companyName: this.selectedSector ? formValue.companyName : null,
             sector: this.selectedSector,
             jobTypeId: this.selectedJob,
             profileSalary: {
-              isAnnual: formValue.isYearly,
+              isAnnual:formValue.salaryDetails !== null && formValue.salaryDetails !== '' ? formValue.isYearly : null,
               amount: formValue.salaryDetails,
-              currencyCode: currency!.label,
-              isVisible: formValue.isVisible
+              currencyCode: currency ? currency!.label : null,
+              isVisible: formValue.isVisible,
             }
         },
         profileEducations: [
             {
-              qualification: formValue.qualification,
-              institute: formValue.institute,
+              qualification: this.selectedEducation ?  formValue.qualification : null,
+              institute: this.selectedEducation ?formValue.institute : null,
               sortNo: 0,
               educationQualificationId: this.selectedEducation,
             }
@@ -185,5 +189,95 @@ export class EducationDetailsFormComponent {
     this.userEducationFrom.get('isYearly')?.patchValue( this.memberProfile.profileJob.profileSalary.isAnnual);
     this.userEducationFrom.get('isVisible')?.patchValue( this.memberProfile.profileJob.profileSalary.isVisible);
 
+    this.changeHightEduction();
+    this.changeJobSector();
+    this.changeSalary();
+
+
   }
+
+
+  // VALIDATION REMOVE AND ADD
+ public changeHightEduction() {
+  const highestEducation = this.userEducationFrom.get('highestEducation');
+  const qualification = this.userEducationFrom.get('qualification');
+  const institute = this.userEducationFrom.get('institute');
+
+  if (this.selectedEducation !== null) {
+
+    qualification?.addValidators(Validators.required);
+    institute?.addValidators(Validators.required);
+
+    qualification?.enable();
+    institute?.enable();
+  } else {
+
+    qualification?.removeValidators(Validators.required);
+    institute?.removeValidators(Validators.required);
+
+
+    qualification?.patchValue(null);
+    institute?.patchValue(null);
+
+    qualification?.disable(); // <-- Disable field
+    institute?.disable();     // <-- Disable field
+  }
+
+
+  qualification?.updateValueAndValidity();
+  institute?.updateValueAndValidity();
 }
+
+
+public changeJobSector(){
+  const title = this.userEducationFrom.get('jobTitle');
+  const companyName = this.userEducationFrom.get('companyName');
+  if (this.selectedSector !== null) {
+      title?.addValidators(Validators.required);
+      companyName?.addValidators(Validators.required);
+     // this.selectedJob = this.jobTypeList[0].id;
+      title?.enable();
+      companyName?.enable();
+
+    } else {
+      title?.removeValidators(Validators.required);
+      companyName?.removeValidators(Validators.required);
+      title?.patchValue(null);
+      companyName?.patchValue(null);
+      this.selectedJob = '';
+      title?.disable();
+      companyName?.disable();
+
+    }
+    title?.updateValueAndValidity();
+    companyName?.updateValueAndValidity();
+  }
+
+public changeSalary(){
+    const salary = this.userEducationFrom.get('salaryDetails')!;
+    const isYearly = this.userEducationFrom.get('isYearly')!;
+    const isVisible = this.userEducationFrom.get('isVisible')!;
+    if(salary.value !== null && salary.value.toString().trim() !== ''){
+     salary.addValidators(Validators.required);
+     isYearly.addValidators(Validators.required);
+     isVisible.addValidators(Validators.required);
+     isYearly.enable();
+     isVisible.enable();
+    }else{
+      this.selectedCurrency = 0;
+      isYearly.removeValidators(Validators.required);
+      isVisible.removeValidators(Validators.required);
+      salary.removeValidators(Validators.required);
+      isVisible.patchValue(false);
+      isYearly.patchValue(false);
+
+      isYearly.disable();
+      isVisible.disable();
+    }
+    isYearly.updateValueAndValidity();
+    isVisible.updateValueAndValidity();
+    salary.updateValueAndValidity();
+  }
+
+}
+

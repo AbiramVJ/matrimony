@@ -1,10 +1,11 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter, Input, effect } from '@angular/core';
 import { COMMON_DIRECTIVES, FORM_MODULES } from '../../../../../../common/common-imports';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { familyTypeList } from '../../../../../../helpers/data';
 import { UserFamilyInfo, UserProfile } from '../../../../../../models/index.model';
 import { MemberService } from '../../../../../../services/member.service';
 import { ToastrService } from 'ngx-toastr';
+import { DataProviderService } from '../../../../../../services/data-provider.service';
 
 @Component({
   selector: 'app-family-information-form',
@@ -21,9 +22,21 @@ export class FamilyInformationFormComponent {
   public isLoading:boolean = false;
   public familyTypeList = familyTypeList;
   public selectedFamily:number = 1;
-  constructor(private fb:FormBuilder, private _memberService:MemberService,
+
+  public countryList:any [] = [];
+  public selectedCountry:any;
+
+  constructor(private fb:FormBuilder, private _memberService:MemberService,private dataProvider:DataProviderService,
     private toastr: ToastrService){
     this._userFamilyInfoFormInit();
+    this.countryList = this.dataProvider.getPhoneCode();
+    effect(() => {
+      const userGeoLocationDetails = this.dataProvider.userGeoLocation();
+      const defaultCountryCode = this.countryList.find((pc:any)=> pc.iso === userGeoLocationDetails?.country_code);
+      if(defaultCountryCode && !this.isEditFrom){
+        this.selectedCountry = defaultCountryCode.country;
+      }
+    });
   }
 
   private _userFamilyInfoFormInit(){
@@ -41,11 +54,15 @@ export class FamilyInformationFormComponent {
     this.isSubmitted = true;
     if(this.userFamilyInfoForm.valid){
       if(!this.isEditFrom){
-        this.userFamilyEmitter.emit(this.userFamilyInfoForm.value);
+        const emitData = this.userFamilyInfoForm.value;
+        emitData['originCountry'] = this.selectedCountry;
+        console.log(emitData);
+        this.userFamilyEmitter.emit(emitData);
       }else{
         this.isLoading = true;
         const updatedProfile = {
           ...this.memberProfile,
+           originCountry:this.selectedCountry,
             profileFamily: {
               fatherName: this.userFamilyInfoForm.value.fatherName,
               fatherOccupation: this.userFamilyInfoForm.value.fatherOccupation,
@@ -56,6 +73,8 @@ export class FamilyInformationFormComponent {
               id:this.memberProfile.profileFamily.id
            },
         }
+
+     //   console.log(updatedProfile)
         this._memberService.updateMemberProfile(this.memberProfile.id, updatedProfile).subscribe({
           next:(res:any) => {},
           complete:()=>{
@@ -80,5 +99,6 @@ export class FamilyInformationFormComponent {
     this.userFamilyInfoForm.get('matherOccupation')?.patchValue(this.memberProfile.profileFamily.motherOccupation);
     this.userFamilyInfoForm.get('siblings')?.patchValue(this.memberProfile.profileFamily.numberOfSiblings);
     this.userFamilyInfoForm.get('familyType')?.patchValue(this.memberProfile.profileFamily.familyType);
+    this.selectedCountry = this.memberProfile.originCountry;
   }
 }

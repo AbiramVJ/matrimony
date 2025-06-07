@@ -1,7 +1,9 @@
 <form [formGroup]="userReligiousForm">
   <div class="row">
     <div class="col-12 col-md-6 mb-3">
-      <label for="diet" class="mb-1">Religion<span class="text-danger">*</span></label>
+      <label for="diet" class="mb-1">Religion
+        <span class="text-danger">*</span>
+      </label>
       <ng-select
       [items]="religionList"
       bindLabel="name"
@@ -17,7 +19,7 @@
 
 
   <div class="col-12 col-md-6 mb-3">
-    <label for="diet" class="mb-1">Community<span class="text-danger">*</span></label>
+    <label for="diet" class="mb-1">Community</label>
     <ng-select
     [items]="communityList"
     bindLabel="name"
@@ -37,7 +39,7 @@
   </div>
 
   <div class="col-12 col-md-6 mb-3">
-    <label for="diet" class="mb-1">Sub Community<span class="text-danger">*</span></label>
+    <label for="diet" class="mb-1">Sub Community</label>
     <ng-select
     [items]="SubCommunityList"
     bindLabel="name"
@@ -53,7 +55,7 @@
   </div>
 
   <div class="col-12 col-md-6 mb-3">
-    <label for="diet" class="mb-1">Star/Nakshathra<span class="text-danger">*</span></label>
+    <label for="diet" class="mb-1">Star/Nakshathra</label>
     <ng-select
     [items]="natshathiraList"
     bindLabel="name"
@@ -67,7 +69,7 @@
   </div>
 
   <div class="col-12 col-md-6 mb-3">
-    <label for="diet" class="mb-1">Raasi<span class="text-danger">*</span></label>
+    <label for="diet" class="mb-1">Raasi</label>
     <ng-select
     [items]="rasiList"
     bindLabel="name"

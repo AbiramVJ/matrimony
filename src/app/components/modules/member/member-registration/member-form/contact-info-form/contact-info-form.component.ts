@@ -83,15 +83,15 @@ export class ContactInfoFormComponent {
       residencyStatus: [1, Validators.required],
       zipCode: ['', Validators.required],
       addressType: [0],
-      temporaryAddress: this.fb.group({
-        doorNumber: [''],
-        street: [''],
-        city: [''],
-        stateProvince: [''],
-        residencyStatus: [1],
-        zipCode: [''],
-        addressType: [1],
-      }),
+      // temporaryAddress: this.fb.group({
+      //   doorNumber: [''],
+      //   street: [''],
+      //   city: [''],
+      //   stateProvince: [''],
+      //   residencyStatus: [1],
+      //   zipCode: [''],
+      //   addressType: [1],
+      // }),
     });
   }
 
@@ -105,7 +105,7 @@ export class ContactInfoFormComponent {
   public next() {
     this.isSubmitted = true;
     const permanentAddress:any = {
-      id:this.exitingPermanentAddress.id,
+      id:this.exitingPermanentAddress ? this.exitingPermanentAddress.id : null,
       number: this.userContactFrom.value.doorNumber,
       street: this.userContactFrom.value.street,
       city: this.userContactFrom.value.city,
@@ -114,29 +114,29 @@ export class ContactInfoFormComponent {
       country: this.selectedCountry,
       latitude: 0,
       longitude: 0,
-      addressType: 2,
+      addressType:AddressType.living,
       residentStatus: this.selectedResidency,
       isDefault: true,
     };
 
-    const temAddress:any = {
-      id:this.exTempPermanentAddress.id,
-      number: this.userContactFrom.value.temporaryAddress?.doorNumber,
-      street: this.userContactFrom.value.temporaryAddress?.street,
-      city: this.userContactFrom.value.temporaryAddress?.city,
-      state: this.userContactFrom.value.temporaryAddress?.stateProvince,
-      zipcode: this.userContactFrom.value.temporaryAddress?.zipCode,
-      country: this.selectedTempCountry,
-      latitude: 0,
-      longitude: 0,
-      addressType: 1,
-      residentStatus: this.selectedTempResidency,
-      isDefault: true,
-    };
+    // const temAddress:any = {
+    //   id:this.exTempPermanentAddress ? this.exTempPermanentAddress.id : null,
+    //   number: this.userContactFrom.value.temporaryAddress?.doorNumber,
+    //   street: this.userContactFrom.value.temporaryAddress?.street,
+    //   city: this.userContactFrom.value.temporaryAddress?.city,
+    //   state: this.userContactFrom.value.temporaryAddress?.stateProvince,
+    //   zipcode: this.userContactFrom.value.temporaryAddress?.zipCode,
+    //   country: this.selectedTempCountry,
+    //   latitude: 0,
+    //   longitude: 0,
+    //   addressType: 1,
+    //   residentStatus: this.selectedTempResidency,
+    //   isDefault: true,
+    // };
 
     if (!this.isEditFrom) {
         delete permanentAddress.id;
-        delete temAddress.id;
+      //  delete temAddress.id;
       }
 
 
@@ -151,24 +151,23 @@ export class ContactInfoFormComponent {
       basicDetails: basicDetails,
     };
 
-    if (this.isTemporaryAddress) {
-      formValues.address.push(temAddress);
-    }
+    // if (this.isTemporaryAddress) {
+    // //  formValues.address.push(temAddress);
+    // }
 
     if (this.userContactFrom.valid) {
       if (!this.isEditFrom) {
         this.contactDetailsEmitter.emit(formValues);
         return;
       } else {
+        console.log(formValues.address);
         //update flow
         this.isLoading = true;
-        let isHaveBirthAddress = this.memberProfile.profileAddresses.some((a: any) => a.addressType === AddressType.birth);
-        if (isHaveBirthAddress) {
           const birthAddress = this.memberProfile.profileAddresses.find((a: any) => a.addressType === AddressType.birth);
           if (birthAddress) {
             formValues.address.push(birthAddress);
           }
-        }
+
         const updatedProfile = {
           ...this.memberProfile,
           email: formValues.basicDetails.email,
@@ -176,9 +175,8 @@ export class ContactInfoFormComponent {
           profileAddresses: formValues.address,
           phoneCode: formValues.basicDetails.phoneCode,
         };
-        console.log(updatedProfile);
 
-        this._memberService.updateMemberProfile(this.memberProfile.id, updatedProfile).subscribe({
+       this._memberService.updateMemberProfile(this.memberProfile.id, updatedProfile).subscribe({
             next: () => {},
             complete: () => {
               this.isLoading = false;
@@ -221,10 +219,10 @@ export class ContactInfoFormComponent {
 
   public ngOnChanges(): void {
     const permanentAddress = this.memberProfile.profileAddresses?.find(
-      (add: any) => add.addressType === AddressType.permanent
+      (add: any) => add.addressType === AddressType.living
     );
     const tempAddress = this.memberProfile.profileAddresses?.find(
-      (add: any) => add.addressType === AddressType.temporary
+      (add: any) => add.addressType === AddressType.living
     );
     if (tempAddress) {
       this.isTemporaryAddress = true;

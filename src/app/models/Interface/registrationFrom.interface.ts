@@ -42,6 +42,7 @@ export interface UserFamilyInfo {
   matherOccupation: string;
   siblings: number;
   familyType: number;
+  originCountry:string;
 }
 
 export interface UserReligiousInfo {
@@ -64,9 +65,9 @@ export interface UserEducationDetails{
   jobTitle: string;
   companyName: string;
   sector: number;
-  jobType: string;
+  jobType: string | null;
   salaryDetails: string;
-  currency: string;
+  currency: string | null;
   isYearly: boolean;
   isVisible:boolean;
 }

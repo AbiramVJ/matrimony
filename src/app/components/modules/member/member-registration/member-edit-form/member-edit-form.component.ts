@@ -60,7 +60,7 @@ export class MemberEditFormComponent {
     },
     complete:()=>{
       this.isLoading = false;
-      this.changeStep(this.steps.lookingFor);
+      //this.changeStep(this.steps.lookingFor);
     },
     error:(error:any) => {
       this.isLoading = false;
@@ -70,6 +70,7 @@ export class MemberEditFormComponent {
   }
 
   public changeStep(step:number){
+    this._getMemberProfile();
     this.currentStep = step;
   }
 

@@ -4,11 +4,11 @@ import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { NavigationBarComponent } from "../../../../common/navigation-bar/navigation-bar.component";
 import { SideBarComponent } from "../../../../common/side-bar/side-bar.component";
 import { FilterMemberListComponent } from "./filter-member-list/filter-member-list.component";
-import { MobileTopBarComponent } from "../../../../common/mobile-top-bar/mobile-top-bar.component";
+
 
 @Component({
   selector: 'app-member-home',
-  imports: [SideBarComponent, FilterMemberListComponent, MobileTopBarComponent],
+  imports: [SideBarComponent, FilterMemberListComponent],
   templateUrl: './member-home.component.html',
   styleUrl: './member-home.component.scss'
 })

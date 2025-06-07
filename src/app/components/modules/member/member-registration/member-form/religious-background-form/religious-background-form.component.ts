@@ -9,6 +9,7 @@ import { Community, SubCommunity } from '../../../../../../models/member/communi
 import { Religion } from '../../../../../../models/member/religion.model';
 import { ProfileAddress, UserProfile } from '../../../../../../models/index.model';
 import { ToastrService } from 'ngx-toastr';
+import { AddressType } from '../../../../../../helpers/enum';
 
 @Component({
   selector: 'app-religious-background-form',
@@ -31,10 +32,10 @@ export class ReligiousBackgroundFormComponent {
   public selectedCountry:any;
 
   public natshathiraList = Natshathira;
-  public selectedStar:number = 1;
+  public selectedStar:number = 0;
 
   public rasiList = raasiList;
-  public selectedRaasi:number = 1;
+  public selectedRaasi:number = 0;
 
   public communityList:Community[] = [];
   public selectedCommunity:string = '';
@@ -67,8 +68,8 @@ export class ReligiousBackgroundFormComponent {
         this.communityList = res;
         this.SubCommunityList = res[0].subCommunities;
         if(!this.isEditFrom){
-          this.selectedCommunity = res[0].id;
-          this.selectedSubCommunity = res[0].subCommunities[0].id;
+         // this.selectedCommunity = res[0].id;
+       //   this.selectedSubCommunity = res[0].subCommunities[0].id;
         }
 
       },
@@ -113,7 +114,7 @@ export class ReligiousBackgroundFormComponent {
       religion:[''],
 
       communityCast:[''],
-      timeOfBirth:['', Validators.required],
+      timeOfBirth:[''],
       isVisible:[true],
       subCast:[''],
       starNakshathra:[''],
@@ -141,7 +142,7 @@ export class ReligiousBackgroundFormComponent {
       country: this.selectedCountry ,
       latitude: 0,
       longitude: 0,
-      addressType: 3,
+      addressType: AddressType.birth,
       residentStatus: null,
       isDefault: true
     }
@@ -216,7 +217,7 @@ export class ReligiousBackgroundFormComponent {
 
   ngOnChanges() {
      const birthAddress = this.memberProfile.profileAddresses?.find(
-      (add: any) => add.addressType === 3
+      (add: any) => add.addressType === AddressType.birth
     );
     console.log(this.memberProfile.subCommunityId)
     this.selectedReligions = this.memberProfile.religionId;

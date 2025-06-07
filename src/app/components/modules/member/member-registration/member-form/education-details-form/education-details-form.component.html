@@ -3,26 +3,27 @@
   <div class="row">
     <div class="text-md fw-bold text-muted mb-3 mt-3">Education</div>
     <div class="col-12 col-md-6 mb-3">
-      <label for="diet" class="mb-1">Highest Education<span class="text-danger">*</span></label>
+      <label for="diet" class="mb-1">Highest Education</label>
       <ng-select
         [items]="educationList"
         bindLabel="name"
         bindValue="id"
         [ngModelOptions]="{standalone: true}"
-        [clearable]="false"
+        [clearable]="true"
         [(ngModel)]="selectedEducation"
+        (change)="changeHightEduction()"
       >
       </ng-select>
     </div>
 
     <div class="col-12 col-md-6 mb-3">
-      <label for="diet" class="mb-1">Qualification<span class="text-danger">*</span></label>
+      <label for="diet" class="mb-1">Qualification</label>
       <input type="text" id="qualification" formControlName="qualification" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userEducationFrom.get('qualification')?.errors}">
       <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userEducationFrom.get('qualification')?.errors">Qualification is required</div>
     </div>
 
     <div class="col-12 col-md-12 mb-3">
-      <label for="diet" class="mb-1">Institute<span class="text-danger">*</span></label>
+      <label for="diet" class="mb-1">Institute</label>
       <input type="text" id="institute" formControlName="institute" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userEducationFrom.get('institute')?.errors}">
       <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userEducationFrom.get('institute')?.errors">institute is required</div>
     </div>
@@ -32,40 +33,43 @@
 
 
     <div class="col-12 col-md-6 mb-3">
-      <label for="diet" class="mb-1">Sector<span class="text-danger">*</span></label>
+      <label for="diet" class="mb-1">Sector</label>
       <ng-select
       [items]="sectorList"
       bindLabel="name"
       bindValue="id"
       [ngModelOptions]="{standalone: true}"
-      [clearable]="false"
+      [clearable]="true"
       [searchable]="false"
       [(ngModel)]="selectedSector"
+      (change)="changeJobSector()"
       >
       </ng-select>
     </div>
 
     <div class="col-12 col-md-6 mb-3">
-      <label for="diet" class="mb-1">Job Type<span class="text-danger">*</span></label>
+      <label for="diet" class="mb-1">Job Type</label>
       <ng-select
       [items]="jobTypeList"
       bindLabel="name"
       bindValue="id"
       [ngModelOptions]="{standalone: true}"
-      [clearable]="false"
+      [clearable]="true"
       [searchable]="false"
+      [ngClass]="{'errorSelect': isSubmitted && selectedJob  === '' && selectedSector !== null && selectedSector }"
+      [disabled]="selectedSector === null"
       [(ngModel)]="selectedJob"
       >
       </ng-select>
     </div>
     <div class="col-12 col-md-6 mb-3">
-      <label for="diet" class="mb-1">Job Title<span class="text-danger">*</span></label>
+      <label for="diet" class="mb-1">Job Title</label>
       <input type="text" id="jobTitle" formControlName="jobTitle" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userEducationFrom.get('jobTitle')?.errors}">
       <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userEducationFrom.get('jobTitle')?.errors">jobTitle is required</div>
     </div>
 
     <div class="col-12 col-md-6 mb-3">
-      <label for="diet" class="mb-1">Company Name<span class="text-danger">*</span></label>
+      <label for="diet" class="mb-1">Company Name</label>
       <input type="text" id="companyName" formControlName="companyName" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userEducationFrom.get('companyName')?.errors}">
       <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userEducationFrom.get('companyName')?.errors">Company name is required</div>
     </div>
@@ -73,8 +77,8 @@
 
     <div class="text-md fw-bold text-muted mb-3 mt-3">Income</div>
     <div class="col-12 col-md-6 mb-3">
-      <label for="diet" class="mb-1">Salary<span class="text-danger">*</span></label>
-        <input type="number" id="salaryDetails" formControlName="salaryDetails" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userEducationFrom.get('salaryDetails')?.errors}">
+      <label for="diet" class="mb-1">Salary</label>
+        <input type="number" id="salaryDetails" formControlName="salaryDetails" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userEducationFrom.get('salaryDetails')?.errors}" (change)="changeSalary()">
         <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userEducationFrom.get('salaryDetails')?.errors">Salary is required</div>
         <div class="form-check mt-1">
             <input class="form-check-input small-check" type="checkbox" [value]="true" id="flexCheckChecked" formControlName="isVisible">
@@ -84,20 +88,23 @@
           </div>
     </div>
     <div class="col-12 col-md-6 mb-3">
-      <label for="diet" class="mb-1">Currency<span class="text-danger">*</span></label>
+      <label for="diet" class="mb-1">Currency</label>
       <ng-select
       [items]="currencies"
       bindLabel="label"
       bindValue="id"
       [ngModelOptions]="{standalone: true}"
-      [clearable]="false"
+      [clearable]="true"
       [searchable]="true"
+      [ngClass]="{'errorSelect': isSubmitted && selectedCurrency < 1 && userEducationFrom.get('salaryDetails')!.value !== null}"
+      [disabled]="!userEducationFrom.get('salaryDetails')!.value"
       [(ngModel)]="selectedCurrency">
 
     </ng-select>
+
     </div>
     <div class="col-12 col-md-6 mb-3">
-      <label for="diet" class="mb-1">Salary Type<span class="text-danger">*</span></label>
+      <label for="diet" class="mb-1">Salary Type</label>
       <div class="d-flex">
         <div class="me-3">
           <div class="form-check">

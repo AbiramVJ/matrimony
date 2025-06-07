@@ -177,7 +177,7 @@ private scrollToTop(): void {
       height: this.userBasicDetails?.height,
       weight: this.userBasicDetails?.weight,
       disability: this.userPersonalDetails?.disability,
-      originCountry: null,
+      originCountry: this.userFamilyDetails.originCountry,
       motherTongue: this.userPersonalDetails?.motherTongue,
       knownLanguages:this.userPersonalDetails.languages,
       bloodGroup:this.userPersonalDetails?.bloodGroup,
