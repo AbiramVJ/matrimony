@@ -10,9 +10,11 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { ToastrService } from 'ngx-toastr';
 import { AdminHomeComponent } from "../../admin-home/admin-home.component";
 import { MemberProfileModalComponent } from "../../../../../common/pop-up/member-profile-modal/member-profile-modal.component";
+import { distinctUntilChanged } from 'rxjs';
+import { LoadingComponent } from "../../../../../common/loading/loading.component";
 @Component({
   selector: 'app-filter-member-list',
-  imports: [FORM_MODULES, COMMON_DIRECTIVES, CommonModule, NgxPaginationModule, MemberProfileModalComponent],
+  imports: [FORM_MODULES, COMMON_DIRECTIVES, CommonModule, NgxPaginationModule, MemberProfileModalComponent, LoadingComponent],
   templateUrl: './filter-member-list.component.html',
   styleUrl: './filter-member-list.component.scss'
 })
@@ -32,12 +34,15 @@ export class FilterMemberListComponent {
       }
     });
 
-    this.memberService.filter$.subscribe(filter => {
-    if (filter) {
-      this.filter =  filter;
-      this.getAllMatchingProfiles();
-    }
-  });
+    this.memberService.filter$
+    .pipe(distinctUntilChanged((prev, curr) => JSON.stringify(prev) === JSON.stringify(curr)))
+    .subscribe(filter => {
+      if (filter) {
+        this.filter = filter;
+        this.getAllMatchingProfiles();
+      }
+    });
+
   // this.auth.memberList$.subscribe(data => {
   //     if(data){
   //       this.memberProfiles = data;

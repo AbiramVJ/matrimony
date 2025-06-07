@@ -16,7 +16,7 @@
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
-  <div class="col-12 col-md-6 my-1" *ngFor="let member of memberProfiles |  paginate: { itemsPerPage: itemsPerPage , currentPage: currentPage, totalItems: totalItemCount }">
+  <div class="col-12 col-md-6 my-1 p-card" *ngFor="let member of memberProfiles |  paginate: { itemsPerPage: itemsPerPage , currentPage: currentPage, totalItems: totalItemCount }">
     <div class="m-shadow p-2 active-color-border" *ngIf="!isLoading">
       <div class="row">
         <div class="col-12 col-md-4">

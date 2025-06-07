@@ -39,7 +39,7 @@
         </div>
       </nav>
       <nav class="bottom-nav navbar fixed-bottom bg-white border-top shadow-sm py-2 d-block d-dm-block d-md-none">
-          <div class="container d-flex justify-content-around text-center">
+          <div class="container d-flex justify-content-around text-center mb-2">
 
             <a class="nav-item nav-link"   [routerLink]="['/home/member']"
                 [class.active-link]="router.isActive('/home', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })">
@@ -53,12 +53,12 @@
               <!-- <small>Members</small> -->
             </a>
 
-            <a class="nav-item nav-link" [routerLink]="['/analytics']">
+            <a class="nav-item nav-link" >
               <i class="fas fa-comments fa-lg d-block"></i>
               <!-- <small>Chat</small> -->
             </a>
 
-            <a class="nav-item nav-link" [routerLink]="['/settings']">
+            <a class="nav-item nav-link" [routerLink]="['home/main-user']" *ngIf="mainUser">
               <img  src="{{mainUser.image}}" class="m-list-profile object-fit-cover" alt="..." width="33px" height="33px">
               <!-- <small>Profile</small> -->
             </a>
@@ -85,14 +85,14 @@
               <i class="fas fa-bell fa-lg"></i>
               <div class="text-white bg-danger notification-bandage position-absolute p-2">5</div>
             </div>
-            <div class="profile-image pointer profi  "  (click)="toggleDropdown('profile')" >
+            <div class="profile-image pointer profi"  (click)="toggleDropdown('profile')"  *ngIf="mainUser">
               <img class="circles" src="{{mainUser.image}}" class="circles object-fit-cover" alt="...">
             </div>
           </div>
           <div class="boder rounded bg-white position-absolute message-box fw-bold" *ngIf="isNotificationOpen">Notifications</div>
           <div class="boder rounded bg-white position-absolute message-box fw-bold" *ngIf="isMessageOpen">Message</div>
           <div class="boder rounded bg-white position-absolute" [ngClass]="memberProfiles.length === 0 ? 'register-drop' : 'message-box'" *ngIf="isProfileOpen">
-            <div class="d-flex">
+            <div class="d-flex pointer" [routerLink]="['home/main-user']" *ngIf="mainUser">
               <div class="me-3">
                 <img  src={{mainUser.image}} class="list-profile object-fit-cover" alt="...">
               </div>

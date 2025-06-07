@@ -11,7 +11,7 @@
                   <div class="text-md">View and manage all the members with m-gate.</div>
                 </div>
                 <div class="row mt-3">
-                  <div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-3" *ngFor="let p of memberProfiles">
+                  <div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-3 p-card" *ngFor="let p of memberProfiles">
                     <div class="m-shadow p-2 profile-card pointer position-relative" (click)="navigateToHome()">
                       <div>
                         <img src={{p.profileImages[0].url}} alt="pf" class="object-fit-cover border rounded" width="100%" height="150px">
