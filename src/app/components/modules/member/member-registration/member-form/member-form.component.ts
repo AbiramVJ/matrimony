@@ -187,7 +187,7 @@ private scrollToTop(): void {
       subCommunityId: this.UserReligiousDetails?.subCast,
       isVisibleCommunity: this.UserReligiousDetails?.isVisible,
       skinComplexion:this.userPersonalDetails.complexion,
-      profileJob: {
+      profileJob: this.userEducationDetails?.sector ? {
         title: this.userEducationDetails?.jobTitle,
         companyName: this.userEducationDetails?.companyName,
         sector: this.userEducationDetails?.sector,
@@ -198,7 +198,7 @@ private scrollToTop(): void {
           currencyCode: this.userEducationDetails?.currency,
           isVisible: this.userEducationDetails?.isVisible,
         }
-      },
+      } : null,
       profileLookingFor: {
         gender: this.matchingInfo?.gender,
         minAge: this.matchingInfo?.minAge,
@@ -220,14 +220,14 @@ private scrollToTop(): void {
       },
       profileImages: this.userBasicDetails?.profilesImg,
       profileAddresses: this.userAddressList,
-      profileEducations: [
+      profileEducations:this.userEducationDetails?.highestEducation ? [
         {
           qualification: this.userEducationDetails?.qualification,
           institute: this.userEducationDetails?.institute,
           sortNo: 0,
           educationQualificationId: this.userEducationDetails?.highestEducation,
         }
-      ]
+      ] : null
     }
 
     this._createUser(body);

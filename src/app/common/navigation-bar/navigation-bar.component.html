@@ -44,23 +44,23 @@
             <a class="nav-item nav-link"   [routerLink]="['/home/member']"
                 [class.active-link]="router.isActive('/home', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })">
               <i class="fas fa-home fa-lg d-block"></i>
-              <small>Home</small>
+              <!-- <small>Home</small> -->
             </a>
 
             <a class="nav-item nav-link" [routerLink]="['/member/profiles']"
                 [class.active-link]="router.isActive('/member', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })">
               <i class="fas fa-users fa-lg d-block"></i>
-              <small>Members</small>
+              <!-- <small>Members</small> -->
             </a>
 
             <a class="nav-item nav-link" [routerLink]="['/analytics']">
               <i class="fas fa-comments fa-lg d-block"></i>
-              <small>Chat</small>
+              <!-- <small>Chat</small> -->
             </a>
 
             <a class="nav-item nav-link" [routerLink]="['/settings']">
-              <img  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2Ku57hHBcfOoQSu-_zNOtaao0V-MaY6MsEw&s" class="list-profile object-fit-cover" alt="...">
-              <small>Profile</small>
+              <img  src="{{mainUser.image}}" class="m-list-profile object-fit-cover" alt="..." width="33px" height="33px">
+              <!-- <small>Profile</small> -->
             </a>
 
           </div>
@@ -86,7 +86,7 @@
               <div class="text-white bg-danger notification-bandage position-absolute p-2">5</div>
             </div>
             <div class="profile-image pointer profi  "  (click)="toggleDropdown('profile')" >
-              <img class="circles" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2Ku57hHBcfOoQSu-_zNOtaao0V-MaY6MsEw&s" class="circles object-fit-cover" alt="...">
+              <img class="circles" src="{{mainUser.image}}" class="circles object-fit-cover" alt="...">
             </div>
           </div>
           <div class="boder rounded bg-white position-absolute message-box fw-bold" *ngIf="isNotificationOpen">Notifications</div>
@@ -94,10 +94,10 @@
           <div class="boder rounded bg-white position-absolute" [ngClass]="memberProfiles.length === 0 ? 'register-drop' : 'message-box'" *ngIf="isProfileOpen">
             <div class="d-flex">
               <div class="me-3">
-                <img  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2Ku57hHBcfOoQSu-_zNOtaao0V-MaY6MsEw&s" class="list-profile object-fit-cover" alt="...">
+                <img  src={{mainUser.image}} class="list-profile object-fit-cover" alt="...">
               </div>
               <div class="my-auto fw-bold">
-                {{loginUserDetails.FirstName + ' ' + loginUserDetails.LastName}}
+                {{mainUser.firstName + ' ' + mainUser.lastName}}
               </div>
             </div>
             <hr>

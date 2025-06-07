@@ -7,7 +7,7 @@ import { COMMON_DIRECTIVES, FORM_MODULES } from '../common-imports';
 import { CommonModule } from '@angular/common';
 
 import { ToastrService } from 'ngx-toastr';
-import { UserProfile } from '../../models/index.model';
+import { MainUser, UserProfile } from '../../models/index.model';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -30,6 +30,8 @@ export class NavigationBarComponent {
   public selectedMember!:UserProfile;
   public memberProfiles:UserProfile[] = [];
   public loginUserDetails:any;
+
+  public mainUser!:MainUser;
 
   constructor(private eRef: ElementRef,
     private _memberService:MemberService,
@@ -106,7 +108,7 @@ get displayedProfiles() {
   private getMainUser(){
     this._memberService.getMainUser().subscribe({
       next:(res:any)=>{
-        console.log(res);
+        this.mainUser = res;
       }
     })
   }

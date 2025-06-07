@@ -223,3 +223,20 @@ export class UserProfile {
     this.age = obj.age ?? 0;
   }
 }
+export class MainUser {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  image: string;
+
+  constructor(obj: any) {
+    this.id = obj?.id ?? null;
+    this.firstName = obj?.firstName ?? null;
+    this.lastName = obj?.lastName ?? null;
+    this.email = obj?.email ?? null;
+    this.phoneNumber = obj?.phoneNumber ?? null;
+    this.image = obj?.image ?? 'https://cdn-icons-png.flaticon.com/512/9187/9187604.png';
+  }
+}

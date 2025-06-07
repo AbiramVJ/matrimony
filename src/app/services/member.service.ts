@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map } from 'rxjs';
-import { Community, Education, Religion, UserProfile } from '../models/index.model';
+import { Community, Education, MainUser, Religion, UserProfile } from '../models/index.model';
 import { CommonResponse } from '../models/commonResponse.model';
 
 
@@ -109,7 +109,7 @@ export class MemberService {
   public getMainUser(){
     return this.http.get(this.baseUrl + 'User').pipe(
         map((res: any) => {
-          return res.Result;
+          return new MainUser(res.Result);
       })
     );
   }

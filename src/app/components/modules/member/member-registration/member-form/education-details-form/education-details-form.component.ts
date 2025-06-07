@@ -134,7 +134,7 @@ export class EducationDetailsFormComponent {
         this.isLoading = true;
         const updatedProfile = {
             ...this.memberProfile,
-            profileJob: {
+            profileJob: this.selectedSector ? {
             id:this.memberProfile.profileJob.id,
             title: this.selectedSector ? formValue.jobTitle : null,
             companyName: this.selectedSector ? formValue.companyName : null,
@@ -146,15 +146,15 @@ export class EducationDetailsFormComponent {
               currencyCode: currency ? currency!.label : null,
               isVisible: formValue.isVisible,
             }
-        },
-        profileEducations: [
+        } : null,
+        profileEducations: this.selectedEducation ? [
             {
               qualification: this.selectedEducation ?  formValue.qualification : null,
               institute: this.selectedEducation ?formValue.institute : null,
               sortNo: 0,
               educationQualificationId: this.selectedEducation,
             }
-          ]
+          ] : null
         }
 
         this.memberService.updateMemberProfile(this.memberProfile.id, updatedProfile).subscribe({
