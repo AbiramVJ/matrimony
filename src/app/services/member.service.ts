@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map } from 'rxjs';
-import { Community, Education, MainUser, Religion, UserProfile } from '../models/index.model';
+import { Community, Education, FullUserProfile, MainUser, MemberProfile, Religion, UserProfile } from '../models/index.model';
 import { CommonResponse } from '../models/commonResponse.model';
 
 
@@ -97,13 +97,17 @@ export class MemberService {
   public getMatchingData(body: any, id: string, pageNumber:number, pageSize:number) {
     return this.http.post(`${this.baseUrl}ProfileMatching/matching/${id}?&pageNumber=${pageNumber}&pageSize=${pageSize}`, body).pipe(
       map((res: any) => {
-        return new CommonResponse<UserProfile>(res.Result, UserProfile);
+        return new CommonResponse<MemberProfile>(res.Result, MemberProfile);
       })
     );
   }
 
-  public getSingleMember(id:string){
-
+  public GetFilterMemberViewData(id:string){
+    return this.http.get(this.baseUrl + `ProfileMatching/view/${id}`).pipe(
+        map((res: any) => {
+          return new FullUserProfile(res.Result);
+      })
+    );
   }
 
   public getMainUser(){

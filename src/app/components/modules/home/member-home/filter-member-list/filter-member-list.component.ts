@@ -1,25 +1,24 @@
-import { routes } from './../../../../../app.routes';
 import { Router } from '@angular/router';
 import { MemberService } from './../../../../../services/member.service';
 import { AuthService } from './../../../../../services/auth/auth.service';
 import { Component } from '@angular/core';
 import { COMMON_DIRECTIVES, FORM_MODULES } from '../../../../../common/common-imports';
 import { CommonModule } from '@angular/common';
-import { UserProfile } from '../../../../../models/index.model';
+import { FullUserProfile, MemberProfile, UserProfile } from '../../../../../models/index.model';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ToastrService } from 'ngx-toastr';
-import { AdminHomeComponent } from "../../admin-home/admin-home.component";
 import { MemberProfileModalComponent } from "../../../../../common/pop-up/member-profile-modal/member-profile-modal.component";
 import { distinctUntilChanged } from 'rxjs';
-import { LoadingComponent } from "../../../../../common/loading/loading.component";
+
 @Component({
   selector: 'app-filter-member-list',
-  imports: [FORM_MODULES, COMMON_DIRECTIVES, CommonModule, NgxPaginationModule, MemberProfileModalComponent, LoadingComponent],
+  imports: [FORM_MODULES, COMMON_DIRECTIVES, CommonModule, NgxPaginationModule, MemberProfileModalComponent],
   templateUrl: './filter-member-list.component.html',
   styleUrl: './filter-member-list.component.scss'
 })
 export class FilterMemberListComponent {
-  public memberProfiles:UserProfile[] = [];
+  public memberProfiles:MemberProfile[] = [];
+  public filterMemberViewData!:FullUserProfile;
   public currentsUser!:UserProfile;
   public totalItemCount: number = 0;
   public itemsPerPage: number = 6;
@@ -80,6 +79,24 @@ export class FilterMemberListComponent {
     }
 
   });
+  }
+
+  public viewMemberDetails(id:string){
+  this.isLoading = true;
+  this.memberService.GetFilterMemberViewData(id).subscribe({
+      next:(res:any) => {
+      this.filterMemberViewData  = res;
+      console.log(res);
+      this.isLoading = false;
+      },
+      complete:() => {
+
+      },
+      error:(error:any) => {
+        this.isLoading = false;
+        this._toastr.error(error.error.Error.Detail,error.error.Error.Title);
+      }
+     });
   }
 
   public addMember(){

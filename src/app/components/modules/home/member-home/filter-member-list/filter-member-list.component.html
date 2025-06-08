@@ -21,16 +21,17 @@
       <div class="row">
         <div class="col-12 col-md-4">
           <div class="me-2">
-          <img src="{{member.profileImages[0].url}}" alt="pf" class="object-fit-cover border rounded profile-img" width="150px" height="150px">
+          <img src="{{member.imageUrl}}" alt="pf" class="object-fit-cover border rounded profile-img" width="150px" height="150px">
         </div>
         </div>
         <div class="col-12 col-md-4 ">
           <div class="text-md fw-bold text-muted text-truncate">{{member.firstName + ' ' + member.lastName}} </div>
-          <div class="mt-1 text-sm text-truncate"><i class="fas fa-briefcase text-primary me-2"></i>{{member.profileJob.title}}</div>
-          <div class="mt-1 text-sm"><i class="fas fa-map-marker-alt me-2 text-danger"></i>{{member.originCountry}}</div>
-          <div class="mt-1 text-sm"><i class="fas fa-user-clock me-2 text-secondary"></i>{{member.age}} years old</div>
-          <div class="mt-1 text-sm text-truncate"><i class="fas fa-language me-2 text-info"></i>{{member.knownLanguages}}</div>
-          <div class="mt-1 text-sm"><i class="fas fa-star me-2 text-warning"></i>{{'API'}}</div>
+          <div class="mt-1 text-sm text-truncate"><i class="fas fa-briefcase me-2"></i>{{member.jobTitle}}</div>
+          <div class="mt-1 text-sm"><i class="fas fa-map-marker-alt me-2"></i>{{member.livingAddresses?.country}}</div>
+          <div class="mt-1 text-sm"><i class="fas fa-user-clock me-2 "></i>{{member.age}} years old</div>
+          <div class="mt-1 text-sm text-truncate">
+          <i class="me-2 fas fa-user"></i> {{ member.gender === 1 ? 'Male' : member.gender === 2 ? 'Female' : 'Other' }}</div>
+          <div class="mt-1 text-sm"><i class="fas fa-star me-2"></i>religion : {{member.religion}}</div>
         </div>
 
         <div class="col-4 mt-auto">
@@ -43,7 +44,7 @@
               <button class="btn btn-light"><i class="fas fa-phone text-success"></i></button>
             </div>
             <div>
-              <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fas fa-eye text-white"></i></button>
+              <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fas fa-eye text-white" (click)="viewMemberDetails(member.id)"></i></button>
             </div>
           </div>
         </div>
@@ -89,7 +90,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div> -->
       <div class="modal-body p-0">
-       <app-member-profile-modal></app-member-profile-modal>
+       <app-member-profile-modal [memberProfile]="filterMemberViewData"></app-member-profile-modal>
       </div>
     </div>
   </div>

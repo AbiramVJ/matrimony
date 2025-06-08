@@ -240,3 +240,134 @@ export class MainUser {
     this.image = obj?.image ?? 'https://cdn-icons-png.flaticon.com/512/9187/9187604.png';
   }
 }
+
+export class LivingAddress {
+  id: string;
+  addressType: number;
+  residentStatus: number;
+  isDefault: boolean;
+  number: string;
+  street: string;
+  city: string;
+  state: string;
+  zipcode: string;
+  country: string;
+  latitude: number;
+  longitude: number;
+
+  constructor(obj: any) {
+    this.id = obj?.id ?? null;
+    this.addressType = obj?.addressType ?? null;
+    this.residentStatus = obj?.residentStatus ?? null;
+    this.isDefault = obj?.isDefault ?? false;
+    this.number = obj?.number ?? '';
+    this.street = obj?.street ?? '';
+    this.city = obj?.city ?? '';
+    this.state = obj?.state ?? '';
+    this.zipcode = obj?.zipcode ?? '';
+    this.country = obj?.country ?? '';
+    this.latitude = obj?.latitude ?? 0;
+    this.longitude = obj?.longitude ?? 0;
+  }
+}
+
+export class MemberProfile {
+  id: string;
+  firstName: string;
+  lastName: string;
+  gender: number;
+  dateOfBirth: string;
+  age: number;
+  religion: string;
+  jobTitle: string;
+  imageUrl: string;
+  livingAddresses: LivingAddress | null;
+
+  constructor(obj: any) {
+    this.id = obj?.id ?? null;
+    this.firstName = obj?.firstName ?? '';
+    this.lastName = obj?.lastName ?? '';
+    this.gender = obj?.gender ?? null;
+    this.dateOfBirth = obj?.dateOfBirth ?? null;
+    this.age = obj?.age ?? null;
+    this.religion = obj?.religion ?? '';
+    this.jobTitle = obj?.jobTitle ?? '';
+    this.imageUrl = obj?.imageUrl ?? 'https://cdn-icons-png.flaticon.com/512/9187/9187604.png';
+    this.livingAddresses = obj.livingAddresses ? new LivingAddress(obj.livingAddresses) : null;
+  }
+}
+
+
+export class FullUserProfile {
+  id: string;
+  isActive: boolean;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  phoneCode: string;
+  aboutMe: string;
+  gender: number;
+  dateOfBirth: string;
+  foodHabit: number;
+  drinksHabit: number;
+  smokeHabit: number;
+  marriageStatus: number;
+  bodyType: number;
+  willingToRelocate: number;
+  height: number;
+  weight: number;
+  disability: string;
+  originCountry: string;
+  motherTongue: string;
+  knownLanguages: string;
+  bloodGroup: number;
+  skinComplexion: number;
+  religionId: string;
+  communityId: string;
+  subCommunityId: string;
+  profileJob: ProfileJob | null;
+  profileLookingFor: ProfileLookingFor |null;
+  profileFamily: ProfileFamily |null;
+  profileAstrology: ProfileAstrology |null;
+  profileImages: ProfileImage[];
+  profileAddresses: ProfileAddress[];
+  profileEducations: ProfileEducation[];
+
+  constructor(obj: any) {
+    this.id = obj?.id ?? null;
+    this.isActive = obj?.isActive ?? false;
+    this.firstName = obj?.firstName ?? '';
+    this.lastName = obj?.lastName ?? '';
+    this.email = obj?.email ?? '';
+    this.phoneNumber = obj?.phoneNumber ?? '';
+    this.phoneCode = obj?.phoneCode ?? '';
+    this.aboutMe = obj?.aboutMe ?? '';
+    this.gender = obj?.gender ?? null;
+    this.dateOfBirth = obj?.dateOfBirth ?? '';
+    this.foodHabit = obj?.foodHabit ?? null;
+    this.drinksHabit = obj?.drinksHabit ?? null;
+    this.smokeHabit = obj?.smokeHabit ?? null;
+    this.marriageStatus = obj?.marriageStatus ?? null;
+    this.bodyType = obj?.bodyType ?? null;
+    this.willingToRelocate = obj?.willingToRelocate ?? null;
+    this.height = obj?.height ?? null;
+    this.weight = obj?.weight ?? null;
+    this.disability = obj?.disability ?? '';
+    this.originCountry = obj?.originCountry ?? '';
+    this.motherTongue = obj?.motherTongue ?? '';
+    this.knownLanguages = obj?.knownLanguages ?? '';
+    this.bloodGroup = obj?.bloodGroup ?? null;
+    this.skinComplexion = obj?.skinComplexion ?? null;
+    this.religionId = obj?.religionId ?? null;
+    this.communityId = obj?.communityId ?? null;
+    this.subCommunityId = obj?.subCommunityId ?? null;
+    this.profileJob = obj?.profileJob ? new ProfileJob(obj.profileJob) : null;
+    this.profileLookingFor = obj?.profileLookingFor ? new ProfileLookingFor(obj.profileLookingFor) : null;
+    this.profileFamily = obj?.profileFamily ? new ProfileFamily(obj.profileFamily) : null;
+    this.profileAstrology = obj?.profileAstrology ? new ProfileAstrology(obj.profileAstrology) : null;
+    this.profileImages = obj?.profileImages?.map((x: any) => new ProfileImage(x)) ?? [];
+    this.profileAddresses = obj?.profileAddresses?.map((x: any) => new ProfileAddress(x)) ?? [];
+    this.profileEducations = obj?.profileEducations?.map((x: any) => new ProfileEducation(x)) ?? [];
+  }
+}

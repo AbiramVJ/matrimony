@@ -1,6 +1,6 @@
 <div class="row m-0">
   <div class="col-12">
-    <div class="row">
+    <div class="row" *ngIf="memberProfile">
       <!-- HEDER -->
       <div class="col-12 bg-danger p-3">
          <div class="modal-header p-0 border-bottom-0">
@@ -16,7 +16,7 @@
                 <div class="text-lg fw-bold my-auto">{{memberProfile.firstName + ' ' + memberProfile.lastName}}</div>
                 <div class="d-flex">
                   <div class="me-2">25 years</div>
-                  <div class=""><li>{{memberProfile.profileJob.title}}</li></div>
+                  <div class=""><li>{{memberProfile.profileJob?.title}}</li></div>
                 </div>
                 <div class="d-flex">
                   <div class="me-2"><i class="fas fa-map-marker-alt text-white me-2"></i> {{memberProfile.originCountry}}</div>
@@ -26,7 +26,7 @@
             </div>
 
           </div>
-          <div class="col-12 col-sm-12 col-md-6 my-auto mt-2">
+          <div class="col-12 my-auto mt-2">
             <div class="d-flex justify-content-end">
               <button class="btn bt-danger-light bg-danger text-white me-3"><i class="fas fa-heart text-white me-2"></i> Interest</button>
               <button class="btn btn-light"><i class="fas fa-phone text-primary"></i> Contact</button>
@@ -128,11 +128,11 @@
         <div class="text-lg fw-bold mt-4">Addresses</div>
         <div class="row mt-3 m-0">
           <div class="col-12 col-sm-12 col-md-10 bg-light mb-2">
-            <div class="fw-bold mb-1"><i class="fas fa-map-marker-alt me-2"></i>Current Address</div>
+            <div class="fw-bold mb-1"><i class="fas fa-map-marker-alt me-2"></i>Living Address</div>
             <div class="text-sm">{{memberProfile.profileAddresses[0].street + ', ' + memberProfile.profileAddresses[0].city + ' ' + memberProfile.profileAddresses[0].country}}</div>
           </div>
           <div class="col-12 col-sm-12 col-md-10 bg-light">
-            <div class="fw-bold mb-1"><i class="fas fa-home me-2"></i>Permanent Address</div>
+            <div class="fw-bold mb-1"><i class="fas fa-home me-2"></i>Birth Address</div>
             <div class="text-sm">{{memberProfile.profileAddresses[1].street + ', ' + memberProfile.profileAddresses[1].city + ' ' + memberProfile.profileAddresses[1].country}}</div>
           </div>
         </div>
@@ -147,13 +147,13 @@
             <div class="col-12 com-sm-12 com-md-10 p-3 bg-light">
               <div class="d-flex">
                   <div class="me-3"><i class="fas fa-briefcase"></i></div>
-                  <div class="text-sm fw-bold">{{memberProfile.profileJob.title}}
-                    <div class="text-xs fw-normal">{{memberProfile.profileJob.companyName}}</div>
+                  <div class="text-sm fw-bold">{{memberProfile.profileJob?.title}}
+                    <div class="text-xs fw-normal">{{memberProfile.profileJob?.companyName}}</div>
                 </div>
               </div>
               <div class="d-flex justify-content-between mt-3 text-sm">
-                <div>Sector: {{memberProfile.profileJob.sector}}</div>
-                <div>Salary: {{memberProfile.profileJob.profileSalary.amount}}{{memberProfile.profileJob.profileSalary.currencyCode}}</div>
+                <div>Sector: {{memberProfile.profileJob?.sector}}</div>
+                <div>Salary: {{memberProfile.profileJob?.profileSalary}}{{memberProfile.profileJob?.profileSalary}}</div>
               </div>
             </div>
            </div>
@@ -177,15 +177,15 @@
             <div class="col-12 com-sm-12 com-md-10 p-3 bg-light">
               <div class="d-flex mt-2">
                 <div class="text-xs me-2">Preferred Gender:</div>
-                <div class="fw-bold text-sm">{{memberProfile.profileLookingFor.gender}}</div>
+                <div class="fw-bold text-sm">{{memberProfile.profileLookingFor?.gender}}</div>
               </div>
                <div class="d-flex mt-2">
                 <div class="text-xs me-2">Preferred Country:</div>
-                <div class="fw-bold text-sm">{{memberProfile.profileLookingFor.country}}</div>
+                <div class="fw-bold text-sm">{{memberProfile.profileLookingFor?.country}}</div>
               </div>
               <div class="d-flex mt-2">
                 <div class="text-xs me-2">Age Range:</div>
-                <div class="fw-bold text-sm">{{memberProfile.profileLookingFor.minAge + '-' + memberProfile.profileLookingFor.maxAge}}</div>
+                <div class="fw-bold text-sm">{{memberProfile.profileLookingFor?.minAge + '-' + memberProfile.profileLookingFor?.maxAge}}</div>
               </div>
             </div>
            </div>
@@ -200,27 +200,27 @@
             <!-- Father's Info -->
             <div class="mb-3">
               <div class="text-xs fw-normal">Father's Name:</div>
-              <div class="fw-bold text-sm">{{ memberProfile.profileFamily.fatherName }}</div>
-              <div class="text-xs">{{ memberProfile.profileFamily.fatherOccupation }}</div>
+              <div class="fw-bold text-sm">{{ memberProfile.profileFamily?.fatherName }}</div>
+              <div class="text-xs">{{ memberProfile.profileFamily?.fatherOccupation }}</div>
             </div>
 
             <!-- Mother's Info -->
             <div class="mb-3">
               <div class="text-xs fw-normal">Mother's Name:</div>
-              <div class="fw-bold text-sm">{{ memberProfile.profileFamily.motherName }}</div>
-              <div class="text-xs">{{ memberProfile.profileFamily.motherOccupation }}</div>
+              <div class="fw-bold text-sm">{{ memberProfile.profileFamily?.motherName }}</div>
+              <div class="text-xs">{{ memberProfile.profileFamily?.motherOccupation }}</div>
             </div>
 
             <!-- Siblings -->
             <div class="mb-3">
               <div class="text-xs fw-normal">Number of Siblings:</div>
-              <div class="fw-bold text-sm">{{ memberProfile.profileFamily.numberOfSiblings }}</div>
+              <div class="fw-bold text-sm">{{ memberProfile.profileFamily?.numberOfSiblings }}</div>
             </div>
 
             <!-- profileFamily Type -->
             <div>
               <div class="text-xs fw-normal">Family Type:</div>
-              <div class="fw-bold text-sm">{{ memberProfile.profileFamily.familyType }}</div>
+              <div class="fw-bold text-sm">{{ memberProfile.profileFamily?.familyType }}</div>
             </div>
 
           </div>
@@ -237,7 +237,7 @@
               <i class="fas fa-star" style="color: #a855f7;"></i>
             </div>
             <div class="mt-2 text-xs text-muted">Nakshathiram</div>
-            <div class="fw-bold text-sm" style="color: #a855f7;">{{ memberProfile.profileAstrology.nakshathiram }}</div>
+            <div class="fw-bold text-sm" style="color: #a855f7;">{{ memberProfile.profileAstrology?.nakshathiram }}</div>
           </div>
 
           <!-- Raasi -->
@@ -246,7 +246,7 @@
               <i class="fas fa-star" style="color: #2563eb;"></i>
             </div>
             <div class="mt-2 text-xs text-muted">Raasi</div>
-            <div class="fw-bold text-sm text-primary">{{ memberProfile.profileAstrology.raasi }}</div>
+            <div class="fw-bold text-sm text-primary">{{ memberProfile.profileAstrology?.raasi }}</div>
           </div>
 
           <!-- Time of Birth -->
@@ -255,7 +255,7 @@
               <i class="fas fa-calendar-alt" style="color: #16a34a;"></i>
             </div>
             <div class="mt-2 text-xs text-muted">Time of Birth</div>
-            <div class="fw-bold text-sm" style="color: #16a34a;">{{ memberProfile.profileAstrology.timeOfBirth }}</div>
+            <div class="fw-bold text-sm" style="color: #16a34a;">{{ memberProfile.profileAstrology?.timeOfBirth }}</div>
           </div>
 
         </div>
