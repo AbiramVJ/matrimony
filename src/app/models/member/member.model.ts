@@ -1,3 +1,5 @@
+import { BloodGroup, bodyTypes, diet, DrinkHabit, maritalStatusOptions, Natshathira, raasiList, SmokeHabit, willingToRelocate } from "../../helpers/data";
+
 export class ProfileSalary {
   isAnnual: boolean;
   amount: number;
@@ -71,12 +73,16 @@ export class ProfileAstrology {
   nakshathiram: number;
   raasi: number;
   timeOfBirth: string;
+  starName:string | null;
+  rasiName:string | null;
 
   constructor(obj: any = {}) {
     this.id = obj?.id ?? '';
     this.nakshathiram = obj?.nakshathiram ?? 0;
     this.raasi = obj?.raasi ?? 0;
     this.timeOfBirth = obj?.timeOfBirth ?? '';
+    this.starName = obj?.nakshathiram ? getNatshathira(obj?.nakshathiram) : null;
+    this.rasiName = obj?.raasi ? getRasi(obj?.raasi) : null;
   }
 }
 
@@ -307,21 +313,21 @@ export class FullUserProfile {
   phoneNumber: string;
   phoneCode: string;
   aboutMe: string;
-  gender: number;
+  gender: string | null;
   dateOfBirth: string;
-  foodHabit: number;
-  drinksHabit: number;
-  smokeHabit: number;
-  marriageStatus: number;
-  bodyType: number;
-  willingToRelocate: number;
+  foodHabit: string | null;
+  drinksHabit: string | null;
+  smokeHabit: string | null;
+  marriageStatus: string | null;
+  bodyType: string | null;
+  willingToRelocate: string | null;
   height: number;
   weight: number;
   disability: string;
   originCountry: string;
   motherTongue: string;
   knownLanguages: string;
-  bloodGroup: number;
+  bloodGroup: string | null;
   skinComplexion: number;
   religionId: string;
   communityId: string;
@@ -333,6 +339,7 @@ export class FullUserProfile {
   profileImages: ProfileImage[];
   profileAddresses: ProfileAddress[];
   profileEducations: ProfileEducation[];
+  age: number;
 
   constructor(obj: any) {
     this.id = obj?.id ?? null;
@@ -343,21 +350,21 @@ export class FullUserProfile {
     this.phoneNumber = obj?.phoneNumber ?? '';
     this.phoneCode = obj?.phoneCode ?? '';
     this.aboutMe = obj?.aboutMe ?? '';
-    this.gender = obj?.gender ?? null;
+    this.gender = obj?.gender ? (obj?.gender == 1 ? 'Male' : 'Female') : null;
     this.dateOfBirth = obj?.dateOfBirth ?? '';
-    this.foodHabit = obj?.foodHabit ?? null;
-    this.drinksHabit = obj?.drinksHabit ?? null;
-    this.smokeHabit = obj?.smokeHabit ?? null;
-    this.marriageStatus = obj?.marriageStatus ?? null;
-    this.bodyType = obj?.bodyType ?? null;
-    this.willingToRelocate = obj?.willingToRelocate ?? null;
+    this.foodHabit = this.getFoodHabit(obj?.foodHabit) ?? null;
+    this.drinksHabit = this.getDrinkingHabit(obj?.drinksHabit) ?? null;
+    this.smokeHabit = this.getSmokeHabit( obj?.smokeHabit) ?? null;
+    this.marriageStatus = this.getMarriedStatus(obj?.marriageStatus) ?? null;
+    this.bodyType = this.getBodyType(obj?.bodyType) ?? null;
+    this.willingToRelocate = this.getRelocated(obj?.willingToRelocate) ?? null;
     this.height = obj?.height ?? null;
     this.weight = obj?.weight ?? null;
     this.disability = obj?.disability ?? '';
     this.originCountry = obj?.originCountry ?? '';
     this.motherTongue = obj?.motherTongue ?? '';
     this.knownLanguages = obj?.knownLanguages ?? '';
-    this.bloodGroup = obj?.bloodGroup ?? null;
+    this.bloodGroup = this.getBloodGroup(obj?.bloodGroup)  ?? null;
     this.skinComplexion = obj?.skinComplexion ?? null;
     this.religionId = obj?.religionId ?? null;
     this.communityId = obj?.communityId ?? null;
@@ -369,5 +376,54 @@ export class FullUserProfile {
     this.profileImages = obj?.profileImages?.map((x: any) => new ProfileImage(x)) ?? [];
     this.profileAddresses = obj?.profileAddresses?.map((x: any) => new ProfileAddress(x)) ?? [];
     this.profileEducations = obj?.profileEducations?.map((x: any) => new ProfileEducation(x)) ?? [];
+    this.age = obj?.age ?? 0;
   }
+
+  getMarriedStatus(status: number): string {
+    const option = maritalStatusOptions.find(opt => opt.id === status);
+    return option ? option.name : 'Unknown';
+  }
+
+  getFoodHabit(status: number): string{
+    const option = diet.find(opt => opt.id === status);
+    return option ? option.name : 'Unknown';
+  }
+
+  getRelocated(status:number): string{
+    const option = willingToRelocate.find(opt => opt.id === status);
+    return option ? option.name : 'Unknown';
+  }
+
+  getBloodGroup(status:number): string{
+    const option = BloodGroup.find(opt => opt.id === status);
+    return option ? option.name : 'Unknown';
+  }
+
+  getBodyType(status:number): string{
+    const option = bodyTypes.find(opt => opt.id === status);
+    return option ? option.name : 'Unknown';
+  }
+
+  getSmokeHabit(status:number): string{
+    const option = SmokeHabit.find(opt => opt.id === status);
+    return option ? option.name : 'Unknown';
+  }
+
+  getDrinkingHabit(status:number) : string {
+    const option = DrinkHabit.find(opt => opt.id === status);
+    return option ? option.name : 'Unknown';
+  }
+
+
+
+}
+
+export function getNatshathira(status:number){
+  const option = Natshathira.find(opt => opt.id === status);
+  return option ? option.name : 'Unknown';
+}
+
+export function getRasi(status:number){
+  const option = raasiList.find(opt => opt.id === status);
+  return option ? option.name : 'Unknown';
 }

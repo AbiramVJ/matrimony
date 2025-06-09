@@ -23,4 +23,6 @@ public tabs:any = [
 public currentTap : number = 1;
 
 
+
+
 }

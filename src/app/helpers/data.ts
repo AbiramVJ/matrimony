@@ -2290,7 +2290,8 @@ export const BloodGroup = [
 
 export const willingToRelocate = [
    { id: 1, name: "Yes" },
-   { id: 2, name: "No" }
+   { id: 2, name: "No" },
+   { id: 3, name: "Maybe" }
 ]
 
 export const currencies = [
