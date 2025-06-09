@@ -166,9 +166,9 @@ export class UserProfile {
   isVisibleCommunity: boolean;
   userId: string;
   religionId: string;
-  communityId: string;
-  subCommunityId: string;
-  profileJob: ProfileJob;
+  communityId: string | null;
+  subCommunityId: string | null;
+  profileJob: ProfileJob | null;
   profileLookingFor: ProfileLookingFor;
   profileFamily: ProfileFamily;
   profileAstrology: ProfileAstrology;
@@ -207,9 +207,9 @@ export class UserProfile {
     this.isVisibleCommunity = obj?.isVisibleCommunity ?? false;
     this.userId = obj?.userId ?? '';
     this.religionId = obj?.religionId ?? '';
-    this.communityId = obj?.communityId ?? '';
-    this.subCommunityId = obj?.subCommunityId ?? '';
-    this.profileJob = new ProfileJob(obj?.profileJob);
+    this.communityId = obj?.communityId ?? null;
+    this.subCommunityId = obj?.subCommunityId ?? null;
+    this.profileJob = obj?.profileJob ? new ProfileJob(obj?.profileJob) : null;
     this.profileLookingFor = new ProfileLookingFor(obj?.profileLookingFor);
     this.profileFamily = new ProfileFamily(obj?.profileFamily);
     this.profileAstrology = new ProfileAstrology(obj?.profileAstrology);

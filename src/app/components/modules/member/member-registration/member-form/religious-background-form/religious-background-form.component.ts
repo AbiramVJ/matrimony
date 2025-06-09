@@ -38,10 +38,10 @@ export class ReligiousBackgroundFormComponent {
   public selectedRaasi:number = 0;
 
   public communityList:Community[] = [];
-  public selectedCommunity:string = '';
+  public selectedCommunity:any = null;
 
   public SubCommunityList:SubCommunity[] = [];
-  public selectedSubCommunity:string = '';
+  public selectedSubCommunity:any = null;
 
   constructor(private fb:FormBuilder, private dataProvider:DataProviderService, private memberService:MemberService,
     private toastr: ToastrService){

@@ -82,18 +82,22 @@ export class FilterMemberListComponent {
   }
 
   public viewMemberDetails(id:string){
-  this.isLoading = true;
+ // this.isLoading = true;
   this.memberService.GetFilterMemberViewData(id).subscribe({
       next:(res:any) => {
       this.filterMemberViewData  = res;
       console.log(res);
-      this.isLoading = false;
+     // this.isLoading = false;
       },
       complete:() => {
+        let viewModal: HTMLElement = document.getElementById('viewProfileModal') as HTMLElement;
+        if(viewModal){
+          viewModal.click();
+        }
 
       },
       error:(error:any) => {
-        this.isLoading = false;
+     //   this.isLoading = false;
         this._toastr.error(error.error.Error.Detail,error.error.Error.Title);
       }
      });

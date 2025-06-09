@@ -44,7 +44,8 @@
               <button class="btn btn-light"><i class="fas fa-phone text-success"></i></button>
             </div>
             <div>
-              <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fas fa-eye text-white" (click)="viewMemberDetails(member.id)"></i></button>
+              <button class="btn btn-danger" (click)="viewMemberDetails(member.id)"><i class="fas fa-eye text-white"></i></button>
+
             </div>
           </div>
         </div>
@@ -104,3 +105,4 @@
     <div class="class btn btn-danger mt-3" (click)="addMember()">Create Member</div>
   </div>
 </div>
+ <button class="d-none" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="viewProfileModal"></button>

@@ -16,7 +16,7 @@ public tabs:any = [
   { id: 1, icon: 'fas fa-user', label: 'Overview' },
   { id: 2, icon: 'fas fa-heart', label: 'Personal' },
   { id: 3, icon: 'fas fa-briefcase', label: 'Career' },
-  { id: 4, icon: 'fas fa-people-group', label: 'Family' },
+  { id: 4, icon: 'fas fa-users', label: 'Family' },
   { id: 5, icon: 'fas fa-star', label: 'Astrology' }
 ];
 

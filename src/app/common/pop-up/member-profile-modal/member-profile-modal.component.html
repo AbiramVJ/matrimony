@@ -36,15 +36,21 @@
       </div>
 
       <!-- TAP BAR -->
-       <div class="row">
-        <div class="col-10">
+
+        <div class="col-12">
          <div class="d-flex justify-content-between">
           <div class="p-3 pointer" *ngFor="let tab of tabs" [ngClass]="{ 'bar-active': currentTap === tab.id }" (click)="currentTap = tab.id">
-            <i [class]="tab.icon + ' me-2'"></i>{{ tab.label }}
+            <div class="d-none d-sm-block">
+              <i [class]="tab.icon + ' me-2'"></i>{{ tab.label }}
+            </div>
+             <div class="d-block d-sm-none">
+              <i [class]="tab.icon + ' me-2'"></i>
+            </div>
+
           </div>
         </div>
         </div>
-       </div>
+
 
        <!-- //OVER VIEW -->
        <div class="row mt-4 p-3 m-0" *ngIf="currentTap === 1">

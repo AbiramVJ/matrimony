@@ -33,7 +33,7 @@ export class EducationDetailsFormComponent {
 
 
   public jobTypeList:Education[] = []
-  public selectedEducation:string = '';
+  public selectedEducation:any = null;
   public selectedSector:number = 0;
   public selectedJob:string = '';
   public selectedCurrency:number = 0;
@@ -135,7 +135,7 @@ export class EducationDetailsFormComponent {
         const updatedProfile = {
             ...this.memberProfile,
             profileJob: this.selectedSector ? {
-            id:this.memberProfile.profileJob.id,
+            id:this.memberProfile.profileJob?.id,
             title: this.selectedSector ? formValue.jobTitle : null,
             companyName: this.selectedSector ? formValue.companyName : null,
             sector: this.selectedSector,
@@ -174,21 +174,24 @@ export class EducationDetailsFormComponent {
 
   ngOnChanges(){
 
-    let currencyCode = this.currencies.find((c:any) => c.label === this.memberProfile.profileJob.profileSalary.currencyCode);
-    this.selectedEducation = this.memberProfile.profileEducations[0].educationQualificationId;
-    this.userEducationFrom.get('qualification')?.patchValue( this.memberProfile.profileEducations[0].qualification);
-    this.userEducationFrom.get('institute')?.patchValue( this.memberProfile.profileEducations[0].institute);
+    if(this.memberProfile.profileEducations.length > 0){
+    this.selectedEducation =  this.memberProfile.profileEducations[0].educationQualificationId;
+      this.userEducationFrom.get('qualification')?.patchValue( this.memberProfile.profileEducations[0].qualification);
+      this.userEducationFrom.get('institute')?.patchValue( this.memberProfile.profileEducations[0].institute);
+    }
+    if(this.memberProfile.profileJob){
+      let currencyCode = this.currencies.find((c:any) => c.label === this.memberProfile.profileJob?.profileSalary.currencyCode);
+      this.selectedJob = this.memberProfile.profileJob.jobTypeId;
+      this.selectedSector = this.memberProfile.profileJob.sector;
+      this.selectedCurrency = currencyCode?.id || 1;
+      this.userEducationFrom.get('companyName')?.patchValue( this.memberProfile.profileJob.companyName);
+      this.userEducationFrom.get('jobTitle')?.patchValue( this.memberProfile.profileJob.title);
 
-    this.selectedJob = this.memberProfile.profileJob.jobTypeId;
-    this.selectedSector = this.memberProfile.profileJob.sector;
-    this.selectedCurrency = currencyCode?.id || 1;
-    this.userEducationFrom.get('companyName')?.patchValue( this.memberProfile.profileJob.companyName);
-    this.userEducationFrom.get('jobTitle')?.patchValue( this.memberProfile.profileJob.title);
-
-    this.userEducationFrom.get('salaryDetails')?.patchValue( this.memberProfile.profileJob.profileSalary.amount);
-    this.userEducationFrom.get('isYearly')?.patchValue( this.memberProfile.profileJob.profileSalary.isAnnual);
-    this.userEducationFrom.get('isVisible')?.patchValue( this.memberProfile.profileJob.profileSalary.isVisible);
-
+      this.userEducationFrom.get('salaryDetails')?.patchValue( this.memberProfile.profileJob.profileSalary.amount);
+      this.userEducationFrom.get('isYearly')?.patchValue( this.memberProfile.profileJob.profileSalary.isAnnual);
+      this.userEducationFrom.get('isVisible')?.patchValue( this.memberProfile.profileJob.profileSalary.isVisible);
+    }
+console.log(this.memberProfile.profileJob?.sector)
     this.changeHightEduction();
     this.changeJobSector();
     this.changeSalary();
@@ -232,7 +235,7 @@ export class EducationDetailsFormComponent {
 public changeJobSector(){
   const title = this.userEducationFrom.get('jobTitle');
   const companyName = this.userEducationFrom.get('companyName');
-  if (this.selectedSector !== null) {
+  if (this.selectedSector) {
       title?.addValidators(Validators.required);
       companyName?.addValidators(Validators.required);
      // this.selectedJob = this.jobTypeList[0].id;
