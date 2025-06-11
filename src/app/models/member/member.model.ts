@@ -72,7 +72,7 @@ export class ProfileAstrology {
   id: string;
   nakshathiram: number;
   raasi: number;
-  timeOfBirth: string;
+  timeOfBirth: string | null;
   starName:string | null;
   rasiName:string | null;
 
@@ -80,7 +80,7 @@ export class ProfileAstrology {
     this.id = obj?.id ?? '';
     this.nakshathiram = obj?.nakshathiram ?? 0;
     this.raasi = obj?.raasi ?? 0;
-    this.timeOfBirth = obj?.timeOfBirth ?? '';
+    this.timeOfBirth = obj?.timeOfBirth ?? null;
     this.starName = obj?.nakshathiram ? getNatshathira(obj?.nakshathiram) : null;
     this.rasiName = obj?.raasi ? getRasi(obj?.raasi) : null;
   }
@@ -305,6 +305,7 @@ export class MemberProfile {
 
 
 export class FullUserProfile {
+
   id: string;
   isActive: boolean;
   firstName: string;
@@ -342,6 +343,7 @@ export class FullUserProfile {
   age: number;
 
   constructor(obj: any) {
+    const images = obj?.profileImages ?? [];
     this.id = obj?.id ?? null;
     this.isActive = obj?.isActive ?? false;
     this.firstName = obj?.firstName ?? '';
@@ -374,6 +376,9 @@ export class FullUserProfile {
     this.profileFamily = obj?.profileFamily ? new ProfileFamily(obj.profileFamily) : null;
     this.profileAstrology = obj?.profileAstrology ? new ProfileAstrology(obj.profileAstrology) : null;
     this.profileImages = obj?.profileImages?.map((x: any) => new ProfileImage(x)) ?? [];
+      this.profileImages = images.length > 0
+  ? images.map((i: any) => new ProfileImage(i))
+  : [new ProfileImage({ url: 'https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740' })];
     this.profileAddresses = obj?.profileAddresses?.map((x: any) => new ProfileAddress(x)) ?? [];
     this.profileEducations = obj?.profileEducations?.map((x: any) => new ProfileEducation(x)) ?? [];
     this.age = obj?.age ?? 0;

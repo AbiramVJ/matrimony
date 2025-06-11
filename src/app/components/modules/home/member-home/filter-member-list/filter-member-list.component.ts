@@ -34,7 +34,6 @@ export class FilterMemberListComponent {
     });
 
     this.memberService.filter$
-    .pipe(distinctUntilChanged((prev, curr) => JSON.stringify(prev) === JSON.stringify(curr)))
     .subscribe(filter => {
       if (filter) {
         this.filter = filter;

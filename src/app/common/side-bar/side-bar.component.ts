@@ -103,10 +103,6 @@ export class SideBarComponent {
   public jobType:string[] = [];
   public education:string[] = [];
   public rasi:number[] = [];
-
-
-
-
   public isLoading:boolean = false;
 
   constructor( private dataProvider: DataProviderService,private memberService:MemberService, private _authService:AuthService,){
@@ -119,7 +115,6 @@ export class SideBarComponent {
       if (defaultCountryCode) {
       //  this.selectedCountry = [defaultCountryCode.country];
         this.selectedLivingCountry = [defaultCountryCode.country];
-
       }
     });
 
@@ -381,7 +376,6 @@ public ngSelectChange(){
         maxMonthlyAmount: this.maxSalaryValue,
         } : null,
       };
-
     this.memberService.setFilter(filterPayload);
   }
 

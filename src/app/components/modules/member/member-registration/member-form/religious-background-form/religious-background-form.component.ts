@@ -114,7 +114,7 @@ export class ReligiousBackgroundFormComponent {
       religion:[''],
 
       communityCast:[''],
-      timeOfBirth:[''],
+      timeOfBirth:[null],
       isVisible:[true],
       subCast:[''],
       starNakshathra:[''],

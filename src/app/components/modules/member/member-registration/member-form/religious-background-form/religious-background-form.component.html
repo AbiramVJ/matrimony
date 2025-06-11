@@ -82,16 +82,23 @@
     </ng-select>
   </div>
   <div class="text-md fw-bold text-muted mb-3 mt-3">Birth Details</div>
-  <div class="col-12 col-md-6 mb-3">
-    <div class="form-group mb-3">
-      <label for="timeOfBirth" class="mb-2">Time of Birth <span class="text-danger">*</span></label>
-      <input type="time" id="timeOfBirth" formControlName="timeOfBirth" class="form-control"
-             [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('timeOfBirth')?.errors}">
-      <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userReligiousForm.get('timeOfBirth')?.errors">
-        Time of birth is required
-      </div>
+ <div class="col-12 col-md-6 mb-3">
+  <div class="form-group mb-3">
+    <label for="timeOfBirth" class="mb-2">Time of Birth</label>
+
+    <div class="input-group">
+      <input type="time" id="timeOfBirth" formControlName="timeOfBirth" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('timeOfBirth')?.errors}" >
+      <button *ngIf="userReligiousForm.get('timeOfBirth')?.value" type="button" class="btn btn-light border" (click)="userReligiousForm.get('timeOfBirth')?.setValue(null)">
+        clear
+      </button>
+    </div>
+
+    <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userReligiousForm.get('timeOfBirth')?.errors">
+      Time of birth is required
     </div>
   </div>
+</div>
+
 
 <!-- DOOR NUMBER -->
 <!-- <div class="col-12 col-md-6 mb-3">

@@ -2,7 +2,7 @@
   <div class="col-12 p-0">
     <div class="nav-parent">
       <div class="d-flex justify-content-between">
-        <div class="my-auto d-flex d-none d-md-block">
+        <div class="my-auto d-flex d-none d-md-block pointer"  [routerLink]="'/home/member'">
             <img class="me-2" src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png" alt="logo" class="logo-svg" >
 
         </div>
@@ -54,7 +54,7 @@
             </a>
 
             <a class="nav-item nav-link" >
-              <i class="fas fa-comments fa-lg d-block"></i>
+              <i class="fas fa-comments fa-lg d-block" [routerLink]="['home/chat']" ></i>
               <!-- <small>Chat</small> -->
             </a>
 
@@ -89,8 +89,79 @@
               <img class="circles" src="{{mainUser.image}}" class="circles object-fit-cover" alt="...">
             </div>
           </div>
-          <div class="boder rounded bg-white position-absolute message-box fw-bold" *ngIf="isNotificationOpen">Notifications</div>
-          <div class="boder rounded bg-white position-absolute message-box fw-bold" *ngIf="isMessageOpen">Message</div>
+          <div class="boder rounded bg-white position-absolute message-box" *ngIf="isNotificationOpen">
+            <div class="fw-bold text-sm">Notifications</div>
+
+          </div>
+          <div class="boder rounded bg-white position-absolute message-box fw-bold" *ngIf="isMessageOpen">
+            <h5><i class="fas fa-comments text-md me-2"></i>Messages</h5>
+            <div class="message-wrapper mt-0">
+              <!-- <div class="message-header bg-danger">
+                <h4><i class="fas fa-comments me-2"></i>Messages</h4> -->
+              <!-- </div> -->
+
+              <div class="search-wrapper">
+                <input
+                  type="text"
+                  class="search-field"
+                  placeholder="Search conversations..."
+                  [(ngModel)]="searchTerm">
+              </div>
+
+              <div class="conversation-list">
+                <div class="conversation-item" [class.selected]="selectedChatId === chat.id" *ngFor="let chat of filteredChats"
+                  (click)="selectChat(chat.id)">
+                  <div class="d-flex align-items-center" [routerLink]="['home/chat']" >
+                    <div class="avatar-wrapper">
+                      <img
+                        *ngIf="chat.imageUrl"
+                        [src]="chat.imageUrl"
+                        [alt]="chat.name"
+                        class="avatar-image"
+                        onerror="this.style.display='none'">
+
+                      <div
+                        *ngIf="!chat.imageUrl"
+                        class="avatar-initials">
+                        {{ getInitials(chat.name) }}
+                      </div>
+
+                      <div
+                        *ngIf="chat.isOnline"
+                        class="status-online">
+                      </div>
+                    </div>
+
+                    <div class="conversation-details">
+                      <div class="user-name">{{ chat.name }}</div>
+                      <div
+                        class="recent-message"
+                        [class.typing-animation]="isTyping(chat.lastMessage)">
+                        {{ chat.lastMessage }}
+                      </div>
+                    </div>
+
+                    <div class="conversation-meta">
+                      <div class="message-time">{{ chat.time }}</div>
+                      <div
+                        *ngIf="chat.unReadCount > 0"
+                        class="notification-badge">
+                        {{ chat.unReadCount }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Empty state when no chats match search -->
+                <div *ngIf="filteredChats.length === 0 && searchTerm" class="no-results">
+                  <div class="text-center py-4">
+                    <i class="fas fa-search text-muted mb-3" style="font-size: 2rem;"></i>
+                    <p class="text-muted">No conversations found for "{{ searchTerm }}"</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+                      </div>
           <div class="boder rounded bg-white position-absolute" [ngClass]="memberProfiles.length === 0 ? 'register-drop' : 'message-box'" *ngIf="isProfileOpen">
             <div class="d-flex pointer" [routerLink]="['home/main-user']" *ngIf="mainUser">
               <div class="me-3">

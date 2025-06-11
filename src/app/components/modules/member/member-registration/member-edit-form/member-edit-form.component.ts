@@ -18,7 +18,7 @@ import { LoadingComponent } from "../../../../../common/loading/loading.componen
 
 @Component({
   selector: 'app-member-edit-form',
-  imports: [FORM_MODULES, ROUTER_MODULES, COMMON_DIRECTIVES, LookingForFormComponent, MemberProfileFormComponent, ContactInfoFormComponent, PersonalDetailsFormComponent, FamilyInformationFormComponent, ReligiousBackgroundFormComponent, EducationDetailsFormComponent, UpperCasePipe, LoadingComponent],
+  imports: [FORM_MODULES, ROUTER_MODULES, COMMON_DIRECTIVES, LookingForFormComponent, MemberProfileFormComponent, ContactInfoFormComponent, PersonalDetailsFormComponent, FamilyInformationFormComponent, ReligiousBackgroundFormComponent, EducationDetailsFormComponent, UpperCasePipe],
   templateUrl: './member-edit-form.component.html',
   styleUrl: './member-edit-form.component.scss'
 })

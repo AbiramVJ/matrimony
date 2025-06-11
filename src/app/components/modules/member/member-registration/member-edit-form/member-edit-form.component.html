@@ -13,7 +13,6 @@
           </div>
       </div>
       <div class="bg-color ">
-
         <div class="col-12 col-sm-10 col-md-8 col-lg-10 mx-auto mt-3 mb-5" *ngIf="!isLoading">
           <div class="row ">
             <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto">
@@ -96,10 +95,23 @@
             </div>
             </div>
           </div>
+
       </div>
-       <app-loading *ngIf="isLoading" ></app-loading>
+      <div class="d-flex justify-content-center align-items-center min-vh-100" *ngIf="isLoading">
+        <div class="d-flex justify-content-center align-items-center h-100">
+          <div class="spinner-grow text-danger me-1" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-grow text-warning me-1" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-grow text-danger" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
       </div>
 
+      </div>
     </div>
   </div>
 </section>

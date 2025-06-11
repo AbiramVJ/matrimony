@@ -21,17 +21,79 @@ export class NavigationBarComponent {
   public isDropOpen:boolean = false;
   public isShowBox:boolean = false;
   public isLoading:boolean = false;
-
   public canAddProfile:boolean = false;
+  public isMessageOpen:boolean = false;
+  public isProfileOpen:boolean = false;
+  public isNotificationOpen:boolean = false;
 
-  public isMessageOpen = false;
-  public isProfileOpen = false;
-  public isNotificationOpen = false;
   public selectedMember!:UserProfile;
   public memberProfiles:UserProfile[] = [];
-  public loginUserDetails:any;
 
+  public loginUserDetails:any;
   public mainUser!:MainUser;
+
+  public searchTerm: string = '';
+  public selectedChatId: number | null = null;
+
+  public chatList: any[] = [
+  {
+    id: 1,
+    name: 'Abiram',
+    imageUrl: '',
+    lastMessage: 'hello, good morning',
+    isOnline: true,
+    unReadCount: 5
+  },
+  {
+    id: 2,
+    name: 'Sneha',
+    imageUrl: 'https://randomuser.me/api/portraits/women/65.jpg',
+    lastMessage: 'Are we still on for tonight?',
+    isOnline: false,
+    unReadCount: 0
+  },
+  {
+    id: 3,
+    name: 'Ravi Kumar',
+    imageUrl: 'https://randomuser.me/api/portraits/men/33.jpg',
+    lastMessage: 'Sent you the files.',
+    isOnline: true,
+    unReadCount: 2
+  },
+  {
+    id: 4,
+    name: 'Meera',
+    imageUrl: '',
+    lastMessage: 'Typing...',
+    isOnline: true,
+    unReadCount: 0
+  },
+  {
+    id: 5,
+    name: 'John Doe',
+    imageUrl: 'https://randomuser.me/api/portraits/men/74.jpg',
+    lastMessage: '👍',
+    isOnline: false,
+    unReadCount: 7
+  },
+  {
+    id: 6,
+    name: 'Priya Sharma',
+    imageUrl: 'https://randomuser.me/api/portraits/women/44.jpg',
+    lastMessage: 'Let me know once you’re free.',
+    isOnline: true,
+    unReadCount: 0
+  },
+  {
+    id: 7,
+    name: 'Nikhil Raj',
+    imageUrl: '',
+    lastMessage: 'Thanks!',
+    isOnline: false,
+    unReadCount: 1
+  }
+];
+
 
   constructor(private eRef: ElementRef,
     private _memberService:MemberService,
@@ -39,9 +101,8 @@ export class NavigationBarComponent {
     public router:Router,
     private _authService:AuthService,
     private _socialLoginService:SocialLoginService
-  ){
+  ){}
 
-  }
  @HostListener('document:click', ['$event'])
   handleClickOutside(event: MouseEvent) {
     const target = event.target as HTMLElement;
@@ -148,6 +209,34 @@ get displayedProfiles() {
     localStorage.removeItem('currentMemberId');
     localStorage.setItem('currentMemberId',id);
     window.location.href = "/";
+  }
+
+  get filteredChats(): any[] {
+    if (!this.searchTerm) {
+      return this.chatList;
+    }
+
+    return this.chatList.filter(chat =>
+      chat.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+      chat.lastMessage.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
+
+   getInitials(name: string): string {
+    return name.split(' ')
+      .map(word => word.charAt(0))
+      .join('')
+      .toUpperCase();
+  }
+
+  selectChat(chatId: number): void {
+    this.selectedChatId = chatId;
+    console.log('Selected chat:', chatId);
+    // Add your chat selection logic here
+  }
+
+  isTyping(message: string): boolean {
+    return message === 'Typing...';
   }
 
 }

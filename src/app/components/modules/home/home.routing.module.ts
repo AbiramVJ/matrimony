@@ -23,6 +23,12 @@ export const HomeRoutingModules: Routes = [
   data:{accessUsers: [role.member]}
  },
 
+ {
+  path:'chat',
+  loadComponent: () => import('./chat/chat.component').then(m => m.ChatComponent),
+  data:{accessUsers: [role.member]}
+ },
+
 
 ];
 
