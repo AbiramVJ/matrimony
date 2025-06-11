@@ -1,9 +1,53 @@
 
 <section class="content">
   <div class="component-content">
-    <div class="row">
-      <div class="col-10">
-        asf
+    <div class="row m-0 mt-5">
+      <div class="col-10 mx-auto m-shadow">
+        <div class="row">
+          <div class="col-4 p-0">
+             <div class="search-wrapper">
+                <input
+                  type="text"
+                  class="search-field"
+                  placeholder="Search conversations..."
+                  [(ngModel)]="searchTerm">
+
+              </div>
+             <div *ngFor="let member of members" class="d-flex align-items-center p-3 border-bottom member-item conversation-item pointer" >
+            <!-- Avatar -->
+            <div class="position-relative me-3">
+              <div class="rounded-circle d-flex align-items-center justify-content-center fw-semibold text-white" style="width: 40px; height: 40px;">
+               <img [src]="member.avatar" [alt]="member.name" class="avatar-image" onerror="this.style.display='none'">
+              </div>
+              <span class="position-absolute bottom-0 end-0 rounded-circle border border-2 border-white" style="width: 12px; height: 12px;"></span>
+            </div>
+            <!-- Member Info -->
+            <div class="flex-grow-1 min-w-0">
+              <div class="d-flex align-items-center justify-content-between">
+                <h6 class="mb-0 text-truncate fw-medium">
+                  {{ member.name }}
+                </h6>
+                <span class="text-sm">Today</span>
+              </div>
+              <small class="text-muted">
+                {{ member.status === 'online' ? 'Active now' : 'Last seen ' + member.lastSeen }}
+              </small>
+            </div>
+            </div>
+          </div>
+           <div class="col-8 p-3 border-start">
+            <div class="d-flex border-bottom pb-2">
+              <div class="">
+                <img src="https://ui-avatars.com/api/?name=Alex+Brown&background=random" [alt]="" class="avatar-image" onerror="this.style.display='none'">
+              </div>
+              <div class="ms-3 text-sm my-auto">
+                <div class="fw-bold text-muted">Abiram</div>
+                <div class="text-muted" >Today</div>
+
+              </div>
+            </div>
+           </div>
+        </div>
       </div>
     </div>
   </div>
