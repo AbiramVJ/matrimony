@@ -170,6 +170,12 @@ get displayedProfiles() {
     this._memberService.getMainUser().subscribe({
       next:(res:any)=>{
         this.mainUser = res;
+      },
+      complete:()=>{
+
+      },
+      error:(error:any)=>{
+
       }
     })
   }
@@ -190,10 +196,8 @@ get displayedProfiles() {
    _authLogout() {
     this._authService.removeAuthToken();
     this._socialLoginService.signOut();
-    localStorage.removeItem('token');
-    localStorage.removeItem('userType');
     localStorage.removeItem('clientId');
-     localStorage.removeItem('currentMemberId');
+    localStorage.removeItem('currentMemberId');
     this._authService.setUserDetails(null);
     window.location.href = "/";
 

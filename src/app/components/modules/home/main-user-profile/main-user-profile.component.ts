@@ -29,14 +29,13 @@ constructor(private fb: FormBuilder,private _memberService:MemberService,) {
   }
 
    ngOnInit(): void {
-    this.loadProfileData();
+   // this.loadProfileData();
   }
 
    loadProfileData(): void {
     this._memberService.getMainUser().subscribe({
       next:(res:any)=>{
       this.mainUser = res;
-
       },
       complete:()=>{
         this.profileForm.patchValue({
@@ -46,6 +45,9 @@ constructor(private fb: FormBuilder,private _memberService:MemberService,) {
           phoneNumber: this.mainUser.phoneNumber,
           image: this.mainUser.image
         });
+      },
+      error:(error:any)=>{
+        console.log(error);
       }
     })
   }

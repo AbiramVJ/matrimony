@@ -10,6 +10,8 @@ import { firebaseEnvironment } from './environments/environment';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire/compat';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import { errorInterceptor } from './middleware/auth.errorInterceptor ';
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,7 +20,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideToastr(),
     provideAngularSvgIcon(),
-    provideHttpClient(withInterceptors([AuthInterceptor])),
+    provideHttpClient(withInterceptors([AuthInterceptor,errorInterceptor])),
     importProvidersFrom(AngularFireModule.initializeApp(firebaseEnvironment.firebase)),
     provideAuth(() => getAuth()),
     {

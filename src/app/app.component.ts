@@ -46,7 +46,12 @@ export class AppComponent {
       this.isLogin = data;
     });
 
-    this._getMemberList();
+    if(this.isLogin){
+      this._getMemberList();
+    }else{
+      this.isLoading = false;
+    }
+   // this._getMemberList();
   }
 
   private _getMemberList(){
