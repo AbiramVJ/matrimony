@@ -30,16 +30,17 @@ export class PhoneNumberInputComponent {
 
   constructor(private dataProvider: DataProviderService) {
     this.phoneCodes = this.dataProvider.getPhoneCode();
-    effect(() => {
-      const userGeoLocationDetails = this.dataProvider.userGeoLocation();
-      const defaultCountryCode = this.phoneCodes.find(
-        (pc: any) => pc.iso === userGeoLocationDetails?.country_code
-      );
-      if (defaultCountryCode && !this.setPhoneNumber) {
-        this.selectedCode = defaultCountryCode.code;
-      }
-    });
-  }
+  this.getCountry()
+      effect(() => {
+        const userGeoLocationDetails = this.dataProvider.userGeoLocation();
+        const defaultCountryCode = this.phoneCodes.find(
+          (pc: any) => pc.iso === userGeoLocationDetails?.country_code
+        );
+        if (defaultCountryCode && !this.setPhoneNumber) {
+          this.selectedCode = defaultCountryCode.code;
+        }
+      });
+    }
 
   ngOnInit(): void {
     this.allPhoneCodes = [...this.phoneCodes];
@@ -93,5 +94,19 @@ export class PhoneNumberInputComponent {
   isValidPhoneNumber(phone: string): boolean {
     const phoneRegex = /^\d{8,}$/;
     return phoneRegex.test(phone);
+  }
+
+  private getCountry(){
+    this.dataProvider.getCountryCodes().subscribe({
+      next:(res:any) => {
+        console.log(res)
+      },
+      complete:() =>{
+
+      },
+      error:(error:any) => {
+
+      }
+    })
   }
 }

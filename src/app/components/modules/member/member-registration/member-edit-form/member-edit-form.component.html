@@ -1,8 +1,8 @@
 <section class="content">
   <div class="component-content">
     <div class="bg-color-bar row m-0 p-0 ">
-      <div class="bg-white mt-1">
-        <div class="d-flex justify-content-between mx-5">
+      <div class="bg-white mt-1 d-none d-md-block">
+        <div class="d-flex justify-content-between mx-sm-5">
             <div class="text-md pointer py-2 form-title" [ngClass]="{'text-primary border-bottom-title fw-bold' : currentStep === steps.lookingFor }" (click)="changeStep(steps.lookingFor)">Matching</div>
             <div class="text-sm pointer py-2 form-title" [ngClass]="{'text-primary border-bottom-title fw-bold' : currentStep === steps.basic }" (click)="changeStep(steps.basic)">Personal Information</div>
             <div class="text-sm pointer py-2 form-title" [ngClass]="{'text-primary border-bottom-title fw-bold' : currentStep === steps.contact }" (click)="changeStep(steps.contact)">Contact Details</div>
@@ -12,6 +12,23 @@
             <div class="text-sm pointer py-2 form-title" [ngClass]="{'text-primary border-bottom-title fw-bold' : currentStep === steps.education }" (click)="changeStep(steps.education)">Education & Career</div>
           </div>
       </div>
+
+            <!-- Mobile-only stepper -->
+      <div class="bg-white py-2 px-2 border-bottom d-block d-md-none">
+        <div class="d-flex justify-content-between stepper-container">
+          <div
+            class="step-circle text-center pointer"
+            *ngFor="let step of stepList; let i = index"
+            [ngClass]="{ 'active': currentStep === step.key }"
+            (click)="changeStep(step.key)">
+            <div class="circle">{{ i + 1 }}</div>
+            <div class="step-label">{{ step.label }}</div>
+          </div>
+        </div>
+      </div>
+
+
+
       <div class="bg-color ">
         <div class="col-12 col-sm-10 col-md-8 col-lg-10 mx-auto mt-3 mb-5" *ngIf="!isLoading">
           <div class="row ">

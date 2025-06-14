@@ -10,39 +10,7 @@
     <div class="col-12 col-md-6">
       <app-phone-number-input (phoneNumberEmitter)="getPhoneNumber($event)" [isSubmitted]="isSubmitted" [setPhoneNumber]="setPhoneNumber" [phoneCode]="PhoneCode"></app-phone-number-input>
     </div>
-    <!-- DOOR NUMBER -->
-    <div class="col-12 col-md-6 mb-3">
-      <label for="Door text-sm" class="mb-2">Door Number</label>
-      <input type="text" id="Door" formControlName="doorNumber" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userContactFrom.get('doorNumber')?.errors}"/>
-      <!-- <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userContactFrom.get('doorNumber')?.errors">City is required</div> -->
-    </div>
-
-     <!-- STREET -->
-    <div class="col-12 col-md-6 mb-3">
-      <label for="Street text-sm" class="mb-2">Street<span class="text-danger">*</span> </label>
-      <input type="text" id="Street" formControlName="street" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userContactFrom.get('street')?.errors}"/>
-      <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userContactFrom.get('street')?.errors">Street is required</div>
-    </div>
-
-    <div class="col-12 col-md-6 mb-3">
-      <label for="city text-sm" class="mb-2">City<span class="text-danger">*</span> </label>
-      <input type="text" id="city" formControlName="city" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userContactFrom.get('city')?.errors}"/>
-      <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userContactFrom.get('city')?.errors">City is required</div>
-    </div>
-
-    <div class="col-12 col-md-6 mb-3">
-      <label for="province text-sm" class="mb-2">State/Province<span class="text-danger">*</span> </label>
-      <input type="text" id="province" formControlName="stateProvince" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userContactFrom.get('stateProvince')?.errors}"/>
-      <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userContactFrom.get('stateProvince')?.errors">State/Province is required</div>
-    </div>
-
-    <div class="col-12 col-md-6 mb-3">
-      <label for="province text-sm" class="mb-2">Zip/Postal Code<span class="text-danger">*</span> </label>
-      <input type="text" id="province" formControlName="zipCode" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userContactFrom.get('zipCode')?.errors}"/>
-      <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userContactFrom.get('zipCode')?.errors">ZipCode is required</div>
-    </div>
-
-    <div class="col-12 col-md-6 mb-3">
+      <div class="col-12 col-md-6 mb-3">
       <label for="email text-sm" class="mb-2">Country<span class="text-danger">*</span> </label>
       <ng-select
       [items]="countryList"
@@ -52,6 +20,7 @@
       [clearable]="false"
       [searchable]="true"
       [(ngModel)]="selectedCountry"
+      (change)="changeCountry()"
 
       >
 
@@ -81,11 +50,43 @@
     </ng-select>
     </div>
 
+    <!-- DOOR NUMBER -->
+    <div class="col-12 col-md-6 mb-3">
+      <label for="Door text-sm" class="mb-2">Door Number</label>
+      <input type="text" id="Door" formControlName="doorNumber" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userContactFrom.get('doorNumber')?.errors}"/>
+      <!-- <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userContactFrom.get('doorNumber')?.errors">City is required</div> -->
+    </div>
 
+     <!-- STREET -->
+    <div class="col-12 col-md-6 mb-3">
+      <label for="Street text-sm" class="mb-2">Street<span class="text-danger">*</span> </label>
+      <input type="text" id="Street" formControlName="street" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userContactFrom.get('street')?.errors}"/>
+      <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userContactFrom.get('street')?.errors">Street is required</div>
+    </div>
+
+    <div class="col-12 col-md-6 mb-3">
+      <label for="city text-sm" class="mb-2">City<span class="text-danger">*</span> </label>
+      <input type="text" id="city" formControlName="city" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userContactFrom.get('city')?.errors}"/>
+      <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userContactFrom.get('city')?.errors">City is required</div>
+    </div>
+
+    <div class="col-12 col-md-6 mb-3">
+     <label for="province text-sm" class="mb-2">State/Province<span class="text-danger">*</span> </label>
+         <!--   <input type="text" id="province" formControlName="stateProvince" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userContactFrom.get('stateProvince')?.errors}"/>
+      <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userContactFrom.get('stateProvince')?.errors">State/Province is required</div> -->
+      <ng-select [items]="stateAndProvince" bindLabel="name" bindValue="name" [clearable]="false"
+      [searchable]="true" [(ngModel)]="selectedProvince"  [ngModelOptions]="{standalone: true}"></ng-select>
+    </div>
+
+    <div class="col-12 col-md-6 mb-3">
+      <label for="province text-sm" class="mb-2">Zip/Postal Code<span class="text-danger">*</span> </label>
+      <input type="text" id="province" formControlName="zipCode" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userContactFrom.get('zipCode')?.errors}"/>
+      <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userContactFrom.get('zipCode')?.errors">ZipCode is required</div>
+    </div>
 
     <div class="col-12 col-md-6 mb-3">
       <label for="text-sm" class="mb-2">Residency Status<span class="text-danger">*</span> </label>
-      <ng-select [items]="residencyStatusList" bindLabel="name" bindValue="id" [searchable]="true" [clearable]="false" formControlName="residencyStatus" [(ngModel)]="selectedResidency"></ng-select>
+      <ng-select [items]="residencyStatusList" bindLabel="name" bindValue="id" [searchable]="true" [clearable]="false"  formControlName="residencyStatus" [(ngModel)]="selectedResidency"></ng-select>
     </div>
 
     <!-- <div class="mt-3">

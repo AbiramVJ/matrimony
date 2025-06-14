@@ -40,10 +40,20 @@ export class MemberEditFormComponent {
   public userMatchingSetData!:MatchPreferences;
   public memberBasicDetails!:UserBasicForm;
 
+  stepList = [
+  { key: this.steps.lookingFor, label: 'Matching' },
+  { key: this.steps.basic, label: 'Personal Info' },
+  { key: this.steps.contact, label: 'Contact' },
+  { key: this.steps.personal, label: 'Personal' },
+  { key: this.steps.family, label: 'Family' },
+  { key: this.steps.religionBackground, label: 'Religious' },
+  { key: this.steps.education, label: 'Education' }
+];
+
   constructor(private activatedRoute:ActivatedRoute,
     private _memberService:MemberService,
     private toastr: ToastrService,
-    private route:Router
+    private route:Router,
   ){
     this.memberId = this.activatedRoute.snapshot.paramMap.get('id') || '';
   }

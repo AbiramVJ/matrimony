@@ -43,6 +43,10 @@ export class ReligiousBackgroundFormComponent {
   public SubCommunityList:SubCommunity[] = [];
   public selectedSubCommunity:any = null;
 
+  public stateAndProvince:any [] = [];
+  public selectedProvince:any;
+
+
   constructor(private fb:FormBuilder, private dataProvider:DataProviderService, private memberService:MemberService,
     private toastr: ToastrService){
     this._userReligiousFormInit();
@@ -52,6 +56,7 @@ export class ReligiousBackgroundFormComponent {
       const defaultCountryCode = this.countryList.find((pc:any)=> pc.iso === userGeoLocationDetails?.country_code);
       if(defaultCountryCode && !this.isEditFrom){
         this.selectedCountry = defaultCountryCode.country;
+        this.selectedProvince = defaultCountryCode.stateProvinces[0].name;
       }
     });
   }
@@ -127,7 +132,7 @@ export class ReligiousBackgroundFormComponent {
       street:['', Validators.required],
      // zipCode:['',Validators.required],
       city: ['',Validators.required],
-      stateProvince: ['',Validators.required],
+      stateProvince: [''],
       country: [''],
     })
   }
@@ -139,7 +144,7 @@ export class ReligiousBackgroundFormComponent {
       number: null,
       street: formValue.street,
       city: formValue.city,
-      state: formValue.stateProvince,
+      state: this.selectedProvince,
       zipcode: null,
       country: this.selectedCountry ,
       latitude: 0,
@@ -171,7 +176,7 @@ export class ReligiousBackgroundFormComponent {
             a.number = null;
             a.street = formValue.street;
             a.city = formValue.city;
-            a.state = formValue.stateProvince;
+            a.state = this.selectedProvince;
             a.zipcode = null;
             a.country = this.selectedCountry;
             a.latitude = 0;
@@ -181,10 +186,16 @@ export class ReligiousBackgroundFormComponent {
             a.isDefault = true;
           }
         });
-      let isHaveBirthAddress = this.memberProfile.profileAddresses.some((a: any) => a.addressType === 3);
-      if(!isHaveBirthAddress){
-        this.memberProfile.profileAddresses.push(address)
-      }
+      const birthAddressIndex = this.memberProfile.profileAddresses.findIndex(
+            (a: any) => a.addressType === AddressType.birth
+          );
+
+          if (birthAddressIndex > -1) {
+            this.memberProfile.profileAddresses[birthAddressIndex] = address;
+          } else {
+            this.memberProfile.profileAddresses.push(address);
+          }
+
         const updatedProfile = {
           ...this.memberProfile,
           religionId: this.selectedReligions ,
@@ -221,7 +232,6 @@ export class ReligiousBackgroundFormComponent {
      const birthAddress = this.memberProfile.profileAddresses?.find(
       (add: any) => add.addressType === AddressType.birth
     );
-    console.log(this.memberProfile.subCommunityId)
     this.selectedReligions = this.memberProfile.religionId;
     this.selectedCommunity = this.memberProfile.communityId;
     this.selectedSubCommunity = this.memberProfile.subCommunityId;
@@ -234,6 +244,11 @@ export class ReligiousBackgroundFormComponent {
     this.userReligiousForm.get('stateProvince')?.patchValue(birthAddress?.state);
     this.userReligiousForm.get('isVisible')?.patchValue(this.memberProfile.isVisibleCommunity);
     this.selectedCountry = birthAddress?.country;
+    this.selectedProvince = birthAddress?.state;
   }
-
+  public changeCountry(){
+   const country = this.countryList.find((country:any) => country.country === this.selectedCountry);
+   this.stateAndProvince = country.stateProvinces;
+   this.selectedProvince = country.stateProvinces[0].name;
+  }
 }

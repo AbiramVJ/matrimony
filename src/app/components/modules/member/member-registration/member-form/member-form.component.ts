@@ -25,7 +25,7 @@ import { LoadingComponent } from "../../../../../common/loading/loading.componen
 export class MemberFormComponent {
 
   public questionData:any;
-  public currentStep:number = 0;
+  public currentStep:number = 5;
   public steps = MemberRegistrationStep;
 
   public matchingInfo!:MatchPreferences;

@@ -104,6 +104,8 @@ export class SideBarComponent {
   public education:string[] = [];
   public rasi:number[] = [];
   public isLoading:boolean = false;
+  public stateAndProvince:any [] = [];
+  public selectedProvince:any;
 
   constructor( private dataProvider: DataProviderService,private memberService:MemberService, private _authService:AuthService,){
     this.countryList = this.dataProvider.getPhoneCode();
@@ -115,6 +117,7 @@ export class SideBarComponent {
       if (defaultCountryCode) {
       //  this.selectedCountry = [defaultCountryCode.country];
         this.selectedLivingCountry = [defaultCountryCode.country];
+        this.selectedProvince = defaultCountryCode.stateProvinces[0].name;
       }
     });
 
@@ -274,6 +277,9 @@ public onRasiChange(event: Event) {
 }
 
 public ngSelectChange(){
+  // const country = this.countryList.find((country:any) => country.country.inClude(this.selectedCountry));
+  // this.stateAndProvince = country.stateProvinces;
+  // this.selectedProvince = country.stateProvinces[0].name;
   this.applyFilters();
 }
 //========================================= API CALL ======================================#

@@ -1,3 +1,4 @@
+
 import { DataProviderService } from './../../../../../../services/data-provider.service';
 import { Component, effect, EventEmitter, Input, Output } from '@angular/core';
 import {
@@ -7,10 +8,7 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PhoneNumberInputComponent } from '../../../../../../common/phone-number-input/phone-number-input.component';
 import { residencyStatusList } from '../../../../../../helpers/data';
-import {
-  UserContactForm,
-  UserProfile,
-} from '../../../../../../models/index.model';
+import { UserProfile } from '../../../../../../models/index.model';
 import { CommonModule } from '@angular/common';
 import { MemberService } from '../../../../../../services/member.service';
 import { ToastrService } from 'ngx-toastr';
@@ -41,6 +39,9 @@ export class ContactInfoFormComponent {
   private exitingPermanentAddress:any;
   private exTempPermanentAddress:any;
 
+  public stateAndProvince:any [] = [];
+  public selectedProvince:any;
+
 
   public countryList: any[] = [];
   public selectedCountry: any;
@@ -64,6 +65,7 @@ export class ContactInfoFormComponent {
       if (defaultCountryCode && !this.isEditFrom) {
         this.selectedCountry = defaultCountryCode.country;
         this.selectedTempCountry = defaultCountryCode.country;
+       this.selectedProvince = defaultCountryCode.stateProvinces[0].name;
       }
     });
   }
@@ -79,7 +81,7 @@ export class ContactInfoFormComponent {
       doorNumber: [''],
       street: ['', Validators.required],
       city: ['', Validators.required],
-      stateProvince: ['', Validators.required],
+      stateProvince: [''],
       residencyStatus: [1, Validators.required],
       zipCode: ['', Validators.required],
       addressType: [0],
@@ -104,12 +106,13 @@ export class ContactInfoFormComponent {
 
   public next() {
     this.isSubmitted = true;
+    console.log(this.selectedProvince);
     const permanentAddress:any = {
       id:this.exitingPermanentAddress ? this.exitingPermanentAddress.id : null,
       number: this.userContactFrom.value.doorNumber,
       street: this.userContactFrom.value.street,
       city: this.userContactFrom.value.city,
-      state: this.userContactFrom.value.stateProvince,
+      state: this.selectedProvince,
       zipcode: this.userContactFrom.value.zipCode,
       country: this.selectedCountry,
       latitude: 0,
@@ -143,7 +146,7 @@ export class ContactInfoFormComponent {
     const basicDetails = {
       email: this.userContactFrom.value.email,
       phoneNumber: this.userContactFrom.value.phoneNumber,
-      phoneCode: this.phoneNumberDetails ? this.phoneNumberDetails.code : this.memberProfile.phoneCode,
+      phoneCode: this.phoneNumberDetails ? this.phoneNumberDetails.code : this.memberProfile?.phoneCode,
     };
 
     const formValues: any = {
@@ -236,7 +239,7 @@ export class ContactInfoFormComponent {
     this.selectedTempCountry = tempAddress?.country;
     this.selectedResidency = permanentAddress?.residentStatus || 1;
     this.selectedTempResidency = tempAddress?.residentStatus || 1;
-
+    this.selectedProvince = permanentAddress?.state;
     this._setPhoneNumberValues();
 
     this.userContactFrom.patchValue({
@@ -245,7 +248,7 @@ export class ContactInfoFormComponent {
       doorNumber: permanentAddress?.number || '',
       street: permanentAddress?.street || '',
       city: permanentAddress?.city || '',
-      stateProvince: permanentAddress?.state || '',
+     // stateProvince: permanentAddress?.state || '',
       residencyStatus: permanentAddress?.residentStatus || 1,
       zipCode: permanentAddress?.zipcode || '',
       addressType: permanentAddress?.addressType || 0,
@@ -253,12 +256,13 @@ export class ContactInfoFormComponent {
         doorNumber: tempAddress?.number || '',
         street: tempAddress?.street || '',
         city: tempAddress?.city || '',
-        stateProvince: tempAddress?.state || '',
+     //   stateProvince: tempAddress?.state || '',
         residencyStatus: tempAddress?.residentStatus || 1,
         zipCode: tempAddress?.zipcode || '',
         addressType: tempAddress?.addressType || 3,
       },
     });
+    this.changeCountry();
   }
 
   private _setPhoneNumberValues() {
@@ -270,5 +274,11 @@ export class ContactInfoFormComponent {
 
   private scrollToTop(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  public changeCountry(){
+   const country = this.countryList.find((country:any) => country.country === this.selectedCountry);
+   this.stateAndProvince = country.stateProvinces;
+   this.selectedProvince = country.stateProvinces[0].name;
   }
 }
