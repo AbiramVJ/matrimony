@@ -72,7 +72,7 @@ export class SocialLoginComponent {
         next:(res:any) => {
           this.auth.setAuthToken(res.Result.token);
           this.auth.setUser();
-          this.toastr.success('Successful',`Sign-in successful with ${this.user?.name}`);
+       //   this.toastr.success('Successful',`Sign-in successful with ${this.user?.name}`);
         },
         complete:()=>{
           // this.isLoading = false;
