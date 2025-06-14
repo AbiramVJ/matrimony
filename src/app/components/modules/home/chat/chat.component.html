@@ -50,7 +50,7 @@
             <div class="flex-grow-1 overflow-auto mt-3 mb-2 px-2 m-box" id="chatMessages" #chatMessages >
             <div *ngFor="let message of messages" class="mb-2">
               <div class="d-flex" [ngClass]="{'justify-content-end': message.isMine}">
-                <div class="p-2 rounded" [ngClass]="{'bg-primary text-white': message.isMine, 'bg-light': !message.isMine}" style="max-width: 70%;">
+                <div class="p-2 rounded" [ngClass]="{'bg-danger text-white': message.isMine, 'bg-light': !message.isMine}" style="max-width: 70%;">
                   <div *ngIf="message.type === 'text'">{{ message.content }}</div>
                   <div *ngIf="message.type === 'image'">
                     <img [src]="message.content" class="img-fluid rounded" />
@@ -70,7 +70,7 @@
                 📎
               </button>
 
-              <button type="submit" class="btn btn-primary">
+              <button type="submit" class="btn btn-danger">
                 ➤
               </button>
             </div>
