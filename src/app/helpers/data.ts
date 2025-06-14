@@ -2167,7 +2167,10 @@ export const motherTongue = [
 export const knownLanguages = [
   {id:1, name:'Tamil'},
   {id:2, name:'English'},
-  {id:3, name:'Chaniess'}
+  {id:3, name:'Chaniess'},
+  {id:4, name:'malayalam'},
+  {id:5, name:'hindi'},
+  {id:5, name:'japaness'}
 ]
 
 export const diet = [

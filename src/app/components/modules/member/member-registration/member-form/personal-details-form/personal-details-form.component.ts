@@ -161,4 +161,12 @@ export class PersonalDetailsFormComponent {
 
     }
   }
+
+  onLanguageChange() {
+  if (this.selectedKnowLanguage.length > 4) {
+    this.selectedKnowLanguage.pop();
+    this.toastr.warning('You can only select up to 4 languages.', 'Waring')
+  }
+}
+
 }

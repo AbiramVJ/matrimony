@@ -10,7 +10,7 @@
       bindValue="id"
       [ngModelOptions]="{standalone: true}"
       [clearable]="false"
-      [searchable]="false"
+      [searchable]="true"
       [(ngModel)]="selectedReligions"
       [disabled]="isLoading"
       >
@@ -26,7 +26,7 @@
     bindValue="id"
     [ngModelOptions]="{standalone: true}"
     [clearable]="false"
-    [searchable]="false"
+    [searchable]="true"
     [(ngModel)]="selectedCommunity"
     (change)="changeCommunity()"
     [disabled]="isLoading"
@@ -46,7 +46,7 @@
     bindValue="id"
     [ngModelOptions]="{standalone: true}"
     [clearable]="false"
-    [searchable]="false"
+    [searchable]="true"
     [(ngModel)]="selectedSubCommunity"
     [disabled]="isLoading"
 
@@ -62,7 +62,7 @@
     bindValue="id"
     [ngModelOptions]="{standalone: true}"
     [clearable]="false"
-    [searchable]="false"
+    [searchable]="true"
     [(ngModel)]="selectedStar"
     >
     </ng-select>
@@ -76,7 +76,7 @@
     bindValue="id"
     [ngModelOptions]="{standalone: true}"
     [clearable]="false"
-    [searchable]="false"
+    [searchable]="true"
     [(ngModel)]="selectedRaasi"
     >
     </ng-select>
@@ -134,7 +134,7 @@
     bindValue="country"
     [ngModelOptions]="{standalone: true}"
     [clearable]="false"
-    [searchable]="false"
+    [searchable]="true"
     [(ngModel)]="selectedCountry"
 
     >

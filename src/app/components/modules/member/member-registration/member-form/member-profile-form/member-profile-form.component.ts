@@ -131,7 +131,7 @@ export class MemberProfileFormComponent {
 
       this.memberProfile.profileImages.forEach((element :any) => {
         this.images.push(element.url);
-        this.userBasicFrom.get('isVisible')?.patchValue(element.isProfile);
+        this.userBasicFrom.get('isVisible')?.patchValue(element.isVisible);
       });
     }
   }

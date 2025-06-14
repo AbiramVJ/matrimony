@@ -1,10 +1,10 @@
 
 <section class="content">
   <div class="component-content">
-    <div class="row m-0 mt-5">
-      <div class="col-10 mx-auto m-shadow">
+    <div class="row m-0 mt-3">
+      <div class="col-10 mx-auto m-shadow mb-5">
         <div class="row">
-          <div class="col-4 p-0">
+          <div class="col-4 p-0 chat-list">
              <div class="search-wrapper">
                 <input
                   type="text"
@@ -35,6 +35,7 @@
             </div>
             </div>
           </div>
+          <!-- CHAT BOX CONTAINER -->
            <div class="col-8 p-3 border-start">
             <div class="d-flex border-bottom pb-2">
               <div class="">
@@ -46,6 +47,34 @@
 
               </div>
             </div>
+            <div class="flex-grow-1 overflow-auto mt-3 mb-2 px-2 m-box" id="chatMessages" #chatMessages >
+            <div *ngFor="let message of messages" class="mb-2">
+              <div class="d-flex" [ngClass]="{'justify-content-end': message.isMine}">
+                <div class="p-2 rounded" [ngClass]="{'bg-primary text-white': message.isMine, 'bg-light': !message.isMine}" style="max-width: 70%;">
+                  <div *ngIf="message.type === 'text'">{{ message.content }}</div>
+                  <div *ngIf="message.type === 'image'">
+                    <img [src]="message.content" class="img-fluid rounded" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Message input area -->
+          <form (ngSubmit)="sendMessage()" enctype="multipart/form-data">
+            <div class="d-flex align-items-center gap-2 border-top pt-2">
+              <input type="text" [(ngModel)]="newMessage" name="message" class="form-control" placeholder="Type a message..." required />
+
+              <input type="file" (change)="onFileSelected($event)" hidden #fileInput />
+              <button type="button" class="btn btn-outline-secondary" (click)="fileInput.click()">
+                📎
+              </button>
+
+              <button type="submit" class="btn btn-primary">
+                ➤
+              </button>
+            </div>
+          </form>
            </div>
         </div>
       </div>

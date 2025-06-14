@@ -1,4 +1,4 @@
-import { BloodGroup, bodyTypes, diet, DrinkHabit, maritalStatusOptions, Natshathira, raasiList, SmokeHabit, willingToRelocate } from "../../helpers/data";
+import { BloodGroup, bodyTypes, Complexion, diet, DrinkHabit, maritalStatusOptions, Natshathira, raasiList, SmokeHabit, willingToRelocate } from "../../helpers/data";
 
 export class ProfileSalary {
   isAnnual: boolean;
@@ -329,7 +329,7 @@ export class FullUserProfile {
   motherTongue: string;
   knownLanguages: string;
   bloodGroup: string | null;
-  skinComplexion: number;
+  skinComplexion: string;
   religionId: string;
   communityId: string;
   subCommunityId: string;
@@ -367,7 +367,7 @@ export class FullUserProfile {
     this.motherTongue = obj?.motherTongue ?? '';
     this.knownLanguages = obj?.knownLanguages ?? '';
     this.bloodGroup = this.getBloodGroup(obj?.bloodGroup)  ?? null;
-    this.skinComplexion = obj?.skinComplexion ?? null;
+    this.skinComplexion = this.getSkinCompletion(obj?.skinComplexion) ?? '';
     this.religionId = obj?.religionId ?? null;
     this.communityId = obj?.communityId ?? null;
     this.subCommunityId = obj?.subCommunityId ?? null;
@@ -416,6 +416,11 @@ export class FullUserProfile {
 
   getDrinkingHabit(status:number) : string {
     const option = DrinkHabit.find(opt => opt.id === status);
+    return option ? option.name : 'Unknown';
+  }
+
+  getSkinCompletion(status:number): string{
+    const option = Complexion.find(opt => opt.id === status);
     return option ? option.name : 'Unknown';
   }
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, from } from 'rxjs';
 import { FORM_MODULES } from '../../../../common/common-imports';
@@ -11,14 +11,11 @@ import { CommonModule } from '@angular/common';
   styleUrl: './chat.component.scss'
 })
 export class ChatComponent {
-    public searchTerm: string = '';
+  @ViewChild('chatMessages') private chatMessagesContainer!: ElementRef;
+  public searchTerm: string = '';
   searchControl = new FormControl('');
-  activeTab: 'online' | 'offline' | 'all' = 'online';
-  newMessage = '';
-   messages = [
-    { text: 'Hey, how are you?', sender: 'them', time: '10:00 AM' },
-    { text: 'I’m good, thanks! You?', sender: 'me', time: '10:01 AM' }
-  ];
+
+
   members: any[] = [
   {
     id: 1,
@@ -86,21 +83,44 @@ export class ChatComponent {
   }
 ];
 
+newMessage: string = '';
+  selectedFile: File | null = null;
 
+  messages = [
+    // Example messages
+    { content: 'Hello!', type: 'text', isMine: false },
+    { content: 'Hi there!', type: 'text', isMine: true }
+  ];
   ngOnInit() {
 
   }
 
-  sendMessage() {
-    if (this.newMessage.trim()) {
-      this.messages.push({
-        text: this.newMessage,
-        sender: 'me',
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      });
-      this.newMessage = '';
-      // Optional: Scroll to bottom logic here
+sendMessage() {
+    if (this.selectedFile) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.messages.push({ content: reader.result as string, type: 'image', isMine: true });
+        this.selectedFile = null;
+      };
+      reader.readAsDataURL(this.selectedFile);
+    } else if (this.newMessage.trim()) {
+      this.messages.push({ content: this.newMessage, type: 'text', isMine: true });
     }
+
+    this.newMessage = '';
+    this.scrollToBottom();
+  }
+
+  onFileSelected(event: Event) {
+    const fileInput = event.target as HTMLInputElement;
+    if (fileInput.files && fileInput.files[0]) {
+      this.selectedFile = fileInput.files[0];
+    }
+  }
+  private scrollToBottom(): void {
+    setTimeout(() => {
+      this.chatMessagesContainer.nativeElement.scrollTop = this.chatMessagesContainer.nativeElement.scrollHeight;
+    }, 0);
   }
 
 }

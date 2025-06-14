@@ -3,8 +3,9 @@
     <div class="col-12 col-md-6">
       <label for="aboutMe" class="mb-1">About me <span class="text-danger">*</span></label>
       <div class="form-group mb-3">
-        <textarea class="text-area" id="aboutMe" [rows]="4" formControlName = "aboutMe" [ngClass]="{'errorBorder': isSubmitted && userPersonalDetailsForm.get('aboutMe')?.errors}"></textarea>
+        <textarea class="text-area" id="aboutMe" [rows]="4" formControlName = "aboutMe" [ngClass]="{'errorBorder': isSubmitted && userPersonalDetailsForm.get('aboutMe')?.errors}" [maxlength]="500"></textarea>
         <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userPersonalDetailsForm.get('aboutMe')?.errors">About me is required</div>
+        <div class="text-xs text-muted">Max character 500</div>
       </div>
     </div>
 
@@ -100,14 +101,14 @@
     </div>
 
     <div class="col-12 col-md-6 mb-3">
-      <label for="diet" class="mb-1">Blood Group<span class="text-danger">*</span></label>
+      <label for="diet" class="mb-1">Blood Group</label>
       <ng-select
       [items]="bloodGroupList"
       bindLabel="name"
       bindValue="id"
       [ngModelOptions]="{standalone: true}"
-      [clearable]="false"
-      [searchable]="false"
+      [clearable]="true"
+      [searchable]="true"
       [(ngModel)]="selectedBloodGroup"
       >
       </ng-select>
@@ -116,7 +117,7 @@
     <div class="col-12 col-md-6 mb-3">
       <label for="motherTongue" class="mb-1">Languages know<span class="text-danger">*</span></label>
       <ng-select
-       [ngClass]="{'errorSelect': isSubmitted && selectedKnowLanguage.length < 1}"
+      [ngClass]="{'errorSelect': isSubmitted && selectedKnowLanguage.length < 1}"
       [multiple]="true"
       [items]="knownLanguagesList"
       bindLabel="name"
@@ -125,8 +126,11 @@
       [clearable]="false"
       [searchable]="false"
       [(ngModel)]="selectedKnowLanguage"
+      (ngModelChange)="onLanguageChange()"
       >
       </ng-select>
+     <div class="text-xs text-muted">You can select up to 5 languages</div>
+
     </div>
 
     <div class="col-12 col-md-6 mb-3">

@@ -102,11 +102,13 @@ export class ReligiousBackgroundFormComponent {
   }
 
   public changeCommunity(): void {
-  const selectedCommunity = this.communityList.find(
-    (community: Community) => community.id === this.selectedCommunity
-  );
+    this.selectedSubCommunity = null;
+    const selectedCommunity = this.communityList.find(
+      (community: Community) => community.id === this.selectedCommunity
+    );
 
-  this.SubCommunityList = selectedCommunity?.subCommunities ?? [];
+   this.SubCommunityList = selectedCommunity?.subCommunities ?? [];
+   this.selectedSubCommunity = this.SubCommunityList[0] ? this.SubCommunityList[0].id : null ;
   }
 
   private _userReligiousFormInit(){

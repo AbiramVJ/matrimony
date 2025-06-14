@@ -40,7 +40,7 @@
       bindValue="id"
       [ngModelOptions]="{standalone: true}"
       [clearable]="true"
-      [searchable]="false"
+      [searchable]="true"
       [(ngModel)]="selectedSector"
       (change)="changeJobSector()"
       >
@@ -55,7 +55,7 @@
       bindValue="id"
       [ngModelOptions]="{standalone: true}"
       [clearable]="true"
-      [searchable]="false"
+      [searchable]="true"
       [ngClass]="{'errorSelect': isSubmitted && selectedJob  === '' && selectedSector !== null && selectedSector }"
       [disabled]="selectedSector === null"
       [(ngModel)]="selectedJob"

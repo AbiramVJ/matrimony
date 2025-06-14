@@ -18,17 +18,17 @@
 
 .conversation-item:hover {
   background-color: #f8f9ff;
-  transform: translateX(5px);
+ // transform: translateX(5px);
 }
 
-.conversation-item:last-child {
-  border-bottom: none;
-}
+// .conversation-item:last-child {
+//   border-bottom: none;
+// }
 
-.conversation-item.selected {
-  background-color: #e3f2fd;
-  border-left: 4px solid #667eea;
-}
+// .conversation-item.selected {
+//   background-color: #e3f2fd;
+//   border-left: 4px solid #667eea;
+// }
 .search-wrapper {
   padding: 1rem 1.25rem;
 //  background-color: #f8f9fa;
@@ -47,4 +47,12 @@
 .search-field:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+.chat-list{
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.m-box{
+  height: 400px;
+  overflow: auto;
 }
