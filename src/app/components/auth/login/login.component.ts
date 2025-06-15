@@ -3,20 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { FORM_MODULES, ROUTER_MODULES } from '../../../common/common-imports';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth/auth.service';
-import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { SocialFirebaseResponse, TokenResult } from '../../../models/index.model';
+import { TokenResult } from '../../../models/index.model';
 import { LoginType, ResetPasswordStep, TokenType } from '../../../helpers/enum';
-import { DataProviderService } from '../../../services/data-provider.service';
-import { SocialLoginService } from '../../../services/auth/social-login.service';
-import { fbAppId } from '../../../environments/environment';
 import { VerificationComponent } from "../verification/verification.component";
 import { PhoneNumberInputComponent } from "../../../common/phone-number-input/phone-number-input.component";
 import { SocialLoginComponent } from "./social-login/social-login.component";
-import { TopBarComponent } from "../../../common/top-bar/top-bar.component";
-import { MemberService } from '../../../services/member.service';
-
 @Component({
   selector: 'app-login',
   imports: [FORM_MODULES, CommonModule, ROUTER_MODULES, FORM_MODULES, VerificationComponent, PhoneNumberInputComponent, SocialLoginComponent],
@@ -60,12 +53,10 @@ export class LoginComponent implements OnInit {
   };
   constructor(
     private auth:AuthService,
-    private router:Router,
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
-    private _memberService:MemberService
-
   ){}
+
   ngOnInit(): void {
     this.getLoginClientToken();
     this._loginFormInit();
@@ -123,14 +114,6 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  // public changeLoginType(){
-  //   this.isAgent = !this.isAgent;
-  //   this.loginForm.reset();
-  //   this.signUpForm.reset();
-  //   this.isSubmitted = false;
-  //   this.getLoginClientToken();
-  // }
-
   //OTP EMITTER
   public getOtpFromChild(event:any){
    this.otpCode = event;
@@ -154,10 +137,7 @@ export class LoginComponent implements OnInit {
       },
       complete:()=>{
         this.isLoading = false;
-        if(!this.isAgent){
-           window.location.href = "/";
-        //  this.router.navigateByUrl('home/member');
-        }
+        if(!this.isAgent){ window.location.href = "/";}
       },
       error:(error:any) =>{
       this.isLoading = false;
@@ -254,22 +234,15 @@ export class LoginComponent implements OnInit {
             this._resetToken = res.Result.token;
             this.isOtpVerification = true;
             this.isLoading = false;
-
           }else{
             this.isOtpVerification = false;
             this.auth.setAuthToken(res.Result.token);
             this.auth.setUser();
-             this.isLoading = false;
-              if(!this.isAgent){
-            //   this.router.navigateByUrl('home/member');
-              window.location.href = "/";
-          }
+            this.isLoading = false;
+            if(!this.isAgent){ window.location.href = "/";}
           }
         },
-        complete:()=>{
-
-
-        },
+        complete:()=>{ },
         error:(error:any)=>{
           this.isLoading = false;
           this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
@@ -438,30 +411,6 @@ export class LoginComponent implements OnInit {
       class: ''
     };
   }
-
-  private _getMemberList(){
-    this._memberService.getProfiles().subscribe({
-      next:(res:any) => {
-        if(res.length === 0){
-          this.auth.setUserDetails(null);
-          window.location.href = "/";
-         // this.router.navigateByUrl('member/member-registration');
-
-        }else{
-          this.auth.setUserDetails(res[0].id);
-           window.location.href = "/";
-        //  this.router.navigateByUrl('home/member');
-        }
-      },
-      complete:() =>{
-
-      },
-      error:(error:any)=>{
-
-      }
-    })
-  }
-
 }
 
 

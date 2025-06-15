@@ -5,7 +5,7 @@ export class Education {
 
   constructor(obj: any) {
     this.id = obj?.id ?? '';
-    this.name = obj.name ?? 'unknown education';
+    this.name = obj.name ?? null;
     this.isActive = obj?.isActive ?? false;
   }
 }

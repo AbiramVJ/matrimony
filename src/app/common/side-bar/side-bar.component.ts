@@ -34,14 +34,14 @@ export class SideBarComponent {
   public maxAgeValue: number = 300;
 
   public minHeightValue: number = 0;
-  public maxHeightValue: number = 300;
+  public maxHeightValue: number = 0;
 
 
   public minWeightValue: number = 0;
-  public maxWeightValue: number = 300;
+  public maxWeightValue: number = 0;
 
-  public minSalaryValue: number = 0;
-  public maxSalaryValue: number = 10000000000;
+  public minSalaryValue: any = null;
+  public maxSalaryValue: any = null;
 
 
   public ageOptions: Options = {
@@ -59,7 +59,7 @@ export class SideBarComponent {
   };
 
   public weightOptions: Options = {
-    floor: 25,
+    floor: 0,
     ceil: 150,
     step: 0.1
   };
@@ -129,7 +129,6 @@ export class SideBarComponent {
     this._getJobType();
     this._getEducationQualification();
     this._getCurrentMember();
-
   }
 
   ngAfterViewInit(){
@@ -283,7 +282,7 @@ public ngSelectChange(){
   this.applyFilters();
 }
 //========================================= API CALL ======================================#
- private _getReligion(){
+private _getReligion(){
     this.isLoading = true;
     this.memberService.getReligion().subscribe({
       next:(res:Religion[]) => {
@@ -297,96 +296,96 @@ public ngSelectChange(){
         this.isLoading = false;
       }
     })
-  }
+}
 
-   private _getCommunity(){
-    this.isLoading = true;
-    this.memberService.getCommunity().subscribe({
-      next:(res:Community[]) => {
-        this.communityList = res;
-     //   this.selectedCommunity = [res[0].id];
-        //this.selectedSubCommunity = [res[0].subCommunities[0].id];
-        this.SubCommunityList = res[0].subCommunities;
+private _getCommunity(){
+  this.isLoading = true;
+  this.memberService.getCommunity().subscribe({
+    next:(res:Community[]) => {
+      this.communityList = res;
+    //   this.selectedCommunity = [res[0].id];
+      //this.selectedSubCommunity = [res[0].subCommunities[0].id];
+      this.SubCommunityList = res[0].subCommunities;
 
-      },
-      complete:() => {
-        this.isLoading = false;
-      },
-      error:(error:Error) => {
-        this.isLoading = false;
-      }
-    })
-  }
+    },
+    complete:() => {
+      this.isLoading = false;
+    },
+    error:(error:Error) => {
+      this.isLoading = false;
+    }
+  })
+}
 
-   private _getJobType(){
-    this.isLoading = true;
-    this.memberService.getJobType().subscribe({
-      next:(res:Education[]) => {
-        this.jobTypeList = res;
-      },
-      complete:() => {
-        this.isLoading = false;
-      },
-      error:(error:Error) => {
-        this.isLoading = false;
-      }
-    })
-  }
+  private _getJobType(){
+  this.isLoading = true;
+  this.memberService.getJobType().subscribe({
+    next:(res:Education[]) => {
+      this.jobTypeList = res;
+    },
+    complete:() => {
+      this.isLoading = false;
+    },
+    error:(error:Error) => {
+      this.isLoading = false;
+    }
+  })
+}
 
-  private _getEducationQualification(){
-    this.isLoading = true;
-    this.memberService.getEducationQualification().subscribe({
-      next:(res:Education[]) => {
-        this.educationList = res;
+private _getEducationQualification(){
+  this.isLoading = true;
+  this.memberService.getEducationQualification().subscribe({
+    next:(res:Education[]) => {
+      this.educationList = res;
 
-      },
-      complete:() => {
-        this.isLoading = false;
-         this.applyFilters();
-      },
-      error:(error:Error) => {
-        this.isLoading = false;
-      }
-    })
-  }
+    },
+    complete:() => {
+      this.isLoading = false;
+        this.applyFilters();
+    },
+    error:(error:Error) => {
+      this.isLoading = false;
+    }
+  })
+}
 
-  public applyFilters() {
-    const filterPayload = {
-      minAge: this.minAgeValue,
-      maxAge: this.maxAgeValue,
-      OriginCountries: this.selectedCountry,
-      LivingCountries: this.selectedLivingCountry,
-      foodHabits: this.foodHabit,
-      drinkHabits: this.drinkHabit,
-      smokeHabits: this.smokeHabit,
-      marriageStatus: this.selectedMarriageStatus,
-      bodyTypes: this.bodyType,
-      willingToRelocate: this.welcomeRelocate,
-      skinComplexions: this.complexion,
-      minHeight: this.minHeightValue,
-      maxHeight: this.maxHeightValue,
-      minWeight: this.minWeightValue,
-      maxWeight: this.maxWeightValue,
-      knownLanguages: this.selectedKnowLanguages,
-      religionIds: this.selectedReligion,
-      communityIds: this.selectedCommunity,
-      subCommunityIds: this.selectedSubCommunity,
-      jobSectors: this.sector,
-      jobTypeIds: this.selectedJobType,
-      educationQualificationIds: this.selectedEducation,
-      nakshathiram: this.natshathira,
-      raasi: this.rasi,
-      salaryFilter: this.selectedCurrency ? {
-        currencyCode: this.selectedCurrency,
-        minMonthlyAmount: this.minSalaryValue,
-        maxMonthlyAmount: this.maxSalaryValue,
-        } : null,
-      };
-    this.memberService.setFilter(filterPayload);
-  }
+public applyFilters() {
+  const filterPayload = {
+    minAge: this.minAgeValue,
+    maxAge: this.maxAgeValue,
+    OriginCountries: this.selectedCountry,
+    LivingCountries: this.selectedLivingCountry,
+    foodHabits: this.foodHabit,
+    drinkHabits: this.drinkHabit,
+    smokeHabits: this.smokeHabit,
+    marriageStatus: this.selectedMarriageStatus,
+    bodyTypes: this.bodyType,
+    willingToRelocate: this.welcomeRelocate,
+    skinComplexions: this.complexion,
+    minHeight: this.minHeightValue === 0 ? null : this.minHeightValue,
+    maxHeight: this.maxHeightValue === 0 ? null : this.maxHeightValue,
+    minWeight: this.minWeightValue === 0 ? null : this.minWeightValue,
+    maxWeight: this.maxWeightValue === 0 ? null : this.maxWeightValue,
+    knownLanguages: this.selectedKnowLanguages,
+    religionIds: this.selectedReligion,
+    communityIds: this.selectedCommunity,
+    subCommunityIds: this.selectedSubCommunity,
+    jobSectors: this.sector,
+    jobTypeIds: this.selectedJobType,
+    educationQualificationIds: this.selectedEducation,
+    nakshathiram: this.natshathira,
+    raasi: this.rasi,
+    salaryFilter: this.selectedCurrency ? {
+      currencyCode: this.selectedCurrency,
+      minMonthlyAmount: this.minSalaryValue,
+      maxMonthlyAmount: this.maxSalaryValue,
+      } : null,
+    };
+  this.memberService.setFilter(filterPayload);
+}
 
 
-  clearFilter() {
+public clearFilter() {
   this.minAgeValue = 0;
   this.maxAgeValue = 60;
   this.selectedCountry = [];
@@ -412,8 +411,8 @@ public ngSelectChange(){
   this.natshathira = [];
   this.rasi = [];
   this.selectedCurrency = null;
-  this.minSalaryValue = 0;
-  this.maxSalaryValue = 1000000000;
+  this.minSalaryValue = null;
+  this.maxSalaryValue = null;
 
   const emptyPayload = {
     minAge: null,

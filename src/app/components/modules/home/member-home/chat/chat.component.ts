@@ -1,8 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, from } from 'rxjs';
-import { FORM_MODULES } from '../../../../common/common-imports';
 import { CommonModule } from '@angular/common';
+import { FORM_MODULES } from '../../../../../common/common-imports';
 
 @Component({
   selector: 'app-chat',
@@ -16,7 +15,7 @@ export class ChatComponent {
   searchControl = new FormControl('');
 
 
-  members: any[] = [
+members: any[] = [
   {
     id: 1,
     name: 'John Smith',
@@ -87,7 +86,6 @@ newMessage: string = '';
   selectedFile: File | null = null;
 
   messages = [
-    // Example messages
     { content: 'Hello!', type: 'text', isMine: false },
     { content: 'Hi there!', type: 'text', isMine: true }
   ];

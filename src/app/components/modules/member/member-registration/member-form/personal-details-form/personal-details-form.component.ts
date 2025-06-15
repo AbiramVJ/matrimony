@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { COMMON_DIRECTIVES, FORM_MODULES } from '../../../../../../common/common-imports';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BloodGroup, bodyTypes, Complexion, diet, DrinkHabit, knownLanguages, motherTongue, SmokeHabit, yesOrNo } from '../../../../../../helpers/data';
+import { BloodGroup, bodyTypes, Complexion, diet, DrinkHabit, knownLanguages, languageList, motherTongue, SmokeHabit, yesOrNo } from '../../../../../../helpers/data';
 import { PersonalDetails, UserProfile } from '../../../../../../models/index.model';
 import { MemberService } from '../../../../../../services/member.service';
 import { ToastrService } from 'ngx-toastr';
@@ -20,7 +20,7 @@ export class PersonalDetailsFormComponent {
 
   public isLoading:boolean = false;
   public isSubmitted = false;
-  public motherTongueList:any = motherTongue;
+  public motherTongueList:any = languageList;
   public selectedMotherTongue = 1;
   public dietList = diet;
   public selectedDiet = 1;
@@ -33,7 +33,7 @@ export class PersonalDetailsFormComponent {
   public selectedDrinking = 1;
   public selectedSmoke = 1;
 
-  public knownLanguagesList = knownLanguages;
+  public knownLanguagesList = languageList;
   public selectedKnowLanguage:number[] = [];
 
   public bodyTypeList = bodyTypes;
@@ -46,6 +46,7 @@ export class PersonalDetailsFormComponent {
   public complexionList  = Complexion;
   public SelectedComplexion = 1;
 
+
   constructor(private fb:FormBuilder ,private _memberService:MemberService,
     private toastr: ToastrService){
     this._userPersonalInfoFormInit();
@@ -53,7 +54,7 @@ export class PersonalDetailsFormComponent {
 
   private _userPersonalInfoFormInit(){
     this.userPersonalDetailsForm = this.fb.group({
-      aboutMe:['', Validators.required],
+      aboutMe:['', [Validators.required, Validators.minLength(50)]],
       disability:[''],
       motherTongue:[''],
       diet:[],
@@ -91,7 +92,7 @@ export class PersonalDetailsFormComponent {
       bloodGroup:this.selectedBloodGroup,
       complexion:this.SelectedComplexion
     }
-    if(this.userPersonalDetailsForm.valid && this.selectedKnowLanguage.length > 0){
+    if(this.userPersonalDetailsForm.valid && this.selectedKnowLanguage.length > 0 && this.selectedKnowLanguage.length < 6 ){
       if(!this.isEditFrom){
         this.personalDetailsEmitter.emit(personalDetailsValue);
       }else{
@@ -164,9 +165,8 @@ export class PersonalDetailsFormComponent {
 
   onLanguageChange() {
   if (this.selectedKnowLanguage.length > 4) {
-    this.selectedKnowLanguage.pop();
-    this.toastr.warning('You can only select up to 4 languages.', 'Waring')
+    this.toastr.warning('You can only select up to 5 languages.', 'Waring')
   }
-}
+  }
 
 }

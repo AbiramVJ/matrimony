@@ -2,23 +2,13 @@
   <div class="col-12 p-0">
     <div class="nav-parent">
       <div class="d-flex justify-content-between">
+        <!-- MAIN LOGO -->
         <div class="my-auto d-flex d-none d-md-block pointer"  [routerLink]="'/home/member'">
-            <img class="me-2" src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png" alt="logo" class="logo-svg" >
-
+          <img class="me-2" src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png" alt="logo" class="logo-svg" >
         </div>
-        <!-- TAP BAR -->
-        <!-- <div class="my-auto">
-          <div class="d-flex justify-content-between">
-            <div class="me-4 pointer"  [routerLink]="'/home/member'"  routerLinkActive="active"[routerLinkActiveOptions]="{ exact: true }">
-              <i class="fas fa-home fa-lg me-1 text-muted "></i>Home
-            </div>
-            <div class="pointer">
-              <i class="fas fa-users fa-lg me-1 text-muted"></i>Members
-            </div>
-            <div></div>
-          </div>
-        </div> -->
-       <nav class="navbar navbar-expand-sm p-0 d-none d-sm-none d-md-block">
+
+        <!-- LARGE SCREEN NAVIGATION OPTION -->
+        <nav class="navbar navbar-expand-sm p-0 d-none d-sm-none d-md-block">
         <div class="container-fluid">
           <ul class="navbar-nav d-flex flex-row gap-3">
             <li class="nav-item">
@@ -37,10 +27,11 @@
             </li>
           </ul>
         </div>
-      </nav>
-      <nav class="bottom-nav navbar fixed-bottom bg-white border-top shadow-sm py-2 d-block d-dm-block d-md-none">
-          <div class="container d-flex justify-content-around text-center mb-2">
+        </nav>
 
+         <!-- MOBILE SCREEN NAVIGATION OPTION -->
+        <nav class="bottom-nav navbar fixed-bottom bg-white border-top shadow-sm py-2 d-block d-dm-block d-md-none">
+          <div class="container d-flex justify-content-around text-center mb-2">
             <a class="nav-item nav-link"   [routerLink]="['/home/member']"
                 [class.active-link]="router.isActive('/home', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })">
               <i class="fas fa-home fa-lg d-block"></i>
@@ -50,23 +41,19 @@
             <a class="nav-item nav-link" [routerLink]="['/member/profiles']"
                 [class.active-link]="router.isActive('/member', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })">
               <i class="fas fa-users fa-lg d-block"></i>
-              <!-- <small>Members</small> -->
             </a>
 
             <a class="nav-item nav-link" >
-              <i class="fas fa-comments fa-lg d-block" [routerLink]="['home/chat']" ></i>
-              <!-- <small>Chat</small> -->
+              <i class="fas fa-comments fa-lg d-block" [routerLink]="['home/chat']" [class.active-link]="router.isActive('/member', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })" ></i>
             </a>
 
             <a class="nav-item nav-link" [routerLink]="['home/main-user']" *ngIf="mainUser">
               <img  src="{{mainUser.image}}" class="m-list-profile object-fit-cover" alt="..." width="33px" height="33px">
-              <!-- <small>Profile</small> -->
             </a>
-
           </div>
         </nav>
 
-
+        <!-- LEFT SIDE NOTIFICATION CHAT AND PROFILE -->
         <div class="me-2 position-relative d-none d-md-block">
           <div class="d-flex">
             <div class="mt-2 me-3 member  " *ngIf="!isLoading && selectedMember">
@@ -89,69 +76,40 @@
               <img class="circles" src="{{mainUser.image}}" class="circles object-fit-cover" alt="...">
             </div>
           </div>
+
+          <!-- NOTIFICATION DROP DOWNBOX -->
           <div class="boder rounded bg-white position-absolute message-box" *ngIf="isNotificationOpen">
             <div class="fw-bold text-sm">Notifications</div>
-
           </div>
+          <!-- NOTIFICATION DROP DOWNBOX END -->
+
+          <!-- CHAT DROP DOWN -->
           <div class="boder rounded bg-white position-absolute message-box fw-bold" *ngIf="isMessageOpen">
             <h5><i class="fas fa-comments text-md me-2"></i>Messages</h5>
             <div class="message-wrapper mt-0">
-              <!-- <div class="message-header bg-danger">
-                <h4><i class="fas fa-comments me-2"></i>Messages</h4> -->
-              <!-- </div> -->
-
               <div class="search-wrapper">
-                <input
-                  type="text"
-                  class="search-field"
-                  placeholder="Search conversations..."
-                  [(ngModel)]="searchTerm">
+                <input type="text" class="search-field" placeholder="Search conversations..." [(ngModel)]="searchTerm">
               </div>
-
               <div class="conversation-list">
                 <div class="conversation-item" [class.selected]="selectedChatId === chat.id" *ngFor="let chat of filteredChats"
                   (click)="selectChat(chat.id)">
                   <div class="d-flex align-items-center" [routerLink]="['home/chat']" >
                     <div class="avatar-wrapper">
-                      <img
-                        *ngIf="chat.imageUrl"
-                        [src]="chat.imageUrl"
-                        [alt]="chat.name"
-                        class="avatar-image"
-                        onerror="this.style.display='none'">
-
-                      <div
-                        *ngIf="!chat.imageUrl"
-                        class="avatar-initials">
-                        {{ getInitials(chat.name) }}
-                      </div>
-
-                      <div
-                        *ngIf="chat.isOnline"
-                        class="status-online">
-                      </div>
+                      <img *ngIf="chat.imageUrl" [src]="chat.imageUrl" [alt]="chat.name" class="avatar-image" onerror="this.style.display='none'">
+                      <div *ngIf="!chat.imageUrl" class="avatar-initials"> {{ getInitials(chat.name) }} </div>
+                      <div *ngIf="chat.isOnline" class="status-online"></div>
                     </div>
 
                     <div class="conversation-details">
                       <div class="user-name">{{ chat.name }}</div>
-                      <div
-                        class="recent-message"
-                        [class.typing-animation]="isTyping(chat.lastMessage)">
-                        {{ chat.lastMessage }}
-                      </div>
+                      <div class="recent-message" [class.typing-animation]="isTyping(chat.lastMessage)"> {{ chat.lastMessage }} </div>
                     </div>
-
                     <div class="conversation-meta">
                       <div class="message-time">{{ chat.time }}</div>
-                      <div
-                        *ngIf="chat.unReadCount > 0"
-                        class="notification-badge">
-                        {{ chat.unReadCount }}
-                      </div>
+                      <div *ngIf="chat.unReadCount > 0" class="notification-badge"> {{ chat.unReadCount }}</div>
                     </div>
                   </div>
                 </div>
-
                 <!-- Empty state when no chats match search -->
                 <div *ngIf="filteredChats.length === 0 && searchTerm" class="no-results">
                   <div class="text-center py-4">
@@ -161,47 +119,35 @@
                 </div>
               </div>
             </div>
-                      </div>
+          </div>
+          <!-- END CHAT DROP DOWN -->
+
+          <!-- PROFILE DROPDOWNBOX -->
           <div class="boder rounded bg-white position-absolute" [ngClass]="memberProfiles.length === 0 ? 'register-drop' : 'message-box'" *ngIf="isProfileOpen">
             <div class="d-flex pointer" [routerLink]="['home/main-user']" *ngIf="mainUser">
-              <div class="me-3">
-                <img  src={{mainUser.image}} class="list-profile object-fit-cover" alt="...">
-              </div>
-              <div class="my-auto fw-bold">
-                {{mainUser.firstName + ' ' + mainUser.lastName ? mainUser.lastName : ''}}
-              </div>
+              <div class="me-3"> <img  src={{mainUser.image}} class="list-profile object-fit-cover" alt="..."> </div>
+              <div class="my-auto fw-bold"> {{mainUser.firstName +' '+ (mainUser.lastName === null ? '' : mainUser.lastName)}}</div>
             </div>
             <hr>
-            <!-- <div class="d-flex ps-2 pb-2">
-              <div class="me-2 pointer position-relative mes" >
-                <i class="fas fa-users"></i>
-              </div>
-                <div class="text-md fw-bold my-auto">Members</div>
-            </div> -->
             <div class="text-sm" *ngIf="memberProfiles.length > 0">
               <div class="text-md fw-bold my-auto ps-2 pb-2">Members</div>
               <div class="member-toggle-list pointer mt-2"  *ngFor="let p of displayedProfiles">
                 <div class="d-flex p-2 member-card border-radios-15" (click)="changeMemberProfile(p.id)"  [ngClass]="{'active-user' : p.id == selectedMember.id }">
-                  <div class="me-3">
-                    <img [src]="p.profileImages[0].url" class="list-profile object-fit-cover" alt="...">
-                  </div>
-                <div class="my-auto fw-normal">
-                  {{p.firstName +' ' + p.lastName}}
-                </div>
+                  <div class="me-3"> <img [src]="p.profileImages[0].url" class="list-profile object-fit-cover" alt="..."></div>
+                  <div class="my-auto fw-normal"> {{p.firstName +' ' + p.lastName}}</div>
                 </div>
               </div>
               <div class="d-flex p-2 member-card border-radios-15 pointer" (click)="navigateToRegister()" *ngIf="canAddProfile">
                 <div class="small-circle border me-2 pointer position-relative mes" *ngIf="memberProfiles.length > 0" >
                   <i class="fas fa-user-plus fa-lg"></i>
                 </div>
-               <div class="my-auto">
-                  create new member profile
-               </div>
+                <div class="my-auto">
+                    create new member profile
+                </div>
               </div>
               <div class="my-2 pointer">
                 <button class="btn w-100 my-auto" [ngClass]="canAddProfile ? 'btn-secondary' : ' btn-danger'" (click)="canAddProfile = !canAddProfile">{{canAddProfile ? 'cancel' :'See all members' }}</button>
               </div>
-
               <div class="text-md fw-bold ps-2 pb-2" >Settings</div>
             </div>
 
@@ -223,8 +169,8 @@
               </div>
             </div>
           </div>
+          <!-- END DROPDOWNBOX -->
         </div>
-
       </div>
     </div>
   </div>

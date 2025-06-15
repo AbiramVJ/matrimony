@@ -4,12 +4,12 @@
   scroll-behavior: smooth;
 }
 .content-side::-webkit-scrollbar {
-  width: 4px;   /* make scrollbar thinner vertically */
-  height: 4px;  /* if horizontal scrollbar */
+  width: 4px;
+  height: 4px;
 }
 
 .content-side::-webkit-scrollbar-thumb {
-  background-color: rgba(197, 197, 197, 0.3); /* color of the scroll thumb */
+  background-color: rgba(197, 197, 197, 0.3);
   border-radius: 3px;
 }
 

@@ -90,11 +90,13 @@ export class ProfileImage {
   id?: string;
   url: string;
   isProfile?: boolean;
-
+  isVisible:boolean;
   constructor(obj: any = {}) {
     this.id = obj?.id;
     this.url = obj?.url ?? '';
     this.isProfile = obj?.isProfile ?? false;
+    this.isVisible =  obj?.isVisible ?? false;
+
   }
 }
 
@@ -384,44 +386,44 @@ export class FullUserProfile {
     this.age = obj?.age ?? 0;
   }
 
-  getMarriedStatus(status: number): string {
+  getMarriedStatus(status: number) {
     const option = maritalStatusOptions.find(opt => opt.id === status);
-    return option ? option.name : 'Unknown';
+    return option ? option.name : null;
   }
 
-  getFoodHabit(status: number): string{
+  getFoodHabit(status: number){
     const option = diet.find(opt => opt.id === status);
-    return option ? option.name : 'Unknown';
+    return option ? option.name : null;
   }
 
-  getRelocated(status:number): string{
+  getRelocated(status:number){
     const option = willingToRelocate.find(opt => opt.id === status);
-    return option ? option.name : 'Unknown';
+    return option ? option.name : null;
   }
 
-  getBloodGroup(status:number): string{
+  getBloodGroup(status:number){
     const option = BloodGroup.find(opt => opt.id === status);
-    return option ? option.name : 'Unknown';
+    return option ? option.name : null;
   }
 
-  getBodyType(status:number): string{
+  getBodyType(status:number){
     const option = bodyTypes.find(opt => opt.id === status);
-    return option ? option.name : 'Unknown';
+    return option ? option.name : null;
   }
 
-  getSmokeHabit(status:number): string{
+  getSmokeHabit(status:number){
     const option = SmokeHabit.find(opt => opt.id === status);
-    return option ? option.name : 'Unknown';
+    return option ? option.name : null;
   }
 
-  getDrinkingHabit(status:number) : string {
+  getDrinkingHabit(status:number)  {
     const option = DrinkHabit.find(opt => opt.id === status);
-    return option ? option.name : 'Unknown';
+    return option ? option.name : null;
   }
 
-  getSkinCompletion(status:number): string{
+  getSkinCompletion(status:number){
     const option = Complexion.find(opt => opt.id === status);
-    return option ? option.name : 'Unknown';
+    return option ? option.name : null;
   }
 
 
@@ -430,10 +432,10 @@ export class FullUserProfile {
 
 export function getNatshathira(status:number){
   const option = Natshathira.find(opt => opt.id === status);
-  return option ? option.name : 'Unknown';
+  return option ? option.name : null;
 }
 
 export function getRasi(status:number){
   const option = raasiList.find(opt => opt.id === status);
-  return option ? option.name : 'Unknown';
+  return option ? option.name : null;
 }

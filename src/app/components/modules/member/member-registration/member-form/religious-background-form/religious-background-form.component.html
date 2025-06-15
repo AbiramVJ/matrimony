@@ -25,7 +25,7 @@
     bindLabel="name"
     bindValue="id"
     [ngModelOptions]="{standalone: true}"
-    [clearable]="false"
+    [clearable]="true"
     [searchable]="true"
     [(ngModel)]="selectedCommunity"
     (change)="changeCommunity()"
@@ -45,10 +45,11 @@
     bindLabel="name"
     bindValue="id"
     [ngModelOptions]="{standalone: true}"
-    [clearable]="false"
+    [clearable]="true"
     [searchable]="true"
     [(ngModel)]="selectedSubCommunity"
     [disabled]="isLoading"
+    [disabled]="!selectedCommunity"
 
     >
     </ng-select>
@@ -61,7 +62,7 @@
     bindLabel="name"
     bindValue="id"
     [ngModelOptions]="{standalone: true}"
-    [clearable]="false"
+    [clearable]="true"
     [searchable]="true"
     [(ngModel)]="selectedStar"
     >
@@ -75,7 +76,7 @@
     bindLabel="name"
     bindValue="id"
     [ngModelOptions]="{standalone: true}"
-    [clearable]="false"
+    [clearable]="true"
     [searchable]="true"
     [(ngModel)]="selectedRaasi"
     >

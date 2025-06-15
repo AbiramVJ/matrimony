@@ -12,7 +12,6 @@ import { AuthService } from '../../../../services/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { fbAppId } from '../../../../environments/environment';
-import { MemberService } from '../../../../services/member.service';
 
 @Component({
   selector: 'app-social-login',
@@ -26,15 +25,16 @@ import { MemberService } from '../../../../services/member.service';
   styleUrls:['./social-login.component.scss']
 })
 export class SocialLoginComponent {
+
   user: SocialUser | null = null;
   isGoogle:boolean = true;
   isLoading:boolean = false;
   isAgent:boolean = false;
+
   constructor(private authService: SocialAuthService,
     private auth:AuthService,
     private toastr: ToastrService,
     private router:Router,
-    private _memberService:MemberService,
   ) {}
 
   ngOnInit() {
@@ -72,17 +72,12 @@ export class SocialLoginComponent {
         next:(res:any) => {
           this.auth.setAuthToken(res.Result.token);
           this.auth.setUser();
-       //   this.toastr.success('Successful',`Sign-in successful with ${this.user?.name}`);
         },
-        complete:()=>{
-          // this.isLoading = false;
-          if(!this.isAgent){
-          // this._getMemberLi();
-         //this._getMemberList();
-         window.location.href = "/";
 
-          }
+        complete:()=>{
+          if(!this.isAgent){ window.location.href = "/";}
         },
+
         error:(error:any) =>{
           this.isLoading = false;
           this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
@@ -90,44 +85,5 @@ export class SocialLoginComponent {
           this.authService.signOut();
         }
       })
-  }
-
-  //private _getMemberList(){
-    // this.auth.memberList$.subscribe(data => {
-    //    if(data === null){
-    //       this.auth.setUserDetails(null);
-    //       this.router.navigateByUrl('member/member-registration');
-    //       return;
-    //     }else{
-    //       this.auth.setUserDetails(data[0].id);
-    //       this.router.navigateByUrl('home/member');
-    //     }
-    // })
-
-//  }
-
-private _getMemberList(){
-    this._memberService.getProfiles().subscribe({
-      next:(res:any) => {
-       if(res.length === 0){
-          this.auth.setMemberList(null);
-          localStorage.removeItem('currentMember');
-          window.location.href = "/";
-          return;
-        }else{
-          this.auth.setMemberList(res);
-          this.auth.setUserDetails(res[0]);
-          localStorage.setItem('currentMember',res[0].id);
-          window.location.href = "/";
-        //  this.router.navigateByUrl('home/member');
-        }
-      },
-      complete:() =>{
-        this.isLoading = false;
-      },
-      error:(error:any)=>{
-      this.isLoading = false;
-      }
-    })
-  }
+    }
 }

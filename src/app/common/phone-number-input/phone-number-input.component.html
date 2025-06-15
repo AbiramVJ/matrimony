@@ -11,10 +11,8 @@
           [clearable]="false"
           [searchable]="false"
           [(ngModel)]="selectedCode"
-           (ngModelChange)="emitPhoneNumber()"
+          (ngModelChange)="emitPhoneNumber()"
           >
-
-          <!-- Custom header template with search input -->
           <ng-template ng-header-tmp>
             <div class="search-container p-2">
               <input
@@ -24,8 +22,6 @@
                 (input)="onSearchChange($event)">
             </div>
           </ng-template>
-
-          <!-- Label template -->
           <ng-template ng-label-tmp let-item="item">
             <div class="d-flex">
               <div>
@@ -36,7 +32,6 @@
               </div>
             </div>
           </ng-template>
-          <!-- Option template -->
           <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
             <div class="d-flex">
               <div>

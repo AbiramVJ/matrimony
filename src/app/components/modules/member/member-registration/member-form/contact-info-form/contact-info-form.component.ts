@@ -65,9 +65,10 @@ export class ContactInfoFormComponent {
       if (defaultCountryCode && !this.isEditFrom) {
         this.selectedCountry = defaultCountryCode.country;
         this.selectedTempCountry = defaultCountryCode.country;
-       this.selectedProvince = defaultCountryCode.stateProvinces[0].name;
+        this.selectedProvince = defaultCountryCode.stateProvinces[0].name;
       }
     });
+
   }
 
   ngOnInit(): void {
@@ -281,4 +282,5 @@ export class ContactInfoFormComponent {
    this.stateAndProvince = country.stateProvinces;
    this.selectedProvince = country.stateProvinces[0].name;
   }
+
 }

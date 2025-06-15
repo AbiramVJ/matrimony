@@ -2,13 +2,12 @@ import { ROUTER_MODULES } from './../common-imports';
 import { SocialLoginService } from './../../services/auth/social-login.service';
 import { AuthService } from './../../services/auth/auth.service';
 import { MemberService } from './../../services/member.service';
-import { Component, ElementRef, EventEmitter, HostListener, Input, Output, output } from '@angular/core';
+import { Component, ElementRef, HostListener, Input } from '@angular/core';
 import { COMMON_DIRECTIVES, FORM_MODULES } from '../common-imports';
 import { CommonModule } from '@angular/common';
-
 import { ToastrService } from 'ngx-toastr';
 import { MainUser, UserProfile } from '../../models/index.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -171,12 +170,8 @@ get displayedProfiles() {
       next:(res:any)=>{
         this.mainUser = res;
       },
-      complete:()=>{
-
-      },
-      error:(error:any)=>{
-
-      }
+      complete:()=>{},
+      error:(error:any)=>{}
     })
   }
 
@@ -226,17 +221,12 @@ get displayedProfiles() {
     );
   }
 
-   getInitials(name: string): string {
-    return name.split(' ')
-      .map(word => word.charAt(0))
-      .join('')
-      .toUpperCase();
+  getInitials(name: string): string {
+    return name.split(' ').map(word => word.charAt(0)).join('').toUpperCase();
   }
 
   selectChat(chatId: number): void {
     this.selectedChatId = chatId;
-    console.log('Selected chat:', chatId);
-    // Add your chat selection logic here
   }
 
   isTyping(message: string): boolean {

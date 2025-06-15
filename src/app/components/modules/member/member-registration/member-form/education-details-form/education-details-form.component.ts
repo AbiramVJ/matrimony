@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Education, UserEducationDetails, UserProfile } from '../../../../../../models/index.model';
 import { MemberService } from '../../../../../../services/member.service';
 import { ToastrService } from 'ngx-toastr';
-import { incomeTypeList, sectorList } from '../../../../../../helpers/data';
+import { countryCode, incomeTypeList, sectorList } from '../../../../../../helpers/data';
 
 @Component({
   selector: 'app-education-details-form',
@@ -22,7 +22,8 @@ export class EducationDetailsFormComponent {
 
   public educationList:Education[] = [];
   public sectorList = sectorList;
-  public incomeTypeList = incomeTypeList
+  public incomeTypeList = incomeTypeList;
+  public countryList = countryCode;
 
   public currencies = [
     {id:1, label: '₹ (INR)', value: 'INR' },
@@ -36,7 +37,7 @@ export class EducationDetailsFormComponent {
   public selectedEducation:any = null;
   public selectedSector:number = 0;
   public selectedJob:string = '';
-  public selectedCurrency:number = 0;
+  public selectedCurrency:any = null;
   public selectedIncomeType:number = 0;
   constructor(private fb:FormBuilder,private memberService:MemberService,
       private toastr: ToastrService){this.educationFormInit();}
@@ -59,7 +60,7 @@ export class EducationDetailsFormComponent {
       companyName:[{ value: '', disabled: true },Validators.required],
       sector:[''],
       jobType:[''],
-      salaryDetails:[null],
+      salaryDetails:[{ value: null, disabled: true }],
       currency:[''],
       isYearly:[{ value: '', disabled: true }],
       isVisible:[{ value: '', disabled: true }]
@@ -103,14 +104,7 @@ export class EducationDetailsFormComponent {
   }
 
   public next(){
-    console.log(this.userEducationFrom.valid);
-    console.log(this.userEducationFrom.value)
     this.isSubmitted = true;
-    let currency;
-     if (this.selectedCurrency) {
-      currency = this.currencies.find((c: any) => c.id === this.selectedCurrency);
-    }
-
     if(this.userEducationFrom.valid){
       const formValue = this.userEducationFrom.value;
       const userEducationValue:UserEducationDetails = {
@@ -124,7 +118,7 @@ export class EducationDetailsFormComponent {
         jobType: this.selectedSector? this.selectedJob : null,
 
         salaryDetails:formValue.salaryDetails,
-        currency:currency ? currency!.label : null,
+        currency:this.selectedCurrency ? this.selectedCurrency : null,
         isYearly:formValue.salaryDetails !== null && formValue.salaryDetails !== '' ? formValue.isYearly : null,
         isVisible:formValue.isVisible ? formValue.isVisible: null,
       }
@@ -143,7 +137,7 @@ export class EducationDetailsFormComponent {
             profileSalary: {
               isAnnual:formValue.salaryDetails !== null && formValue.salaryDetails !== '' ? formValue.isYearly : null,
               amount: formValue.salaryDetails,
-              currencyCode: currency ? currency!.label : null,
+              currencyCode: this.selectedCurrency ? this.selectedCurrency : null,
               isVisible: formValue.isVisible,
             }
         } : null,
@@ -180,10 +174,9 @@ export class EducationDetailsFormComponent {
       this.userEducationFrom.get('institute')?.patchValue( this.memberProfile.profileEducations[0].institute);
     }
     if(this.memberProfile.profileJob){
-      let currencyCode = this.currencies.find((c:any) => c.label === this.memberProfile.profileJob?.profileSalary.currencyCode);
       this.selectedJob = this.memberProfile.profileJob.jobTypeId;
       this.selectedSector = this.memberProfile.profileJob.sector;
-      this.selectedCurrency = currencyCode?.id || 1;
+      this.selectedCurrency = this.memberProfile.profileJob.profileSalary.currencyCode;
       this.userEducationFrom.get('companyName')?.patchValue( this.memberProfile.profileJob.companyName);
       this.userEducationFrom.get('jobTitle')?.patchValue( this.memberProfile.profileJob.title);
 
@@ -191,7 +184,7 @@ export class EducationDetailsFormComponent {
       this.userEducationFrom.get('isYearly')?.patchValue( this.memberProfile.profileJob.profileSalary.isAnnual);
       this.userEducationFrom.get('isVisible')?.patchValue( this.memberProfile.profileJob.profileSalary.isVisible);
     }
-console.log(this.memberProfile.profileJob?.sector)
+
     this.changeHightEduction();
     this.changeJobSector();
     this.changeSalary();
@@ -235,25 +228,34 @@ console.log(this.memberProfile.profileJob?.sector)
 public changeJobSector(){
   const title = this.userEducationFrom.get('jobTitle');
   const companyName = this.userEducationFrom.get('companyName');
+  const salary = this.userEducationFrom.get('salaryDetails');
   if (this.selectedSector) {
       title?.addValidators(Validators.required);
       companyName?.addValidators(Validators.required);
+      salary?.addValidators(Validators.required);
      // this.selectedJob = this.jobTypeList[0].id;
       title?.enable();
       companyName?.enable();
+      salary?.enable();
 
     } else {
       title?.removeValidators(Validators.required);
       companyName?.removeValidators(Validators.required);
+      salary?.removeValidators(Validators.required);
+
       title?.patchValue(null);
       companyName?.patchValue(null);
+      salary?.patchValue(null);
+
       this.selectedJob = '';
       title?.disable();
       companyName?.disable();
+      salary?.disable();
 
     }
     title?.updateValueAndValidity();
     companyName?.updateValueAndValidity();
+    salary?.updateValueAndValidity();
   }
 
 public changeSalary(){
@@ -267,7 +269,7 @@ public changeSalary(){
      isYearly.enable();
      isVisible.enable();
     }else{
-      this.selectedCurrency = 0;
+      this.selectedCurrency = null;
       isYearly.removeValidators(Validators.required);
       isVisible.removeValidators(Validators.required);
       salary.removeValidators(Validators.required);

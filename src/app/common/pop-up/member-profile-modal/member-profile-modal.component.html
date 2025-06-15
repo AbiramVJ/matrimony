@@ -34,26 +34,23 @@
           </div> -->
         </div>
       </div>
-
       <!-- TAP BAR -->
-
-        <div class="col-12">
-         <div class="d-flex justify-content-between">
-          <div class="p-3 pointer" *ngFor="let tab of tabs" [ngClass]="{ 'bar-active': currentTap === tab.id }" (click)="currentTap = tab.id">
-            <div class="d-none d-sm-block">
-              <i [class]="tab.icon + ' me-2'"></i>{{ tab.label }}
-            </div>
-             <div class="d-block d-sm-none">
-              <i [class]="tab.icon + ' me-2'"></i>
-            </div>
-
+      <div class="col-12">
+        <div class="d-flex justify-content-between">
+        <div class="p-3 pointer" *ngFor="let tab of tabs" [ngClass]="{ 'bar-active': currentTap === tab.id }" (click)="currentTap = tab.id">
+          <div class="d-none d-sm-block">
+            <i [class]="tab.icon + ' me-2'"></i>{{ tab.label }}
           </div>
-        </div>
-        </div>
+            <div class="d-block d-sm-none">
+            <i [class]="tab.icon + ' me-2'"></i>
+          </div>
 
+        </div>
+      </div>
+      </div>
 
-       <!-- //OVER VIEW -->
-       <div class="row mt-4 p-3 m-0" *ngIf="currentTap === 1">
+      <!-- //OVER VIEW -->
+      <div class="row mt-4 p-3 m-0" *ngIf="currentTap === 1">
         <div class="col-12">
           <div class="text-lg fw-bold">About</div>
           <div class="mt-2 text-sm text-muted">Looking for a meaningful connection and life partner</div>
@@ -81,7 +78,7 @@
               <div class="text-xs">Mother Tongue</div>
               <div class="text-sm fw-bold">{{memberProfile.motherTongue}}</div>
             </div>
-            <div class="col-5 me-2 bg-light p-3  mb-2">
+            <div class="col-5 me-2 bg-light p-3  mb-2" *ngIf="memberProfile.bloodGroup">
               <div class="text-xs">Blood Group</div>
               <div class="text-sm fw-bold">{{memberProfile.bloodGroup}}</div>
             </div>
@@ -97,58 +94,58 @@
             </div>
           </div>
         </div>
-       </div>
+      </div>
 
-    <div class="row mt-4 p-3" *ngIf="currentTap === 2">
-      <div class="col-12">
-        <div class="text-lg fw-bold">Personal Details</div>
-        <div class="row mt-3 m-0">
-          <div class="col-12 col-sm-12 col-md-10 p-3 bg-light">
-            <div class="row text-sm">
-              <div class="col-6 mb-2"><strong>Gender:</strong> {{memberProfile.gender}}</div>
-              <div class="col-6 mb-2"><strong>Age:</strong> {{memberProfile.age}} years</div>
-              <div class="col-6 mb-2"><strong>Height:</strong> {{memberProfile.height}} Cm</div>
-              <div class="col-6 mb-2"><strong>Weight:</strong> {{memberProfile.weight}} Kg</div>
-              <div class="col-6 mb-2"><strong>Body Type:</strong> {{memberProfile.bodyType}}</div>
-              <div class="col-6 mb-2" *ngIf="memberProfile.skinComplexion"><strong>Skin Complexion:</strong> {{memberProfile.skinComplexion}}</div>
-              <div class="col-6 mb-2"><strong>Food Habit:</strong> {{memberProfile.foodHabit}}</div>
-              <div class="col-6 mb-2"><strong>Drinks:</strong> {{memberProfile.drinksHabit}}</div>
-              <div class="col-6 mb-2"><strong>Smoking:</strong> {{memberProfile.smokeHabit}}</div>
-              <div class="col-6 mb-2"><strong>Blood Group:</strong> {{memberProfile.bloodGroup}}</div>
-              <div class="col-6 mb-2"><strong>Willing to Relocate:</strong> {{memberProfile.willingToRelocate}}</div>
+      <div class="row mt-4 p-3" *ngIf="currentTap === 2">
+        <div class="col-12">
+          <div class="text-lg fw-bold">Personal Details</div>
+          <div class="row mt-3 m-0">
+            <div class="col-12 col-sm-12 col-md-10 p-3 bg-light">
+              <div class="row text-sm">
+                <div class="col-6 mb-2"><strong>Gender:</strong> {{memberProfile.gender}}</div>
+                <div class="col-6 mb-2"><strong>Age:</strong> {{memberProfile.age}} years</div>
+                <div class="col-6 mb-2"><strong>Height:</strong> {{memberProfile.height}} Cm</div>
+                <div class="col-6 mb-2"><strong>Weight:</strong> {{memberProfile.weight}} Kg</div>
+                <div class="col-6 mb-2"><strong>Body Type:</strong> {{memberProfile.bodyType}}</div>
+                <div class="col-6 mb-2" *ngIf="memberProfile.skinComplexion"><strong>Skin Complexion:</strong> {{memberProfile.skinComplexion}}</div>
+                <div class="col-6 mb-2"><strong>Food Habit:</strong> {{memberProfile.foodHabit}}</div>
+                <div class="col-6 mb-2"><strong>Drinks:</strong> {{memberProfile.drinksHabit}}</div>
+                <div class="col-6 mb-2"><strong>Smoking:</strong> {{memberProfile.smokeHabit}}</div>
+                <div class="col-6 mb-2"><strong>Blood Group:</strong> {{memberProfile.bloodGroup}}</div>
+                <div class="col-6 mb-2"><strong>Willing to Relocate:</strong> {{memberProfile.willingToRelocate}}</div>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="text-lg fw-bold mt-4">Languages & Location</div>
-        <div class="row mt-3 m-0">
-          <div class="col-12 col-sm-12 col-md-10 p-3 bg-light">
-            <div class="row text-sm">
-              <div class="col-6 mb-2"><strong>Mother Tongue:</strong> {{memberProfile.motherTongue}}</div>
-              <div class="col-6 mb-2"><strong>Known Languages:</strong> {{memberProfile.knownLanguages}}</div>
-              <div class="col-6 mb-2"><strong>Origin Country:</strong> {{memberProfile.originCountry}}</div>
+          <div class="text-lg fw-bold mt-4">Languages & Location</div>
+          <div class="row mt-3 m-0">
+            <div class="col-12 col-sm-12 col-md-10 p-3 bg-light">
+              <div class="row text-sm">
+                <div class="col-6 mb-2"><strong>Mother Tongue:</strong> {{memberProfile.motherTongue}}</div>
+                <div class="col-6 mb-2"><strong>Known Languages:</strong> {{memberProfile.knownLanguages}}</div>
+                <div class="col-6 mb-2"><strong>Origin Country:</strong> {{memberProfile.originCountry}}</div>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="text-lg fw-bold mt-4">Addresses</div>
-        <div class="row mt-3 m-0">
-          <div class="col-12 col-sm-12 col-md-10 bg-light mb-2">
-            <div class="fw-bold mb-1"><i class="fas fa-map-marker-alt me-2"></i>Living Address</div>
-            <div class="text-sm">{{memberProfile.profileAddresses[0].street + ', ' + memberProfile.profileAddresses[0].city + ' ' + memberProfile.profileAddresses[0].country}}</div>
-          </div>
-          <div class="col-12 col-sm-12 col-md-10 bg-light">
-            <div class="fw-bold mb-1"><i class="fas fa-home me-2"></i>Birth Address</div>
-            <div class="text-sm">{{memberProfile.profileAddresses[1].street + ', ' + memberProfile.profileAddresses[1].city + ' ' + memberProfile.profileAddresses[1].country}}</div>
+          <div class="text-lg fw-bold mt-4">Addresses</div>
+          <div class="row mt-3 m-0">
+            <div class="col-12 col-sm-12 col-md-10 bg-light mb-2">
+              <div class="fw-bold mb-1"><i class="fas fa-map-marker-alt me-2"></i>Living Address</div>
+              <div class="text-sm">{{memberProfile.profileAddresses[0].street + ', ' + memberProfile.profileAddresses[0].city + ' ' + memberProfile.profileAddresses[0].country}}</div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-10 bg-light">
+              <div class="fw-bold mb-1"><i class="fas fa-home me-2"></i>Birth Address</div>
+              <div class="text-sm">{{memberProfile.profileAddresses[1].street + ', ' + memberProfile.profileAddresses[1].city + ' ' + memberProfile.profileAddresses[1].country}}</div>
+            </div>
           </div>
         </div>
       </div>
-</div>
 
 
       <div class="row mt-4 p-3" *ngIf="currentTap === 3">
         <div class="col-12" *ngIf="memberProfile.profileJob">
-          <div class="text-lg fw-bold">Professional Information</div>
+          <div class="text-lg fw-bold">Job Information</div>
            <div class="row mt-3 m-0">
             <div class="col-12 com-sm-12 com-md-10 p-3 bg-light">
               <div class="d-flex">
@@ -177,25 +174,6 @@
             </div>
            </div>
         </div>
-        <!-- <div class="col-12 mt-3">
-          <div class="text-lg fw-bold">Partner Preferences</div>
-           <div class="row mt-3 m-0">
-            <div class="col-12 com-sm-12 com-md-10 p-3 bg-light">
-              <div class="d-flex mt-2">
-                <div class="text-xs me-2">Preferred Gender:</div>
-                <div class="fw-bold text-sm">{{memberProfile.profileLookingFor?.gender}}</div>
-              </div>
-               <div class="d-flex mt-2">
-                <div class="text-xs me-2">Preferred Country:</div>
-                <div class="fw-bold text-sm">{{memberProfile.profileLookingFor?.country}}</div>
-              </div>
-              <div class="d-flex mt-2">
-                <div class="text-xs me-2">Age Range:</div>
-                <div class="fw-bold text-sm">{{memberProfile.profileLookingFor?.minAge + '-' + memberProfile.profileLookingFor?.maxAge}}</div>
-              </div>
-            </div>
-           </div>
-        </div> -->
       </div>
 
       <div class="col-12 mt-3" *ngIf="currentTap === 4">
@@ -234,9 +212,7 @@
       </div>
       <div class="col-12 mt-3" *ngIf="currentTap === 5">
         <div class="text-lg fw-bold mb-3">Astrological Information</div>
-
         <div class="d-flex justify-content-center bg-light rounded p-4 text-center flex-column align-items-center" style="background: linear-gradient(to bottom right, #f6f3ff, #eef5ff);">
-
           <!-- Nakshathiram -->
           <div class="mb-4">
             <div class="rounded-circle bg-white d-flex justify-content-center align-items-center" style="width: 48px; height: 48px; margin: 0 auto;">
@@ -254,7 +230,6 @@
             <div class="mt-2 text-xs text-muted">Raasi</div>
             <div class="fw-bold text-sm text-primary">{{ memberProfile.profileAstrology?.rasiName }}</div>
           </div>
-
           <!-- Time of Birth -->
           <div>
             <div class="rounded-circle bg-white d-flex justify-content-center align-items-center" style="width: 48px; height: 48px; margin: 0 auto;">
@@ -263,12 +238,9 @@
             <div class="mt-2 text-xs text-muted">Time of Birth</div>
             <div class="fw-bold text-sm" style="color: #16a34a;">{{ memberProfile.profileAstrology?.timeOfBirth }}</div>
           </div>
-
         </div>
       </div>
-
-
-       <div class="mt-3"  >
+      <div class="mt-3"  >
         <div class="col-12 p-0">
           <div class="d-flex bg-light p-3">
             <div class="text-sm me-3"><i class="fas fa-envelope me-2"></i>{{memberProfile.email}}</div>
@@ -276,7 +248,7 @@
              <!-- <div class="float-right text-sm text-truncate">Profile id : {{memberProfile.id}}</div> -->
           </div>
         </div>
-       </div>
+      </div>
     </div>
   </div>
 </div>

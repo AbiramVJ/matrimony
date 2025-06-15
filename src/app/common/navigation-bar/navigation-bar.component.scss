@@ -182,11 +182,6 @@
   font-weight: 600;
 }
 
-// .conversation-list {
-//   max-height: 70vh;
-//   overflow-y: auto;
-// }
-
 .conversation-item {
   padding: 1rem 1.25rem;
   border-bottom: 1px solid #f0f0f0;
@@ -328,7 +323,6 @@
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
 }
 
-/* Scrollbar styling */
 .conversation-list::-webkit-scrollbar {
   width: 6px;
 }
@@ -341,10 +335,6 @@
   background: #c1c1c1;
   border-radius: 3px;
 }
-
-// .conversation-list::-webkit-scrollbar-thumb:hover {
-//   background: #a8a8a8;
-// }
 
 @media (max-width: 480px) {
   .message-wrapper {
@@ -380,12 +370,12 @@
   }
 
   .message-box::-webkit-scrollbar {
-    width: 4px; /* make scrollbar thinner vertically */
-    height: 4px; /* if horizontal scrollbar */
+    width: 4px;
+    height: 4px;
   }
 
   .message-box::-webkit-scrollbar-thumb {
-    background-color: rgba(197, 197, 197, 0.3); /* color of the scroll thumb */
+    background-color: rgba(197, 197, 197, 0.3);
     border-radius: 3px;
   }
 }

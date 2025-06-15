@@ -1,48 +1,17 @@
 <section class="">
   <div class="component-content">
-    <!-- <div class="row m-0" [ngClass]="isSingUp ? 'bg-image-s' : 'bg-image'"> -->
     <div class="row m-0 bg-image-s">
       <div class="col-12 col-md-8 col-lg-10 mx-auto">
         <div class="row">
           <div class="col-12">
-            <!-- <div class="mt-2">
-              <app-top-bar></app-top-bar>
-            </div> -->
             <div class="d-flex justify-content-center align-items-center mt-5">
               <div class="col-12">
                 <div class="m-shadow col-12 col-md-8 col-lg-5 mx-auto px-4 py-3 bg-white">
                   <div class="row">
                     <div class="col-12 d-flex align-item-center justify-content-center">
                       <div class="mb-3 mt-3">
-                        <!-- <svg xmlns="http://www.w3.org/2000/svg" width="200px" viewBox="0 0 400 150">
-                          <defs>
-                            <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                              <stop offset="0%" stop-color="#FFD700" />
-                              <stop offset="100%" stop-color="#FFA500" />
-                            </linearGradient>
-                          </defs>
-                          <path d="M10,80 Q60,50 110,80 Q160,110 210,80 Q260,50 310,80 Q360,110 390,80" stroke="#FFD700"
-                            stroke-width="2" fill="none" />
-                          <circle cx="200" cy="45" r="15" fill="none" stroke="url(#goldGradient)" stroke-width="3" />
-                          <circle cx="215" cy="45" r="15" fill="none" stroke="#FF0000" stroke-width="3" />
-                          <text x="200" y="90" font-family="'Segoe UI', Arial, sans-serif" font-size="42" font-weight="bold"
-                            text-anchor="middle" fill="#FF0000">Matri<tspan fill="#FFD700">mony</tspan></text>
-                          <text x="200" y="115" font-family="'Segoe UI', Arial, sans-serif" font-size="16"
-                            text-anchor="middle" fill="#333">Forever Begins Here</text>
-                        </svg> -->
-
-
                         <img src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png" alt="logo" class="logo-svg" >
                      </div>
-                     <!-- <div class="d-flex">
-                      <div>
-                        <img src="assets/images/logo.png" alt="logo" width="45px">
-                      </div>
-                      <div class="ms-2 logo-text">
-                        <div class="fw-bold">Forever Begins Here</div>
-                        <div cl>mgate.com</div>
-                      </div>
-                   </div> -->
                     </div>
                   </div>
 
@@ -55,10 +24,6 @@
                       </div>
                       <div *ngIf="isOtpVerification"> <h5 class="text-center text-muted fw-bold">Enter your verification code</h5></div>
                       <div></div>
-                      <!-- <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" (click)="changeLoginType()">
-                        <label class="form-check-label" for="flexSwitchCheckDefault">Agent</label>
-                      </div> -->
                     </div>
                     <!-- LOGIN -->
                     <div *ngIf="!isSingUp">
@@ -169,8 +134,8 @@
                           <div> <app-social-login></app-social-login></div>
                            <div class="ms-3">
                             <div *ngIf="isEmailLogin" class="d-flex justify-content-center">
-                            <div class="btn btn-light  s-btn p-1 border" (click)="loginWithPhoneNumber(false)" >
-                              <div class="d-flex justify-content-between">
+                            <div class="btn btn-light  s-btn p-1 border m-login-logo" (click)="loginWithPhoneNumber(false)" >
+                              <div class="">
                                 <div>
                                   <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="25px" height="30px" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
                                 viewBox="0 0 2048 2048"
@@ -206,9 +171,9 @@
                               </div>
                             </div>
                             </div>
-                            <div *ngIf="!isEmailLogin" class="d-flex justify-content-center mt-3">
-                              <div class="btn btn-light s-btn p-1 border" (click)="loginWithPhoneNumber(true)" >
-                                <div class="d-flex justify-content-between">
+                            <div *ngIf="!isEmailLogin" class="d-flex justify-content-center">
+                              <div class="btn btn-light s-btn p-1 border m-login-logo" (click)="loginWithPhoneNumber(true)" >
+                                <div class="">
                                   <div >
                                     <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="25px" height="25px" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
                                     viewBox="0 0 2048 2048"
@@ -235,9 +200,9 @@
                                     </g>
                                     </svg>
                                   </div>
-                                  <div class="mt-1 text-right text-md">
+                                  <!-- <div class="mt-1 text-right text-md">
                                     Sign with email address
-                                  </div>
+                                  </div> -->
                                   <div></div>
                                 </div>
                               </div>

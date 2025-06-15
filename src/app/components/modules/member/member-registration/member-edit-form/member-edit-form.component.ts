@@ -1,5 +1,4 @@
 import { MemberService } from './../../../../../services/member.service';
-import { AuthService } from './../../../../../services/auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { COMMON_DIRECTIVES, FORM_MODULES, ROUTER_MODULES } from '../../../../../common/common-imports';
@@ -14,7 +13,6 @@ import { FamilyInformationFormComponent } from "../member-form/family-informatio
 import { ReligiousBackgroundFormComponent } from "../member-form/religious-background-form/religious-background-form.component";
 import { EducationDetailsFormComponent } from "../member-form/education-details-form/education-details-form.component";
 import { UpperCasePipe } from '@angular/common';
-import { LoadingComponent } from "../../../../../common/loading/loading.component";
 
 @Component({
   selector: 'app-member-edit-form',
@@ -70,7 +68,6 @@ export class MemberEditFormComponent {
     },
     complete:()=>{
       this.isLoading = false;
-      //this.changeStep(this.steps.lookingFor);
     },
     error:(error:any) => {
       this.isLoading = false;

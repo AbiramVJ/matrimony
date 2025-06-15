@@ -1,11 +1,4 @@
-import {
-  Component,
-  effect,
-  EventEmitter,
-  Input,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, effect, EventEmitter, Input, Output } from '@angular/core';
 import { FORM_MODULES } from '../common-imports';
 import { CommonModule } from '@angular/common';
 import { DataProviderService } from '../../services/data-provider.service';
@@ -30,17 +23,15 @@ export class PhoneNumberInputComponent {
 
   constructor(private dataProvider: DataProviderService) {
     this.phoneCodes = this.dataProvider.getPhoneCode();
-  this.getCountry()
       effect(() => {
         const userGeoLocationDetails = this.dataProvider.userGeoLocation();
-        const defaultCountryCode = this.phoneCodes.find(
-          (pc: any) => pc.iso === userGeoLocationDetails?.country_code
-        );
-        if (defaultCountryCode && !this.setPhoneNumber) {
-          this.selectedCode = defaultCountryCode.code;
+        const defaultCountryCode = this.phoneCodes.find((pc: any) => pc.iso === userGeoLocationDetails?.country_code);
+        if (defaultCountryCode && !this.setPhoneNumber)
+        {
+         this.selectedCode = defaultCountryCode.code;
         }
-      });
-    }
+    });
+  }
 
   ngOnInit(): void {
     this.allPhoneCodes = [...this.phoneCodes];
@@ -48,7 +39,6 @@ export class PhoneNumberInputComponent {
 
   ngOnChanges(): void {
     this.isValidPn = this.isValidPhoneNumber(this.phoneNumber);
-
     if (this.setPhoneNumber && this.phoneCode) {
       this.phoneNumber = this.setPhoneNumber;
       let selectedCountry = this.phoneCodes.find(
@@ -65,10 +55,8 @@ export class PhoneNumberInputComponent {
       return;
     }
 
-    this.phoneCodes = this.allPhoneCodes.filter(
-      (item) =>
-        item.country.toLowerCase().includes(searchTerm) ||
-        item.code.includes(searchTerm)
+    this.phoneCodes = this.allPhoneCodes.filter((item) => item.country.toLowerCase().includes(searchTerm)
+    || item.code.includes(searchTerm)
     );
   }
 
@@ -96,17 +84,17 @@ export class PhoneNumberInputComponent {
     return phoneRegex.test(phone);
   }
 
-  private getCountry(){
-    this.dataProvider.getCountryCodes().subscribe({
-      next:(res:any) => {
-        console.log(res)
-      },
-      complete:() =>{
+  // private getCountry(){
+  //   this.dataProvider.getCountryCodes().subscribe({
+  //     next:(res:any) => {
+  //       console.log(res)
+  //     },
+  //     complete:() =>{
 
-      },
-      error:(error:any) => {
+  //     },
+  //     error:(error:any) => {
 
-      }
-    })
-  }
+  //     }
+  //   })
+  // }
 }

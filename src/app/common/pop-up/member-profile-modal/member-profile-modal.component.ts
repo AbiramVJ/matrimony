@@ -10,7 +10,7 @@ import { FullUserProfile } from '../../../models/index.model';
   styleUrl: './member-profile-modal.component.scss'
 })
 export class MemberProfileModalComponent {
-  @Input() memberProfile!:FullUserProfile;
+@Input() memberProfile!:FullUserProfile;
 
 public tabs:any = [
   { id: 1, icon: 'fas fa-user', label: 'Overview' },
@@ -22,7 +22,11 @@ public tabs:any = [
 
 public currentTap : number = 1;
 
+ngOnChanges(): void {
+  if(!this.memberProfile.profileJob){
+     this.tabs = this.tabs.filter((tab:any) => tab.id !== 3);
+  }
 
-
+}
 
 }

@@ -148,7 +148,6 @@
 
 .pi{
   ::ng-deep .form-control{
-   // border-left: 0px !important;
     border-top-left-radius: 0px !important;
     border-bottom-left-radius: 0px!important;
     border-right: 0px;
@@ -171,3 +170,7 @@
   }
 }
 
+.m-login-logo{
+  width: 39px;
+  height: 39px;
+}

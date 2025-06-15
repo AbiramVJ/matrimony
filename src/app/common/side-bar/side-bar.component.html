@@ -244,11 +244,11 @@
            <label class="fw-500">Height Range</label>
             <div class="row mt-2">
               <div class="col-6">
-                <div class="text-sm">Min(cm)</div>
+                <div class="text-sm">Min(Cm)</div>
                 <input id="minAge" type="number" class="form-control" [(ngModel)]="minHeightValue" disabled="">
               </div>
               <div class="col-6">
-                <div class="text-sm">Max(cm)</div>
+                <div class="text-sm">Max(Cm)</div>
                 <input id="minAge" type="number" class="form-control" [(ngModel)]="maxHeightValue" disabled="">
               </div>
             </div>
@@ -266,11 +266,11 @@
           <label class="fw-500">Weight Range</label>
            <div class="row mt-2">
               <div class="col-6">
-                <div class="text-sm">Min(kg)</div>
+                <div class="text-sm">Min(Kg)</div>
                 <input id="minAge" type="number" class="form-control" [(ngModel)]="minWeightValue" disabled="">
               </div>
               <div class="col-6">
-                <div class="text-sm">Max(kg)</div>
+                <div class="text-sm">Max(Kg)</div>
                 <input id="minAge" type="number" class="form-control" [(ngModel)]="maxWeightValue" disabled="">
               </div>
             </div>
@@ -378,7 +378,7 @@
         </div>
 
          <div class="mt-3">
-          <label class="fw-500">Married Status</label>
+          <label class="fw-500">Marital Status</label>
           <ng-select
             [items]="marriageStatusList"
             bindLabel="name"
@@ -388,7 +388,7 @@
             [searchable]="false"
             [multiple]="true"
             [(ngModel)]="selectedMarriageStatus"
-             (change)="ngSelectChange()"
+            (change)="ngSelectChange()"
            ></ng-select>
          </div>
 
