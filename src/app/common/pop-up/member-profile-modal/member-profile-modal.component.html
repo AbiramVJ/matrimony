@@ -84,7 +84,7 @@
             </div>
           </div>
         </div>
-        <div class="col-12 mt-3">
+        <div class="col-12 mt-3" *ngIf="memberProfile.profileImages[0].isVisible">
           <div class="text-lg fw-bold">Photos</div>
           <div class="row mt-3">
             <div class="col-3 p-0 pointer" *ngFor="let m of memberProfile.profileImages">
@@ -111,7 +111,7 @@
                 <div class="col-6 mb-2"><strong>Food Habit:</strong> {{memberProfile.foodHabit}}</div>
                 <div class="col-6 mb-2"><strong>Drinks:</strong> {{memberProfile.drinksHabit}}</div>
                 <div class="col-6 mb-2"><strong>Smoking:</strong> {{memberProfile.smokeHabit}}</div>
-                <div class="col-6 mb-2"><strong>Blood Group:</strong> {{memberProfile.bloodGroup}}</div>
+                <div class="col-6 mb-2" *ngIf="memberProfile.bloodGroup"><strong>Blood Group:</strong> {{memberProfile.bloodGroup}}</div>
                 <div class="col-6 mb-2"><strong>Willing to Relocate:</strong> {{memberProfile.willingToRelocate}}</div>
               </div>
             </div>
@@ -161,7 +161,7 @@
             </div>
            </div>
         </div>
-        <div class="col-12 mt-3" *ngIf="memberProfile.profileEducations">
+        <div class="col-12 mt-3" *ngIf="memberProfile.profileEducations.length > 0">
           <div class="text-lg fw-bold">Education</div>
            <div class="row mt-3 m-0">
             <div class="col-12 com-sm-12 com-md-10 p-3 bg-light">

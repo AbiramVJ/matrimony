@@ -380,7 +380,7 @@ export class FullUserProfile {
     this.profileImages = obj?.profileImages?.map((x: any) => new ProfileImage(x)) ?? [];
       this.profileImages = images.length > 0
   ? images.map((i: any) => new ProfileImage(i))
-  : [new ProfileImage({ url: 'https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740' })];
+  : [new ProfileImage({ url: 'https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740', isVisible:false })];
     this.profileAddresses = obj?.profileAddresses?.map((x: any) => new ProfileAddress(x)) ?? [];
     this.profileEducations = obj?.profileEducations?.map((x: any) => new ProfileEducation(x)) ?? [];
     this.age = obj?.age ?? 0;
