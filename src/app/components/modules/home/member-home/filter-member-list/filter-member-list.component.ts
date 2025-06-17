@@ -46,6 +46,8 @@ export class FilterMemberListComponent {
   //       this.memberProfiles = data;
   //     }
   //   })
+
+
   }
   public changePerPageValue(pageNumber: number) {
     if (pageNumber != 0 && pageNumber != null) {
