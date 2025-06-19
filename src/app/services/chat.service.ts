@@ -38,6 +38,5 @@ export class ChatService {
   public onMessageReceived(callback: (user: string, message: string) => void): void {
     console.log("asdgasg")
     this.hubConnection.on('ReceiveMessage', callback);
-
   }
 }
