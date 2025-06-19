@@ -81,3 +81,28 @@
     </div>
   </div>
 </section>
+
+
+
+
+<div class="container mt-4">
+  <h2>Chat Room</h2>
+
+  <div class="mb-3">
+    <label for="receiverId" class="form-label">Send To (Receiver ID):</label>
+    <input type="text" id="receiverId" [(ngModel)]="receiverId" class="form-control" />
+  </div>
+
+  <div class="mb-3">
+    <label for="message" class="form-label">Message:</label>
+    <textarea id="message" [(ngModel)]="messageCheck" rows="3" class="form-control"></textarea>
+  </div>
+
+  <button class="btn btn-primary" (click)="sendMessages()">Send</button>
+
+  <hr />
+
+  <div *ngFor="let msg of messagesCheck" class="alert alert-light mt-2">
+    <strong>{{ msg.sender }}:</strong> {{ msg.content }}
+  </div>
+</div>
