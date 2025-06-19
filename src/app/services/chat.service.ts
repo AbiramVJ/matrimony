@@ -31,11 +31,13 @@ export class ChatService {
 
    public sendMessage(user: string, message: string): void {
     console.log(user,message )
-    this.hubConnection.invoke('SendMessage', user, message, null, null, null)
+    this.hubConnection.invoke('SendMessage', 'e9987992-cc7c-4664-8379-be0703dab0a3', message, null, null, null)
       .catch(err => console.error(err));
   }
 
   public onMessageReceived(callback: (user: string, message: string) => void): void {
+    console.log("asdgasg")
     this.hubConnection.on('ReceiveMessage', callback);
+
   }
 }

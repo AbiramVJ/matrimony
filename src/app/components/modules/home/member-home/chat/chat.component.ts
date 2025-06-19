@@ -101,12 +101,15 @@ export class ChatComponent {
 
   constructor(private _chatService:ChatService){
       this._chatService.startConnection();
-       this._chatService.onMessageReceived((sender, message) => {
-      this.messages.push({ content: message, type: 'text', isMine: false });
-    });
+
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this._chatService.onMessageReceived((sender, message) => {
+        console.log("hi");
+       this.messages.push({ content: message, type: 'text', isMine: false });
+    });
+  }
 
   sendMessage() {
       if (this.selectedFile) {
