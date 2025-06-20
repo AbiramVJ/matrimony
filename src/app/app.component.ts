@@ -1,3 +1,4 @@
+import { SignalRService } from './services/signal-r.service';
 import { AuthService } from './services/auth/auth.service';
 import { DataProviderService } from './services/data-provider.service';
 import { Component } from '@angular/core';
@@ -26,7 +27,8 @@ export class AppComponent {
      private dataProviderService:DataProviderService,
      private _authService:AuthService,
      private router: Router,
-     private _memberService:MemberService
+     private _memberService:MemberService,
+     private _signalRService : SignalRService
     ){
 
   }
@@ -36,12 +38,6 @@ export class AppComponent {
     this._authService.member$.subscribe((data)=>{
         this.currentMemberDetails = data;
       })
-
-    // this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
-    //   this.hideNavProps = event.urlAfterRedirects.includes('/member/member-registration');
-    // });
-
-
     this._authService.authStatus.subscribe(data => {
       this.isLogin = data;
     });
@@ -51,7 +47,6 @@ export class AppComponent {
     }else{
       this.isLoading = false;
     }
-   // this._getMemberList();
   }
 
   private _getMemberList(){
@@ -81,7 +76,7 @@ export class AppComponent {
         }
       },
       complete:() =>{
-
+       // this._signalRService.startConnection();
       },
       error:(error:any)=>{
       this.isLoading = false;

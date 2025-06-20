@@ -4,17 +4,17 @@ import * as signalR from '@microsoft/signalr';
 @Injectable({
   providedIn: 'root'
 })
-export class ChatService {
+export class SignalRService {
   private hubConnection!: signalR.HubConnection;
   constructor() { }
 
-   public startConnection(): void {
+    public startConnection(): void {
     let profileId = localStorage.getItem('currentMemberId');
     this.hubConnection = new signalR.HubConnectionBuilder()
-       .withUrl(`https://mgate.runasp.net/chathub?profileId=${profileId}`, {
-       transport: signalR.HttpTransportType.WebSockets |
-             signalR.HttpTransportType.ServerSentEvents |
-             signalR.HttpTransportType.LongPolling,
+        .withUrl(`https://mgate.runasp.net/chathub?profileId=${profileId}`, {
+        transport: signalR.HttpTransportType.WebSockets |
+              signalR.HttpTransportType.ServerSentEvents |
+              signalR.HttpTransportType.LongPolling,
         accessTokenFactory: () => {
           return localStorage.getItem('token')!;
         },
@@ -28,16 +28,4 @@ export class ChatService {
       .then(() => console.log('Connection started'))
       .catch(err => console.log('Error while starting connection: ' + err));
   }
-
-   public sendMessage(user: string, message: string): void {
-    console.log(user)
-    this.hubConnection.invoke('SendMessage', user, message, null, null, null)
-      .catch(err => console.error(err));
-  }
-
-  public onMessageReceived(callback: (message: any) => void): void {
-    console.log("hi")
-    this.hubConnection.on('ReceiveMessage', callback);
-  }
-
 }
