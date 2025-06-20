@@ -111,6 +111,7 @@ previewImage: string | null = null;
       this._chatService.sendMessage(this.receiverId, this.selectedFile,1);
       this.messagesCheck.push({ sender: 'You', content: this.selectedFile, isMine:true,  type:1});
       this.selectedFile = '';
+      this.previewImage = null;
     } else if (this.newMessage.trim()) {
       this._chatService.sendMessage(this.receiverId, this.newMessage, 2);
       this.messagesCheck.push({ sender: 'You', content: this.newMessage, isMine:true,  type:2 });
