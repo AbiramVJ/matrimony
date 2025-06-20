@@ -60,9 +60,9 @@
             <div *ngFor="let message of messagesCheck" class="mb-2">
               <div class="d-flex" [ngClass]="{'justify-content-end': message.isMine}">
                 <div class="p-2 rounded" [ngClass]="{'bg-danger text-white': message.isMine, 'bg-light': !message.isMine}" style="max-width: 70%;">
-                  <div *ngIf="message.type === 'text'">{{ message.content }}</div>
-                  <div *ngIf="message.type === 'image'">
-                    <img [src]="message.content" class="img-fluid rounded" />
+                  <div *ngIf="message.type === 2">{{ message.content }}</div>
+                  <div *ngIf="message.type === 1">
+                    <img [src]="message.content" class="img-fluid rounded" width="300px" />
                   </div>
                 </div>
               </div>

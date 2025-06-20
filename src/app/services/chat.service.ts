@@ -29,9 +29,9 @@ export class ChatService {
       .catch(err => console.log('Error while starting connection: ' + err));
   }
 
-   public sendMessage(user: string, message: string): void {
+   public sendMessage(user: string, message: string, fileType:any ): void {
     console.log(user)
-    this.hubConnection.invoke('SendMessage', user, message, null, null, null)
+    this.hubConnection.invoke('SendMessage', user, message, null, null, fileType)
       .catch(err => console.error(err));
   }
 

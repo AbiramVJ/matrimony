@@ -3,6 +3,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FORM_MODULES } from '../../../../../common/common-imports';
+import { MemberService } from '../../../../../services/member.service';
 
 @Component({
   selector: 'app-chat',
@@ -15,8 +16,8 @@ export class ChatComponent {
   @ViewChild('chatMessages') private chatMessagesContainer!: ElementRef;
 
   public searchTerm: string = '';
-
-  searchControl = new FormControl('');
+  public isUploading:boolean = false;
+  public searchControl = new FormControl('');
 
   members: any[] = [
     {
@@ -85,56 +86,61 @@ export class ChatComponent {
     }
   ];
 
-  newMessage: string = '';
-  selectedFile: File | null = null;
+  public newMessage: string = '';
+  public selectedFile: any | null = null;
+  public receiverId: string = '';
+  public messagesCheck: { sender: string, content: string, isMine:boolean,type:number  }[] = [];
 
-
-  messages = [
-    { content: 'Hello!', type: 'text', isMine: false },
-    { content: 'Hi there!', type: 'text', isMine: true }
-  ];
-
-
-  receiverId: string = '';
-  messageCheck: string = '';
-  messagesCheck: { sender: string, content: string, isMine:boolean,type:string  }[] = [];
-
-  constructor(private _chatService:ChatService){
-      this._chatService.startConnection();
-
+  constructor(
+    private _chatService:ChatService,
+    private _memberService:MemberService
+  ){
+    this._chatService.startConnection();
   }
 
   ngOnInit() {
-     this._chatService.onMessageReceived((message: any) => {
-    this.messagesCheck.push({ sender: message.senderName || message.senderId, content: message.textContent, isMine:false, type:'text' });
+    this._chatService.onMessageReceived((message: any) => {
+    console.log(message);
+    this.messagesCheck.push({ sender: message.senderName || message.senderId, content: message.textContent, isMine:false, type: message.fileType });
     this.scrollToBottom();
   });
   }
 
   sendMessage() {
-      if (this.selectedFile) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          this.messages.push({ content: reader.result as string, type: 'image', isMine: true });
-          this.selectedFile = null;
-        };
-        reader.readAsDataURL(this.selectedFile);
-      } else if (this.newMessage.trim()) {
-         this._chatService.sendMessage(this.receiverId, this.newMessage);
-        this.messages.push({ content: this.newMessage, type: 'text', isMine: true });
-        this.messagesCheck.push({ sender: 'You', content: this.newMessage, isMine:true,  type:'text' });
-        this.newMessage = '';
-      }
-
+    if (this.selectedFile) {
+      this._chatService.sendMessage(this.receiverId, this.selectedFile,1);
+      this.messagesCheck.push({ sender: 'You', content: this.selectedFile, isMine:true,  type:1});
+      this.selectedFile = '';
+    } else if (this.newMessage.trim()) {
+      this._chatService.sendMessage(this.receiverId, this.newMessage, 2);
+      this.messagesCheck.push({ sender: 'You', content: this.newMessage, isMine:true,  type:2 });
       this.newMessage = '';
-      this.scrollToBottom();
+    }
+    this.newMessage = '';
+    this.scrollToBottom();
   }
 
-  onFileSelected(event: Event) {
-    const fileInput = event.target as HTMLInputElement;
-    if (fileInput.files && fileInput.files[0]) {
-      this.selectedFile = fileInput.files[0];
-    }
+  onFileSelected(event: Event): void {
+    this.isUploading = false;
+    const input = event.target as HTMLInputElement;
+    if (!input.files || input.files.length === 0) return;
+    const file = input.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+
+    this._memberService.uploadImageToBulb(formData).subscribe({
+      next: (res) => {
+       this.selectedFile = res.Result;
+      },
+      complete:() => {
+        this.isUploading = false;
+      },
+      error: (err) => {
+        console.error('Upload failed:', err);
+        this.isUploading = false;
+      }
+    });
+    input.value = '';
   }
 
   private scrollToBottom(): void {
@@ -143,13 +149,6 @@ export class ChatComponent {
     }, 0);
   }
 
-
-  // sendMessages(): void {
-  //   if (this.receiverId && this.newMessage) {
-  //     this._chatService.sendMessage(this.receiverId, this.newMessage);
-  //     this.messagesCheck.push({ sender: 'You', content: this.newMessage,isMine:false,  type:'text' });
-  //     this.newMessage = '';
-  //   }
-  // }
-
 }
+
+
