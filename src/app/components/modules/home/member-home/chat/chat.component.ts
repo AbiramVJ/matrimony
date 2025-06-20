@@ -16,7 +16,7 @@ import { FileType } from '../../../../../helpers/enum';
 export class ChatComponent {
 
   @ViewChild('chatMessages') private chatMessagesContainer!: ElementRef;
-  public previewImage: string | null = null;
+  public previewImage: string [] = [];
   public searchTerm: string = '';
   public isUploading:boolean = false;
   public isLoading:boolean = false;
@@ -92,7 +92,7 @@ export class ChatComponent {
 
   public newMessage: string = '';
   public selectedFile: any | null = null;
-  public receiverId: string = '';
+  public receiverId: string = 'b1386fbc-fff1-49ea-b601-d0092e7996d7';
   public messagesCheck:ChatMessage[] = [];
 
   constructor(
@@ -148,13 +148,11 @@ export class ChatComponent {
   // }
   public sendMessage() {
     let fileType: number;
-    let textContent: any;
-    let fileUrls: string[] = [];
-
+    let textContent: any = null;
+    let fileUrls: string[] = this.previewImage;
     if (this.selectedFile) {
-      fileUrls.push(this.selectedFile);
       fileType = FileType.Image;
-      this.previewImage = null;
+      this.previewImage = [];
       this.selectedFile = '';
     } else if (this.newMessage.trim()) {
       textContent = this.newMessage.trim();
@@ -194,7 +192,7 @@ export class ChatComponent {
     this._memberService.uploadImageToBulb(formData).subscribe({
       next: (res) => {
        this.selectedFile = res.Result;
-       this.previewImage = res.Result;
+       this.previewImage.push(res.Result);
       },
       complete:() => {
         this.isUploading = false;
@@ -214,7 +212,7 @@ export class ChatComponent {
   }
 
   public clearImagePreview() {
-    this.previewImage = null;
+    this.previewImage = [];
     this.selectedFile = null;
   }
 

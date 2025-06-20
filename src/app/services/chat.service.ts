@@ -35,6 +35,7 @@ export class ChatService {
   }
 
    public sendMessage(user: string, textContent: string, fileUrls:string[], fileType:any ): void {
+    console.log(user,textContent,fileUrls,fileType)
     this.hubConnection.invoke('SendMessage', user, textContent, fileUrls,fileType)
       .catch(err => console.error(err));
   }
