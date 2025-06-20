@@ -14,7 +14,7 @@ import { MemberService } from '../../../../../services/member.service';
 export class ChatComponent {
 
   @ViewChild('chatMessages') private chatMessagesContainer!: ElementRef;
-
+previewImage: string | null = null;
   public searchTerm: string = '';
   public isUploading:boolean = false;
   public searchControl = new FormControl('');
@@ -131,6 +131,7 @@ export class ChatComponent {
     this._memberService.uploadImageToBulb(formData).subscribe({
       next: (res) => {
        this.selectedFile = res.Result;
+       this.previewImage = res.Result;
       },
       complete:() => {
         this.isUploading = false;
@@ -148,6 +149,11 @@ export class ChatComponent {
       this.chatMessagesContainer.nativeElement.scrollTop = this.chatMessagesContainer.nativeElement.scrollHeight;
     }, 0);
   }
+
+  clearImagePreview() {
+  this.previewImage = null;
+  this.selectedFile = null;
+}
 
 }
 
