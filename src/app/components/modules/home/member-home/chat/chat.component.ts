@@ -97,7 +97,7 @@ export class ChatComponent {
 
   receiverId: string = '';
   messageCheck: string = '';
-  messagesCheck: { sender: string, content: string }[] = [];
+  messagesCheck: { sender: string, content: string, isMine:boolean,type:string  }[] = [];
 
   constructor(private _chatService:ChatService){
       this._chatService.startConnection();
@@ -106,7 +106,7 @@ export class ChatComponent {
 
   ngOnInit() {
      this._chatService.onMessageReceived((message: any) => {
-    this.messagesCheck.push({ sender: message.senderName || message.senderId, content: message.textContent });
+    this.messagesCheck.push({ sender: message.senderName || message.senderId, content: message.textContent, isMine:false, type:'text' });
     this.scrollToBottom();
   });
   }
@@ -120,7 +120,10 @@ export class ChatComponent {
         };
         reader.readAsDataURL(this.selectedFile);
       } else if (this.newMessage.trim()) {
+         this._chatService.sendMessage(this.receiverId, this.newMessage);
         this.messages.push({ content: this.newMessage, type: 'text', isMine: true });
+        this.messagesCheck.push({ sender: 'You', content: this.newMessage, isMine:true,  type:'text' });
+        this.newMessage = '';
       }
 
       this.newMessage = '';
@@ -141,12 +144,12 @@ export class ChatComponent {
   }
 
 
-  sendMessages(): void {
-    if (this.receiverId && this.messageCheck) {
-      this._chatService.sendMessage(this.receiverId, this.messageCheck);
-      this.messagesCheck.push({ sender: 'You', content: this.messageCheck });
-      this.messageCheck = '';
-    }
-  }
+  // sendMessages(): void {
+  //   if (this.receiverId && this.newMessage) {
+  //     this._chatService.sendMessage(this.receiverId, this.newMessage);
+  //     this.messagesCheck.push({ sender: 'You', content: this.newMessage,isMine:false,  type:'text' });
+  //     this.newMessage = '';
+  //   }
+  // }
 
 }
