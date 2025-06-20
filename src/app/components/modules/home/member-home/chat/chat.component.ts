@@ -4,6 +4,8 @@ import { FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FORM_MODULES } from '../../../../../common/common-imports';
 import { MemberService } from '../../../../../services/member.service';
+import { ChatMessage } from '../../../../../models/index.model';
+import { FileType } from '../../../../../helpers/enum';
 
 @Component({
   selector: 'app-chat',
@@ -14,10 +16,12 @@ import { MemberService } from '../../../../../services/member.service';
 export class ChatComponent {
 
   @ViewChild('chatMessages') private chatMessagesContainer!: ElementRef;
-previewImage: string | null = null;
+  public previewImage: string | null = null;
   public searchTerm: string = '';
   public isUploading:boolean = false;
+  public isLoading:boolean = false;
   public searchControl = new FormControl('');
+  public file_type = FileType;
 
   members: any[] = [
     {
@@ -89,39 +93,97 @@ previewImage: string | null = null;
   public newMessage: string = '';
   public selectedFile: any | null = null;
   public receiverId: string = '';
-  public messagesCheck: { sender: string, content: string, isMine:boolean,type:number  }[] = [];
+  public messagesCheck:ChatMessage[] = [];
 
   constructor(
     private _chatService:ChatService,
     private _memberService:MemberService
   ){
     this._chatService.startConnection();
+    this.getPrivateMessage();
   }
 
   ngOnInit() {
     this._chatService.onMessageReceived((message: any) => {
-    console.log(message);
-    this.messagesCheck.push({ sender: message.senderName || message.senderId, content: message.textContent, isMine:false, type: message.fileType });
+      console.log(message);
+    this.messagesCheck.push(message);
     this.scrollToBottom();
   });
   }
 
-  sendMessage() {
+  // public sendMessage() {
+  //   let fileType: number;
+  //   let textContent: string;
+  //   let fileUrls: string[] = [];
+
+  //   if (this.selectedFile) {
+  //     fileUrls.push(this.selectedFile)
+  //     fileType = FileType.Image;
+  //     this.previewImage = null;
+  //     this.selectedFile = '';
+  //   } else if (this.newMessage.trim()) {
+  //     textContent = this.newMessage.trim();
+  //     fileType = FileType.Text;
+  //     this.newMessage = '';
+  //   } else {
+  //     return;
+  //   }
+  //   this._chatService.sendMessage(this.receiverId, textContent, fileUrls, messageType, fileType);
+  //     const sentMessage = new ChatMessage({
+  //     id: null,
+  //     senderProfileId: 'You',
+  //     receiverProfileId: this.receiverId,
+  //     textContent: content || null,
+  //     fileUrl: null,
+  //     fileName: null,
+  //     fileType: messageType,
+  //     sentAt: new Date().toISOString(),
+  //     isRead: false,
+  //     readAt: null,
+  //     isMine: true
+  //   });
+  //   console.log(sentMessage);
+  //   this.messagesCheck.push(sentMessage);
+  //   this.scrollToBottom();
+  // }
+  public sendMessage() {
+    let fileType: number;
+    let textContent: any;
+    let fileUrls: string[] = [];
+
     if (this.selectedFile) {
-      this._chatService.sendMessage(this.receiverId, this.selectedFile,1);
-      this.messagesCheck.push({ sender: 'You', content: this.selectedFile, isMine:true,  type:1});
-      this.selectedFile = '';
+      fileUrls.push(this.selectedFile);
+      fileType = FileType.Image;
       this.previewImage = null;
+      this.selectedFile = '';
     } else if (this.newMessage.trim()) {
-      this._chatService.sendMessage(this.receiverId, this.newMessage, 2);
-      this.messagesCheck.push({ sender: 'You', content: this.newMessage, isMine:true,  type:2 });
+      textContent = this.newMessage.trim();
+      fileType = FileType.Text;
       this.newMessage = '';
+    } else {
+      return;
     }
-    this.newMessage = '';
+
+    this._chatService.sendMessage(this.receiverId, textContent, fileUrls, fileType);
+    const sentMessage = new ChatMessage({
+      id: null,
+      senderProfileId: 'You',
+      receiverProfileId: this.receiverId,
+      textContent: textContent,
+      fileUrls: fileUrls,
+      fileType: fileType,
+      sentAt: new Date().toISOString(),
+      isRead: false,
+      readAt: null,
+      isMine: true
+    });
+
+    this.messagesCheck.push(sentMessage);
     this.scrollToBottom();
   }
 
-  onFileSelected(event: Event): void {
+
+  public onFileSelected(event: Event): void {
     this.isUploading = false;
     const input = event.target as HTMLInputElement;
     if (!input.files || input.files.length === 0) return;
@@ -148,13 +210,28 @@ previewImage: string | null = null;
   private scrollToBottom(): void {
     setTimeout(() => {
       this.chatMessagesContainer.nativeElement.scrollTop = this.chatMessagesContainer.nativeElement.scrollHeight;
-    }, 0);
+    }, 100);
   }
 
-  clearImagePreview() {
-  this.previewImage = null;
-  this.selectedFile = null;
-}
+  public clearImagePreview() {
+    this.previewImage = null;
+    this.selectedFile = null;
+  }
+
+  public getPrivateMessage(){
+    this.isLoading = true;
+    this._chatService.getPrivateMessages('b1386fbc-fff1-49ea-b601-d0092e7996d7',1,25).subscribe({
+      next:(res:any) => {
+        this.messagesCheck = res;
+      },
+      complete:()=>{
+        this.isLoading = false;
+         this.scrollToBottom();
+      },error:(error:any)=>{
+        this.isLoading = false;
+      }
+    })
+  }
 
 }
 

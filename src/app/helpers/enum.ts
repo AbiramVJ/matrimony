@@ -39,3 +39,9 @@ export enum AddressType {
   living = 1,
   birth = 2
 }
+
+export enum FileType {
+  Text = 1,
+  Image = 2,
+  Document = 3,
+}
