@@ -76,7 +76,6 @@ export class ChatService {
       .catch(err => console.error('TypingStopped error:', err));
   }
 
-  // Listen for incoming typing events
   public onTypingStarted(callback: (fromProfileId: string) => void): void {
     this.hubConnection.on('TypingStarted', callback);
   }
@@ -84,6 +83,14 @@ export class ChatService {
   public onTypingStopped(callback: (fromProfileId: string) => void): void {
     this.hubConnection.on('TypingStopped', callback);
   }
+
+  // public onMessageRead(callback: (messageId: string, senderId: string, readAt: string) => void): void {
+  //   this.hubConnection.on('MessageRead', (messageId: string, senderId: string, readAt: string) => {
+  //     callback(messageId, senderId, readAt);
+  //   });
+  // }
+
+
 
 
   //HTTP CALLS

@@ -48,9 +48,18 @@ export class ChatComponent {
   }
 
   ngOnInit() {
-      this._chatService.onMessageReceived((message: any) => {
-      this.messagesCheck.push(message);
-      this.scrollToBottom();
+    this._chatService.onMessageReceived((message: any) => {
+      const isFromSelected = message.senderProfileId === this.selectedParticipant.receiverProfileId ||
+        message.receiverProfileId === this.selectedParticipant.receiverProfileId;
+      if (isFromSelected) {
+        this.messagesCheck.push(message);
+        this.scrollToBottom();
+      } else {
+        const index = this.participants.findIndex(p => p.receiverProfileId === message.senderProfileId);
+        if (index !== -1) {
+          this.participants[index].isRead = false;
+        }
+      }
     });
 
     this._chatService.onChatParticipantsReceived((data: any[]) => {
@@ -64,6 +73,7 @@ export class ChatComponent {
     //typing
     this._chatService.onTypingStarted((fromProfileId: string) => {
       this.typingMembers.add(fromProfileId);
+      this.scrollToBottom();
     });
 
     this._chatService.onTypingStopped((fromProfileId: string) => {
