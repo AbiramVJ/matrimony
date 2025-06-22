@@ -66,6 +66,7 @@ export class ChatService {
 
   //TYPING
   public sendTypingStarted(toProfileId: string): void {
+    console.log("hi")
   this.hubConnection.invoke('TypingStarted', toProfileId)
     .catch(err => console.error('TypingStarted error:', err));
   }

@@ -152,6 +152,7 @@ export class ChatComponent {
 
   //TYPING
   public onTyping(): void {
+    console.log("hi")
   if (!this.selectedParticipant) return;
     if (!this.isTyping) {
       this._chatService.sendTypingStarted(this.selectedParticipant.receiverProfileId);
@@ -161,7 +162,7 @@ export class ChatComponent {
     clearTimeout(this.typingTimeout);
     this.typingTimeout = setTimeout(() => {
       this.stopTyping();
-    }, 2000); // 2 seconds of no typing triggers stop
+    }, 2000);
   }
 
   public stopTyping(): void {
