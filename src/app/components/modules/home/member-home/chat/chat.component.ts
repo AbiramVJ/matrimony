@@ -4,12 +4,13 @@ import { FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FORM_MODULES } from '../../../../../common/common-imports';
 import { MemberService } from '../../../../../services/member.service';
-import { ChatMessage } from '../../../../../models/index.model';
+import { ChatMessage, ChatParticipant } from '../../../../../models/index.model';
 import { FileType } from '../../../../../helpers/enum';
+import { LoadingComponent } from "../../../../../common/loading/loading.component";
 
 @Component({
   selector: 'app-chat',
-  imports: [FORM_MODULES,CommonModule],
+  imports: [FORM_MODULES, CommonModule, LoadingComponent],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss'
 })
@@ -18,134 +19,66 @@ export class ChatComponent {
   @ViewChild('chatMessages') private chatMessagesContainer!: ElementRef;
   public previewImage: string [] = [];
   public searchTerm: string = '';
+  public selectedReceiverId: string | null = null;
+  public selectedParticipant!:ChatParticipant;
   public isUploading:boolean = false;
   public isLoading:boolean = false;
+
+  public isGetParticipant:boolean = false;
   public searchControl = new FormControl('');
   public file_type = FileType;
 
-  members: any[] = [
-    {
-      id: 1,
-      name: 'John Smith',
-      status: 'online',
-      role: 'admin',
-      avatar: 'https://ui-avatars.com/api/?name=John+Smith&background=random',
-      lastSeen: 'now'
-    },
-    {
-      id: 2,
-      name: 'Sarah Johnson',
-      status: 'online',
-      role: 'moderator',
-      avatar: 'https://ui-avatars.com/api/?name=Sarah+Johnson&background=random',
-      lastSeen: 'now'
-    },
-    {
-      id: 3,
-      name: 'Mike Davis',
-      status: 'online',
-      role: 'member',
-      avatar: 'https://ui-avatars.com/api/?name=Mike+Davis&background=random',
-      lastSeen: 'now'
-    },
-    {
-      id: 4,
-      name: 'Emily Wilson',
-      status: 'away',
-      role: 'member',
-      avatar: 'https://ui-avatars.com/api/?name=Emily+Wilson&background=random',
-      lastSeen: '5 min ago'
-    },
-    {
-      id: 5,
-      name: 'Alex Brown',
-      status: 'offline',
-      role: 'member',
-      avatar: 'https://ui-avatars.com/api/?name=Alex+Brown&background=random',
-      lastSeen: '2 hours ago'
-    },
-    {
-      id: 6,
-      name: 'Lisa Chen',
-      status: 'online',
-      role: 'member',
-      avatar: 'https://ui-avatars.com/api/?name=Lisa+Chen&background=random',
-      lastSeen: 'now'
-    },
-    {
-      id: 7,
-      name: 'David Kim',
-      status: 'busy',
-      role: 'member',
-      avatar: 'https://ui-avatars.com/api/?name=David+Kim&background=random',
-      lastSeen: '1 min ago'
-    },
-    {
-      id: 8,
-      name: 'Anna Rodriguez',
-      status: 'offline',
-      role: 'member',
-      avatar: 'https://ui-avatars.com/api/?name=Anna+Rodriguez&background=random',
-      lastSeen: 'yesterday'
-    }
-  ];
+  public participants: ChatParticipant[] = [];
+  public isLoadingPar:boolean = true;
+
 
   public newMessage: string = '';
   public selectedFile: any | null = null;
-  public receiverId: string = 'b1386fbc-fff1-49ea-b601-d0092e7996d7';
   public messagesCheck:ChatMessage[] = [];
+
+  public isTyping = false;
+  public typingTimeout: any;
+  public typingMembers = new Set<string>();
 
   constructor(
     private _chatService:ChatService,
     private _memberService:MemberService
   ){
     this._chatService.startConnection();
-    this.getPrivateMessage();
   }
 
   ngOnInit() {
-    this._chatService.onMessageReceived((message: any) => {
-      console.log(message);
-    this.messagesCheck.push(message);
-    this.scrollToBottom();
-  });
+      this._chatService.onMessageReceived((message: any) => {
+      this.messagesCheck.push(message);
+      this.scrollToBottom();
+    });
+
+    this._chatService.onChatParticipantsReceived((data: any[]) => {
+      this.participants = data;
+      if(!this.isGetParticipant && data.length > 0){
+        this.getPrivateMessage(data[0]);
+      }
+      this.isGetParticipant = true;
+    });
+
+    //typing
+    this._chatService.onTypingStarted((fromProfileId: string) => {
+      this.typingMembers.add(fromProfileId);
+    });
+
+    this._chatService.onTypingStopped((fromProfileId: string) => {
+      this.typingMembers.delete(fromProfileId);
+    });
+
   }
 
-  // public sendMessage() {
-  //   let fileType: number;
-  //   let textContent: string;
-  //   let fileUrls: string[] = [];
+  public check(){
+     this._chatService.onChatParticipantsReceived((data: any[]) => {
+      this.participants = data;
+      console.log('Received participants:', data);
+    });
+  }
 
-  //   if (this.selectedFile) {
-  //     fileUrls.push(this.selectedFile)
-  //     fileType = FileType.Image;
-  //     this.previewImage = null;
-  //     this.selectedFile = '';
-  //   } else if (this.newMessage.trim()) {
-  //     textContent = this.newMessage.trim();
-  //     fileType = FileType.Text;
-  //     this.newMessage = '';
-  //   } else {
-  //     return;
-  //   }
-  //   this._chatService.sendMessage(this.receiverId, textContent, fileUrls, messageType, fileType);
-  //     const sentMessage = new ChatMessage({
-  //     id: null,
-  //     senderProfileId: 'You',
-  //     receiverProfileId: this.receiverId,
-  //     textContent: content || null,
-  //     fileUrl: null,
-  //     fileName: null,
-  //     fileType: messageType,
-  //     sentAt: new Date().toISOString(),
-  //     isRead: false,
-  //     readAt: null,
-  //     isMine: true
-  //   });
-  //   console.log(sentMessage);
-  //   this.messagesCheck.push(sentMessage);
-  //   this.scrollToBottom();
-  // }
   public sendMessage() {
     let fileType: number;
     let textContent: any = null;
@@ -162,11 +95,11 @@ export class ChatComponent {
       return;
     }
 
-    this._chatService.sendMessage(this.receiverId, textContent, fileUrls, fileType);
+    this._chatService.sendMessage(this.selectedParticipant.receiverProfileId, textContent, fileUrls, fileType);
     const sentMessage = new ChatMessage({
       id: null,
       senderProfileId: 'You',
-      receiverProfileId: this.receiverId,
+      receiverProfileId: this.selectedParticipant.receiverProfileId,
       textContent: textContent,
       fileUrls: fileUrls,
       fileType: fileType,
@@ -216,17 +149,42 @@ export class ChatComponent {
     this.selectedFile = null;
   }
 
-  public getPrivateMessage(){
+
+  //TYPING
+  public onTyping(): void {
+  if (!this.selectedParticipant) return;
+    if (!this.isTyping) {
+      this._chatService.sendTypingStarted(this.selectedParticipant.receiverProfileId);
+      this.isTyping = true;
+    }
+
+    clearTimeout(this.typingTimeout);
+    this.typingTimeout = setTimeout(() => {
+      this.stopTyping();
+    }, 2000); // 2 seconds of no typing triggers stop
+  }
+
+  public stopTyping(): void {
+    if (this.isTyping && this.selectedParticipant) {
+      this._chatService.sendTypingStopped(this.selectedParticipant.receiverProfileId);
+      this.isTyping = false;
+    }
+  }
+
+  public getPrivateMessage(receiver:ChatParticipant){
+    this.selectedParticipant = receiver;
     this.isLoading = true;
-    this._chatService.getPrivateMessages('b1386fbc-fff1-49ea-b601-d0092e7996d7',1,25).subscribe({
+    this._chatService.getPrivateMessages(receiver.receiverProfileId,1,25).subscribe({
       next:(res:any) => {
         this.messagesCheck = res;
+        this.isLoadingPar = false;
       },
       complete:()=>{
         this.isLoading = false;
          this.scrollToBottom();
       },error:(error:any)=>{
         this.isLoading = false;
+         this.isLoadingPar = false;
       }
     })
   }

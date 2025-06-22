@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
 import { environment } from '../environments/environment';
-import { map } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { ChatMessage } from '../models/index.model';
+import { ChatMessage, ChatParticipant } from '../models/index.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,10 @@ import { ChatMessage } from '../models/index.model';
 export class ChatService {
   private hubConnection!: signalR.HubConnection;
   private baseUrl = (environment as any).baseUrl;
+
+  private participantsSubject = new BehaviorSubject<any[]>([]);
+  public participants$ = this.participantsSubject.asObservable();
+
   constructor(private http: HttpClient) { }
 
    public startConnection(): void {
@@ -28,10 +32,10 @@ export class ChatService {
       .withAutomaticReconnect()
       .build();
 
-    this.hubConnection
-      .start()
-      .then(() => console.log('Connection started'))
-      .catch(err => console.log('Error while starting connection: ' + err));
+    this.hubConnection.start().then(() => {
+        console.log('Connection started');
+        this.getChatParticipants()
+      }).catch(err => console.log('Error while starting connection: ' + err));
   }
 
    public sendMessage(user: string, textContent: string, fileUrls:string[], fileType:any ): void {
@@ -40,12 +44,46 @@ export class ChatService {
       .catch(err => console.error(err));
   }
 
-    public onMessageReceived(callback: (message: ChatMessage) => void): void {
+  public onMessageReceived(callback: (message: ChatMessage) => void): void {
     this.hubConnection.on('ReceiveMessage', (data: any) => {
       const message = new ChatMessage(data);
       callback(message);
     });
   }
+
+ //CHAT PARTICIPANTS
+  public getChatParticipants(): void {
+    this.hubConnection.invoke('GetChatParticipants')
+      .catch(err => console.error('GetChatParticipants failed', err));
+  }
+
+  public onChatParticipantsReceived(callback: (participants: any[]) => void): void {
+    this.hubConnection.on('ChatParticipants', (data:any) => {
+      const participants = data.map((p:any) => new ChatParticipant(p));
+      callback(participants);
+    });
+  }
+
+  //TYPING
+  public sendTypingStarted(toProfileId: string): void {
+  this.hubConnection.invoke('TypingStarted', toProfileId)
+    .catch(err => console.error('TypingStarted error:', err));
+  }
+
+  public sendTypingStopped(toProfileId: string): void {
+    this.hubConnection.invoke('TypingStopped', toProfileId)
+      .catch(err => console.error('TypingStopped error:', err));
+  }
+
+  // Listen for incoming typing events
+  public onTypingStarted(callback: (fromProfileId: string) => void): void {
+    this.hubConnection.on('TypingStarted', callback);
+  }
+
+  public onTypingStopped(callback: (fromProfileId: string) => void): void {
+    this.hubConnection.on('TypingStopped', callback);
+  }
+
 
   //HTTP CALLS
   public getPrivateMessages(withProfileId:string, pageNumber:number, pageSize:number){
@@ -56,7 +94,4 @@ export class ChatService {
       })
     );
   }
-
-
-
 }

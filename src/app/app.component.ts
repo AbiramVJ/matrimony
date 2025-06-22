@@ -1,3 +1,4 @@
+import { ChatService } from './services/chat.service';
 import { SignalRService } from './services/signal-r.service';
 import { AuthService } from './services/auth/auth.service';
 import { DataProviderService } from './services/data-provider.service';
@@ -28,7 +29,7 @@ export class AppComponent {
      private _authService:AuthService,
      private router: Router,
      private _memberService:MemberService,
-     private _signalRService : SignalRService
+     private _chatService:ChatService
     ){
 
   }
@@ -68,15 +69,19 @@ export class AppComponent {
           if(currentMemberId){
             const member = res.find((member:any) => member.id === currentMemberId);
             this._authService.setUserDetails(member);
+
+
           }else{
             localStorage.setItem('currentMemberId',res[0].id);
             this._authService.setUserDetails(res[0]);
+
           }
           this.isLoading = false;
         }
       },
       complete:() =>{
        // this._signalRService.startConnection();
+
       },
       error:(error:any)=>{
       this.isLoading = false;

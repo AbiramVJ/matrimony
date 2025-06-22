@@ -56,7 +56,7 @@
         <!-- LEFT SIDE NOTIFICATION CHAT AND PROFILE -->
         <div class="me-2 position-relative d-none d-md-block">
           <div class="d-flex">
-            <div class="mt-2 me-3 member  " *ngIf="!isLoading && selectedMember">
+            <div class="mt-2 me-3 member" *ngIf="!isLoading && selectedMember">
               <div class="d-flex">
                 <img class="object-fit-cover me-2" src={{selectedMember.profileImages[0].url}} alt="profile" width="40px" height="40px">
                 <div class="my-auto fw-bold text-sm">{{selectedMember.firstName + ' ' + selectedMember.lastName ? selectedMember.lastName : ''}}</div>

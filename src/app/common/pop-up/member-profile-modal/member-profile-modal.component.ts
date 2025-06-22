@@ -23,7 +23,7 @@ public tabs:any = [
 public currentTap : number = 1;
 
 ngOnChanges(): void {
-  if(!this.memberProfile.profileJob){
+  if(!this.memberProfile?.profileJob){
      this.tabs = this.tabs.filter((tab:any) => tab.id !== 3);
   }
 

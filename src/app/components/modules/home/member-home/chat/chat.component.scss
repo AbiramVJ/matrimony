@@ -14,6 +14,8 @@
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
+  border-radius: 16px;
+  margin:5px;
 }
 
 .conversation-item:hover {
@@ -55,6 +57,10 @@
 .m-box{
   height: 400px;
   overflow: auto;
+}
+
+.chat-empty-card{
+  height: 80vh;
 }
 
 @keyframes fadeInUp {
