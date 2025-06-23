@@ -91,6 +91,8 @@ export class ChatComponent {
 
       if(!this.isGetParticipant && data.length > 0){
         this.getPrivateMessage(data[0]);
+      }else{
+        this.isLoadingPar = false;
       }
       this.isGetParticipant = true;
 
