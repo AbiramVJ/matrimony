@@ -1,10 +1,11 @@
+import { ChatService } from './../../../../../services/chat.service';
 import { Router } from '@angular/router';
 import { MemberService } from './../../../../../services/member.service';
 import { AuthService } from './../../../../../services/auth/auth.service';
 import { Component } from '@angular/core';
 import { COMMON_DIRECTIVES, FORM_MODULES } from '../../../../../common/common-imports';
 import { CommonModule } from '@angular/common';
-import { FullUserProfile, MemberProfile, UserProfile } from '../../../../../models/index.model';
+import { ChatParticipant, FullUserProfile, MemberProfile, UserProfile } from '../../../../../models/index.model';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ToastrService } from 'ngx-toastr';
 import { MemberProfileModalComponent } from "../../../../../common/pop-up/member-profile-modal/member-profile-modal.component";
@@ -26,7 +27,13 @@ export class FilterMemberListComponent {
   public isLoading:boolean = false;
   public filter:any;
 
-  constructor(private auth:AuthService, private memberService:MemberService,  private _toastr: ToastrService,private router:Router){
+  constructor(private auth:AuthService,
+    private memberService:MemberService,
+    private _toastr: ToastrService,
+    private router:Router,
+    private _chatService:ChatService
+
+  ){
      this.auth.member$.subscribe(data => {
       if(data){
        this.currentsUser = data;
@@ -106,5 +113,20 @@ export class FilterMemberListComponent {
 
   public addMember(){
     this.router.navigateByUrl("member/member-registration");
+  }
+
+  public openChat(member:MemberProfile){
+    const openChatMember = new ChatParticipant({
+      receiverProfileId :member.id,
+      name : member.firstName,
+      profileImage:member.imageUrl,
+      lastSentAt : new Date().toString(),
+      isRead : false
+    })
+
+    this._chatService.setParticipant(openChatMember);
+
+   this.router.navigate(['/home/chat']);
+
   }
 }

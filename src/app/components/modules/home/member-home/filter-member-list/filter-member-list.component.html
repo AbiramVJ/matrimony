@@ -26,7 +26,7 @@
         </div>
         <div class="col-12 col-md-4 ">
           <div class="text-md fw-bold text-muted text-truncate">{{member.firstName + ' ' + member.lastName}} </div>
-          <div class="mt-1 text-sm text-truncate"><i class="fas fa-briefcase me-2"></i>{{member.jobTitle}}</div>
+          <div class="mt-1 text-sm text-truncate" *ngIf="member.jobTitle"><i class="fas fa-briefcase me-2"></i>{{member.jobTitle}}</div>
           <div class="mt-1 text-sm"><i class="fas fa-map-marker-alt me-2"></i>{{member.livingAddresses?.country}}</div>
           <div class="mt-1 text-sm"><i class="fas fa-user-clock me-2 "></i>{{member.age}} years old</div>
           <!-- <div class="mt-1 text-sm text-truncate">
@@ -37,9 +37,10 @@
         <div class="col-4 mt-auto">
           <div class="me-2">
           <div class="ms-2 d-flex justify-content-end me-1">
-            <!-- <div class="me-2">
-              <button class="btn btn-primary"><i class="fas fa-comment-dots text-white"></i></button>
+          <div class="me-2">
+              <button class="btn btn-primary" (click)="openChat(member)"><i class="fas fa-comment-dots text-white"></i></button>
             </div>
+             <!--
             <div class="me-2">
               <button class="btn btn-light"><i class="fas fa-phone text-success"></i></button>
             </div> -->

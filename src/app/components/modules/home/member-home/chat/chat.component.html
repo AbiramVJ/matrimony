@@ -10,7 +10,6 @@
                   class="search-field"
                   placeholder="Search conversations..."
                   [(ngModel)]="searchTerm">
-
               </div>
              <div *ngFor="let member of participants" class="d-flex align-items-center p-3 border-bottom member-item conversation-item pointer" (click)="getPrivateMessage(member)" [ngClass]="{'bg-danger text-white':selectedParticipant && selectedParticipant.receiverProfileId === member.receiverProfileId}">
               <!-- Avatar -->
@@ -89,20 +88,48 @@
           </div>
 
           <!-- Message input area -->
-          <form (ngSubmit)="sendMessage()" enctype="multipart/form-data">
-            <div class="d-flex align-items-center gap-2 border-top pt-2">
-              <input type="text" [(ngModel)]="newMessage" name="message"   (input)="onTyping()" (blur)="stopTyping()" class="form-control" placeholder="Type a message..." required />
+         <form (ngSubmit)="sendMessage()" enctype="multipart/form-data">
+            <div class="d-flex align-items-center gap-2 border-top pt-2 position-relative">
+              <!-- Message input -->
+              <input type="text"
+                    [(ngModel)]="newMessage"
+                    name="message"
+                    (input)="onTyping()"
+                    (blur)="stopTyping()"
+                    class="form-control"
+                    placeholder="Type a message..." required />
 
+              <!-- Emoji Picker Toggle Button -->
+              <button type="button"
+                      class="btn btn-outline-secondary position-relative"
+                      (click)="toggleEmojiPicker()">
+                <i class="fas fa-smile"></i>
+              </button>
+
+              <!-- File Upload Button -->
               <input type="file" (change)="onFileSelected($event)" hidden #fileInput />
               <button type="button" class="btn btn-outline-secondary" (click)="fileInput.click()">
-                 <i class="fas fa-image"></i>
+                <i class="fas fa-image"></i>
               </button>
 
-              <button type="submit" class="btn btn-danger">
-                ➤
-              </button>
+              <!-- Send Button -->
+              <button type="submit" class="btn btn-danger">➤</button>
+
+              <!-- Emoji Picker Dropdown -->
+              <div *ngIf="showEmojiPicker"
+                  class="emoji-picker-dropdown position-absolute"
+                  style="bottom: 50px; right: 60px; z-index: 999;">
+                <emoji-mart
+                  set="apple"
+                  (emojiSelect)="addEmoji($event)"
+                  title="Pick your emoji…"
+                  emoji="point_up"
+                  style="box-shadow: 0 0 15px rgba(255, 255, 255, 0.2); border-radius: 12px;"
+                ></emoji-mart>
+              </div>
             </div>
           </form>
+
            </div>
         </div>
         <div *ngIf="participants.length === 0 && isGetParticipant" class="chat-empty-card">

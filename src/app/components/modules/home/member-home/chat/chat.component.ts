@@ -7,10 +7,10 @@ import { MemberService } from '../../../../../services/member.service';
 import { ChatMessage, ChatParticipant } from '../../../../../models/index.model';
 import { FileType } from '../../../../../helpers/enum';
 import { LoadingComponent } from "../../../../../common/loading/loading.component";
-
+import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 @Component({
   selector: 'app-chat',
-  imports: [FORM_MODULES, CommonModule, LoadingComponent],
+  imports: [FORM_MODULES, CommonModule, LoadingComponent,PickerComponent],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss'
 })
@@ -39,6 +39,19 @@ export class ChatComponent {
   public isTyping = false;
   public typingTimeout: any;
   public typingMembers = new Set<string>();
+   name = 'Angular';
+  message = '';
+  showEmojiPicker = false;
+  sets = [
+    'native',
+    'google',
+    'twitter',
+    'facebook',
+    'emojione',
+    'apple',
+    'messenger'
+  ]
+  set = 'twitter';
 
   constructor(
     private _chatService:ChatService,
@@ -48,6 +61,7 @@ export class ChatComponent {
   }
 
   ngOnInit() {
+    const participant = this._chatService.getParticipant();
     this._chatService.onMessageReceived((message: any) => {
       const isFromSelected = message.senderProfileId === this.selectedParticipant.receiverProfileId ||
         message.receiverProfileId === this.selectedParticipant.receiverProfileId;
@@ -64,10 +78,22 @@ export class ChatComponent {
 
     this._chatService.onChatParticipantsReceived((data: any[]) => {
       this.participants = data;
+      if (participant) {
+      const existingIndex = this.participants.findIndex((p: ChatParticipant) => p.receiverProfileId === participant.receiverProfileId);
+        if (existingIndex !== -1) {
+          const existingParticipant = this.participants.splice(existingIndex, 1)[0];
+          this.participants.unshift(existingParticipant);
+        } else {
+          this.participants.unshift(participant);
+        }
+          this._chatService.clearParticipant();
+      }
+
       if(!this.isGetParticipant && data.length > 0){
         this.getPrivateMessage(data[0]);
       }
       this.isGetParticipant = true;
+
     });
 
     //typing
@@ -80,13 +106,6 @@ export class ChatComponent {
       this.typingMembers.delete(fromProfileId);
     });
 
-  }
-
-  public check(){
-     this._chatService.onChatParticipantsReceived((data: any[]) => {
-      this.participants = data;
-      console.log('Received participants:', data);
-    });
   }
 
   public sendMessage() {
@@ -120,6 +139,7 @@ export class ChatComponent {
     });
 
     this.messagesCheck.push(sentMessage);
+    this.showEmojiPicker = false;
     this.scrollToBottom();
   }
 
@@ -162,7 +182,6 @@ export class ChatComponent {
 
   //TYPING
   public onTyping(): void {
-    console.log("hi")
   if (!this.selectedParticipant) return;
     if (!this.isTyping) {
       this._chatService.sendTypingStarted(this.selectedParticipant.receiverProfileId);
@@ -198,6 +217,34 @@ export class ChatComponent {
          this.isLoadingPar = false;
       }
     })
+  }
+
+
+  // addEmoji(event:any) {
+  //   console.log(this.message)
+  //   const { message } = this;
+  //   console.log(message);
+  //   console.log(`${event.emoji.native}`)
+  //   const text = `${message}${event.emoji.native}`;
+
+  //   this.message = text;
+  //   this.showEmojiPicker = false;
+  // }
+
+  toggleEmojiPicker() {
+  this.showEmojiPicker = !this.showEmojiPicker;
+}
+
+addEmoji(event: any) {
+  this.newMessage += event.emoji.native;
+}
+
+  onFocus() {
+    console.log('focus');
+    this.showEmojiPicker = false;
+  }
+  onBlur() {
+    console.log('onblur')
   }
 
 }

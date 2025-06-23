@@ -299,7 +299,7 @@ export class MemberProfile {
     this.dateOfBirth = obj?.dateOfBirth ?? null;
     this.age = obj?.age ?? null;
     this.religion = obj?.religion ?? '';
-    this.jobTitle = obj?.jobTitle ?? '';
+    this.jobTitle = obj?.jobTitle ?? null;
     this.imageUrl = obj?.imageUrl ?? 'https://cdn-icons-png.flaticon.com/512/9187/9187604.png';
     this.livingAddresses = obj.livingAddresses ? new LivingAddress(obj.livingAddresses) : null;
   }

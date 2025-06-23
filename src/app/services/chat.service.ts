@@ -11,9 +11,7 @@ import { ChatMessage, ChatParticipant } from '../models/index.model';
 export class ChatService {
   private hubConnection!: signalR.HubConnection;
   private baseUrl = (environment as any).baseUrl;
-
-  private participantsSubject = new BehaviorSubject<any[]>([]);
-  public participants$ = this.participantsSubject.asObservable();
+  private participant: ChatParticipant | null = null;
 
   constructor(private http: HttpClient) { }
 
@@ -90,9 +88,6 @@ export class ChatService {
   //   });
   // }
 
-
-
-
   //HTTP CALLS
   public getPrivateMessages(withProfileId:string, pageNumber:number, pageSize:number){
     let profileId = localStorage.getItem('currentMemberId');
@@ -101,5 +96,19 @@ export class ChatService {
         return res.Result.data.map((data:any) => new ChatMessage(data));
       })
     );
+  }
+
+
+  //CHAT PARTICIPANTS CAME FROM FILTER LIST
+  setParticipant(participant: ChatParticipant) {
+    this.participant = participant;
+  }
+
+  getParticipant(): ChatParticipant | null {
+    return this.participant;
+  }
+
+  clearParticipant() {
+    this.participant = null;
   }
 }
