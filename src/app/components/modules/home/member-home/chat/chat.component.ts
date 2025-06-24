@@ -4,42 +4,43 @@ import { FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FORM_MODULES } from '../../../../../common/common-imports';
 import { MemberService } from '../../../../../services/member.service';
-import { ChatMessage, ChatParticipant } from '../../../../../models/index.model';
+import {
+  ChatMessage,
+  ChatParticipant,
+} from '../../../../../models/index.model';
 import { FileType } from '../../../../../helpers/enum';
-import { LoadingComponent } from "../../../../../common/loading/loading.component";
+import { LoadingComponent } from '../../../../../common/loading/loading.component';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 @Component({
   selector: 'app-chat',
-  imports: [FORM_MODULES, CommonModule, LoadingComponent,PickerComponent],
+  imports: [FORM_MODULES, CommonModule, LoadingComponent, PickerComponent],
   templateUrl: './chat.component.html',
-  styleUrl: './chat.component.scss'
+  styleUrl: './chat.component.scss',
 })
 export class ChatComponent {
-
   @ViewChild('chatMessages') private chatMessagesContainer!: ElementRef;
-  public previewImage: string [] = [];
+  public previewImage: string[] = [];
   public searchTerm: string = '';
   public selectedReceiverId: string | null = null;
-  public selectedParticipant!:ChatParticipant;
-  public isUploading:boolean = false;
-  public isLoading:boolean = false;
+  public selectedParticipant!: ChatParticipant;
+  public isUploading: boolean = false;
+  public isLoading: boolean = false;
 
-  public isGetParticipant:boolean = false;
+  public isGetParticipant: boolean = false;
   public searchControl = new FormControl('');
   public file_type = FileType;
 
   public participants: ChatParticipant[] = [];
-  public isLoadingPar:boolean = true;
-
+  public isLoadingPar: boolean = true;
 
   public newMessage: string = '';
   public selectedFile: any | null = null;
-  public messagesCheck:ChatMessage[] = [];
+  public messagesCheck: ChatMessage[] = [];
 
   public isTyping = false;
   public typingTimeout: any;
   public typingMembers = new Set<string>();
-   name = 'Angular';
+  name = 'Angular';
   message = '';
   showEmojiPicker = false;
   sets = [
@@ -49,29 +50,33 @@ export class ChatComponent {
     'facebook',
     'emojione',
     'apple',
-    'messenger'
-  ]
+    'messenger',
+  ];
   set = 'twitter';
 
   constructor(
-    private _chatService:ChatService,
-    private _memberService:MemberService
-  ){
+    private _chatService: ChatService,
+    private _memberService: MemberService
+  ) {
     this._chatService.startConnection();
     const participant = this._chatService.getParticipant();
     console.log(participant);
-
   }
 
   ngOnInit() {
     this._chatService.onMessageReceived((message: any) => {
-      const isFromSelected = message.senderProfileId === this.selectedParticipant.receiverProfileId ||
-        message.receiverProfileId === this.selectedParticipant.receiverProfileId;
+      const isFromSelected =
+        message.senderProfileId ===
+          this.selectedParticipant.receiverProfileId ||
+        message.receiverProfileId ===
+          this.selectedParticipant.receiverProfileId;
       if (isFromSelected) {
         this.messagesCheck.push(message);
         this.scrollToBottom();
       } else {
-        const index = this.participants.findIndex(p => p.receiverProfileId === message.senderProfileId);
+        const index = this.participants.findIndex(
+          (p) => p.receiverProfileId === message.senderProfileId
+        );
         if (index !== -1) {
           this.participants[index].isRead = false;
         }
@@ -80,20 +85,25 @@ export class ChatComponent {
 
     this._chatService.onChatParticipantsReceived((data: any[]) => {
       this.participants = data;
-      if(!this.isGetParticipant && data.length > 0){
+      const participant = this._chatService.getParticipant();
+
+      if (participant !== null) {
+        let member = this.participants.find(
+          (p: ChatParticipant) =>
+            p.receiverProfileId === participant.receiverProfileId
+        );
+
+        if (!member) {
+          this.participants.unshift(participant);
+          this.selectedParticipant = participant;
+        }
+      }
+      if (!this.isGetParticipant && data.length > 0) {
         this.getPrivateMessage(data[0]);
-      }else{
+      } else {
         this.isLoadingPar = false;
       }
       this.isGetParticipant = true;
-      const participant = this._chatService.getParticipant();
-      if(participant){
-        let member = this.participants.find((p:ChatParticipant) => p.receiverProfileId === participant.receiverProfileId);
-        if(member !== null)
-        this.participants.unshift(participant);
-        this.selectedParticipant = participant;
-      }
-
     });
 
     //typing
@@ -105,7 +115,6 @@ export class ChatComponent {
     this._chatService.onTypingStopped((fromProfileId: string) => {
       this.typingMembers.delete(fromProfileId);
     });
-
   }
 
   public sendMessage() {
@@ -124,7 +133,12 @@ export class ChatComponent {
       return;
     }
 
-    this._chatService.sendMessage(this.selectedParticipant.receiverProfileId, textContent, fileUrls, fileType);
+    this._chatService.sendMessage(
+      this.selectedParticipant.receiverProfileId,
+      textContent,
+      fileUrls,
+      fileType
+    );
     const sentMessage = new ChatMessage({
       id: null,
       senderProfileId: 'You',
@@ -135,14 +149,13 @@ export class ChatComponent {
       sentAt: new Date().toISOString(),
       isRead: false,
       readAt: null,
-      isMine: true
+      isMine: true,
     });
 
     this.messagesCheck.push(sentMessage);
     this.showEmojiPicker = false;
     this.scrollToBottom();
   }
-
 
   public onFileSelected(event: Event): void {
     this.isUploading = false;
@@ -154,23 +167,27 @@ export class ChatComponent {
 
     this._memberService.uploadImageToBulb(formData).subscribe({
       next: (res) => {
-       this.selectedFile = res.Result;
-       this.previewImage.push(res.Result);
+        this.selectedFile = res.Result;
+        this.previewImage.push(res.Result);
       },
-      complete:() => {
+      complete: () => {
         this.isUploading = false;
       },
       error: (err) => {
         console.error('Upload failed:', err);
         this.isUploading = false;
-      }
+      },
     });
     input.value = '';
   }
 
   private scrollToBottom(): void {
     setTimeout(() => {
-      this.chatMessagesContainer.nativeElement.scrollTop = this.chatMessagesContainer.nativeElement.scrollHeight;
+      if(this.chatMessagesContainer){
+        this.chatMessagesContainer.nativeElement.scrollTop =
+        this.chatMessagesContainer.nativeElement.scrollHeight;
+      }
+
     }, 100);
   }
 
@@ -179,12 +196,13 @@ export class ChatComponent {
     this.selectedFile = null;
   }
 
-
   //TYPING
   public onTyping(): void {
-  if (!this.selectedParticipant) return;
+    if (!this.selectedParticipant) return;
     if (!this.isTyping) {
-      this._chatService.sendTypingStarted(this.selectedParticipant.receiverProfileId);
+      this._chatService.sendTypingStarted(
+        this.selectedParticipant.receiverProfileId
+      );
       this.isTyping = true;
     }
 
@@ -196,30 +214,34 @@ export class ChatComponent {
 
   public stopTyping(): void {
     if (this.isTyping && this.selectedParticipant) {
-      this._chatService.sendTypingStopped(this.selectedParticipant.receiverProfileId);
+      this._chatService.sendTypingStopped(
+        this.selectedParticipant.receiverProfileId
+      );
       this.isTyping = false;
     }
   }
 
-  public getPrivateMessage(receiver:ChatParticipant){
+  public getPrivateMessage(receiver: ChatParticipant) {
     console.log(receiver);
     this.selectedParticipant = receiver;
     this.isLoading = true;
-    this._chatService.getPrivateMessages(receiver.receiverProfileId,1,25).subscribe({
-      next:(res:any) => {
-        this.messagesCheck = res;
-        this.isLoadingPar = false;
-      },
-      complete:()=>{
-        this.isLoading = false;
-         this.scrollToBottom();
-      },error:(error:any)=>{
-        this.isLoading = false;
-         this.isLoadingPar = false;
-      }
-    })
+    this._chatService
+      .getPrivateMessages(receiver.receiverProfileId, 1, 25)
+      .subscribe({
+        next: (res: any) => {
+          this.messagesCheck = res;
+          this.isLoadingPar = false;
+        },
+        complete: () => {
+          this.isLoading = false;
+          this.scrollToBottom();
+        },
+        error: (error: any) => {
+          this.isLoading = false;
+          this.isLoadingPar = false;
+        },
+      });
   }
-
 
   // addEmoji(event:any) {
   //   console.log(this.message)
@@ -233,21 +255,18 @@ export class ChatComponent {
   // }
 
   toggleEmojiPicker() {
-  this.showEmojiPicker = !this.showEmojiPicker;
-}
+    this.showEmojiPicker = !this.showEmojiPicker;
+  }
 
-addEmoji(event: any) {
-  this.newMessage += event.emoji.native;
-}
+  addEmoji(event: any) {
+    this.newMessage += event.emoji.native;
+  }
 
   onFocus() {
     console.log('focus');
     this.showEmojiPicker = false;
   }
   onBlur() {
-    console.log('onblur')
+    console.log('onblur');
   }
-
 }
-
-

@@ -127,6 +127,7 @@ export class FilterMemberListComponent {
   }
 
   public openChat(member: MemberProfile) {
+    this._chatService.clearParticipant();
     const openChatMember = new ChatParticipant({
       receiverProfileId: member.id,
       name: member.firstName,
@@ -144,5 +145,6 @@ export class FilterMemberListComponent {
     this.destroy$.next();
     this.destroy$.complete();
     this.memberService.setFilter(null);
+   // this._chatService.clearParticipant();
   }
 }
