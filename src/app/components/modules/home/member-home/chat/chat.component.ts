@@ -58,28 +58,12 @@ export class ChatComponent {
     private _memberService:MemberService
   ){
     this._chatService.startConnection();
-    // const participant = this._chatService.getParticipant();
-    // if(participant){
-    //    this.participants.unshift(participant);
-    //    this._chatService.clearParticipant();
-    // }
+    const participant = this._chatService.getParticipant();
+    console.log(participant);
 
-    // const participant = this._chatService.getParticipant();
-    //  if (participant) {
-    //   const existingIndex = this.participants.findIndex((p: ChatParticipant) => p.receiverProfileId === participant.receiverProfileId);
-    //     if (existingIndex !== -1) {
-    //       const existingParticipant = this.participants.splice(existingIndex, 1)[0];
-    //       this.participants.unshift(existingParticipant);
-    //     }
-    //     else {
-    //       this.participants.unshift(participant);
-    //     }
-    //       this._chatService.clearParticipant();
-    //   }
   }
 
   ngOnInit() {
-
     this._chatService.onMessageReceived((message: any) => {
       const isFromSelected = message.senderProfileId === this.selectedParticipant.receiverProfileId ||
         message.receiverProfileId === this.selectedParticipant.receiverProfileId;
@@ -102,6 +86,13 @@ export class ChatComponent {
         this.isLoadingPar = false;
       }
       this.isGetParticipant = true;
+      const participant = this._chatService.getParticipant();
+      if(participant){
+        let member = this.participants.find((p:ChatParticipant) => p.receiverProfileId === participant.receiverProfileId);
+        if(member !== null)
+        this.participants.unshift(participant);
+        this.selectedParticipant = participant;
+      }
 
     });
 

@@ -16,7 +16,6 @@ export class MemberHomeComponent {
 
   ngOnInit(): void {
    this.updateScreenWidth();
-
   }
 
   @HostListener('window:resize', ['$event'])
