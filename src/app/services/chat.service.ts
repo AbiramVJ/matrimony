@@ -100,15 +100,15 @@ export class ChatService {
 
 
   //CHAT PARTICIPANTS CAME FROM FILTER LIST
-  setParticipant(participant: ChatParticipant) {
+  public setParticipant(participant: ChatParticipant) {
     this.participant = participant;
   }
 
-  getParticipant(): ChatParticipant | null {
+  public getParticipant(): ChatParticipant | null {
     return this.participant;
   }
 
-  clearParticipant() {
+  public clearParticipant() {
     this.participant = null;
   }
 }

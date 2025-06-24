@@ -58,10 +58,28 @@ export class ChatComponent {
     private _memberService:MemberService
   ){
     this._chatService.startConnection();
+    // const participant = this._chatService.getParticipant();
+    // if(participant){
+    //    this.participants.unshift(participant);
+    //    this._chatService.clearParticipant();
+    // }
+
+    // const participant = this._chatService.getParticipant();
+    //  if (participant) {
+    //   const existingIndex = this.participants.findIndex((p: ChatParticipant) => p.receiverProfileId === participant.receiverProfileId);
+    //     if (existingIndex !== -1) {
+    //       const existingParticipant = this.participants.splice(existingIndex, 1)[0];
+    //       this.participants.unshift(existingParticipant);
+    //     }
+    //     else {
+    //       this.participants.unshift(participant);
+    //     }
+    //       this._chatService.clearParticipant();
+    //   }
   }
 
   ngOnInit() {
-    const participant = this._chatService.getParticipant();
+
     this._chatService.onMessageReceived((message: any) => {
       const isFromSelected = message.senderProfileId === this.selectedParticipant.receiverProfileId ||
         message.receiverProfileId === this.selectedParticipant.receiverProfileId;
@@ -78,17 +96,6 @@ export class ChatComponent {
 
     this._chatService.onChatParticipantsReceived((data: any[]) => {
       this.participants = data;
-      if (participant) {
-      const existingIndex = this.participants.findIndex((p: ChatParticipant) => p.receiverProfileId === participant.receiverProfileId);
-        if (existingIndex !== -1) {
-          const existingParticipant = this.participants.splice(existingIndex, 1)[0];
-          this.participants.unshift(existingParticipant);
-        } else {
-          this.participants.unshift(participant);
-        }
-          this._chatService.clearParticipant();
-      }
-
       if(!this.isGetParticipant && data.length > 0){
         this.getPrivateMessage(data[0]);
       }else{
@@ -204,6 +211,7 @@ export class ChatComponent {
   }
 
   public getPrivateMessage(receiver:ChatParticipant){
+    console.log(receiver);
     this.selectedParticipant = receiver;
     this.isLoading = true;
     this._chatService.getPrivateMessages(receiver.receiverProfileId,1,25).subscribe({

@@ -13,6 +13,9 @@ export class MemberService {
   private baseUrl = (environment as any).baseUrl;
   public profileQuestionData:any;
 
+  private filterSource = new BehaviorSubject<any>(null);
+  filter$ = this.filterSource.asObservable();
+
   constructor(private http: HttpClient) { }
 
   public setQuestionData(data:any){
@@ -23,8 +26,7 @@ export class MemberService {
    return this.profileQuestionData;
   }
 
-  private filterSource = new BehaviorSubject<any>(null);
-  filter$ = this.filterSource.asObservable();
+
 
   setFilter(data: any) {
     this.filterSource.next(data);

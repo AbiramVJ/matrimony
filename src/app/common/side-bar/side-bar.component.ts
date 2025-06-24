@@ -5,30 +5,44 @@ import { Component, effect, ViewEncapsulation } from '@angular/core';
 import { DataProviderService } from '../../services/data-provider.service';
 import { COMMON_DIRECTIVES, FORM_MODULES } from '../common-imports';
 import { NgxSliderModule, Options } from '@angular-slider/ngx-slider';
-import { bodyTypes, Complexion, currencies, diet, DrinkHabit, knownLanguages, maritalStatusOptions, Natshathira, raasiList, sectorList, SmokeHabit, willingToRelocate } from '../../helpers/data';
+import {
+  bodyTypes,
+  Complexion,
+  currencies,
+  diet,
+  DrinkHabit,
+  knownLanguages,
+  maritalStatusOptions,
+  Natshathira,
+  raasiList,
+  sectorList,
+  SmokeHabit,
+  willingToRelocate,
+} from '../../helpers/data';
 import { Community, Education, Religion } from '../../models/index.model';
 import { AuthService } from '../../services/auth/auth.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-side-bar',
-  imports: [CommonModule, COMMON_DIRECTIVES,FORM_MODULES,NgxSliderModule],
+  imports: [CommonModule, COMMON_DIRECTIVES, FORM_MODULES, NgxSliderModule],
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.scss',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class SideBarComponent {
   public countryList: any[] = [];
   public selectedCountry: any;
   public selectedLivingCountry: any;
-  public selectedReligion :any;
-  public selectedCommunity:any;
-  public selectedSubCommunity:any;
-  public selectedJobType:any;
-  public selectedEducation:any;
-  public selectedKnowLanguages:any;
-  public selectedCurrency:any;
-  public selectedMarriageStatus:any;
-
+  public selectedReligion: any;
+  public selectedCommunity: any;
+  public selectedSubCommunity: any;
+  public selectedJobType: any;
+  public selectedEducation: any;
+  public selectedKnowLanguages: any;
+  public selectedCurrency: any;
+  public selectedMarriageStatus: any;
+  private hasAppliedFilters: boolean = false;
 
   public minAgeValue: number = 0;
   public maxAgeValue: number = 300;
@@ -36,38 +50,34 @@ export class SideBarComponent {
   public minHeightValue: number = 0;
   public maxHeightValue: number = 0;
 
-
   public minWeightValue: number = 0;
   public maxWeightValue: number = 0;
 
   public minSalaryValue: any = null;
   public maxSalaryValue: any = null;
 
-
   public ageOptions: Options = {
     floor: 18,
     ceil: 60,
-    step: 1
+    step: 1,
   };
-
-
 
   public HeightOptions: Options = {
     floor: 0,
     ceil: 300,
-    step: 5
+    step: 5,
   };
 
   public weightOptions: Options = {
     floor: 0,
     ceil: 150,
-    step: 0.1
+    step: 0.1,
   };
 
-    public salaryOptions: Options = {
+  public salaryOptions: Options = {
     floor: 0,
     ceil: 1000000,
-    step: 10000
+    step: 10000,
   };
 
   public dietList = diet;
@@ -78,13 +88,13 @@ export class SideBarComponent {
   public complexionList = Complexion;
   public natshathiraList = Natshathira;
   public currencyList = currencies;
-  public religionList:Religion [] = [];
-  public communityList:Community[] = [];
-  public SubCommunityList:SubCommunity[] = [];
+  public religionList: Religion[] = [];
+  public communityList: Community[] = [];
+  public SubCommunityList: SubCommunity[] = [];
   public knownLanguagesList = knownLanguages;
   public sectorList = sectorList;
-  public jobTypeList:Education[] = []
-  public educationList:Education[] = [];
+  public jobTypeList: Education[] = [];
+  public educationList: Education[] = [];
   public rasiList = raasiList;
   public marriageStatusList = maritalStatusOptions;
 
@@ -100,15 +110,18 @@ export class SideBarComponent {
   public subCommunity: string[] = [];
   public knownLanguages: string[] = [];
   public sector: number[] = [];
-  public jobType:string[] = [];
-  public education:string[] = [];
-  public rasi:number[] = [];
-  public isLoading:boolean = false;
-  public stateAndProvince:any [] = [];
-  public selectedProvince:any;
+  public jobType: string[] = [];
+  public education: string[] = [];
+  public rasi: number[] = [];
+  public isLoading: boolean = false;
+  public stateAndProvince: any[] = [];
+  public selectedProvince: any;
 
-
-  constructor( private dataProvider: DataProviderService,private memberService:MemberService, private _authService:AuthService,){
+  constructor(
+    private dataProvider: DataProviderService,
+    private memberService: MemberService,
+    private _authService: AuthService
+  ) {
     this.countryList = this.dataProvider.getPhoneCode();
     effect(() => {
       const userGeoLocationDetails = this.dataProvider.userGeoLocation();
@@ -116,334 +129,291 @@ export class SideBarComponent {
         (pc: any) => pc.iso === userGeoLocationDetails?.country_code
       );
       if (defaultCountryCode) {
-      //  this.selectedCountry = [defaultCountryCode.country];
         this.selectedLivingCountry = [defaultCountryCode.country];
         this.selectedProvince = defaultCountryCode.stateProvinces[0].name;
       }
     });
-
   }
 
   public ngOnInit(): void {
-    this._getReligion();
-    this._getCommunity();
-    this._getJobType();
-    this._getEducationQualification();
+    this._loadInitialData();
     this._getCurrentMember();
   }
 
-  ngAfterViewInit(){
-    let deleteModal: HTMLElement = document.getElementById('default-coll') as HTMLElement;
-    if(deleteModal){
+  ngAfterViewInit() {
+    let deleteModal: HTMLElement = document.getElementById(
+      'default-coll'
+    ) as HTMLElement;
+    if (deleteModal) {
       deleteModal.click();
     }
   }
-
-private _getCurrentMember(){
-  this._authService.member$.subscribe(data => {
-      if(data){
-       this.minAgeValue = data.profileLookingFor.minAge;
-       this.maxAgeValue = data.profileLookingFor.maxAge;
-       this.selectedCountry = [data.originCountry];
-
-      }
-    })
-  }
-
-public onDietChange(event: Event) {
-  const checkbox = event.target as HTMLInputElement;
-  const id = +checkbox.value;
-  if (checkbox.checked) {
-    if (!this.foodHabit.includes(id)) {
-      this.foodHabit.push(id);
-    }
-  } else {
-    this.foodHabit = this.foodHabit.filter(val => val !== id);
-  }
-  this.applyFilters();
-}
-
-public onDrinkChange(event: Event) {
-  const checkbox = event.target as HTMLInputElement;
-  const id = +checkbox.value;
-
-  if (checkbox.checked) {
-    if (!this.drinkHabit.includes(id)) {
-      this.drinkHabit.push(id);
-    }
-  } else {
-    this.drinkHabit = this.drinkHabit.filter(val => val !== id);
-  }
-  this.applyFilters();
-}
-
-public onSmokeChange(event: Event) {
-  const checkbox = event.target as HTMLInputElement;
-  const id = +checkbox.value;
-
-  if (checkbox.checked) {
-    if (!this.smokeHabit.includes(id)) {
-      this.smokeHabit.push(id);
-    }
-  } else {
-    this.smokeHabit = this.smokeHabit.filter(val => val !== id);
-  }
-  this.applyFilters();
-}
-
-public onRelocateChange(event: Event) {
-  const checkbox = event.target as HTMLInputElement;
-  const id = +checkbox.value;
-
-  if (checkbox.checked) {
-    if (!this.welcomeRelocate.includes(id)) {
-      this.welcomeRelocate.push(id);
-    }
-  } else {
-    this.welcomeRelocate = this.welcomeRelocate.filter(val => val !== id);
-  }
-  this.applyFilters();
-}
-
-public onBodyTypeChange(event: Event) {
-  const checkbox = event.target as HTMLInputElement;
-  const id = +checkbox.value;
-
-  if (checkbox.checked) {
-    if (!this.bodyType.includes(id)) {
-      this.bodyType.push(id);
-    }
-  } else {
-    this.bodyType = this.bodyType.filter(val => val !== id);
-  }
-  this.applyFilters();
-}
-
-
-public onComplexionChange(event: Event) {
-  const checkbox = event.target as HTMLInputElement;
-  const id = +checkbox.value;
-
-  if (checkbox.checked) {
-    if (!this.complexion.includes(id)) {
-      this.complexion.push(id);
-    }
-  } else {
-    this.complexion = this.complexion.filter(val => val !== id);
-  }
-  this.applyFilters();
-}
-
-public onJobSectorChange(event: Event) {
-  const checkbox = event.target as HTMLInputElement;
-  const id = +checkbox.value;
-  console.log(id);
-  if (checkbox.checked) {
-    if (!this.sector.includes(id)) {
-      this.sector.push(id);
-    }
-  } else {
-    this.sector = this.sector.filter(val => val !== id);
-  }
-  this.applyFilters();
-}
-
-public onNatsathiraChange(event: Event) {
-  const checkbox = event.target as HTMLInputElement;
-  const id = +checkbox.value;
-
-  if (checkbox.checked) {
-    if (!this.natshathira.includes(id)) {
-      this.natshathira.push(id);
-    }
-  } else {
-    this.natshathira = this.natshathira.filter(val => val !== id);
-  }
-  this.applyFilters();
-}
-
-public onRasiChange(event: Event) {
-  const checkbox = event.target as HTMLInputElement;
-  const id = +checkbox.value;
-
-  if (checkbox.checked) {
-    if (!this.rasi.includes(id)) {
-      this.rasi.push(id);
-    }
-  } else {
-    this.rasi = this.rasi.filter(val => val !== id);
-  }
-  this.applyFilters();
-}
-
-public ngSelectChange(){
-  // const country = this.countryList.find((country:any) => country.country.inClude(this.selectedCountry));
-  // this.stateAndProvince = country.stateProvinces;
-  // this.selectedProvince = country.stateProvinces[0].name;
-  this.applyFilters();
-}
-//========================================= API CALL ======================================#
-private _getReligion(){
+  private _loadInitialData(): void {
     this.isLoading = true;
-    this.memberService.getReligion().subscribe({
-      next:(res:Religion[]) => {
-        this.religionList = res;
-     //   this.selectedReligion = [res[0].id];
+    forkJoin({
+      religions: this.memberService.getReligion(),
+      communities: this.memberService.getCommunity(),
+      jobTypes: this.memberService.getJobType(),
+      educations: this.memberService.getEducationQualification(),
+    }).subscribe({
+      next: ({ religions, communities, jobTypes, educations }: any) => {
+        this.religionList = religions;
+        this.communityList = communities;
+        this.SubCommunityList = communities[0]?.subCommunities || [];
+        this.jobTypeList = jobTypes;
+        this.educationList = educations;
       },
-      complete:() => {
+      complete: () => {
+        this.isLoading = false;
+        if (!this.hasAppliedFilters) {
+          this.applyFilters();
+          this.hasAppliedFilters = true;
+        }
+      },
+      error: (err: any) => {
+        console.error('Failed to load initial data', err);
         this.isLoading = false;
       },
-      error:(error:Error) => {
-        this.isLoading = false;
+    });
+  }
+
+  private _getCurrentMember() {
+    this._authService.member$.subscribe((data) => {
+      if (data) {
+        this.minAgeValue = data.profileLookingFor.minAge;
+        this.maxAgeValue = data.profileLookingFor.maxAge;
+        this.selectedCountry = [data.originCountry];
       }
-    })
-}
+    });
+  }
 
-private _getCommunity(){
-  this.isLoading = true;
-  this.memberService.getCommunity().subscribe({
-    next:(res:Community[]) => {
-      this.communityList = res;
-    //   this.selectedCommunity = [res[0].id];
-      //this.selectedSubCommunity = [res[0].subCommunities[0].id];
-      this.SubCommunityList = res[0].subCommunities;
-
-    },
-    complete:() => {
-      this.isLoading = false;
-    },
-    error:(error:Error) => {
-      this.isLoading = false;
+  public onDietChange(event: Event) {
+    const checkbox = event.target as HTMLInputElement;
+    const id = +checkbox.value;
+    if (checkbox.checked) {
+      if (!this.foodHabit.includes(id)) {
+        this.foodHabit.push(id);
+      }
+    } else {
+      this.foodHabit = this.foodHabit.filter((val) => val !== id);
     }
-  })
-}
+    this.applyFilters();
+  }
 
-  private _getJobType(){
-  this.isLoading = true;
-  this.memberService.getJobType().subscribe({
-    next:(res:Education[]) => {
-      this.jobTypeList = res;
-    },
-    complete:() => {
-      this.isLoading = false;
-    },
-    error:(error:Error) => {
-      this.isLoading = false;
+  public onDrinkChange(event: Event) {
+    const checkbox = event.target as HTMLInputElement;
+    const id = +checkbox.value;
+
+    if (checkbox.checked) {
+      if (!this.drinkHabit.includes(id)) {
+        this.drinkHabit.push(id);
+      }
+    } else {
+      this.drinkHabit = this.drinkHabit.filter((val) => val !== id);
     }
-  })
-}
+    this.applyFilters();
+  }
 
-private _getEducationQualification(){
-  this.isLoading = true;
-  this.memberService.getEducationQualification().subscribe({
-    next:(res:Education[]) => {
-      this.educationList = res;
+  public onSmokeChange(event: Event) {
+    const checkbox = event.target as HTMLInputElement;
+    const id = +checkbox.value;
 
-    },
-    complete:() => {
-      this.isLoading = false;
-        this.applyFilters();
-    },
-    error:(error:Error) => {
-      this.isLoading = false;
+    if (checkbox.checked) {
+      if (!this.smokeHabit.includes(id)) {
+        this.smokeHabit.push(id);
+      }
+    } else {
+      this.smokeHabit = this.smokeHabit.filter((val) => val !== id);
     }
-  })
-}
+    this.applyFilters();
+  }
 
-public applyFilters() {
-  const filterPayload = {
-    minAge: this.minAgeValue,
-    maxAge: this.maxAgeValue,
-    OriginCountries: this.selectedCountry,
-    LivingCountries: this.selectedLivingCountry,
-    foodHabits: this.foodHabit,
-    drinkHabits: this.drinkHabit,
-    smokeHabits: this.smokeHabit,
-    marriageStatus: this.selectedMarriageStatus,
-    bodyTypes: this.bodyType,
-    willingToRelocate: this.welcomeRelocate,
-    skinComplexions: this.complexion,
-    minHeight: this.minHeightValue === 0 ? null : this.minHeightValue,
-    maxHeight: this.maxHeightValue === 0 ? null : this.maxHeightValue,
-    minWeight: this.minWeightValue === 0 ? null : this.minWeightValue,
-    maxWeight: this.maxWeightValue === 0 ? null : this.maxWeightValue,
-    knownLanguages: this.selectedKnowLanguages,
-    religionIds: this.selectedReligion,
-    communityIds: this.selectedCommunity,
-    subCommunityIds: this.selectedSubCommunity,
-    jobSectors: this.sector,
-    jobTypeIds: this.selectedJobType,
-    educationQualificationIds: this.selectedEducation,
-    nakshathiram: this.natshathira,
-    raasi: this.rasi,
-    salaryFilter: this.selectedCurrency ? {
-      currencyCode: this.selectedCurrency,
-      minMonthlyAmount: this.minSalaryValue,
-      maxMonthlyAmount: this.maxSalaryValue,
-      } : null,
+  public onRelocateChange(event: Event) {
+    const checkbox = event.target as HTMLInputElement;
+    const id = +checkbox.value;
+
+    if (checkbox.checked) {
+      if (!this.welcomeRelocate.includes(id)) {
+        this.welcomeRelocate.push(id);
+      }
+    } else {
+      this.welcomeRelocate = this.welcomeRelocate.filter((val) => val !== id);
+    }
+    this.applyFilters();
+  }
+
+  public onBodyTypeChange(event: Event) {
+    const checkbox = event.target as HTMLInputElement;
+    const id = +checkbox.value;
+
+    if (checkbox.checked) {
+      if (!this.bodyType.includes(id)) {
+        this.bodyType.push(id);
+      }
+    } else {
+      this.bodyType = this.bodyType.filter((val) => val !== id);
+    }
+    this.applyFilters();
+  }
+
+  public onComplexionChange(event: Event) {
+    const checkbox = event.target as HTMLInputElement;
+    const id = +checkbox.value;
+
+    if (checkbox.checked) {
+      if (!this.complexion.includes(id)) {
+        this.complexion.push(id);
+      }
+    } else {
+      this.complexion = this.complexion.filter((val) => val !== id);
+    }
+    this.applyFilters();
+  }
+
+  public onJobSectorChange(event: Event) {
+    const checkbox = event.target as HTMLInputElement;
+    const id = +checkbox.value;
+    console.log(id);
+    if (checkbox.checked) {
+      if (!this.sector.includes(id)) {
+        this.sector.push(id);
+      }
+    } else {
+      this.sector = this.sector.filter((val) => val !== id);
+    }
+    this.applyFilters();
+  }
+
+  public onNatsathiraChange(event: Event) {
+    const checkbox = event.target as HTMLInputElement;
+    const id = +checkbox.value;
+
+    if (checkbox.checked) {
+      if (!this.natshathira.includes(id)) {
+        this.natshathira.push(id);
+      }
+    } else {
+      this.natshathira = this.natshathira.filter((val) => val !== id);
+    }
+    this.applyFilters();
+  }
+
+  public onRasiChange(event: Event) {
+    const checkbox = event.target as HTMLInputElement;
+    const id = +checkbox.value;
+
+    if (checkbox.checked) {
+      if (!this.rasi.includes(id)) {
+        this.rasi.push(id);
+      }
+    } else {
+      this.rasi = this.rasi.filter((val) => val !== id);
+    }
+    this.applyFilters();
+  }
+
+  public ngSelectChange() {
+    this.applyFilters();
+  }
+
+  public applyFilters() {
+    const filterPayload = {
+      minAge: this.minAgeValue,
+      maxAge: this.maxAgeValue,
+      OriginCountries: this.selectedCountry,
+      LivingCountries: this.selectedLivingCountry,
+      foodHabits: this.foodHabit,
+      drinkHabits: this.drinkHabit,
+      smokeHabits: this.smokeHabit,
+      marriageStatus: this.selectedMarriageStatus,
+      bodyTypes: this.bodyType,
+      willingToRelocate: this.welcomeRelocate,
+      skinComplexions: this.complexion,
+      minHeight: this.minHeightValue === 0 ? null : this.minHeightValue,
+      maxHeight: this.maxHeightValue === 0 ? null : this.maxHeightValue,
+      minWeight: this.minWeightValue === 0 ? null : this.minWeightValue,
+      maxWeight: this.maxWeightValue === 0 ? null : this.maxWeightValue,
+      knownLanguages: this.selectedKnowLanguages,
+      religionIds: this.selectedReligion,
+      communityIds: this.selectedCommunity,
+      subCommunityIds: this.selectedSubCommunity,
+      jobSectors: this.sector,
+      jobTypeIds: this.selectedJobType,
+      educationQualificationIds: this.selectedEducation,
+      nakshathiram: this.natshathira,
+      raasi: this.rasi,
+      salaryFilter: this.selectedCurrency
+        ? {
+            currencyCode: this.selectedCurrency,
+            minMonthlyAmount: this.minSalaryValue,
+            maxMonthlyAmount: this.maxSalaryValue,
+          }
+        : null,
     };
-  this.memberService.setFilter(filterPayload);
-}
+    this.memberService.setFilter(filterPayload);
+  }
 
+  ngOnDestroy(): void {
+    this.memberService.setFilter(null);
+  }
 
-public clearFilter() {
-  this.minAgeValue = 0;
-  this.maxAgeValue = 60;
-  this.selectedCountry = [];
-  this.selectedLivingCountry = [];
-  this.foodHabit = [];
-  this.drinkHabit = [];
-  this.smokeHabit = [];
-  this.selectedMarriageStatus = [];
-  this.bodyType = [];
-  this.welcomeRelocate = [];
-  this.complexion = [];
-  this.minHeightValue = 0;
-  this.maxHeightValue = 300;
-  this.minWeightValue = 0;
-  this.maxWeightValue = 300;
-  this.selectedKnowLanguages = [];
-  this.selectedReligion = [];
-  this.selectedCommunity = [];
-  this.selectedSubCommunity = [];
-  this.sector = [];
-  this.selectedJobType = [];
-  this.selectedEducation = [];
-  this.natshathira = [];
-  this.rasi = [];
-  this.selectedCurrency = null;
-  this.minSalaryValue = null;
-  this.maxSalaryValue = null;
+  public clearFilter() {
+    this.minAgeValue = 0;
+    this.maxAgeValue = 60;
+    this.selectedCountry = [];
+    this.selectedLivingCountry = [];
+    this.foodHabit = [];
+    this.drinkHabit = [];
+    this.smokeHabit = [];
+    this.selectedMarriageStatus = [];
+    this.bodyType = [];
+    this.welcomeRelocate = [];
+    this.complexion = [];
+    this.minHeightValue = 0;
+    this.maxHeightValue = 300;
+    this.minWeightValue = 0;
+    this.maxWeightValue = 300;
+    this.selectedKnowLanguages = [];
+    this.selectedReligion = [];
+    this.selectedCommunity = [];
+    this.selectedSubCommunity = [];
+    this.sector = [];
+    this.selectedJobType = [];
+    this.selectedEducation = [];
+    this.natshathira = [];
+    this.rasi = [];
+    this.selectedCurrency = null;
+    this.minSalaryValue = null;
+    this.maxSalaryValue = null;
 
-  const emptyPayload = {
-    minAge: null,
-    maxAge: null,
-    OriginCountries: [],
-    LivingCountries: [],
-    foodHabits: [],
-    drinkHabits: [],
-    smokeHabits: [],
-    marriageStatus: [],
-    bodyTypes: [],
-    willingToRelocate: null,
-    skinComplexions: [],
-    minHeight: null,
-    maxHeight: null,
-    minWeight: null,
-    maxWeight: null,
-    knownLanguages: [],
-    religionIds: [],
-    communityIds: [],
-    subCommunityIds: [],
-    jobSectors: [],
-    jobTypeIds: [],
-    educationQualificationIds: [],
-    nakshathiram: [],
-    raasi: [],
-    salaryFilter: null,
-  };
+    const emptyPayload = {
+      minAge: null,
+      maxAge: null,
+      OriginCountries: [],
+      LivingCountries: [],
+      foodHabits: [],
+      drinkHabits: [],
+      smokeHabits: [],
+      marriageStatus: [],
+      bodyTypes: [],
+      willingToRelocate: null,
+      skinComplexions: [],
+      minHeight: null,
+      maxHeight: null,
+      minWeight: null,
+      maxWeight: null,
+      knownLanguages: [],
+      religionIds: [],
+      communityIds: [],
+      subCommunityIds: [],
+      jobSectors: [],
+      jobTypeIds: [],
+      educationQualificationIds: [],
+      nakshathiram: [],
+      raasi: [],
+      salaryFilter: null,
+    };
 
-  this.memberService.setFilter(emptyPayload);
-}
-
+    this.memberService.setFilter(emptyPayload);
+  }
 }
