@@ -35,6 +35,8 @@ export class NavigationBarComponent {
   public searchTerm: string = '';
   public selectedChatId: any = null;
 
+  public UnreadCount:number = 0;
+
   public chatList: any[] = [
   {
     id: 1,
@@ -131,6 +133,7 @@ export class NavigationBarComponent {
 
     this._chatService.onChatParticipantsReceived((data: any[]) => {
       this.participants = data;
+      this.UnreadCount = this.participants.filter((p: ChatParticipant) => !p.isRead).length;
       console.log(this.participants);
     });
   }

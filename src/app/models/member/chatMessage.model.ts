@@ -30,6 +30,9 @@ export class ChatParticipant {
   profileImage: string | null;
   lastSentAt: string;
   isRead: boolean;
+  lastMessage: string;
+  fileType: number;
+  isSentByMe:boolean;
 
   constructor(obj: any) {
     this.receiverProfileId = obj?.receiverProfileId ?? '';
@@ -37,6 +40,9 @@ export class ChatParticipant {
     this.profileImage = obj?.profileImage ?? null;
     this.lastSentAt = getFormattedLastSentAt(obj?.lastSentAt) ?? '';
     this.isRead = obj?.isRead ?? false;
+    this.lastMessage = obj?.lastMessage ?? '';
+    this.fileType = obj?.fileType ?? 0;
+    this.isSentByMe = obj?.isSentByMe ?? false;
   }
 }
 export function getFormattedLastSentAt(lastSentAt:any): string {

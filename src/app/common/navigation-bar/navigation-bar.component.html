@@ -65,7 +65,7 @@
             <!-- MESSAGE -->
             <div class="circles border me-2 pointer position-relative mes " (click)="toggleDropdown('message')" *ngIf="memberProfiles.length > 0" >
               <i class="fas fa-comments fa-lg"></i>
-              <div class="text-white bg-danger notification-bandage position-absolute p-2">1</div>
+              <div class="text-white bg-danger notification-bandage position-absolute p-2">{{UnreadCount}}</div>
             </div>
             <!-- NOTIFICATION -->
             <div class="circles border me-2 pointer position-relative noti " (click)="toggleDropdown('notification')" *ngIf="memberProfiles.length > 0">
@@ -102,7 +102,7 @@
 
                     <div class="conversation-details">
                       <div class="user-name">{{ par.name }}</div>
-                      <!-- <div class="recent-message" [class.typing-animation]="isTyping(par.)"> {{ chat.lastMessage }} </div> -->
+                      <div class="recent-message" > {{par.isSentByMe ? 'You: ' : ''}} {{ par.lastMessage }} </div>
                     </div>
                     <div class="conversation-meta">
                       <div class="message-time">{{ par.lastSentAt }}</div>
