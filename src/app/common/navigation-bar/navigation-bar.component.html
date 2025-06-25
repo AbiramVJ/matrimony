@@ -91,22 +91,23 @@
                 <input type="text" class="search-field" placeholder="Search conversations..." [(ngModel)]="searchTerm">
               </div>
               <div class="conversation-list">
-                <div class="conversation-item" [class.selected]="selectedChatId === chat.id" *ngFor="let chat of filteredChats"
-                  (click)="selectChat(chat.id)">
+                <div class="conversation-item" [class.selected]="selectedChatId === par.receiverProfileId" *ngFor="let par of participants"
+                  (click)="selectChat(par.receiverProfileId)">
                   <div class="d-flex align-items-center" [routerLink]="['home/chat']" >
                     <div class="avatar-wrapper">
-                      <img *ngIf="chat.imageUrl" [src]="chat.imageUrl" [alt]="chat.name" class="avatar-image" onerror="this.style.display='none'">
-                      <div *ngIf="!chat.imageUrl" class="avatar-initials"> {{ getInitials(chat.name) }} </div>
-                      <div *ngIf="chat.isOnline" class="status-online"></div>
+                      <img *ngIf="par.profileImage" [src]="par.profileImage" [alt]="par.name" class="avatar-image" onerror="this.style.display='none'">
+                      <div *ngIf="!par.profileImage" class="avatar-initials"> {{ getInitials(par.name) }} </div>
+                      <!-- <div *ngIf="par.isRead" class="status-online"></div> -->
                     </div>
 
                     <div class="conversation-details">
-                      <div class="user-name">{{ chat.name }}</div>
-                      <div class="recent-message" [class.typing-animation]="isTyping(chat.lastMessage)"> {{ chat.lastMessage }} </div>
+                      <div class="user-name">{{ par.name }}</div>
+                      <!-- <div class="recent-message" [class.typing-animation]="isTyping(par.)"> {{ chat.lastMessage }} </div> -->
                     </div>
                     <div class="conversation-meta">
-                      <div class="message-time">{{ chat.time }}</div>
-                      <div *ngIf="chat.unReadCount > 0" class="notification-badge"> {{ chat.unReadCount }}</div>
+                      <div class="message-time">{{ par.lastSentAt }}</div>
+                      <!-- <div *ngIf="par.unReadCount > 0" class="notification-badge"> {{ chat.unReadCount }}</div> -->
+                       <div  class="notification-badge"> {{0}}</div>
                     </div>
                   </div>
                 </div>

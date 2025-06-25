@@ -84,6 +84,7 @@ export class ChatComponent {
     });
 
     this._chatService.onChatParticipantsReceived((data: any[]) => {
+      console.log(data);
       this.participants = data;
       const participant = this._chatService.getParticipant();
 

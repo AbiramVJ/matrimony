@@ -69,13 +69,11 @@ export class AppComponent {
           if(currentMemberId){
             const member = res.find((member:any) => member.id === currentMemberId);
             this._authService.setUserDetails(member);
-
-
           }else{
             localStorage.setItem('currentMemberId',res[0].id);
             this._authService.setUserDetails(res[0]);
-
           }
+          this._chatService.startConnection();
           this.isLoading = false;
         }
       },

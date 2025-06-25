@@ -6,8 +6,9 @@ import { Component, ElementRef, HostListener, Input } from '@angular/core';
 import { COMMON_DIRECTIVES, FORM_MODULES } from '../common-imports';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
-import { MainUser, UserProfile } from '../../models/index.model';
+import { ChatParticipant, MainUser, UserProfile } from '../../models/index.model';
 import { Router } from '@angular/router';
+import { ChatService } from '../../services/chat.service';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -32,7 +33,7 @@ export class NavigationBarComponent {
   public mainUser!:MainUser;
 
   public searchTerm: string = '';
-  public selectedChatId: number | null = null;
+  public selectedChatId: any = null;
 
   public chatList: any[] = [
   {
@@ -93,13 +94,16 @@ export class NavigationBarComponent {
   }
 ];
 
+  public participants: ChatParticipant[] = [];
+
 
   constructor(private eRef: ElementRef,
     private _memberService:MemberService,
     private _toastr: ToastrService,
     public router:Router,
     private _authService:AuthService,
-    private _socialLoginService:SocialLoginService
+    private _socialLoginService:SocialLoginService,
+    private _chatService:ChatService
   ){}
 
  @HostListener('document:click', ['$event'])
@@ -124,6 +128,11 @@ export class NavigationBarComponent {
     this._getLoginUserDetails();
     this._getCurrentMember();
     this.getMainUser();
+
+    this._chatService.onChatParticipantsReceived((data: any[]) => {
+      this.participants = data;
+      console.log(this.participants);
+    });
   }
 
   toggleDropdown(type: 'message' | 'notification' | 'profile'): void {
@@ -225,12 +234,15 @@ get displayedProfiles() {
     return name.split(' ').map(word => word.charAt(0)).join('').toUpperCase();
   }
 
-  selectChat(chatId: number): void {
+  selectChat(chatId: string): void {
     this.selectedChatId = chatId;
   }
 
   isTyping(message: string): boolean {
     return message === 'Typing...';
   }
+
+  // CHAT
+
 
 }
