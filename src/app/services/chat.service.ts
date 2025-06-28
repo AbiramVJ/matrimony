@@ -34,6 +34,8 @@ export class ChatService {
         console.log('Connection started');
         this.getChatParticipants()
       }).catch(err => console.log('Error while starting connection: ' + err));
+
+    //  this.registerReceiveHandlers();
   }
 
    public sendMessage(user: string, textContent: string, fileUrls:string[], fileType:any ): void {
@@ -87,6 +89,20 @@ export class ChatService {
   //     callback(messageId, senderId, readAt);
   //   });
   // }
+
+  private registerReceiveHandlers(): void {
+    // Example: Handle sender notification after read
+    this.hubConnection.on('MessageReadNotification', (messageId: string) => {
+      console.log('Message read:', messageId);
+      // You can emit an event or update UI here
+    });
+  }
+
+  public markMessageRead(messageId: string): void {
+    this.hubConnection
+      .invoke('MessageRead', messageId)
+      .catch(err => console.error('Error calling MessageRead:', err));
+  }
 
   //HTTP CALLS
   public getPrivateMessages(withProfileId:string, pageNumber:number, pageSize:number){

@@ -117,6 +117,8 @@ export class SideBarComponent {
   public stateAndProvince: any[] = [];
   public selectedProvince: any;
 
+  public selectedNatshathira:any;
+  public selectedRasi:any;
   constructor(
     private dataProvider: DataProviderService,
     private memberService: MemberService,
@@ -284,20 +286,6 @@ export class SideBarComponent {
     this.applyFilters();
   }
 
-  public onNatsathiraChange(event: Event) {
-    const checkbox = event.target as HTMLInputElement;
-    const id = +checkbox.value;
-
-    if (checkbox.checked) {
-      if (!this.natshathira.includes(id)) {
-        this.natshathira.push(id);
-      }
-    } else {
-      this.natshathira = this.natshathira.filter((val) => val !== id);
-    }
-    this.applyFilters();
-  }
-
   public onRasiChange(event: Event) {
     const checkbox = event.target as HTMLInputElement;
     const id = +checkbox.value;
@@ -340,8 +328,8 @@ export class SideBarComponent {
       jobSectors: this.sector,
       jobTypeIds: this.selectedJobType,
       educationQualificationIds: this.selectedEducation,
-      nakshathiram: this.natshathira,
-      raasi: this.rasi,
+      nakshathiram: this.selectedNatshathira,
+      raasi: this.selectedRasi,
       salaryFilter: this.selectedCurrency
         ? {
             currencyCode: this.selectedCurrency,

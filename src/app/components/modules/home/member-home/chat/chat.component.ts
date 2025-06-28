@@ -242,6 +242,8 @@ export class ChatComponent {
           this.isLoadingPar = false;
         },
       });
+
+
   }
 
   // addEmoji(event:any) {

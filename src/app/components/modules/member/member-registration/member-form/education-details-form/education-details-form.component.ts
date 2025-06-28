@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Education, UserEducationDetails, UserProfile } from '../../../../../../models/index.model';
 import { MemberService } from '../../../../../../services/member.service';
 import { ToastrService } from 'ngx-toastr';
-import { countryCode, incomeTypeList, sectorList } from '../../../../../../helpers/data';
+import { countryCode, currency, incomeTypeList, sectorList } from '../../../../../../helpers/data';
 
 @Component({
   selector: 'app-education-details-form',
@@ -23,7 +23,7 @@ export class EducationDetailsFormComponent {
   public educationList:Education[] = [];
   public sectorList = sectorList;
   public incomeTypeList = incomeTypeList;
-  public countryList = countryCode;
+  public currencyList = currency;
 
   public currencies = [
     {id:1, label: '₹ (INR)', value: 'INR' },
@@ -134,12 +134,12 @@ export class EducationDetailsFormComponent {
             companyName: this.selectedSector ? formValue.companyName : null,
             sector: this.selectedSector,
             jobTypeId: this.selectedJob,
-            profileSalary: {
+            profileSalary:formValue.salaryDetails ?  {
               isAnnual:formValue.salaryDetails !== null && formValue.salaryDetails !== '' ? formValue.isYearly : null,
               amount: formValue.salaryDetails,
               currencyCode: this.selectedCurrency ? this.selectedCurrency : null,
               isVisible: formValue.isVisible,
-            }
+            } : null
         } : null,
         profileEducations: this.selectedEducation ? [
             {
@@ -188,8 +188,6 @@ export class EducationDetailsFormComponent {
     this.changeHightEduction();
     this.changeJobSector();
     this.changeSalary();
-
-
   }
 
 

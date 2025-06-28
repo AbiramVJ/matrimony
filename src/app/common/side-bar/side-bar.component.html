@@ -98,11 +98,11 @@
           </ng-select>
         </div>
 
-        <label class="fw-500">Province</label>
+        <!-- <label class="fw-500">Province</label>
         <div class="my-2">
           <ng-select [items]="stateAndProvince" bindLabel="name" [multiple]="true" bindValue="name" [clearable]="true"
           [searchable]="true" [(ngModel)]="selectedProvince"  [ngModelOptions]="{standalone: true}" ></ng-select>
-        </div>
+        </div> -->
 
         <div class="mt-3">
           <label class="fw-500">Age Range</label>
@@ -526,23 +526,21 @@
       <div class="card card-body rounded-0">
         <div class="mt-3">
           <label class="fw-500" >Nakshathiram</label>
-          <div class="form-check mt-2" *ngFor="let nt of natshathiraList">
-            <input
-              class="form-check-input small-check"
-              type="checkbox"
-              [id]="'ed_' + nt.id"
-              [value]="nt.id"
-              (change)="onNatsathiraChange($event)"
-              [checked]="natshathira.includes(nt.id)"
-            >
-            <label class="form-check-label ms-2 text-sm" [for]="'ed_' + nt.id">
-              {{ nt.name }}
-            </label>
-          </div>
+           <ng-select
+            [items]="natshathiraList"
+            bindLabel="name"
+            bindValue="id"
+            [ngModelOptions]="{standalone: true}"
+            [clearable]="true"
+            [searchable]="true"
+            [multiple]="true"
+            [(ngModel)]="selectedNatshathira"
+             (change)="ngSelectChange()"
+           ></ng-select>
         </div>
         <div class="mt-3">
           <label class="fw-500" >Raasi</label>
-          <div class="form-check mt-2" *ngFor="let ra of rasiList">
+          <!-- <div class="form-check mt-2" *ngFor="let ra of rasiList">
             <input
               class="form-check-input small-check"
               type="checkbox"
@@ -554,7 +552,18 @@
             <label class="form-check-label ms-2 text-sm" [for]="'ed_' + ra.id">
               {{ ra.name }}
             </label>
-          </div>
+          </div> -->
+           <ng-select
+            [items]="rasiList"
+            bindLabel="name"
+            bindValue="id"
+            [ngModelOptions]="{standalone: true}"
+            [clearable]="true"
+            [searchable]="true"
+            [multiple]="true"
+            [(ngModel)]="selectedRasi"
+            (change)="ngSelectChange()"
+           ></ng-select>
         </div>
       </div>
     </div>
