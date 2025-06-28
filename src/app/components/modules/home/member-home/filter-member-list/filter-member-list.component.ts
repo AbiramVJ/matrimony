@@ -59,8 +59,9 @@ export class FilterMemberListComponent {
       .pipe(takeUntil(this.destroy$))
       .subscribe((filter) => {
         if (filter) {
-          console.log(filter);
           this.filter = filter;
+          this.itemsPerPage = 6;
+          this.currentPage = 1;
           this.getAllMatchingProfiles();
         }
       });

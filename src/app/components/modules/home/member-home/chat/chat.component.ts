@@ -97,6 +97,13 @@ export class ChatComponent {
         if (!member) {
           this.participants.unshift(participant);
           this.selectedParticipant = participant;
+        }else{
+          const index = this.participants.indexOf(member);
+          if (index > -1) {
+            this.participants.splice(index, 1);
+            this.participants.unshift(member);
+            this.selectedParticipant = member;
+          }
         }
       }
       if (!this.isGetParticipant && data.length > 0) {
@@ -156,6 +163,7 @@ export class ChatComponent {
     this.messagesCheck.push(sentMessage);
     this.showEmojiPicker = false;
     this.scrollToBottom();
+    this._chatService.clearParticipant();
   }
 
   public onFileSelected(event: Event): void {

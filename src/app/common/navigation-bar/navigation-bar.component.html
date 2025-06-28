@@ -92,7 +92,7 @@
               </div>
               <div class="conversation-list">
                 <div class="conversation-item" [class.selected]="selectedChatId === par.receiverProfileId" *ngFor="let par of participants"
-                  (click)="selectChat(par.receiverProfileId)">
+                  (click)="openChat(par)">
                   <div class="d-flex align-items-center" [routerLink]="['home/chat']" >
                     <div class="avatar-wrapper">
                       <img *ngIf="par.profileImage" [src]="par.profileImage" [alt]="par.name" class="avatar-image" onerror="this.style.display='none'">

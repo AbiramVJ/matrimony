@@ -6,7 +6,7 @@ import { Component, ElementRef, HostListener, Input } from '@angular/core';
 import { COMMON_DIRECTIVES, FORM_MODULES } from '../common-imports';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
-import { ChatParticipant, MainUser, UserProfile } from '../../models/index.model';
+import { ChatParticipant, MainUser, MemberProfile, UserProfile } from '../../models/index.model';
 import { Router } from '@angular/router';
 import { ChatService } from '../../services/chat.service';
 
@@ -237,9 +237,26 @@ get displayedProfiles() {
     return name.split(' ').map(word => word.charAt(0)).join('').toUpperCase();
   }
 
-  selectChat(chatId: string): void {
-    this.selectedChatId = chatId;
-  }
+  // selectChat(chatId: string): void {
+  //   this.selectedChatId = chatId;
+
+  // }
+
+  public openChat(member: ChatParticipant) {
+    this.selectedChatId = member.receiverProfileId;
+      this._chatService.clearParticipant();
+      const openChatMember = new ChatParticipant({
+        receiverProfileId: member.receiverProfileId,
+        name: member.name,
+        profileImage: member.profileImage,
+        lastSentAt: new Date().toString(),
+        isRead: member.isRead,
+      });
+
+      this._chatService.setParticipant(openChatMember);
+
+      this.router.navigate(['/home/chat']);
+    }
 
   isTyping(message: string): boolean {
     return message === 'Typing...';
