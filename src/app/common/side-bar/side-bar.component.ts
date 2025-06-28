@@ -8,7 +8,7 @@ import { NgxSliderModule, Options } from '@angular-slider/ngx-slider';
 import {
   bodyTypes,
   Complexion,
-  currencies,
+  currency,
   diet,
   DrinkHabit,
   knownLanguages,
@@ -87,7 +87,7 @@ export class SideBarComponent {
   public bodyTypeList = bodyTypes;
   public complexionList = Complexion;
   public natshathiraList = Natshathira;
-  public currencyList = currencies;
+  public currencyList = currency;
   public religionList: Religion[] = [];
   public communityList: Community[] = [];
   public SubCommunityList: SubCommunity[] = [];

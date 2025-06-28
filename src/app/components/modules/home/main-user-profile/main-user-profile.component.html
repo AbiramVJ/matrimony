@@ -12,7 +12,7 @@
               <div class="profile-avatar mx-auto position-relative">
                 <!-- Image Preview -->
                 <div class="avatar-container">
-                  <img [src]="mainUser.image" [alt]="" class="avatar-img">
+                  <img [src]="mainUser.image" [alt]="" class="avatar-img" onerror="this.style.display='none'">
                   <div class="avatar-overlay">
                     <button type="button" class="btn btn-sm btn-light avatar-btn">
                       <i class="fas fa-trash"></i>
@@ -97,7 +97,6 @@
               </form>
             </div>
           </div>
-
         </div>
       </div>
     </div>

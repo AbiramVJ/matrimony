@@ -22790,12 +22790,6 @@ export const willingToRelocate = [
    { id: 3, name: "Maybe" }
 ]
 
-export const currencies = [
-    {id:1, label: '₹ (INR)', value: 'INR' },
-    {id:2, label: '$ (USD)', value: 'USD' },
-    {id:3, label: '€ (EUR)', value: 'EUR' },
-  ];
-
 
 export const sectorList = [{id:1, name:'Government'}, {id:2, name:'Private'}];
 

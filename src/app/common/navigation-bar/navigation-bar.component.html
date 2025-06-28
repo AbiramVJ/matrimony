@@ -86,7 +86,7 @@
           <!-- CHAT DROP DOWN -->
           <div class="boder rounded bg-white position-absolute message-box fw-bold" *ngIf="isMessageOpen">
             <h5><i class="fas fa-comments text-md me-2"></i>Messages</h5>
-            <div class="message-wrapper mt-0">
+            <div class="message-wrapper mt-0" *ngIf="participants.length > 0">
               <div class="search-wrapper">
                 <input type="text" class="search-field" placeholder="Search conversations..." [(ngModel)]="searchTerm">
               </div>
@@ -118,6 +118,18 @@
                     <p class="text-muted">No conversations found for "{{ searchTerm }}"</p>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div *ngIf="participants.length === 0">
+              <div class="text-md text-center mb-3">
+                <div>
+                   <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-muted">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    <path d="M8 9h8"></path>
+                    <path d="M8 13h6"></path>
+                  </svg>
+                </div>
+                No conversations yet
               </div>
             </div>
           </div>

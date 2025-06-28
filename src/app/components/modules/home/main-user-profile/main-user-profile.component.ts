@@ -13,29 +13,30 @@ import { MemberService } from '../../../../services/member.service';
 })
 export class MainUserProfileComponent {
   profileForm: FormGroup;
-
   isLoading = false;
   imagePreview: string | null = null;
   mainUser!:MainUser;
 
 constructor(private fb: FormBuilder,private _memberService:MemberService,) {
     this.profileForm = this.fb.group({
-      firstName: ['', [Validators.required, Validators.minLength(2)]],
+      firstName: ['fse', [Validators.required, Validators.minLength(2)]],
       lastName: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', [Validators.required, Validators.pattern(/^\+?[1-9]\d{1,14}$/)]],
-      image: [null]
+      image: ['']
     });
   }
 
    ngOnInit(): void {
-   // this.loadProfileData();
+    this.loadProfileData();
   }
 
    loadProfileData(): void {
+    this.isLoading = true;
     this._memberService.getMainUser().subscribe({
       next:(res:any)=>{
       this.mainUser = res;
+
       },
       complete:()=>{
         this.profileForm.patchValue({
@@ -45,9 +46,11 @@ constructor(private fb: FormBuilder,private _memberService:MemberService,) {
           phoneNumber: this.mainUser.phoneNumber,
           image: this.mainUser.image
         });
+        this.isLoading = false;
       },
       error:(error:any)=>{
         console.log(error);
+        this.isLoading = false;
       }
     })
   }

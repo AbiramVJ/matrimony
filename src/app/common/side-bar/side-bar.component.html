@@ -491,16 +491,16 @@
         <div class="mt-3">
            <label class="fw-500">Salary</label>
             <div class="row mt-2">
-               <div class="col-12">
+               <div class="col-12 mb-2">
                 <div class="text-sm">Currency</div>
                  <ng-select
                     [items]="currencyList"
-                    bindLabel="label"
-                    bindValue="value"
+                    bindLabel="code"
+                    bindValue="code"
                     [ngModelOptions]="{standalone: true}"
                     [clearable]="true"
                     [searchable]="true"
-                    [multiple]="false"
+                    [multiple]="true"
                     [(ngModel)]="selectedCurrency"
                      (change)="ngSelectChange()"
                     >

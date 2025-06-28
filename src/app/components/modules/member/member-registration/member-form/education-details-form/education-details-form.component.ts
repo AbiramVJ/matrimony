@@ -180,7 +180,7 @@ export class EducationDetailsFormComponent {
       this.userEducationFrom.get('companyName')?.patchValue( this.memberProfile.profileJob.companyName);
       this.userEducationFrom.get('jobTitle')?.patchValue( this.memberProfile.profileJob.title);
 
-      this.userEducationFrom.get('salaryDetails')?.patchValue( this.memberProfile.profileJob.profileSalary.amount);
+      this.userEducationFrom.get('salaryDetails')?.patchValue( this.memberProfile.profileJob.profileSalary.amount === 0 ? null : this.memberProfile.profileJob.profileSalary.amount);
       this.userEducationFrom.get('isYearly')?.patchValue( this.memberProfile.profileJob.profileSalary.isAnnual);
       this.userEducationFrom.get('isVisible')?.patchValue( this.memberProfile.profileJob.profileSalary.isVisible);
     }
