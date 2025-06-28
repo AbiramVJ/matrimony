@@ -51,6 +51,8 @@ export class LoginComponent implements OnInit {
     text: 'None',
     class: ''
   };
+
+  private _loginTokenType:number = 0;
   constructor(
     private auth:AuthService,
     private formBuilder: FormBuilder,
@@ -231,6 +233,7 @@ export class LoginComponent implements OnInit {
       this.auth.login(body,this.clientToken).subscribe({
         next:(res:any) => {
           if(res.Result.tokenType === TokenType.UserVerificationToken){
+            this._loginTokenType = res.Result.tokenType;
             this._resetToken = res.Result.token;
             this.isOtpVerification = true;
             this.isLoading = false;
@@ -282,6 +285,12 @@ export class LoginComponent implements OnInit {
   }
 
   public backToStep(){
+    if(this._loginTokenType === TokenType.UserVerificationToken){
+      this.step = this.resetStep.login;
+      this.isSubmitted = false;
+      this.loginForm.get('password')?.setValue(null);
+      return;
+    }
     if(this.step = this.resetStep.enterEmail){
       this.isForgot = false;
       this.isSubmitted = false;
