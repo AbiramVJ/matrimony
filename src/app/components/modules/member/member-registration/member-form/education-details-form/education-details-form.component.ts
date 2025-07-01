@@ -63,7 +63,7 @@ export class EducationDetailsFormComponent {
       salaryDetails:[{ value: null, disabled: true }],
       currency:[''],
       isYearly:[{ value: '', disabled: true }],
-      isVisible:[{ value: '', disabled: true }]
+      isVisible:[]
     })
   }
 
@@ -105,6 +105,7 @@ export class EducationDetailsFormComponent {
 
   public next(){
     this.isSubmitted = true;
+    console.log(this.userEducationFrom.valid);
     if(this.userEducationFrom.valid){
       const formValue = this.userEducationFrom.value;
       const userEducationValue:UserEducationDetails = {
@@ -120,7 +121,7 @@ export class EducationDetailsFormComponent {
         salaryDetails:formValue.salaryDetails,
         currency:this.selectedCurrency ? this.selectedCurrency : null,
         isYearly:formValue.salaryDetails !== null && formValue.salaryDetails !== '' ? formValue.isYearly : null,
-        isVisible:formValue.isVisible ? formValue.isVisible: null,
+        isVisible:formValue.isVisible ? formValue.isVisible: false,
       }
       if(!this.isEditFrom){
         this.userEducationEmitter.emit(userEducationValue);
@@ -263,22 +264,22 @@ public changeSalary(){
     if(salary.value !== null && salary.value.toString().trim() !== ''){
      salary.addValidators(Validators.required);
      isYearly.addValidators(Validators.required);
-     isVisible.addValidators(Validators.required);
+  //   isVisible.addValidators(Validators.required);
      isYearly.enable();
-     isVisible.enable();
+    // isVisible.enable();
     }else{
       this.selectedCurrency = null;
       isYearly.removeValidators(Validators.required);
-      isVisible.removeValidators(Validators.required);
+    //  isVisible.removeValidators(Validators.required);
       salary.removeValidators(Validators.required);
-      isVisible.patchValue(false);
+     // isVisible.patchValue(false);
       isYearly.patchValue(false);
       salary.patchValue(null);
       isYearly.disable();
-      isVisible.disable();
+    //  isVisible.disable();
     }
     isYearly.updateValueAndValidity();
-    isVisible.updateValueAndValidity();
+  // isVisible.updateValueAndValidity();
     salary.updateValueAndValidity();
   }
 
