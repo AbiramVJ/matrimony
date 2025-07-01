@@ -15,6 +15,7 @@
   color: #007bff !important; /* Bootstrap's primary blue */
 }
 
+
 .circles {
   border-radius: 100%;
   width: 50px;
@@ -401,4 +402,17 @@
     background-color: rgba(197, 197, 197, 0.3);
     border-radius: 3px;
   }
+
+  .active-m-link {
+    font-weight: bold;
+    color: white !important;
+    border-radius: 100%;
+    background: #eb4949;
+  }
+  .active-m-link i {
+    color: rgb(255, 255, 255) !important; /* Bootstrap's primary blue */
+  }
+
+
+
 }
