@@ -177,7 +177,6 @@ export class ChatComponent {
   }
 
   public sendMessage() {
-    this.focusInput();
     let fileType: number;
     let textContent: any = null;
     let fileUrls: string[] = this.previewImage;
@@ -216,6 +215,7 @@ export class ChatComponent {
     this.showEmojiPicker = false;
     this.scrollToBottom();
     this._chatService.clearParticipant();
+    this.focusInput();
   }
 
   public onFileSelected(event: Event): void {
