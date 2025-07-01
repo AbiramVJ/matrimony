@@ -1,5 +1,5 @@
 import { ChatService } from './../../../../../services/chat.service';
-import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FORM_MODULES } from '../../../../../common/common-imports';
@@ -19,6 +19,7 @@ import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 })
 export class ChatComponent {
   @ViewChild('chatMessages') private chatMessagesContainer!: ElementRef;
+  @ViewChildren('minSpend') minSpend!: QueryList<ElementRef>;
   public previewImage: string[] = [];
   public searchTerm: string = '';
   public selectedReceiverId: string | null = null;
@@ -101,7 +102,7 @@ export class ChatComponent {
     });
 
     this._chatService.onChatParticipantsReceived((data: any[]) => {
-      console.log(data);
+
       this.participants = data;
       const participant = this._chatService.getParticipant();
 
@@ -131,6 +132,7 @@ export class ChatComponent {
       this.isGetParticipant = true;
 
        this.updateScreenWidth();
+
 
     });
 
@@ -167,7 +169,15 @@ export class ChatComponent {
   });
   }
 
+
+
+  focusInput() {
+    console.log(this.minSpend.first)
+    this.minSpend.first.nativeElement.focus();
+  }
+
   public sendMessage() {
+    this.focusInput();
     let fileType: number;
     let textContent: any = null;
     let fileUrls: string[] = this.previewImage;
@@ -298,6 +308,7 @@ export class ChatComponent {
         if (lastMessage) {
           this.markAsRead(lastMessage.id);
         }
+        //  this.focusInput();
         },
         error: (error: any) => {
           this.isLoading = false;
