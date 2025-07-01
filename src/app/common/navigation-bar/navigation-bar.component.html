@@ -33,7 +33,7 @@
         <nav class="bottom-nav navbar fixed-bottom bg-white border-top shadow-sm py-2 d-block d-dm-block d-md-none">
           <div class="container d-flex justify-content-around text-center mb-2">
             <a class="nav-item nav-link"   [routerLink]="['/home/member']"
-                [class.active-link]="router.isActive('/home', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })">
+                [class.active-link]="router.isActive('/home/member', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })">
               <i class="fas fa-home fa-lg d-block"></i>
               <!-- <small>Home</small> -->
             </a>
@@ -44,10 +44,10 @@
             </a>
 
             <a class="nav-item nav-link" >
-              <i class="fas fa-comments fa-lg d-block" [routerLink]="['home/chat']" [class.active-link]="router.isActive('/member', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })" ></i>
+              <i class="fas fa-comments fa-lg d-block" [routerLink]="['home/chat']" [class.active-link]="router.isActive('/home/chat', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })" ></i>
             </a>
 
-            <a class="nav-item nav-link" [routerLink]="['home/main-user']" *ngIf="mainUser">
+            <a class="nav-item nav-link" [routerLink]="['home/main-user']" [class.active-link]="router.isActive('/home/main-user', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })" *ngIf="mainUser">
               <img  src="{{mainUser.image}}" class="m-list-profile object-fit-cover" alt="..." width="33px" height="33px">
             </a>
           </div>
@@ -59,7 +59,7 @@
             <div class="mt-2 me-3 member" *ngIf="!isLoading && selectedMember">
               <div class="d-flex">
                 <img class="object-fit-cover me-2" src={{selectedMember.profileImages[0].url}} alt="profile" width="40px" height="40px">
-                <div class="my-auto fw-bold text-sm">{{selectedMember.firstName + ' ' + selectedMember.lastName ? selectedMember.lastName : ''}}</div>
+                <div class="my-auto fw-bold text-sm">{{selectedMember.firstName}}</div>
               </div>
             </div>
             <!-- MESSAGE -->
@@ -72,8 +72,11 @@
               <i class="fas fa-bell fa-lg"></i>
               <div class="text-white bg-danger notification-bandage position-absolute p-2">5</div>
             </div>
-            <div class="profile-image pointer profi"  (click)="toggleDropdown('profile')"  *ngIf="mainUser">
-              <img class="circles" src="{{mainUser.image}}" class="circles object-fit-cover" alt="...">
+           <div class="profile-image pointer profi position-relative" (click)="toggleDropdown('profile')" *ngIf="mainUser">
+              <img class="circles object-fit-cover" [src]="mainUser.image" alt="Profile Image" />
+              <div class="dropdown-icon">
+                <i class="fas fa-caret-down"></i> <!-- or use a custom SVG -->
+              </div>
             </div>
           </div>
 
@@ -91,23 +94,23 @@
                 <input type="text" class="search-field" placeholder="Search conversations..." [(ngModel)]="searchTerm">
               </div>
               <div class="conversation-list">
-                <div class="conversation-item" [class.selected]="selectedChatId === par.receiverProfileId" *ngFor="let par of participants"
-                  (click)="openChat(par)">
+                <div class="conversation-item" [class.selected]="selectedChatId === participant.receiverProfileId" *ngFor="let participant of participants"
+                  (click)="openChat(participant)">
                   <div class="d-flex align-items-center" [routerLink]="['home/chat']" >
                     <div class="avatar-wrapper">
-                      <img *ngIf="par.profileImage" [src]="par.profileImage" [alt]="par.name" class="avatar-image" onerror="this.style.display='none'">
-                      <div *ngIf="!par.profileImage" class="avatar-initials"> {{ getInitials(par.name) }} </div>
-                      <!-- <div *ngIf="par.isRead" class="status-online"></div> -->
+                      <img *ngIf="participant.profileImage" [src]="participant.profileImage" [alt]="participant.name" class="avatar-image" onerror="this.style.display='none'">
+                      <div *ngIf="!participant.profileImage" class="avatar-initials"> {{ getInitials(participant.name) }} </div>
+                      <!-- <div *ngIf="participant.isRead" class="status-online"></div> -->
                     </div>
 
                     <div class="conversation-details">
-                      <div class="user-name">{{ par.name }}</div>
-                      <div class="recent-message" > {{par.isSentByMe ? 'You: ' : ''}} {{ par.lastMessage }} </div>
+                      <div class="user-name">{{ participant.name }}</div>
+                      <div class="recent-message" > {{participant.isSentByMe ? 'You: ' : ''}} {{ participant.lastMessage }} </div>
                     </div>
                     <div class="conversation-meta">
-                      <div class="message-time">{{ par.lastSentAt }}</div>
+                      <div class="message-time">{{ participant.lastSentAt }}</div>
                       <!-- <div *ngIf="par.unReadCount > 0" class="notification-badge"> {{ chat.unReadCount }}</div> -->
-                       <div  class="notification-badge"> {{0}}</div>
+                       <div class="notification-badge" *ngIf="participant.isRead"> <i  class="fas fa-circle text-danger"></i></div>
                     </div>
                   </div>
                 </div>

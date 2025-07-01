@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { COMMON_DIRECTIVES, FORM_MODULES } from '../../../../../../common/common-imports';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BloodGroup, bodyTypes, Complexion, diet, DrinkHabit, knownLanguages, languageList, motherTongue, SmokeHabit, yesOrNo } from '../../../../../../helpers/data';
+import { BloodGroup, bodyTypes, Complexion, diet, DrinkHabit, languageList, SmokeHabit, yesOrNo } from '../../../../../../helpers/data';
 import { PersonalDetails, UserProfile } from '../../../../../../models/index.model';
 import { MemberService } from '../../../../../../services/member.service';
 import { ToastrService } from 'ngx-toastr';
@@ -21,7 +21,7 @@ export class PersonalDetailsFormComponent {
   public isLoading:boolean = false;
   public isSubmitted = false;
   public motherTongueList:any = languageList;
-  public selectedMotherTongue = 1;
+  public selectedMotherTongue = 0;
   public dietList = diet;
   public selectedDiet = 1;
 
@@ -41,7 +41,7 @@ export class PersonalDetailsFormComponent {
 
 
   public bloodGroupList = BloodGroup;
-  public selectedBloodGroup = 1;
+  public selectedBloodGroup = 0;
 
   public complexionList  = Complexion;
   public SelectedComplexion = 1;
@@ -163,10 +163,10 @@ export class PersonalDetailsFormComponent {
     }
   }
 
-  onLanguageChange() {
-  if (this.selectedKnowLanguage.length > 4) {
-    this.toastr.warning('You can only select up to 5 languages.', 'Waring')
-  }
-  }
+  // onLanguageChange() {
+  // if (this.selectedKnowLanguage.length > 4) {
+  //   this.toastr.warning('You can only select up to 5 languages.', 'Waring')
+  // }
+  // }
 
 }

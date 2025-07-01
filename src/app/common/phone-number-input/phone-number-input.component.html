@@ -1,5 +1,5 @@
 <div class="mb-3">
-  <label for="phonenumber" class="form-label">Phone number</label>
+  <label for="phonenumber" class="form-label">Phone number <span class="text-danger">*</span></label>
   <div class="">
     <div class="d-flex">
       <div class="pn">
@@ -49,7 +49,10 @@
       </div>
       <div class="w-100 pi">
         <input type="number" class="form-control" id="pn-number" [(ngModel)]="phoneNumber" placeholder="" (ngModelChange)="emitPhoneNumber()"  [ngClass]="{'errorBorder' : isSubmitted && !isValidPn}" autocomplete="disabled">
+
       </div>
     </div>
+    <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && !isValidPn && !phoneNumber">Phone number is required</div>
+    <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && phoneNumber && !isValidPn">Invalid phone number</div>
   </div>
 </div>

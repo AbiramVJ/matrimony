@@ -32,7 +32,7 @@ export class ContactInfoFormComponent {
   public isTemporaryAddress = false;
   private _phoneNumber: string = '';
 
-  public setPhoneNumber!: number;
+  public setPhoneNumber!: any;
   public PhoneCode!: string;
   private phoneNumberDetails: any;
 
@@ -107,7 +107,10 @@ export class ContactInfoFormComponent {
 
   public next() {
     this.isSubmitted = true;
-    console.log(this.selectedProvince);
+    if(!this.userContactFrom.value.phoneNumber) {
+      this.setPhoneNumber = null;
+      return;
+    }
     const permanentAddress:any = {
       id:this.exitingPermanentAddress ? this.exitingPermanentAddress.id : null,
       number: this.userContactFrom.value.doorNumber,
@@ -123,27 +126,7 @@ export class ContactInfoFormComponent {
       isDefault: true,
     };
 
-    // const temAddress:any = {
-    //   id:this.exTempPermanentAddress ? this.exTempPermanentAddress.id : null,
-    //   number: this.userContactFrom.value.temporaryAddress?.doorNumber,
-    //   street: this.userContactFrom.value.temporaryAddress?.street,
-    //   city: this.userContactFrom.value.temporaryAddress?.city,
-    //   state: this.userContactFrom.value.temporaryAddress?.stateProvince,
-    //   zipcode: this.userContactFrom.value.temporaryAddress?.zipCode,
-    //   country: this.selectedTempCountry,
-    //   latitude: 0,
-    //   longitude: 0,
-    //   addressType: 1,
-    //   residentStatus: this.selectedTempResidency,
-    //   isDefault: true,
-    // };
-
-    if (!this.isEditFrom) {
-        delete permanentAddress.id;
-      //  delete temAddress.id;
-      }
-
-
+    if (!this.isEditFrom) {delete permanentAddress.id;}
     const basicDetails = {
       email: this.userContactFrom.value.email,
       phoneNumber: this.userContactFrom.value.phoneNumber,
@@ -154,10 +137,6 @@ export class ContactInfoFormComponent {
       address: [permanentAddress],
       basicDetails: basicDetails,
     };
-
-    // if (this.isTemporaryAddress) {
-    // //  formValues.address.push(temAddress);
-    // }
 
     if (this.userContactFrom.valid) {
       if (!this.isEditFrom) {

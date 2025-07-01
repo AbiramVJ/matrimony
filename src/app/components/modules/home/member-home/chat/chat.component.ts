@@ -1,5 +1,5 @@
 import { ChatService } from './../../../../../services/chat.service';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FORM_MODULES } from '../../../../../common/common-imports';
@@ -25,6 +25,10 @@ export class ChatComponent {
   public selectedParticipant!: ChatParticipant;
   public isUploading: boolean = false;
   public isLoading: boolean = false;
+  public isOpenChat:boolean = false;
+
+  public isCanShowList:boolean = false;
+  public isCanShowChatHistory:boolean = false;
 
   public isGetParticipant: boolean = false;
   public searchControl = new FormControl('');
@@ -40,6 +44,7 @@ export class ChatComponent {
   public isTyping = false;
   public typingTimeout: any;
   public typingMembers = new Set<string>();
+  public screenWidth: number = window.innerWidth;
   name = 'Angular';
   message = '';
   showEmojiPicker = false;
@@ -63,6 +68,17 @@ export class ChatComponent {
     console.log(participant);
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event: UIEvent): void {
+    this.updateScreenWidth();
+  }
+  private updateScreenWidth(): void {
+    this.screenWidth = window.innerWidth;
+    if(this.screenWidth > 546) {
+      this.isOpenChat = true;
+    }else{}
+  }
+
   ngOnInit() {
     this._chatService.onMessageReceived((message: any) => {
       const isFromSelected =
@@ -81,6 +97,7 @@ export class ChatComponent {
           this.participants[index].isRead = false;
         }
       }
+      this.markAsRead(message.id)
     });
 
     this._chatService.onChatParticipantsReceived((data: any[]) => {
@@ -112,6 +129,9 @@ export class ChatComponent {
         this.isLoadingPar = false;
       }
       this.isGetParticipant = true;
+
+       this.updateScreenWidth();
+
     });
 
     //typing
@@ -123,6 +143,28 @@ export class ChatComponent {
     this._chatService.onTypingStopped((fromProfileId: string) => {
       this.typingMembers.delete(fromProfileId);
     });
+
+    this._chatService.onMessageRead((messageId, senderId, readAt) => {
+       console.log(`Message ${messageId} was read by ${senderId} at ${readAt}`);
+    //  const message = this.messagesCheck.find((m: any) => m.id === messageId);
+    //   if (message) {
+    //     message.isRead = true;
+    //     message.readAt = readAt;
+    //   }else{
+    //     message!.isRead = true;
+    //   }
+
+    // const lastMessage:any = this.messagesCheck?.length
+    //     ? this.messagesCheck[this.messagesCheck.length - 1]
+    //     : null;
+    //     if (lastMessage) {
+    //     //  this.markAsRead(lastMessage.id);
+    //     }
+
+    //     this.messagesCheck.forEach((m:any) => {
+
+    //     })
+  });
   }
 
   public sendMessage() {
@@ -230,8 +272,14 @@ export class ChatComponent {
     }
   }
 
+  //MESSAGE READ
+  markAsRead(messageId: string) {
+ // this._chatService.markMessageAsRead(messageId);
+}
+
   public getPrivateMessage(receiver: ChatParticipant) {
-    console.log(receiver);
+
+    this.isOpenChat = true;
     this.selectedParticipant = receiver;
     this.isLoading = true;
     this._chatService
@@ -244,14 +292,18 @@ export class ChatComponent {
         complete: () => {
           this.isLoading = false;
           this.scrollToBottom();
+          const lastMessage:any = this.messagesCheck?.length
+        ? this.messagesCheck[this.messagesCheck.length - 1]
+        : null;
+        if (lastMessage) {
+          this.markAsRead(lastMessage.id);
+        }
         },
         error: (error: any) => {
           this.isLoading = false;
           this.isLoadingPar = false;
         },
       });
-
-
   }
 
   // addEmoji(event:any) {
@@ -280,4 +332,13 @@ export class ChatComponent {
   onBlur() {
     console.log('onblur');
   }
+
+  filteredParticipants(): any[] {
+    if (!this.searchTerm) return this.participants;
+
+    return this.participants.filter(member =>
+      member.name?.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
+
 }

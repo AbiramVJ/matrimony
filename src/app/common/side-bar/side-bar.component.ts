@@ -44,14 +44,14 @@ export class SideBarComponent {
   public selectedMarriageStatus: any;
   private hasAppliedFilters: boolean = false;
 
-  public minAgeValue: number = 0;
-  public maxAgeValue: number = 300;
+  public minAgeValue: number = 18;
+  public maxAgeValue: number = 60;
 
   public minHeightValue: number = 0;
-  public maxHeightValue: number = 0;
+  public maxHeightValue: number = 250;
 
-  public minWeightValue: number = 0;
-  public maxWeightValue: number = 0;
+  public minWeightValue: number = 25;
+  public maxWeightValue: number = 150;
 
   public minSalaryValue: any = null;
   public maxSalaryValue: any = null;
@@ -63,13 +63,13 @@ export class SideBarComponent {
   };
 
   public HeightOptions: Options = {
-    floor: 0,
-    ceil: 300,
+    floor: 100,
+    ceil: 250,
     step: 5,
   };
 
   public weightOptions: Options = {
-    floor: 0,
+    floor: 25,
     ceil: 150,
     step: 0.1,
   };

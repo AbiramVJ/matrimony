@@ -76,6 +76,10 @@ export class PhoneNumberInputComponent {
       this.phoneNumberEmitter.emit(phoneNumberDetails);
     } else {
       this.isValidPn = false;
+      this.phoneNumberEmitter.emit({
+        code: null,
+        phoneNumber: null,
+      });
     }
   }
 

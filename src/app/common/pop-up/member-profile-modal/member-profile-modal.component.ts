@@ -27,7 +27,7 @@ ngOnChanges(): void {
      this.tabs = this.tabs.filter((tab:any) => tab.id !== 3);
   }
 
-  if(!this.memberProfile.profileAstrology?.timeOfBirth && !this.memberProfile.profileAstrology?.starName && !this.memberProfile.profileAstrology?.rasiName){
+  if(!this.memberProfile?.profileAstrology?.timeOfBirth && !this.memberProfile.profileAstrology?.starName && !this.memberProfile.profileAstrology?.rasiName){
     this.tabs = this.tabs.filter((tab:any) => tab.id !== 5);
   }
 

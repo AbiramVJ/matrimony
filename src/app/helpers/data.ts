@@ -18085,6 +18085,10 @@ export const countryCode = [
 export const languageList = [
     {
         "id": 0,
+        "name": "Tamil"
+    },
+    {
+        "id": 385,
         "name": "Balochi"
     },
     {
@@ -18134,10 +18138,6 @@ export const languageList = [
     {
         "id": 12,
         "name": "Berberi"
-    },
-    {
-        "id": 13,
-        "name": "English"
     },
     {
         "id": 14,
@@ -18200,20 +18200,8 @@ export const languageList = [
         "name": "Ovimbundu"
     },
     {
-        "id": 29,
-        "name": "English"
-    },
-    {
-        "id": 30,
-        "name": "English"
-    },
-    {
         "id": 31,
         "name": "Creole English"
-    },
-    {
-        "id": 32,
-        "name": "English"
     },
     {
         "id": 33,
@@ -18222,10 +18210,6 @@ export const languageList = [
     {
         "id": 34,
         "name": "Italian"
-    },
-    {
-        "id": 35,
-        "name": "Spanish"
     },
     {
         "id": 36,
@@ -18240,40 +18224,16 @@ export const languageList = [
         "name": "Dutch"
     },
     {
-        "id": 39,
-        "name": "English"
-    },
-    {
         "id": 40,
         "name": "Papiamento"
-    },
-    {
-        "id": 41,
-        "name": "Spanish"
-    },
-    {
-        "id": 42,
-        "name": "Arabic"
     },
     {
         "id": 43,
         "name": "Canton Chinese"
     },
     {
-        "id": 44,
-        "name": "English"
-    },
-    {
         "id": 45,
         "name": "German"
-    },
-    {
-        "id": 46,
-        "name": "Greek"
-    },
-    {
-        "id": 47,
-        "name": "Italian"
     },
     {
         "id": 48,
@@ -18288,10 +18248,6 @@ export const languageList = [
         "name": "Czech"
     },
     {
-        "id": 51,
-        "name": "German"
-    },
-    {
         "id": 52,
         "name": "Hungarian"
     },
@@ -18304,24 +18260,12 @@ export const languageList = [
         "name": "Romanian"
     },
     {
-        "id": 55,
-        "name": "Serbo-Croatian"
-    },
-    {
         "id": 56,
         "name": "Slovene"
     },
     {
         "id": 57,
         "name": "Turkish"
-    },
-    {
-        "id": 58,
-        "name": "Armenian"
-    },
-    {
-        "id": 59,
-        "name": "Azerbaijani"
     },
     {
         "id": 60,
@@ -18332,20 +18276,8 @@ export const languageList = [
         "name": "Russian"
     },
     {
-        "id": 62,
-        "name": "Creole English"
-    },
-    {
         "id": 63,
         "name": "Creole French"
-    },
-    {
-        "id": 64,
-        "name": "Arabic"
-    },
-    {
-        "id": 65,
-        "name": "English"
     },
     {
         "id": 66,
@@ -18380,52 +18312,12 @@ export const languageList = [
         "name": "Bajan"
     },
     {
-        "id": 74,
-        "name": "English"
-    },
-    {
         "id": 75,
         "name": "Belorussian"
     },
     {
-        "id": 76,
-        "name": "Polish"
-    },
-    {
-        "id": 77,
-        "name": "Russian"
-    },
-    {
         "id": 78,
         "name": "Ukrainian"
-    },
-    {
-        "id": 79,
-        "name": "Arabic"
-    },
-    {
-        "id": 80,
-        "name": "Dutch"
-    },
-    {
-        "id": 81,
-        "name": "French"
-    },
-    {
-        "id": 82,
-        "name": "German"
-    },
-    {
-        "id": 83,
-        "name": "Italian"
-    },
-    {
-        "id": 84,
-        "name": "Turkish"
-    },
-    {
-        "id": 85,
-        "name": "English"
     },
     {
         "id": 86,
@@ -18434,10 +18326,6 @@ export const languageList = [
     {
         "id": 87,
         "name": "Maya Languages"
-    },
-    {
-        "id": 88,
-        "name": "Spanish"
     },
     {
         "id": 89,
@@ -18468,10 +18356,6 @@ export const languageList = [
         "name": "Somba"
     },
     {
-        "id": 96,
-        "name": "English"
-    },
-    {
         "id": 97,
         "name": "Asami"
     },
@@ -18482,14 +18366,6 @@ export const languageList = [
     {
         "id": 99,
         "name": "Nepali"
-    },
-    {
-        "id": 100,
-        "name": "English"
-    },
-    {
-        "id": 101,
-        "name": "Spanish"
     },
     {
         "id": 102,
@@ -18516,10 +18392,6 @@ export const languageList = [
         "name": "Tupinambá"
     },
     {
-        "id": 108,
-        "name": "English"
-    },
-    {
         "id": 109,
         "name": "Bosnian"
     },
@@ -18544,60 +18416,16 @@ export const languageList = [
         "name": "Tswana"
     },
     {
-        "id": 115,
-        "name": "German"
-    },
-    {
-        "id": 116,
-        "name": "Indian Languages"
-    },
-    {
-        "id": 117,
-        "name": "Italian"
-    },
-    {
         "id": 118,
         "name": "Japanese"
-    },
-    {
-        "id": 119,
-        "name": "Portuguese"
-    },
-    {
-        "id": 120,
-        "name": "English"
-    },
-    {
-        "id": 121,
-        "name": "English"
-    },
-    {
-        "id": 122,
-        "name": "English"
-    },
-    {
-        "id": 123,
-        "name": "English"
-    },
-    {
-        "id": 124,
-        "name": "English"
     },
     {
         "id": 125,
         "name": "Bulgariana"
     },
     {
-        "id": 126,
-        "name": "Macedonian"
-    },
-    {
         "id": 127,
         "name": "Romani"
-    },
-    {
-        "id": 128,
-        "name": "Turkish"
     },
     {
         "id": 129,
@@ -18612,20 +18440,12 @@ export const languageList = [
         "name": "Dyula"
     },
     {
-        "id": 132,
-        "name": "Ful"
-    },
-    {
         "id": 133,
         "name": "Gurma"
     },
     {
         "id": 134,
         "name": "Mossi"
-    },
-    {
-        "id": 135,
-        "name": "French"
     },
     {
         "id": 136,
@@ -18652,10 +18472,6 @@ export const languageList = [
         "name": "Fang"
     },
     {
-        "id": 142,
-        "name": "Ful"
-    },
-    {
         "id": 143,
         "name": "Maka"
     },
@@ -18676,56 +18492,12 @@ export const languageList = [
         "name": "Chinese"
     },
     {
-        "id": 148,
-        "name": "Dutch"
-    },
-    {
-        "id": 149,
-        "name": "English"
-    },
-    {
         "id": 150,
         "name": "Eskimo Languages"
     },
     {
-        "id": 151,
-        "name": "French"
-    },
-    {
-        "id": 152,
-        "name": "German"
-    },
-    {
-        "id": 153,
-        "name": "Italian"
-    },
-    {
-        "id": 154,
-        "name": "Polish"
-    },
-    {
-        "id": 155,
-        "name": "Portuguese"
-    },
-    {
         "id": 156,
         "name": "Punjabi"
-    },
-    {
-        "id": 157,
-        "name": "Spanish"
-    },
-    {
-        "id": 158,
-        "name": "Ukrainian"
-    },
-    {
-        "id": 159,
-        "name": "English"
-    },
-    {
-        "id": 160,
-        "name": "English"
     },
     {
         "id": 161,
@@ -18752,10 +18524,6 @@ export const languageList = [
         "name": "Sara"
     },
     {
-        "id": 167,
-        "name": "Arabic"
-    },
-    {
         "id": 168,
         "name": "Gorane"
     },
@@ -18776,10 +18544,6 @@ export const languageList = [
         "name": "Ouaddai"
     },
     {
-        "id": 173,
-        "name": "Sara"
-    },
-    {
         "id": 174,
         "name": "Tandjile"
     },
@@ -18794,14 +18558,6 @@ export const languageList = [
     {
         "id": 177,
         "name": "Rapa nui"
-    },
-    {
-        "id": 178,
-        "name": "Spanish"
-    },
-    {
-        "id": 179,
-        "name": "Chinese"
     },
     {
         "id": 180,
@@ -18848,18 +18604,6 @@ export const languageList = [
         "name": "Zhuang"
     },
     {
-        "id": 191,
-        "name": "Chinese"
-    },
-    {
-        "id": 192,
-        "name": "English"
-    },
-    {
-        "id": 193,
-        "name": "English"
-    },
-    {
         "id": 194,
         "name": "Malay"
     },
@@ -18874,14 +18618,6 @@ export const languageList = [
     {
         "id": 197,
         "name": "Chibcha"
-    },
-    {
-        "id": 198,
-        "name": "Creole English"
-    },
-    {
-        "id": 199,
-        "name": "Spanish"
     },
     {
         "id": 200,
@@ -18904,10 +18640,6 @@ export const languageList = [
         "name": "Comorian-Swahili"
     },
     {
-        "id": 205,
-        "name": "Kongo"
-    },
-    {
         "id": 206,
         "name": "Mbete"
     },
@@ -18928,80 +18660,12 @@ export const languageList = [
         "name": "Teke"
     },
     {
-        "id": 211,
-        "name": "English"
-    },
-    {
-        "id": 212,
-        "name": "English"
-    },
-    {
         "id": 213,
         "name": "Maori"
     },
     {
-        "id": 214,
-        "name": "Chibcha"
-    },
-    {
-        "id": 215,
-        "name": "Chinese"
-    },
-    {
-        "id": 216,
-        "name": "Creole English"
-    },
-    {
-        "id": 217,
-        "name": "Spanish"
-    },
-    {
-        "id": 218,
-        "name": "Serbo-Croatian"
-    },
-    {
-        "id": 219,
-        "name": "Slovene"
-    },
-    {
-        "id": 220,
-        "name": "Spanish"
-    },
-    {
-        "id": 221,
-        "name": "English"
-    },
-    {
-        "id": 222,
-        "name": "Greek"
-    },
-    {
-        "id": 223,
-        "name": "Turkish"
-    },
-    {
-        "id": 224,
-        "name": "Czech"
-    },
-    {
-        "id": 225,
-        "name": "German"
-    },
-    {
-        "id": 226,
-        "name": "Hungarian"
-    },
-    {
         "id": 227,
         "name": "Moravian"
-    },
-    {
-        "id": 228,
-        "name": "Polish"
-    },
-    {
-        "id": 229,
-        "name": "Romani"
     },
     {
         "id": 230,
@@ -19012,72 +18676,24 @@ export const languageList = [
         "name": "Slovak"
     },
     {
-        "id": 232,
-        "name": "Arabic"
-    },
-    {
         "id": 233,
         "name": "Danish"
-    },
-    {
-        "id": 234,
-        "name": "English"
-    },
-    {
-        "id": 235,
-        "name": "German"
     },
     {
         "id": 236,
         "name": "Norwegian"
     },
     {
-        "id": 237,
-        "name": "Swedish"
-    },
-    {
-        "id": 238,
-        "name": "Turkish"
-    },
-    {
         "id": 239,
         "name": "Afar"
-    },
-    {
-        "id": 240,
-        "name": "Arabic"
     },
     {
         "id": 241,
         "name": "Somali"
     },
     {
-        "id": 242,
-        "name": "Creole English"
-    },
-    {
-        "id": 243,
-        "name": "Creole French"
-    },
-    {
-        "id": 244,
-        "name": "Creole French"
-    },
-    {
-        "id": 245,
-        "name": "Spanish"
-    },
-    {
         "id": 246,
         "name": "Ket¬öua"
-    },
-    {
-        "id": 247,
-        "name": "Spanish"
-    },
-    {
-        "id": 248,
-        "name": "Arabic"
     },
     {
         "id": 249,
@@ -19088,20 +18704,8 @@ export const languageList = [
         "name": "Nahua"
     },
     {
-        "id": 251,
-        "name": "Spanish"
-    },
-    {
         "id": 252,
         "name": "Bubi"
-    },
-    {
-        "id": 253,
-        "name": "Fang"
-    },
-    {
-        "id": 254,
-        "name": "Afar"
     },
     {
         "id": 255,
@@ -19124,24 +18728,8 @@ export const languageList = [
         "name": "Tigrigna"
     },
     {
-        "id": 260,
-        "name": "Belorussian"
-    },
-    {
         "id": 261,
         "name": "Estonian"
-    },
-    {
-        "id": 262,
-        "name": "Finnish"
-    },
-    {
-        "id": 263,
-        "name": "Russian"
-    },
-    {
-        "id": 264,
-        "name": "Ukrainian"
     },
     {
         "id": 265,
@@ -19160,108 +18748,20 @@ export const languageList = [
         "name": "Sidamo"
     },
     {
-        "id": 269,
-        "name": "Somali"
-    },
-    {
-        "id": 270,
-        "name": "Tigrigna"
-    },
-    {
         "id": 271,
         "name": "Walaita"
-    },
-    {
-        "id": 272,
-        "name": "English"
-    },
-    {
-        "id": 273,
-        "name": "Danish"
     },
     {
         "id": 274,
         "name": "Faroese"
     },
     {
-        "id": 275,
-        "name": "English"
-    },
-    {
-        "id": 276,
-        "name": "Estonian"
-    },
-    {
-        "id": 277,
-        "name": "Finnish"
-    },
-    {
-        "id": 278,
-        "name": "Russian"
-    },
-    {
         "id": 279,
         "name": "Saame"
     },
     {
-        "id": 280,
-        "name": "Swedish"
-    },
-    {
-        "id": 281,
-        "name": "Arabic"
-    },
-    {
-        "id": 282,
-        "name": "French"
-    },
-    {
-        "id": 283,
-        "name": "Italian"
-    },
-    {
-        "id": 284,
-        "name": "Portuguese"
-    },
-    {
-        "id": 285,
-        "name": "Spanish"
-    },
-    {
-        "id": 286,
-        "name": "Turkish"
-    },
-    {
-        "id": 287,
-        "name": "Creole French"
-    },
-    {
-        "id": 288,
-        "name": "Indian Languages"
-    },
-    {
-        "id": 289,
-        "name": "Chinese"
-    },
-    {
-        "id": 290,
-        "name": "French"
-    },
-    {
         "id": 291,
         "name": "Tahitian"
-    },
-    {
-        "id": 292,
-        "name": "English"
-    },
-    {
-        "id": 293,
-        "name": "Fang"
-    },
-    {
-        "id": 294,
-        "name": "Mbete"
     },
     {
         "id": 295,
@@ -19274,10 +18774,6 @@ export const languageList = [
     {
         "id": 297,
         "name": "Diola"
-    },
-    {
-        "id": 298,
-        "name": "Ful"
     },
     {
         "id": 299,
@@ -19296,14 +18792,6 @@ export const languageList = [
         "name": "Abhyasi"
     },
     {
-        "id": 303,
-        "name": "Armenian"
-    },
-    {
-        "id": 304,
-        "name": "Azerbaijani"
-    },
-    {
         "id": 305,
         "name": "Georgiana"
     },
@@ -19312,32 +18800,8 @@ export const languageList = [
         "name": "Osseetti"
     },
     {
-        "id": 307,
-        "name": "Russian"
-    },
-    {
-        "id": 308,
-        "name": "German"
-    },
-    {
-        "id": 309,
-        "name": "Greek"
-    },
-    {
-        "id": 310,
-        "name": "Italian"
-    },
-    {
-        "id": 311,
-        "name": "Polish"
-    },
-    {
         "id": 312,
         "name": "Southern Slavic Languages"
-    },
-    {
-        "id": 313,
-        "name": "Turkish"
     },
     {
         "id": 314,
@@ -19352,64 +18816,12 @@ export const languageList = [
         "name": "Ga-adangme"
     },
     {
-        "id": 317,
-        "name": "Gurma"
-    },
-    {
-        "id": 318,
-        "name": "Joruba"
-    },
-    {
-        "id": 319,
-        "name": "Mossi"
-    },
-    {
-        "id": 320,
-        "name": "Arabic"
-    },
-    {
-        "id": 321,
-        "name": "English"
-    },
-    {
-        "id": 322,
-        "name": "Greek"
-    },
-    {
-        "id": 323,
-        "name": "Turkish"
-    },
-    {
-        "id": 324,
-        "name": "Danish"
-    },
-    {
         "id": 325,
         "name": "Greenlandic"
     },
     {
-        "id": 326,
-        "name": "Creole English"
-    },
-    {
-        "id": 327,
-        "name": "Creole French"
-    },
-    {
-        "id": 328,
-        "name": "French"
-    },
-    {
         "id": 329,
         "name": "Chamorro"
-    },
-    {
-        "id": 330,
-        "name": "English"
-    },
-    {
-        "id": 331,
-        "name": "Japanese"
     },
     {
         "id": 332,
@@ -19436,14 +18848,6 @@ export const languageList = [
         "name": "Quich√©"
     },
     {
-        "id": 338,
-        "name": "Spanish"
-    },
-    {
-        "id": 339,
-        "name": "Ful"
-    },
-    {
         "id": 340,
         "name": "Kissi"
     },
@@ -19454,10 +18858,6 @@ export const languageList = [
     {
         "id": 342,
         "name": "Loma"
-    },
-    {
-        "id": 343,
-        "name": "Malinke"
     },
     {
         "id": 344,
@@ -19476,100 +18876,20 @@ export const languageList = [
         "name": "Crioulo"
     },
     {
-        "id": 348,
-        "name": "Ful"
-    },
-    {
-        "id": 349,
-        "name": "Malinke"
-    },
-    {
         "id": 350,
         "name": "Mandyako"
-    },
-    {
-        "id": 351,
-        "name": "Portuguese"
-    },
-    {
-        "id": 352,
-        "name": "Arawakan"
-    },
-    {
-        "id": 353,
-        "name": "Caribbean"
-    },
-    {
-        "id": 354,
-        "name": "Creole English"
-    },
-    {
-        "id": 355,
-        "name": "French"
     },
     {
         "id": 356,
         "name": "Haiti Creole"
     },
     {
-        "id": 357,
-        "name": "English"
-    },
-    {
-        "id": 358,
-        "name": "English"
-    },
-    {
-        "id": 359,
-        "name": "Creole English"
-    },
-    {
-        "id": 360,
-        "name": "Garifuna"
-    },
-    {
         "id": 361,
         "name": "Miskito"
     },
     {
-        "id": 362,
-        "name": "Spanish"
-    },
-    {
-        "id": 363,
-        "name": "German"
-    },
-    {
-        "id": 364,
-        "name": "Hungarian"
-    },
-    {
-        "id": 365,
-        "name": "Romani"
-    },
-    {
-        "id": 366,
-        "name": "Romanian"
-    },
-    {
-        "id": 367,
-        "name": "Serbo-Croatian"
-    },
-    {
-        "id": 368,
-        "name": "Slovak"
-    },
-    {
-        "id": 369,
-        "name": "Canton Chinese"
-    },
-    {
         "id": 370,
         "name": "Chiu chau"
-    },
-    {
-        "id": 371,
-        "name": "English"
     },
     {
         "id": 372,
@@ -19580,20 +18900,8 @@ export const languageList = [
         "name": "Hakka"
     },
     {
-        "id": 374,
-        "name": "English"
-    },
-    {
         "id": 375,
         "name": "Icelandic"
-    },
-    {
-        "id": 376,
-        "name": "Asami"
-    },
-    {
-        "id": 377,
-        "name": "Bengali"
     },
     {
         "id": 378,
@@ -19620,14 +18928,6 @@ export const languageList = [
         "name": "Odia"
     },
     {
-        "id": 384,
-        "name": "Punjabi"
-    },
-    {
-        "id": 385,
-        "name": "Tamil"
-    },
-    {
         "id": 386,
         "name": "Telugu"
     },
@@ -19640,16 +18940,8 @@ export const languageList = [
         "name": "Sanskrit"
     },
     {
-        "id": 389,
-        "name": "English"
-    },
-    {
         "id": 390,
         "name": "Konkani"
-    },
-    {
-        "id": 391,
-        "name": "Nepali"
     },
     {
         "id": 392,
@@ -19700,20 +18992,12 @@ export const languageList = [
         "name": "Madura"
     },
     {
-        "id": 404,
-        "name": "Malay"
-    },
-    {
         "id": 405,
         "name": "Minangkabau"
     },
     {
         "id": 406,
         "name": "Sunda"
-    },
-    {
-        "id": 407,
-        "name": "Akan"
     },
     {
         "id": 408,
@@ -19724,28 +19008,12 @@ export const languageList = [
         "name": "Kru"
     },
     {
-        "id": 410,
-        "name": "Malinke"
-    },
-    {
         "id": 411,
         "name": "[South]Mande"
     },
     {
-        "id": 412,
-        "name": "English"
-    },
-    {
-        "id": 413,
-        "name": "Arabic"
-    },
-    {
         "id": 414,
         "name": "Assyrian"
-    },
-    {
-        "id": 415,
-        "name": "Azerbaijani"
     },
     {
         "id": 416,
@@ -19756,124 +19024,36 @@ export const languageList = [
         "name": "Persian"
     },
     {
-        "id": 418,
-        "name": "English"
-    },
-    {
         "id": 419,
         "name": "Irish"
-    },
-    {
-        "id": 420,
-        "name": "Arabic"
     },
     {
         "id": 421,
         "name": "Hebrew"
     },
     {
-        "id": 422,
-        "name": "Russian"
-    },
-    {
-        "id": 423,
-        "name": "Albaniana"
-    },
-    {
-        "id": 424,
-        "name": "French"
-    },
-    {
         "id": 425,
         "name": "Friuli"
-    },
-    {
-        "id": 426,
-        "name": "German"
-    },
-    {
-        "id": 427,
-        "name": "Italian"
-    },
-    {
-        "id": 428,
-        "name": "Romani"
     },
     {
         "id": 429,
         "name": "Sardinian"
     },
     {
-        "id": 430,
-        "name": "Slovene"
-    },
-    {
-        "id": 431,
-        "name": "Creole English"
-    },
-    {
-        "id": 432,
-        "name": "Hindi"
-    },
-    {
         "id": 433,
         "name": "Ainu"
-    },
-    {
-        "id": 434,
-        "name": "Chinese"
-    },
-    {
-        "id": 435,
-        "name": "English"
-    },
-    {
-        "id": 436,
-        "name": "Japanese"
-    },
-    {
-        "id": 437,
-        "name": "Korean"
-    },
-    {
-        "id": 438,
-        "name": "Philippene Languages"
-    },
-    {
-        "id": 439,
-        "name": "Arabic"
-    },
-    {
-        "id": 440,
-        "name": "Armenian"
     },
     {
         "id": 441,
         "name": "Circassian"
     },
     {
-        "id": 442,
-        "name": "German"
-    },
-    {
         "id": 443,
         "name": "Kazakh"
     },
     {
-        "id": 444,
-        "name": "Russian"
-    },
-    {
         "id": 445,
         "name": "Tatar"
-    },
-    {
-        "id": 446,
-        "name": "Ukrainian"
-    },
-    {
-        "id": 447,
-        "name": "Uzbek"
     },
     {
         "id": 448,
@@ -19924,48 +19104,12 @@ export const languageList = [
         "name": "Tuvalu"
     },
     {
-        "id": 460,
-        "name": "Arabic"
-    },
-    {
-        "id": 461,
-        "name": "English"
-    },
-    {
-        "id": 462,
-        "name": "Kazakh"
-    },
-    {
         "id": 463,
         "name": "Kirgiz"
     },
     {
-        "id": 464,
-        "name": "Russian"
-    },
-    {
         "id": 465,
         "name": "Tadzhik"
-    },
-    {
-        "id": 466,
-        "name": "Tatar"
-    },
-    {
-        "id": 467,
-        "name": "Ukrainian"
-    },
-    {
-        "id": 468,
-        "name": "Uzbek"
-    },
-    {
-        "id": 469,
-        "name": "English"
-    },
-    {
-        "id": 470,
-        "name": "Belorussian"
     },
     {
         "id": 471,
@@ -19974,34 +19118,6 @@ export const languageList = [
     {
         "id": 472,
         "name": "Lithuanian"
-    },
-    {
-        "id": 473,
-        "name": "Polish"
-    },
-    {
-        "id": 474,
-        "name": "Russian"
-    },
-    {
-        "id": 475,
-        "name": "Ukrainian"
-    },
-    {
-        "id": 476,
-        "name": "Arabic"
-    },
-    {
-        "id": 477,
-        "name": "Armenian"
-    },
-    {
-        "id": 478,
-        "name": "French"
-    },
-    {
-        "id": 479,
-        "name": "English"
     },
     {
         "id": 480,
@@ -20024,108 +19140,16 @@ export const languageList = [
         "name": "Grebo"
     },
     {
-        "id": 485,
-        "name": "Kpelle"
-    },
-    {
-        "id": 486,
-        "name": "Kru"
-    },
-    {
-        "id": 487,
-        "name": "Loma"
-    },
-    {
-        "id": 488,
-        "name": "Malinke"
-    },
-    {
         "id": 489,
         "name": "Mano"
-    },
-    {
-        "id": 490,
-        "name": "Arabic"
-    },
-    {
-        "id": 491,
-        "name": "Berberi"
-    },
-    {
-        "id": 492,
-        "name": "German"
-    },
-    {
-        "id": 493,
-        "name": "Italian"
-    },
-    {
-        "id": 494,
-        "name": "Turkish"
-    },
-    {
-        "id": 495,
-        "name": "Belorussian"
-    },
-    {
-        "id": 496,
-        "name": "Lithuanian"
-    },
-    {
-        "id": 497,
-        "name": "Polish"
-    },
-    {
-        "id": 498,
-        "name": "Russian"
-    },
-    {
-        "id": 499,
-        "name": "Ukrainian"
-    },
-    {
-        "id": 500,
-        "name": "French"
-    },
-    {
-        "id": 501,
-        "name": "German"
-    },
-    {
-        "id": 502,
-        "name": "Italian"
     },
     {
         "id": 503,
         "name": "Luxembourgish"
     },
     {
-        "id": 504,
-        "name": "Portuguese"
-    },
-    {
-        "id": 505,
-        "name": "Canton Chinese"
-    },
-    {
-        "id": 506,
-        "name": "English"
-    },
-    {
         "id": 507,
         "name": "Mandarin Chinese"
-    },
-    {
-        "id": 508,
-        "name": "Portuguese"
-    },
-    {
-        "id": 509,
-        "name": "English"
-    },
-    {
-        "id": 510,
-        "name": "French"
     },
     {
         "id": 511,
@@ -20148,44 +19172,20 @@ export const languageList = [
         "name": "Yao"
     },
     {
-        "id": 516,
-        "name": "Chinese"
-    },
-    {
         "id": 517,
         "name": "Dusun"
-    },
-    {
-        "id": 518,
-        "name": "English"
     },
     {
         "id": 519,
         "name": "Iban"
     },
     {
-        "id": 520,
-        "name": "Malay"
-    },
-    {
-        "id": 521,
-        "name": "Tamil"
-    },
-    {
         "id": 522,
         "name": "Dhivehi"
     },
     {
-        "id": 523,
-        "name": "English"
-    },
-    {
         "id": 524,
         "name": "Bambara"
-    },
-    {
-        "id": 525,
-        "name": "Ful"
     },
     {
         "id": 526,
@@ -20196,56 +19196,24 @@ export const languageList = [
         "name": "Songhai"
     },
     {
-        "id": 528,
-        "name": "Soninke"
-    },
-    {
         "id": 529,
         "name": "Tamashek"
-    },
-    {
-        "id": 530,
-        "name": "English"
     },
     {
         "id": 531,
         "name": "Maltese"
     },
     {
-        "id": 532,
-        "name": "English"
-    },
-    {
         "id": 533,
         "name": "Marshallese"
-    },
-    {
-        "id": 534,
-        "name": "Creole French"
-    },
-    {
-        "id": 535,
-        "name": "French"
-    },
-    {
-        "id": 536,
-        "name": "Ful"
     },
     {
         "id": 537,
         "name": "Hassaniya"
     },
     {
-        "id": 538,
-        "name": "Soninke"
-    },
-    {
         "id": 539,
         "name": "Tukulor"
-    },
-    {
-        "id": 540,
-        "name": "Wolof"
     },
     {
         "id": 541,
@@ -20256,36 +19224,8 @@ export const languageList = [
         "name": "Bhojpuri"
     },
     {
-        "id": 543,
-        "name": "Creole French"
-    },
-    {
-        "id": 544,
-        "name": "French"
-    },
-    {
-        "id": 545,
-        "name": "Hindi"
-    },
-    {
-        "id": 546,
-        "name": "Marathi"
-    },
-    {
-        "id": 547,
-        "name": "Tamil"
-    },
-    {
-        "id": 548,
-        "name": "French"
-    },
-    {
         "id": 549,
         "name": "Mahor√©"
-    },
-    {
-        "id": 550,
-        "name": "Malagasy"
     },
     {
         "id": 551,
@@ -20300,36 +19240,12 @@ export const languageList = [
         "name": "Otom√≠"
     },
     {
-        "id": 554,
-        "name": "Spanish"
-    },
-    {
         "id": 555,
         "name": "Yucatec"
     },
     {
         "id": 556,
         "name": "Zapotec"
-    },
-    {
-        "id": 557,
-        "name": "English"
-    },
-    {
-        "id": 558,
-        "name": "English"
-    },
-    {
-        "id": 559,
-        "name": "English"
-    },
-    {
-        "id": 560,
-        "name": "French"
-    },
-    {
-        "id": 561,
-        "name": "Italian"
     },
     {
         "id": 562,
@@ -20352,36 +19268,8 @@ export const languageList = [
         "name": "Dorbet"
     },
     {
-        "id": 567,
-        "name": "Kazakh"
-    },
-    {
-        "id": 568,
-        "name": "Mongolian"
-    },
-    {
-        "id": 569,
-        "name": "English"
-    },
-    {
-        "id": 570,
-        "name": "English"
-    },
-    {
-        "id": 571,
-        "name": "Arabic"
-    },
-    {
-        "id": 572,
-        "name": "Berberi"
-    },
-    {
         "id": 573,
         "name": "Chuabo"
-    },
-    {
-        "id": 574,
-        "name": "Lomwe"
     },
     {
         "id": 575,
@@ -20402,10 +19290,6 @@ export const languageList = [
     {
         "id": 579,
         "name": "Sena"
-    },
-    {
-        "id": 580,
-        "name": "Shona"
     },
     {
         "id": 581,
@@ -20456,10 +19340,6 @@ export const languageList = [
         "name": "Caprivi"
     },
     {
-        "id": 593,
-        "name": "German"
-    },
-    {
         "id": 594,
         "name": "Herero"
     },
@@ -20476,44 +19356,8 @@ export const languageList = [
         "name": "Ovambo"
     },
     {
-        "id": 598,
-        "name": "San"
-    },
-    {
-        "id": 599,
-        "name": "Chinese"
-    },
-    {
-        "id": 600,
-        "name": "English"
-    },
-    {
-        "id": 601,
-        "name": "Kiribati"
-    },
-    {
         "id": 602,
         "name": "Nauru"
-    },
-    {
-        "id": 603,
-        "name": "Tuvalu"
-    },
-    {
-        "id": 604,
-        "name": "Bhojpuri"
-    },
-    {
-        "id": 605,
-        "name": "Hindi"
-    },
-    {
-        "id": 606,
-        "name": "Maithili"
-    },
-    {
-        "id": 607,
-        "name": "Nepali"
     },
     {
         "id": 608,
@@ -20528,24 +19372,8 @@ export const languageList = [
         "name": "Tharu"
     },
     {
-        "id": 611,
-        "name": "Arabic"
-    },
-    {
-        "id": 612,
-        "name": "Dutch"
-    },
-    {
         "id": 613,
         "name": "Fries"
-    },
-    {
-        "id": 614,
-        "name": "Turkish"
-    },
-    {
-        "id": 615,
-        "name": "French"
     },
     {
         "id": 616,
@@ -20556,32 +19384,8 @@ export const languageList = [
         "name": "Polynesian Languages"
     },
     {
-        "id": 618,
-        "name": "English"
-    },
-    {
-        "id": 619,
-        "name": "Maori"
-    },
-    {
-        "id": 620,
-        "name": "Creole English"
-    },
-    {
-        "id": 621,
-        "name": "Miskito"
-    },
-    {
-        "id": 622,
-        "name": "Spanish"
-    },
-    {
         "id": 623,
         "name": "Sumo"
-    },
-    {
-        "id": 624,
-        "name": "Ful"
     },
     {
         "id": 625,
@@ -20596,24 +19400,12 @@ export const languageList = [
         "name": "Songhai-zerma"
     },
     {
-        "id": 628,
-        "name": "Tamashek"
-    },
-    {
         "id": 629,
         "name": "Bura"
     },
     {
         "id": 630,
         "name": "Edo"
-    },
-    {
-        "id": 631,
-        "name": "Ful"
-    },
-    {
-        "id": 632,
-        "name": "Hausa"
     },
     {
         "id": 633,
@@ -20632,84 +19424,16 @@ export const languageList = [
         "name": "Yoruba"
     },
     {
-        "id": 637,
-        "name": "Kanuri"
-    },
-    {
         "id": 638,
         "name": "Tiv"
-    },
-    {
-        "id": 639,
-        "name": "English"
     },
     {
         "id": 640,
         "name": "Niue"
     },
     {
-        "id": 641,
-        "name": "English"
-    },
-    {
-        "id": 642,
-        "name": "English"
-    },
-    {
         "id": 643,
         "name": "Carolinian"
-    },
-    {
-        "id": 644,
-        "name": "Chamorro"
-    },
-    {
-        "id": 645,
-        "name": "Chinese"
-    },
-    {
-        "id": 646,
-        "name": "English"
-    },
-    {
-        "id": 647,
-        "name": "Korean"
-    },
-    {
-        "id": 648,
-        "name": "Philippene Languages"
-    },
-    {
-        "id": 649,
-        "name": "Danish"
-    },
-    {
-        "id": 650,
-        "name": "English"
-    },
-    {
-        "id": 651,
-        "name": "Norwegian"
-    },
-    {
-        "id": 652,
-        "name": "Saame"
-    },
-    {
-        "id": 653,
-        "name": "Swedish"
-    },
-    {
-        "id": 654,
-        "name": "Arabic"
-    },
-    {
-        "id": 655,
-        "name": "Balochi"
-    },
-    {
-        "id": 656,
-        "name": "Balochi"
     },
     {
         "id": 657,
@@ -20720,52 +19444,12 @@ export const languageList = [
         "name": "Hindko"
     },
     {
-        "id": 659,
-        "name": "Pashto"
-    },
-    {
-        "id": 660,
-        "name": "Punjabi"
-    },
-    {
         "id": 661,
         "name": "Saraiki"
     },
     {
-        "id": 662,
-        "name": "Sindhi"
-    },
-    {
-        "id": 663,
-        "name": "Urdu"
-    },
-    {
-        "id": 664,
-        "name": "Chinese"
-    },
-    {
-        "id": 665,
-        "name": "English"
-    },
-    {
         "id": 666,
         "name": "Palau"
-    },
-    {
-        "id": 667,
-        "name": "Philippene Languages"
-    },
-    {
-        "id": 668,
-        "name": "English"
-    },
-    {
-        "id": 669,
-        "name": "Arabic"
-    },
-    {
-        "id": 670,
-        "name": "Creole English"
     },
     {
         "id": 671,
@@ -20780,44 +19464,12 @@ export const languageList = [
         "name": "Guaym√≠"
     },
     {
-        "id": 674,
-        "name": "Spanish"
-    },
-    {
-        "id": 675,
-        "name": "Malenasian Languages"
-    },
-    {
         "id": 676,
         "name": "Papuan Languages"
     },
     {
-        "id": 677,
-        "name": "German"
-    },
-    {
         "id": 678,
         "name": "Guaran√≠"
-    },
-    {
-        "id": 679,
-        "name": "Portuguese"
-    },
-    {
-        "id": 680,
-        "name": "Spanish"
-    },
-    {
-        "id": 681,
-        "name": "Aimar√°"
-    },
-    {
-        "id": 682,
-        "name": "Ket¬öua"
-    },
-    {
-        "id": 683,
-        "name": "Spanish"
     },
     {
         "id": 684,
@@ -20864,90 +19516,6 @@ export const languageList = [
         "name": "Pitcairnese"
     },
     {
-        "id": 695,
-        "name": "Belorussian"
-    },
-    {
-        "id": 696,
-        "name": "German"
-    },
-    {
-        "id": 697,
-        "name": "Polish"
-    },
-    {
-        "id": 698,
-        "name": "Ukrainian"
-    },
-    {
-        "id": 699,
-        "name": "Portuguese"
-    },
-    {
-        "id": 700,
-        "name": "English"
-    },
-    {
-        "id": 701,
-        "name": "Spanish"
-    },
-    {
-        "id": 702,
-        "name": "Arabic"
-    },
-    {
-        "id": 703,
-        "name": "Urdu"
-    },
-    {
-        "id": 704,
-        "name": "English"
-    },
-    {
-        "id": 705,
-        "name": "English"
-    },
-    {
-        "id": 706,
-        "name": "German"
-    },
-    {
-        "id": 707,
-        "name": "Hungarian"
-    },
-    {
-        "id": 708,
-        "name": "Romani"
-    },
-    {
-        "id": 709,
-        "name": "Romanian"
-    },
-    {
-        "id": 710,
-        "name": "Serbo-Croatian"
-    },
-    {
-        "id": 711,
-        "name": "Ukrainian"
-    },
-    {
-        "id": 712,
-        "name": "English"
-    },
-    {
-        "id": 713,
-        "name": "Russian"
-    },
-    {
-        "id": 714,
-        "name": "Tatar"
-    },
-    {
-        "id": 715,
-        "name": "Ukrainian"
-    },
-    {
         "id": 716,
         "name": "Bashkir"
     },
@@ -20972,120 +19540,20 @@ export const languageList = [
         "name": "Yakut"
     },
     {
-        "id": 722,
-        "name": "French"
-    },
-    {
         "id": 723,
         "name": "Rwanda"
-    },
-    {
-        "id": 724,
-        "name": "English"
-    },
-    {
-        "id": 725,
-        "name": "English"
-    },
-    {
-        "id": 726,
-        "name": "Creole English"
-    },
-    {
-        "id": 727,
-        "name": "English"
-    },
-    {
-        "id": 728,
-        "name": "Creole French"
-    },
-    {
-        "id": 729,
-        "name": "English"
-    },
-    {
-        "id": 730,
-        "name": "English"
-    },
-    {
-        "id": 731,
-        "name": "French"
-    },
-    {
-        "id": 732,
-        "name": "Creole English"
-    },
-    {
-        "id": 733,
-        "name": "English"
-    },
-    {
-        "id": 734,
-        "name": "English"
-    },
-    {
-        "id": 735,
-        "name": "Samoan"
     },
     {
         "id": 736,
         "name": "Samoan-English"
     },
     {
-        "id": 737,
-        "name": "Italian"
-    },
-    {
-        "id": 738,
-        "name": "Crioulo"
-    },
-    {
-        "id": 739,
-        "name": "French"
-    },
-    {
-        "id": 740,
-        "name": "Arabic"
-    },
-    {
-        "id": 741,
-        "name": "Diola"
-    },
-    {
-        "id": 742,
-        "name": "Ful"
-    },
-    {
-        "id": 743,
-        "name": "Malinke"
-    },
-    {
         "id": 744,
         "name": "Serer"
     },
     {
-        "id": 745,
-        "name": "Soninke"
-    },
-    {
-        "id": 746,
-        "name": "Wolof"
-    },
-    {
         "id": 747,
         "name": "Serbian"
-    },
-    {
-        "id": 748,
-        "name": "Hungarian"
-    },
-    {
-        "id": 749,
-        "name": "Slovak"
-    },
-    {
-        "id": 750,
-        "name": "Romanian"
     },
     {
         "id": 751,
@@ -21104,28 +19572,12 @@ export const languageList = [
         "name": "Bulgarian"
     },
     {
-        "id": 755,
-        "name": "English"
-    },
-    {
-        "id": 756,
-        "name": "English"
-    },
-    {
-        "id": 757,
-        "name": "French"
-    },
-    {
         "id": 758,
         "name": "Seselwa"
     },
     {
         "id": 759,
         "name": "Bullom-sherbro"
-    },
-    {
-        "id": 760,
-        "name": "Ful"
     },
     {
         "id": 761,
@@ -21148,88 +19600,12 @@ export const languageList = [
         "name": "Temne"
     },
     {
-        "id": 766,
-        "name": "Yalunka"
-    },
-    {
-        "id": 767,
-        "name": "Chinese"
-    },
-    {
-        "id": 768,
-        "name": "Malay"
-    },
-    {
-        "id": 769,
-        "name": "Tamil"
-    },
-    {
-        "id": 770,
-        "name": "English"
-    },
-    {
         "id": 771,
         "name": "Czech and Moravian"
     },
     {
-        "id": 772,
-        "name": "Hungarian"
-    },
-    {
-        "id": 773,
-        "name": "Romani"
-    },
-    {
-        "id": 774,
-        "name": "Slovak"
-    },
-    {
         "id": 775,
         "name": "Ukrainian and Russian"
-    },
-    {
-        "id": 776,
-        "name": "Hungarian"
-    },
-    {
-        "id": 777,
-        "name": "Serbo-Croatian"
-    },
-    {
-        "id": 778,
-        "name": "Slovene"
-    },
-    {
-        "id": 779,
-        "name": "Malenasian Languages"
-    },
-    {
-        "id": 780,
-        "name": "Papuan Languages"
-    },
-    {
-        "id": 781,
-        "name": "Polynesian Languages"
-    },
-    {
-        "id": 782,
-        "name": "Arabic"
-    },
-    {
-        "id": 783,
-        "name": "Somali"
-    },
-    {
-        "id": 784,
-        "name": "Afrikaans"
-    },
-    {
-        "id": 785,
-        "name": "English"
-    },
-    {
-        "id": 786,
-        "name": "Ndebele"
     },
     {
         "id": 787,
@@ -21244,14 +19620,6 @@ export const languageList = [
         "name": "Swazi"
     },
     {
-        "id": 790,
-        "name": "Tsonga"
-    },
-    {
-        "id": 791,
-        "name": "Tswana"
-    },
-    {
         "id": 792,
         "name": "Venda"
     },
@@ -21260,44 +19628,16 @@ export const languageList = [
         "name": "Xhosa"
     },
     {
-        "id": 794,
-        "name": "Zulu"
-    },
-    {
-        "id": 795,
-        "name": "English"
-    },
-    {
-        "id": 796,
-        "name": "English"
-    },
-    {
         "id": 797,
         "name": "Basque"
-    },
-    {
-        "id": 798,
-        "name": "Catalan"
     },
     {
         "id": 799,
         "name": "Galecian"
     },
     {
-        "id": 800,
-        "name": "Spanish"
-    },
-    {
         "id": 801,
         "name": "Singhalese"
-    },
-    {
-        "id": 802,
-        "name": "Tamil"
-    },
-    {
-        "id": 803,
-        "name": "Arabic"
     },
     {
         "id": 804,
@@ -21336,84 +19676,16 @@ export const languageList = [
         "name": "Zande"
     },
     {
-        "id": 813,
-        "name": "English"
-    },
-    {
-        "id": 814,
-        "name": "Hindi"
-    },
-    {
         "id": 815,
         "name": "Sranantonga"
-    },
-    {
-        "id": 816,
-        "name": "English"
-    },
-    {
-        "id": 817,
-        "name": "Swazi"
-    },
-    {
-        "id": 818,
-        "name": "Afrikaans"
-    },
-    {
-        "id": 819,
-        "name": "Zulu"
     },
     {
         "id": 820,
         "name": "Southern Ndebele"
     },
     {
-        "id": 821,
-        "name": "Tsonga"
-    },
-    {
-        "id": 822,
-        "name": "Arabic"
-    },
-    {
-        "id": 823,
-        "name": "Finnish"
-    },
-    {
-        "id": 824,
-        "name": "Norwegian"
-    },
-    {
-        "id": 825,
-        "name": "Southern Slavic Languages"
-    },
-    {
-        "id": 826,
-        "name": "Spanish"
-    },
-    {
-        "id": 827,
-        "name": "Swedish"
-    },
-    {
-        "id": 828,
-        "name": "French"
-    },
-    {
-        "id": 829,
-        "name": "German"
-    },
-    {
-        "id": 830,
-        "name": "Italian"
-    },
-    {
         "id": 831,
         "name": "Romansh"
-    },
-    {
-        "id": 832,
-        "name": "English"
     },
     {
         "id": 833,
@@ -21424,44 +19696,12 @@ export const languageList = [
         "name": "Atayal"
     },
     {
-        "id": 835,
-        "name": "Hakka"
-    },
-    {
-        "id": 836,
-        "name": "Mandarin Chinese"
-    },
-    {
         "id": 837,
         "name": "Min"
     },
     {
         "id": 838,
         "name": "Paiwan"
-    },
-    {
-        "id": 839,
-        "name": "Russian"
-    },
-    {
-        "id": 840,
-        "name": "Tadzhik"
-    },
-    {
-        "id": 841,
-        "name": "Uzbek"
-    },
-    {
-        "id": 842,
-        "name": "English"
-    },
-    {
-        "id": 843,
-        "name": "Chinese"
-    },
-    {
-        "id": 844,
-        "name": "Khmer"
     },
     {
         "id": 845,
@@ -21472,28 +19712,12 @@ export const languageList = [
         "name": "Lao"
     },
     {
-        "id": 847,
-        "name": "Malay"
-    },
-    {
         "id": 848,
         "name": "Thai"
     },
     {
-        "id": 849,
-        "name": "English"
-    },
-    {
         "id": 850,
         "name": "Ane"
-    },
-    {
-        "id": 851,
-        "name": "Ewe"
-    },
-    {
-        "id": 852,
-        "name": "Gurma"
     },
     {
         "id": 853,
@@ -21516,36 +19740,8 @@ export const languageList = [
         "name": "Watyi"
     },
     {
-        "id": 858,
-        "name": "English"
-    },
-    {
         "id": 859,
         "name": "Tokelau"
-    },
-    {
-        "id": 860,
-        "name": "English"
-    },
-    {
-        "id": 861,
-        "name": "Tongan"
-    },
-    {
-        "id": 862,
-        "name": "Creole English"
-    },
-    {
-        "id": 863,
-        "name": "English"
-    },
-    {
-        "id": 864,
-        "name": "Hindi"
-    },
-    {
-        "id": 865,
-        "name": "Arabic"
     },
     {
         "id": 866,
@@ -21554,50 +19750,6 @@ export const languageList = [
     {
         "id": 867,
         "name": "Arabic-French-English"
-    },
-    {
-        "id": 868,
-        "name": "Arabic"
-    },
-    {
-        "id": 869,
-        "name": "Kurdish"
-    },
-    {
-        "id": 870,
-        "name": "Turkish"
-    },
-    {
-        "id": 871,
-        "name": "Kazakh"
-    },
-    {
-        "id": 872,
-        "name": "Russian"
-    },
-    {
-        "id": 873,
-        "name": "Turkmenian"
-    },
-    {
-        "id": 874,
-        "name": "Uzbek"
-    },
-    {
-        "id": 875,
-        "name": "English"
-    },
-    {
-        "id": 876,
-        "name": "English"
-    },
-    {
-        "id": 877,
-        "name": "Kiribati"
-    },
-    {
-        "id": 878,
-        "name": "Tuvalu"
     },
     {
         "id": 879,
@@ -21628,10 +19780,6 @@ export const languageList = [
         "name": "Nkole"
     },
     {
-        "id": 886,
-        "name": "Rwanda"
-    },
-    {
         "id": 887,
         "name": "Soga"
     },
@@ -21640,108 +19788,16 @@ export const languageList = [
         "name": "Teso"
     },
     {
-        "id": 889,
-        "name": "Belorussian"
-    },
-    {
-        "id": 890,
-        "name": "Bulgariana"
-    },
-    {
-        "id": 891,
-        "name": "Hungarian"
-    },
-    {
-        "id": 892,
-        "name": "Polish"
-    },
-    {
-        "id": 893,
-        "name": "Romanian"
-    },
-    {
-        "id": 894,
-        "name": "Russian"
-    },
-    {
-        "id": 895,
-        "name": "Ukrainian"
-    },
-    {
-        "id": 896,
-        "name": "Arabic"
-    },
-    {
-        "id": 897,
-        "name": "Hindi"
-    },
-    {
-        "id": 898,
-        "name": "English"
-    },
-    {
-        "id": 899,
-        "name": "English"
-    },
-    {
-        "id": 900,
-        "name": "Spanish"
-    },
-    {
         "id": 901,
         "name": "Karakalpak"
-    },
-    {
-        "id": 902,
-        "name": "Kazakh"
-    },
-    {
-        "id": 903,
-        "name": "Russian"
-    },
-    {
-        "id": 904,
-        "name": "Tadzhik"
-    },
-    {
-        "id": 905,
-        "name": "Tatar"
-    },
-    {
-        "id": 906,
-        "name": "Uzbek"
     },
     {
         "id": 907,
         "name": "Bislama"
     },
     {
-        "id": 908,
-        "name": "English"
-    },
-    {
-        "id": 909,
-        "name": "French"
-    },
-    {
-        "id": 910,
-        "name": "English"
-    },
-    {
-        "id": 911,
-        "name": "Chinese"
-    },
-    {
-        "id": 912,
-        "name": "Khmer"
-    },
-    {
         "id": 913,
         "name": "Man"
-    },
-    {
-        "id": 914,
-        "name": "Miao"
     },
     {
         "id": 915,
@@ -21752,16 +19808,8 @@ export const languageList = [
         "name": "Nung"
     },
     {
-        "id": 917,
-        "name": "Thai"
-    },
-    {
         "id": 918,
         "name": "Tho"
-    },
-    {
-        "id": 919,
-        "name": "Vietnamese"
     },
     {
         "id": 920,
@@ -21770,14 +19818,6 @@ export const languageList = [
     {
         "id": 921,
         "name": "Wallis"
-    },
-    {
-        "id": 922,
-        "name": "Arabic"
-    },
-    {
-        "id": 923,
-        "name": "Arabic"
     },
     {
         "id": 924,
@@ -21798,33 +19838,8 @@ export const languageList = [
     {
         "id": 928,
         "name": "Nsenga"
-    },
-    {
-        "id": 929,
-        "name": "Nyanja"
-    },
-    {
-        "id": 930,
-        "name": "Tongan"
-    },
-    {
-        "id": 931,
-        "name": "English"
-    },
-    {
-        "id": 932,
-        "name": "Ndebele"
-    },
-    {
-        "id": 933,
-        "name": "Nyanja"
-    },
-    {
-        "id": 934,
-        "name": "Shona"
     }
 ];
-
 export const currency = [
     {
         "id": 1,
@@ -22651,11 +20666,7 @@ export const residencyStatusList = [
   { id: 4, name: 'Student Visa' },
 ];
 
-export const motherTongue = [
-  {id:1, name:'Tamil'},
-  {id:2, name:'English'},
-  {id:3, name:'Chaniess'}
-]
+
 
 export const knownLanguages = [
   {id:1, name:'Tamil'},

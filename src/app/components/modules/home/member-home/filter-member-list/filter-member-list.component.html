@@ -3,7 +3,7 @@
   <div class="text-lg fw-bold">Matching Profile</div>
   <div class="text-md">Browse the profile below to learn more about their background and experience.</div>
 </div>
-<div class="text-lg fw-bold text-muted p-2">{{totalItemCount}} matching profiles</div>
+<div class="text-lg fw-bold text-muted p-2">{{totalItemCount === 1 ? 'Matching profile' : 'Matching profiles' }} </div>
 <div class="row m-0 member-list">
   <div class="d-flex justify-content-center my-auto" *ngIf="isLoading">
     <div class="spinner-grow text-danger me-1" role="status">
@@ -34,7 +34,7 @@
           <div class="mt-1 text-sm"><i class="fas fa-star me-2"></i>{{member.religion}}</div>
         </div>
 
-        <div class="col-4 mt-auto">
+        <div class="col-12 col-sm-12 col-mf-4 mt-auto">
           <div class="me-2">
           <div class="ms-2 d-flex justify-content-end me-1">
           <div class="me-2">
