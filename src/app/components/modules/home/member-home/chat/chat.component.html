@@ -240,18 +240,10 @@
                     class="form-control"
                     placeholder="Type a message..." required />
 
-              <!-- Emoji Picker Toggle Button -->
-              <button type="button"
-                      class="btn btn-outline-secondary position-relative"
-                      (click)="toggleEmojiPicker()">
-                <i class="fas fa-smile"></i>
-              </button>
 
-              <!-- File Upload Button -->
-              <input type="file" (change)="onFileSelected($event)" hidden #fileInput />
-              <button type="button" class="btn btn-outline-secondary" (click)="fileInput.click()">
-                <i class="fas fa-image"></i>
-              </button>
+
+
+
 
               <!-- Send Button -->
               <button type="submit" class="btn btn-danger">➤</button>
