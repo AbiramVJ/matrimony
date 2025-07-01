@@ -23,14 +23,15 @@ public tabs:any = [
 public currentTap : number = 1;
 
 ngOnChanges(): void {
-  if(!this.memberProfile?.profileJob){
-     this.tabs = this.tabs.filter((tab:any) => tab.id !== 3);
-  }
+  if(this.memberProfile){
+    if(!this.memberProfile?.profileJob){
+        this.tabs = this.tabs.filter((tab:any) => tab.id !== 3);
+      }
 
-  if(!this.memberProfile?.profileAstrology?.timeOfBirth && !this.memberProfile.profileAstrology?.starName && !this.memberProfile.profileAstrology?.rasiName){
-    this.tabs = this.tabs.filter((tab:any) => tab.id !== 5);
+      if(!this.memberProfile?.profileAstrology?.timeOfBirth && !this.memberProfile.profileAstrology?.starName && !this.memberProfile.profileAstrology?.rasiName){
+        this.tabs = this.tabs.filter((tab:any) => tab.id !== 5);
+      }
   }
-
 }
 
 }

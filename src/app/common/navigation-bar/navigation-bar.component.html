@@ -114,13 +114,7 @@
                     </div>
                   </div>
                 </div>
-                <!-- Empty state when no chats match search -->
-                <div *ngIf="filteredChats.length === 0 && searchTerm" class="no-results">
-                  <div class="text-center py-4">
-                    <i class="fas fa-search text-muted mb-3" style="font-size: 2rem;"></i>
-                    <p class="text-muted">No conversations found for "{{ searchTerm }}"</p>
-                  </div>
-                </div>
+
               </div>
             </div>
             <div *ngIf="participants.length === 0">

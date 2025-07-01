@@ -224,7 +224,7 @@ export class UserProfile {
     // this.profileImages = (obj?.profileImages ?? []).map((i: any) => new ProfileImage(i));
     this.profileImages = images.length > 0
   ? images.map((i: any) => new ProfileImage(i))
-  : [new ProfileImage({ url: 'https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740' })];
+  : [new ProfileImage({ url: 'https://dev1mg.blob.core.windows.net/temp/mgate/indian-groom-wearing-traditional-wedding-sherwani-turban-vector-illustration-gold-red-feather-detail-depicting-381238297.webp-446f2768-f5af-417f-9d39-17fa69ce3636?sv=2025-05-05&se=2025-07-01T10%3A28%3A51Z&sr=b&sp=rd&sig=bm5avHwTVMc%2BHiFNjDG4Y3XdOqFmboMPeuQqhYOqAtw%3D' })];
     this.profileAddresses = (obj?.profileAddresses ?? []).map((a: any) => new ProfileAddress(a));
     this.profileEducations = (obj?.profileEducations ?? []).map((e: any) => new ProfileEducation(e));
     this.phoneCode = obj.phoneCode ?? '';
@@ -300,7 +300,7 @@ export class MemberProfile {
     this.age = obj?.age ?? null;
     this.religion = obj?.religion ?? '';
     this.jobTitle = obj?.jobTitle ?? null;
-    this.imageUrl = obj?.imageUrl ?? 'https://cdn-icons-png.flaticon.com/512/9187/9187604.png';
+    this.imageUrl = obj?.imageUrl ? obj?.imageUrl : obj?.gender === 1 ?'https://dev1mg.blob.core.windows.net/temp/mgate/indian-groom-wearing-traditional-wedding-sherwani-turban-vector-illustration-gold-red-feather-detail-depicting-381238297.webp-446f2768-f5af-417f-9d39-17fa69ce3636?sv=2025-05-05&se=2025-07-01T10%3A28%3A51Z&sr=b&sp=rd&sig=bm5avHwTVMc%2BHiFNjDG4Y3XdOqFmboMPeuQqhYOqAtw%3D' : 'https://dev1mg.blob.core.windows.net/temp/mgate/lslct_0bsqiwv8ltmszdbq.webp-e88fd630-ea66-460e-bf3e-ecfddecd028d?sv=2025-05-05&se=2025-07-01T10%3A42%3A07Z&sr=b&sp=rd&sig=fmZ0okZnRekhfiq%2BEOIyhqgDovMmiBPPMc1UYx6Zp1w%3D';
     this.livingAddresses = obj.livingAddresses ? new LivingAddress(obj.livingAddresses) : null;
   }
 }

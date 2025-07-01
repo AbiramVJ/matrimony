@@ -134,7 +134,6 @@ export class NavigationBarComponent {
     this._chatService.onChatParticipantsReceived((data: any[]) => {
       this.participants = data;
       this.UnreadCount = this.participants.filter((p: ChatParticipant) => !p.isRead).length;
-      console.log(this.participants);
     });
   }
 
@@ -222,25 +221,11 @@ get displayedProfiles() {
     window.location.href = "/";
   }
 
-  get filteredChats(): any[] {
-    if (!this.searchTerm) {
-      return this.chatList;
-    }
 
-    return this.chatList.filter(chat =>
-      chat.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-      chat.lastMessage.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
-  }
 
   getInitials(name: string): string {
     return name.split(' ').map(word => word.charAt(0)).join('').toUpperCase();
   }
-
-  // selectChat(chatId: string): void {
-  //   this.selectedChatId = chatId;
-
-  // }
 
   public openChat(member: ChatParticipant) {
     this.selectedChatId = member.receiverProfileId;
