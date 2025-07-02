@@ -1,6 +1,6 @@
 
 import { DataProviderService } from './../../../../../../services/data-provider.service';
-import { Component, effect, EventEmitter, Input, Output } from '@angular/core';
+import { Component, effect, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import {
   COMMON_DIRECTIVES,
   FORM_MODULES,
@@ -13,15 +13,16 @@ import { CommonModule } from '@angular/common';
 import { MemberService } from '../../../../../../services/member.service';
 import { ToastrService } from 'ngx-toastr';
 import { AddressType } from '../../../../../../helpers/enum';
-
+import { NgxGpAutocompleteDirective, NgxGpAutocompleteModule } from "@angular-magic/ngx-gp-autocomplete";
 @Component({
   selector: 'app-contact-info-form',
-  imports: [COMMON_DIRECTIVES,FORM_MODULES,PhoneNumberInputComponent,CommonModule],
+  imports: [COMMON_DIRECTIVES,FORM_MODULES,PhoneNumberInputComponent,CommonModule,NgxGpAutocompleteModule],
   templateUrl: './contact-info-form.component.html',
   styleUrl: './contact-info-form.component.scss',
   standalone: true,
 })
 export class ContactInfoFormComponent {
+  @ViewChild('ngxPlaces') placesRef!: NgxGpAutocompleteDirective;
   @Output() contactDetailsEmitter = new EventEmitter<any>();
   @Input() isEditFrom: boolean = false;
   @Input() memberProfile!: UserProfile;
@@ -49,6 +50,12 @@ export class ContactInfoFormComponent {
   public residencyStatusList = residencyStatusList;
   public selectedTempResidency: number = 1;
   public selectedResidency: number = 1;
+
+//   autocompleteOptions = {
+//   types: ['address'], // or ['(cities)'], ['establishment']
+//   componentRestrictions: { country: ['LK'] }, // restrict to specific countries
+//   fields: ['formatted_address', 'geometry', 'name'] // optional fields to return
+// };
   constructor(
     private fb: FormBuilder,
     private dataProvider: DataProviderService,
@@ -86,6 +93,8 @@ export class ContactInfoFormComponent {
       residencyStatus: [1, Validators.required],
       zipCode: ['', Validators.required],
       addressType: [0],
+      latitude:[null],
+      longitude:[null],
       // temporaryAddress: this.fb.group({
       //   doorNumber: [''],
       //   street: [''],
@@ -97,6 +106,10 @@ export class ContactInfoFormComponent {
       // }),
     });
   }
+
+
+
+
 
   //PHONE NUMBER
   public getPhoneNumber(event: any) {
@@ -119,8 +132,8 @@ export class ContactInfoFormComponent {
       state: this.selectedProvince,
       zipcode: this.userContactFrom.value.zipCode,
       country: this.selectedCountry,
-      latitude: 0,
-      longitude: 0,
+      latitude: this.userContactFrom.value.latitude,
+      longitude: this.userContactFrom.value.longitude,
       addressType:AddressType.living,
       residentStatus: this.selectedResidency,
       isDefault: true,
@@ -228,6 +241,8 @@ export class ContactInfoFormComponent {
       doorNumber: permanentAddress?.number || '',
       street: permanentAddress?.street || '',
       city: permanentAddress?.city || '',
+      longitude:permanentAddress?.latitude || 0,
+      latitude:permanentAddress?.longitude || 0,
      // stateProvince: permanentAddress?.state || '',
       residencyStatus: permanentAddress?.residentStatus || 1,
       zipCode: permanentAddress?.zipcode || '',
@@ -262,4 +277,61 @@ export class ContactInfoFormComponent {
    this.selectedProvince = country.stateProvinces[0].name;
   }
 
+  // GOODLE AUTO COMPLETE
+  public handleAddressChange(place: any): void {
+    if (!place || !place.geometry || !place.address_components) {
+      console.warn('Invalid place object');
+      return;
+    }
+
+    let streetNumber = '';
+    let streetName = '';
+    let city = '';
+    let province = '';
+    let country = '';
+    let postalCode = '';
+
+    for (const component of place.address_components) {
+      const types = component.types;
+
+      if (types.includes('street_number')) {
+        streetNumber = component.long_name;
+      }
+
+      if (types.includes('route')) {
+        streetName = component.long_name;
+      }
+
+      if (types.includes('locality')) {
+        city = component.long_name;
+      }
+
+      if (types.includes('administrative_area_level_1')) {
+        province = component.long_name;
+      }
+
+      if (types.includes('country')) {
+        country = component.long_name;
+      }
+
+      if (types.includes('postal_code')) {
+        postalCode = component.long_name;
+      }
+    }
+
+    const fullStreet = `${streetNumber} ${streetName}`.trim();
+    this.userContactFrom.patchValue({
+        doorNumber: streetNumber || '',
+        street: streetName || fullStreet,
+        city: city || '',
+        stateProvince: province || '',
+        zipCode: postalCode || '',
+        latitude:place.geometry.location.lat(),
+        longitude: place.geometry.location.lng(),
+      });
+    let selectedCountry = this.countryList.find((c: any) => c.country?.toLowerCase().includes(country.toLowerCase()));
+    this.selectedCountry = selectedCountry.country;
+    this.selectedProvince = province;
+    //this.changeCountry();
+  }
 }

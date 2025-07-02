@@ -10,6 +10,13 @@
     <div class="col-12 col-md-6">
       <app-phone-number-input (phoneNumberEmitter)="getPhoneNumber($event)" [isSubmitted]="isSubmitted" [setPhoneNumber]="setPhoneNumber" [phoneCode]="PhoneCode"></app-phone-number-input>
     </div>
+
+    <!-- GOOGLE AUTO COMPLETE -->
+     <div class="col-12 mb-3">
+      <label for="Door text-sm" class="mb-2">Search Address</label>
+      <input class="form-control" #placesRef="ngx-places" ngx-gp-autocomplete  (onAddressChange)="handleAddressChange($event)"/>
+    </div>
+
       <div class="col-12 col-md-6 mb-3">
       <label for="email text-sm" class="mb-2">Country<span class="text-danger">*</span> </label>
       <ng-select
@@ -49,7 +56,6 @@
       </ng-template>
     </ng-select>
     </div>
-
     <!-- DOOR NUMBER -->
     <div class="col-12 col-md-6 mb-3">
       <label for="Door text-sm" class="mb-2">Door Number</label>

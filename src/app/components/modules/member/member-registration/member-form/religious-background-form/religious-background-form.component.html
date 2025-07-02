@@ -107,6 +107,12 @@
   <input type="text" id="Door" formControlName="doorNumber" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('doorNumber')?.errors}"/>
 
 </div> -->
+<!-- GOOGLE AUTO COMPLETE -->
+    <div class="col-12 mb-3">
+      <label for="Door text-sm" class="mb-2">Search Address</label>
+      <input class="form-control" #placesRef="ngx-places" ngx-gp-autocomplete  (onAddressChange)="handleAddressChange($event)"/>
+    </div>
+
   <div class="col-12 col-md-6 mb-3">
     <label for="email text-sm" class="mb-2">Country<span class="text-danger">*</span> </label>
     <ng-select

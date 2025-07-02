@@ -1,6 +1,6 @@
 import { MemberService } from './../../../../../../services/member.service';
 import { DataProviderService } from './../../../../../../services/data-provider.service';
-import { Component, effect, EventEmitter, Input, Output } from '@angular/core';
+import { Component, effect, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { COMMON_DIRECTIVES, FORM_MODULES } from '../../../../../../common/common-imports';
 import { Natshathira, raasiList, Religions } from '../../../../../../helpers/data';
@@ -10,14 +10,15 @@ import { Religion } from '../../../../../../models/member/religion.model';
 import { ProfileAddress, UserProfile } from '../../../../../../models/index.model';
 import { ToastrService } from 'ngx-toastr';
 import { AddressType } from '../../../../../../helpers/enum';
-
+import { NgxGpAutocompleteDirective, NgxGpAutocompleteModule } from "@angular-magic/ngx-gp-autocomplete";
 @Component({
   selector: 'app-religious-background-form',
-  imports: [COMMON_DIRECTIVES,FORM_MODULES],
+  imports: [COMMON_DIRECTIVES,FORM_MODULES,NgxGpAutocompleteModule],
   templateUrl: './religious-background-form.component.html',
   styleUrl: './religious-background-form.component.scss'
 })
 export class ReligiousBackgroundFormComponent {
+   @ViewChild('ngxPlaces') placesRef!: NgxGpAutocompleteDirective;
   @Output() userReligiousEmitter = new EventEmitter<UserReligiousInfo>();
   @Input() isEditFrom:boolean = false;
   @Input() memberProfile!:UserProfile;
@@ -134,6 +135,8 @@ export class ReligiousBackgroundFormComponent {
       city: ['',Validators.required],
       stateProvince: [''],
       country: [''],
+      latitude:[0],
+      longitude:[0]
     })
   }
 
@@ -147,8 +150,8 @@ export class ReligiousBackgroundFormComponent {
       state: this.selectedProvince,
       zipcode: null,
       country: this.selectedCountry ,
-      latitude: 0,
-      longitude: 0,
+      latitude: formValue.latitude,
+      longitude: formValue.longitude,
       addressType: AddressType.birth,
       residentStatus: null,
       isDefault: true
@@ -179,8 +182,8 @@ export class ReligiousBackgroundFormComponent {
             a.state = this.selectedProvince;
             a.zipcode = null;
             a.country = this.selectedCountry;
-            a.latitude = 0;
-            a.longitude = 0;
+            a.latitude = formValue.latitude;
+            a.longitude = formValue.longitude;
             a.addressType = 3;
             a.residentStatus = null;
             a.isDefault = true;
@@ -248,7 +251,63 @@ export class ReligiousBackgroundFormComponent {
   }
   public changeCountry(){
    const country = this.countryList.find((country:any) => country.country === this.selectedCountry);
+   console.log(country);
    this.stateAndProvince = country.stateProvinces;
    this.selectedProvince = country.stateProvinces[0].name;
+  }
+
+  // GOODLE AUTO COMPLETE
+  public handleAddressChange(place: any): void {
+    if (!place || !place.geometry || !place.address_components) {
+      console.warn('Invalid place object');
+      return;
+    }
+
+    let streetNumber = '';
+    let streetName = '';
+    let city = '';
+    let province = '';
+    let country = '';
+
+
+    for (const component of place.address_components) {
+      const types = component.types;
+
+      if (types.includes('street_number')) {
+        streetNumber = component.long_name;
+      }
+
+      if (types.includes('route')) {
+        streetName = component.long_name;
+      }
+
+      if (types.includes('locality')) {
+        city = component.long_name;
+      }
+
+      if (types.includes('administrative_area_level_1')) {
+        province = component.long_name;
+      }
+
+      if (types.includes('country')) {
+        country = component.long_name;
+      }
+
+
+    }
+
+    const fullStreet = `${streetNumber} ${streetName}`.trim();
+    this.userReligiousForm.patchValue({
+        street: streetName || fullStreet,
+        city: city || '',
+        stateProvince: province || '',
+        latitude:place.geometry.location.lat(),
+        longitude: place.geometry.location.lng(),
+      });
+    let selectedCountry = this.countryList.find((c: any) => c.country?.toLowerCase().includes(country.toLowerCase()));
+    this.selectedCountry = selectedCountry.country;
+    this.selectedProvince = province;
+    console.log(province)
+   // this.changeCountry();
   }
 }
