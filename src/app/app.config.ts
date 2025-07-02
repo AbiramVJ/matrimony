@@ -6,7 +6,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AuthInterceptor } from './middleware/auth.interceptor';
 import { provideAngularSvgIcon } from 'angular-svg-icon';
-import { firebaseEnvironment } from './environments/environment';
+import { firebaseEnvironment, GoogleKey } from './environments/environment';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire/compat';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
@@ -49,7 +49,7 @@ export const appConfig: ApplicationConfig = {
     {
       provide: Loader,
       useValue: new Loader({
-        apiKey: 'AIzaSyAoyHKkR4lPW6riz_RuEol1ZOt1MEswA3I',
+        apiKey: GoogleKey,
         libraries: ['places']
       })
     }

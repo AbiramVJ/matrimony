@@ -133,7 +133,9 @@ export class PersonalDetailsFormComponent {
       this.userPersonalDetailsForm.get('canReLocated')?.patchValue(this.memberProfile.willingToRelocate);
 
       let motherTang = this.motherTongueList.find((m:any) => m.name === this.memberProfile.motherTongue);
-      this.selectedMotherTongue = motherTang.id;
+      if(motherTang){
+        this.selectedMotherTongue = motherTang.id;
+      }
       this.selectedDiet = this.memberProfile.foodHabit;
       this.selectedSmoke = this.memberProfile.smokeHabit;
       this.selectedDrinking = this.memberProfile.drinksHabit;

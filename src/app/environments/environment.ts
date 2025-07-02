@@ -17,3 +17,4 @@ export const firebaseEnvironment = {
 };
 
 export const fbAppId:string = '2480872695583098';
+export const GoogleKey:string = 'AIzaSyAoyHKkR4lPW6riz_RuEol1ZOt1MEswA3I';
