@@ -25,6 +25,12 @@ export const HomeRoutingModules: Routes = [
   data:{accessUsers: [role.member]}
  },
 
+ {
+  path:'friends',
+  loadComponent: () => import('./member-home/friends/friends.component').then(m => m.FriendsComponent),
+  data:{accessUsers: [role.member]}
+ },
+
 ];
 
 
