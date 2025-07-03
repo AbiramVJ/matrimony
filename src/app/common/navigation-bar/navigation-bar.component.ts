@@ -25,7 +25,7 @@ export class NavigationBarComponent {
   public isMessageOpen:boolean = false;
   public isProfileOpen:boolean = false;
   public isNotificationOpen:boolean = false;
-
+  public isFriendRequestOpen = false;  // new state
   public selectedMember!:UserProfile;
   public memberProfiles:UserProfile[] = [];
 
@@ -108,22 +108,28 @@ export class NavigationBarComponent {
     private _chatService:ChatService
   ){}
 
- @HostListener('document:click', ['$event'])
-  handleClickOutside(event: MouseEvent) {
-    const target = event.target as HTMLElement;
-    const clickedInsideMessage = this.eRef.nativeElement.querySelector('.message-box')?.contains(target);
-    const clickedInsideNotification = this.eRef.nativeElement.querySelector('.notification-box')?.contains(target);
-    const clickedMessageIcon = this.eRef.nativeElement.querySelector('.mes')?.contains(target);
-    const clickedNotificationIcon = this.eRef.nativeElement.querySelector('.noti')?.contains(target);
-    const clickedProfileIcon = this.eRef.nativeElement.querySelector('.profi')?.contains(target);
-    const clickedInsideRelevant = clickedInsideMessage || clickedInsideNotification || clickedMessageIcon || clickedNotificationIcon || clickedProfileIcon;
+@HostListener('document:click', ['$event'])
+handleClickOutside(event: MouseEvent) {
+  const target = event.target as HTMLElement;
+  const clickedInsideMessage = this.eRef.nativeElement.querySelector('.message-box')?.contains(target);
+  const clickedInsideNotification = this.eRef.nativeElement.querySelector('.notification-box')?.contains(target);
+  const clickedInsideFriendRequest = this.eRef.nativeElement.querySelector('.friend-request-box')?.contains(target); // new
+  const clickedMessageIcon = this.eRef.nativeElement.querySelector('.mes')?.contains(target);
+  const clickedNotificationIcon = this.eRef.nativeElement.querySelector('.noti')?.contains(target);
+  const clickedProfileIcon = this.eRef.nativeElement.querySelector('.profi')?.contains(target);
+  const clickedFriendRequestIcon = this.eRef.nativeElement.querySelector('.friend')?.contains(target); // new
 
-    if (!clickedInsideRelevant) {
-      this.isNotificationOpen = false;
-      this.isMessageOpen = false;
-      this.isProfileOpen = false;
-    }
+  const clickedInsideRelevant = clickedInsideMessage || clickedInsideNotification || clickedInsideFriendRequest ||
+                                clickedMessageIcon || clickedNotificationIcon || clickedProfileIcon || clickedFriendRequestIcon;
+
+  if (!clickedInsideRelevant) {
+    this.isNotificationOpen = false;
+    this.isMessageOpen = false;
+    this.isProfileOpen = false;
+    this.isFriendRequestOpen = false; // close friend request dropdown too
   }
+}
+
 
   ngOnInit(): void {
     this._getMemberProfiles();
@@ -137,14 +143,16 @@ export class NavigationBarComponent {
     });
   }
 
-  toggleDropdown(type: 'message' | 'notification' | 'profile'): void {
+ public toggleDropdown(type: 'message' | 'notification' | 'profile' | 'friendRequest'): void {
   const wasMessageOpen = this.isMessageOpen;
   const wasNotificationOpen = this.isNotificationOpen;
   const wasProfileOpen = this.isProfileOpen;
+  const wasFriendRequestOpen = this.isFriendRequestOpen;  // new variable
 
   this.isMessageOpen = false;
   this.isNotificationOpen = false;
   this.isProfileOpen = false;
+  this.isFriendRequestOpen = false;  // close all dropdowns
 
   if (type === 'message') {
     this.isMessageOpen = !wasMessageOpen;
@@ -152,6 +160,8 @@ export class NavigationBarComponent {
     this.isNotificationOpen = !wasNotificationOpen;
   } else if (type === 'profile') {
     this.isProfileOpen = !wasProfileOpen;
+  } else if (type === 'friendRequest') {  // new condition
+    this.isFriendRequestOpen = !wasFriendRequestOpen;
   }
 }
 

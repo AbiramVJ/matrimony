@@ -1,3 +1,4 @@
+import { FriendSignalRService } from './services/friend-signal-r.service';
 import { ChatService } from './services/chat.service';
 import { SignalRService } from './services/signal-r.service';
 import { AuthService } from './services/auth/auth.service';
@@ -29,7 +30,8 @@ export class AppComponent {
      private _authService:AuthService,
      private router: Router,
      private _memberService:MemberService,
-     private _chatService:ChatService
+     private _chatService:ChatService,
+     private _friendSignalRService:FriendSignalRService
     ){
 
   }
@@ -74,6 +76,7 @@ export class AppComponent {
             this._authService.setUserDetails(res[0]);
           }
           this._chatService.startConnection();
+          this._friendSignalRService.startConnection();
           this.isLoading = false;
         }
       },

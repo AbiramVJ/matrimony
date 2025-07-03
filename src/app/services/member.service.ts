@@ -105,7 +105,8 @@ export class MemberService {
   }
 
   public GetFilterMemberViewData(id:string){
-    return this.http.get(this.baseUrl + `ProfileMatching/view/${id}`).pipe(
+    let profileId = localStorage.getItem('currentMemberId');
+    return this.http.get(this.baseUrl + `ProfileMatching/view/${id}?requestProfileId=${profileId}`).pipe(
         map((res: any) => {
           return new FullUserProfile(res.Result);
       })
@@ -129,5 +130,13 @@ export class MemberService {
       })
     );
   }
-
+  public GetFriends(){
+      let profileId = localStorage.getItem('currentMemberId');
+      return this.http.get(this.baseUrl + `FriendRequest/friends/${profileId}`).pipe(
+          map((res: any) => {
+            console.log(res);
+            return res.Result;
+        })
+      );
+    }
 }

@@ -1,3 +1,4 @@
+import { MemberService } from './../../../../../services/member.service';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
@@ -9,9 +10,18 @@ import { Component } from '@angular/core';
 })
 export class FriendsComponent {
 selectedTab: string = 'friends';
+constructor(public _memberService:MemberService){}
 
-selectTab(tab: string) {
-  this.selectedTab = tab;
+ngOnInit(): void {
+ this._memberService.GetFriends().subscribe({
+  next : (res:any) =>{
+    console.log(res);
+  }
+ })
 }
+
+  selectTab(tab: string) {
+    this.selectedTab = tab;
+  }
 
 }

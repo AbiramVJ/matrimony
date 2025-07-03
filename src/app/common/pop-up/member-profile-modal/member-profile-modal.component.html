@@ -27,8 +27,10 @@
 
           </div>
           <div class="col-12 col-sm-6 col-6 my-auto mt-2">
-            <div class="d-flex justify-content-end">
-              <button class="btn bt-danger-light bg-danger text-white me-3" (click)="addFriendRequest(memberProfile.id)"><i class="fas fa-user-plus text-white me-2"></i> Add Friend</button>
+            <div class="d-flex justify-content-end mt-2">
+              <button class="btn bt-danger-light bg-danger text-white me-3" (click)="addFriendRequest(memberProfile.id)">
+                <i class="fas fa-user-plus text-white me-2"></i>{{memberProfile.friendRequestStatus === request.Pending ? 'Cancel Friend Request' : 'Add Friend'}}
+              </button>
               <button class="btn btn-light"><i class="fas fa-comment-dots text-primary"></i> Message</button>
             </div>
           </div>

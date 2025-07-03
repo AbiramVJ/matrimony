@@ -300,7 +300,7 @@ export class MemberProfile {
     this.age = obj?.age ?? null;
     this.religion = obj?.religion ?? '';
     this.jobTitle = obj?.jobTitle ?? null;
-    this.imageUrl = obj?.imageUrl ? obj?.imageUrl : obj?.gender === 1 ?'https://dev1mg.blob.core.windows.net/temp/mgate/indian-groom-wearing-traditional-wedding-sherwani-turban-vector-illustration-gold-red-feather-detail-depicting-381238297.webp-6224d88d-d772-4530-b26a-b75a3f4c70d4?sv=2025-05-05&se=2025-07-03T09%3A34%3A19Z&sr=b&sp=rd&sig=IapBhRYlEay5We5yiYq7%2BelzjeuaUEpv0mbFBXzy5FI%3D' : 'https://dev1mg.blob.core.windows.net/temp/mgate/lslct_0bsqiwv8ltmszdbq.webp-e88fd630-ea66-460e-bf3e-ecfddecd028d?sv=2025-05-05&se=2025-07-01T10%3A42%3A07Z&sr=b&sp=rd&sig=fmZ0okZnRekhfiq%2BEOIyhqgDovMmiBPPMc1UYx6Zp1w%3D';
+    this.imageUrl = obj?.imageUrl ? obj?.imageUrl : obj?.gender === 1 ?'https://dev1mg.blob.core.windows.net/mgate/common/Groom.jpg' : 'https://dev1mg.blob.core.windows.net/mgate/common/Bride.jpg';
     this.livingAddresses = obj.livingAddresses ? new LivingAddress(obj.livingAddresses) : null;
   }
 }
@@ -343,6 +343,7 @@ export class FullUserProfile {
   profileAddresses: ProfileAddress[];
   profileEducations: ProfileEducation[];
   age: number;
+  friendRequestStatus:number;
 
   constructor(obj: any) {
     const images = obj?.profileImages ?? [];
@@ -384,6 +385,7 @@ export class FullUserProfile {
     this.profileAddresses = obj?.profileAddresses?.map((x: any) => new ProfileAddress(x)) ?? [];
     this.profileEducations = obj?.profileEducations?.map((x: any) => new ProfileEducation(x)) ?? [];
     this.age = obj?.age ?? 0;
+    this.friendRequestStatus = obj.friendRequestStatus ?? null;
   }
 
   getMarriedStatus(status: number) {

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { COMMON_DIRECTIVES } from '../../common-imports';
 import { FullUserProfile } from '../../../models/index.model';
+import { FriendRequestStatus } from '../../../helpers/enum';
 
 @Component({
   selector: 'app-member-profile-modal',
@@ -23,6 +24,7 @@ public tabs:any = [
 ];
 
 public currentTap : number = 1;
+public request = FriendRequestStatus;
 
 constructor(private _memberService:MemberService, private _toster:ToastrService){
 
