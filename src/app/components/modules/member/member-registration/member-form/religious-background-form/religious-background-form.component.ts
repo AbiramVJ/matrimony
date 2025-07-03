@@ -133,7 +133,7 @@ export class ReligiousBackgroundFormComponent {
       street:['', Validators.required],
      // zipCode:['',Validators.required],
       city: ['',Validators.required],
-      stateProvince: [''],
+      stateProvince: ['',[Validators.required]],
       country: [''],
       latitude:[0],
       longitude:[0]
@@ -147,9 +147,9 @@ export class ReligiousBackgroundFormComponent {
       number: null,
       street: formValue.street,
       city: formValue.city,
-      state: this.selectedProvince,
+      state: formValue.stateProvince,
       zipcode: null,
-      country: this.selectedCountry ,
+      country: formValue.country,
       latitude: formValue.latitude,
       longitude: formValue.longitude,
       addressType: AddressType.birth,
@@ -179,9 +179,9 @@ export class ReligiousBackgroundFormComponent {
             a.number = null;
             a.street = formValue.street;
             a.city = formValue.city;
-            a.state = this.selectedProvince;
+            a.state = formValue.stateProvince;
             a.zipcode = null;
-            a.country = this.selectedCountry;
+            a.country = formValue.country;
             a.latitude = formValue.latitude;
             a.longitude = formValue.longitude;
             a.addressType = 3;
@@ -245,16 +245,17 @@ export class ReligiousBackgroundFormComponent {
     this.userReligiousForm.get('street')?.patchValue(birthAddress?.street);
     this.userReligiousForm.get('city')?.patchValue(birthAddress?.city);
     this.userReligiousForm.get('stateProvince')?.patchValue(birthAddress?.state);
+      this.userReligiousForm.get('country')?.patchValue(birthAddress?.country);
     this.userReligiousForm.get('isVisible')?.patchValue(this.memberProfile.isVisibleCommunity);
-    this.selectedCountry = birthAddress?.country;
-    this.selectedProvince = birthAddress?.state;
+   // this.selectedCountry = birthAddress?.country;
+  //  this.selectedProvince = birthAddress?.state;
   }
-  public changeCountry(){
-   const country = this.countryList.find((country:any) => country.country === this.selectedCountry);
-   console.log(country);
-   this.stateAndProvince = country.stateProvinces;
-   this.selectedProvince = country.stateProvinces[0].name;
-  }
+  // public changeCountry(){
+  //  const country = this.countryList.find((country:any) => country.country === this.selectedCountry);
+  //  console.log(country);
+  //  this.stateAndProvince = country.stateProvinces;
+  //  this.selectedProvince = country.stateProvinces[0].name;
+  // }
 
   // GOODLE AUTO COMPLETE
   public handleAddressChange(place: any): void {
@@ -268,7 +269,7 @@ export class ReligiousBackgroundFormComponent {
     let city = '';
     let province = '';
     let country = '';
-
+    let countryCode = '';
 
     for (const component of place.address_components) {
       const types = component.types;
@@ -291,6 +292,7 @@ export class ReligiousBackgroundFormComponent {
 
       if (types.includes('country')) {
         country = component.long_name;
+        countryCode = component.short_name
       }
 
 
@@ -303,11 +305,14 @@ export class ReligiousBackgroundFormComponent {
         stateProvince: province || '',
         latitude:place.geometry.location.lat(),
         longitude: place.geometry.location.lng(),
+        country : country || ''
       });
-    let selectedCountry = this.countryList.find((c: any) => c.country?.toLowerCase().includes(country.toLowerCase()));
-    this.selectedCountry = selectedCountry.country;
-    this.selectedProvince = province;
-    console.log(province)
+    //let selectedCountry = this.countryList.find((c: any) => c.iso === countryCode);
+    //console.log(selectedCountry);
+
+    //  this.selectedCountry = selectedCountry.country;
+    //   this.selectedProvince = province;
+    //   console.log(province)
    // this.changeCountry();
   }
 }

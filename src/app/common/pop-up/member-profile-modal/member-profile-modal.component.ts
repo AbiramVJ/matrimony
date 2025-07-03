@@ -1,3 +1,5 @@
+import { ToastrService } from 'ngx-toastr';
+import { MemberService } from './../../../services/member.service';
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { COMMON_DIRECTIVES } from '../../common-imports';
@@ -22,6 +24,10 @@ public tabs:any = [
 
 public currentTap : number = 1;
 
+constructor(private _memberService:MemberService, private _toster:ToastrService){
+
+}
+
 ngOnChanges(): void {
   if(this.memberProfile){
     if(!this.memberProfile?.profileJob){
@@ -33,5 +39,17 @@ ngOnChanges(): void {
       }
   }
 }
+
+  public addFriendRequest(id:string){
+    this._memberService.addFriendRequest(id).subscribe({
+      next:(res:any)=>{
+        this._toster.success(res,'Success');
+      },
+      error:(error:any)=>{
+        console.log(error)
+        this._toster.error(error.error.Error.Title,error.error.Error.Detail);
+      }
+    })
+  }
 
 }

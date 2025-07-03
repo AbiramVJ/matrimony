@@ -121,12 +121,11 @@ export class MemberService {
   }
 
 
-  getCurrency(){
-     return this.http.get('https://api.fastforex.io/fetch-multi?from=USD&to=LKR&api_key=demo').pipe(
+  public addFriendRequest(receiverId:string){
+    let profileId = localStorage.getItem('currentMemberId');
+    return this.http.post(this.baseUrl + `FriendRequest/send?senderId=${profileId}&receiverId=${receiverId}`,{}).pipe(
         map((res: any) => {
-          console.log(res);
-          return res;
-
+          return res.Result;
       })
     );
   }

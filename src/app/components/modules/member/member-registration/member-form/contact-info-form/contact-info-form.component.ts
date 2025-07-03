@@ -89,12 +89,14 @@ export class ContactInfoFormComponent {
       doorNumber: [''],
       street: ['', Validators.required],
       city: ['', Validators.required],
-      stateProvince: [''],
+      stateProvince: [null,[Validators.required]],
       residencyStatus: [1, Validators.required],
       zipCode: ['', Validators.required],
       addressType: [0],
       latitude:[null],
       longitude:[null],
+     // province:[null,[Validators.required]],
+      country:[null,[Validators.required]]
       // temporaryAddress: this.fb.group({
       //   doorNumber: [''],
       //   street: [''],
@@ -129,9 +131,9 @@ export class ContactInfoFormComponent {
       number: this.userContactFrom.value.doorNumber,
       street: this.userContactFrom.value.street,
       city: this.userContactFrom.value.city,
-      state: this.selectedProvince,
+      state: this.userContactFrom.value.stateProvince,
       zipcode: this.userContactFrom.value.zipCode,
-      country: this.selectedCountry,
+      country: this.userContactFrom.value.country,
       latitude: this.userContactFrom.value.latitude,
       longitude: this.userContactFrom.value.longitude,
       addressType:AddressType.living,
@@ -228,11 +230,11 @@ export class ContactInfoFormComponent {
     this.exitingPermanentAddress = permanentAddress;
     this.exTempPermanentAddress = tempAddress;
 
-    this.selectedCountry = permanentAddress?.country;
+    //this.selectedCountry = permanentAddress?.country;
     this.selectedTempCountry = tempAddress?.country;
     this.selectedResidency = permanentAddress?.residentStatus || 1;
     this.selectedTempResidency = tempAddress?.residentStatus || 1;
-    this.selectedProvince = permanentAddress?.state;
+   // this.selectedProvince = permanentAddress?.state;
     this._setPhoneNumberValues();
 
     this.userContactFrom.patchValue({
@@ -243,7 +245,8 @@ export class ContactInfoFormComponent {
       city: permanentAddress?.city || '',
       longitude:permanentAddress?.latitude || 0,
       latitude:permanentAddress?.longitude || 0,
-     // stateProvince: permanentAddress?.state || '',
+      stateProvince: permanentAddress?.state || '',
+      country:permanentAddress?.country,
       residencyStatus: permanentAddress?.residentStatus || 1,
       zipCode: permanentAddress?.zipcode || '',
       addressType: permanentAddress?.addressType || 0,
@@ -257,7 +260,7 @@ export class ContactInfoFormComponent {
         addressType: tempAddress?.addressType || 3,
       },
     });
-    this.changeCountry();
+   // this.changeCountry();
   }
 
   private _setPhoneNumberValues() {
@@ -271,11 +274,11 @@ export class ContactInfoFormComponent {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  public changeCountry(){
-   const country = this.countryList.find((country:any) => country.country === this.selectedCountry);
-   this.stateAndProvince = country.stateProvinces;
-   this.selectedProvince = country.stateProvinces[0].name;
-  }
+  // public changeCountry(){
+  //  const country = this.countryList.find((country:any) => country.country === this.selectedCountry);
+  //  this.stateAndProvince = country.stateProvinces;
+  //  this.selectedProvince = country.stateProvinces[0].name;
+  // }
 
   // GOODLE AUTO COMPLETE
   public handleAddressChange(place: any): void {
@@ -328,10 +331,12 @@ export class ContactInfoFormComponent {
         zipCode: postalCode || '',
         latitude:place.geometry.location.lat(),
         longitude: place.geometry.location.lng(),
+        country:country || '',
+        province:province || '',
       });
-    let selectedCountry = this.countryList.find((c: any) => c.country?.toLowerCase().includes(country.toLowerCase()));
-    this.selectedCountry = selectedCountry.country;
-    this.selectedProvince = province;
+   // let selectedCountry = this.countryList.find((c: any) => c.country?.toLowerCase().includes(country.toLowerCase()));
+   // this.selectedCountry = selectedCountry.country;
+ //   this.selectedProvince = province;
     //this.changeCountry();
   }
 }

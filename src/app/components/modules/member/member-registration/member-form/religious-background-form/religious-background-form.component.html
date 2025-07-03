@@ -115,7 +115,7 @@
 
   <div class="col-12 col-md-6 mb-3">
     <label for="email text-sm" class="mb-2">Country<span class="text-danger">*</span> </label>
-    <ng-select
+    <!-- <ng-select
     [items]="countryList"
     bindLabel="country"
     bindValue="country"
@@ -124,10 +124,7 @@
     [searchable]="true"
     [(ngModel)]="selectedCountry"
     (change)="changeCountry()"
-
     >
-
-    <!-- Label template -->
     <ng-template ng-label-tmp let-item="item">
       <div class="d-flex">
         <div>
@@ -138,7 +135,6 @@
         </div>
       </div>
     </ng-template>
-    <!-- Option template -->
     <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
       <div class="d-flex">
         <div>
@@ -150,7 +146,10 @@
         </div>
       </div>
     </ng-template>
-  </ng-select>
+  </ng-select> -->
+
+   <input type="text" id="country" formControlName="country" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('country')?.errors}"/>
+    <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userReligiousForm.get('country')?.errors">City is required</div>
   </div>
 <!-- STREET -->
 <div class="col-12 col-md-6 mb-3">
@@ -167,10 +166,10 @@
 
   <div class="col-12 col-md-6 mb-3">
     <label for="province text-sm" class="mb-2">State/Province<span class="text-danger">*</span> </label>
-    <!-- <input type="text" id="province" formControlName="stateProvince" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('stateProvince')?.errors}"/>
-    <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userReligiousForm.get('stateProvince')?.errors">State/Province is required</div> -->
-     <ng-select [items]="stateAndProvince" bindLabel="name" bindValue="name" [clearable]="false"
-      [searchable]="true" [(ngModel)]="selectedProvince"  [ngModelOptions]="{standalone: true}" ></ng-select>
+    <input type="text" id="province" formControlName="stateProvince" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('stateProvince')?.errors}"/>
+    <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userReligiousForm.get('stateProvince')?.errors">State/Province is required</div>
+     <!-- <ng-select [items]="stateAndProvince" bindLabel="name" bindValue="name" [clearable]="false"
+      [searchable]="true" [(ngModel)]="selectedProvince"  [ngModelOptions]="{standalone: true}" ></ng-select> -->
   </div>
 
 
