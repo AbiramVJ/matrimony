@@ -344,6 +344,7 @@ export class FullUserProfile {
   profileEducations: ProfileEducation[];
   age: number;
   friendRequestStatus:number;
+  isSentByThisProfile:boolean;
 
   constructor(obj: any) {
     const images = obj?.profileImages ?? [];
@@ -386,6 +387,7 @@ export class FullUserProfile {
     this.profileEducations = obj?.profileEducations?.map((x: any) => new ProfileEducation(x)) ?? [];
     this.age = obj?.age ?? 0;
     this.friendRequestStatus = obj.friendRequestStatus ?? null;
+    this.isSentByThisProfile = obj.isSentByThisProfile ?? false;
   }
 
   getMarriedStatus(status: number) {

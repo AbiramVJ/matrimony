@@ -1,3 +1,4 @@
+import { FriendSignalRService } from './../../services/friend-signal-r.service';
 import { ROUTER_MODULES } from './../common-imports';
 import { SocialLoginService } from './../../services/auth/social-login.service';
 import { AuthService } from './../../services/auth/auth.service';
@@ -105,7 +106,8 @@ export class NavigationBarComponent {
     public router:Router,
     private _authService:AuthService,
     private _socialLoginService:SocialLoginService,
-    private _chatService:ChatService
+    private _chatService:ChatService,
+    private _friendSignalRService : FriendSignalRService
   ){}
 
 @HostListener('document:click', ['$event'])
@@ -140,6 +142,12 @@ handleClickOutside(event: MouseEvent) {
     this._chatService.onChatParticipantsReceived((data: any[]) => {
       this.participants = data;
       this.UnreadCount = this.participants.filter((p: ChatParticipant) => !p.isRead).length;
+    });
+
+    this._friendSignalRService.friendRequestReceived$.subscribe(request => {
+   //   this.friendRequest = request;
+      console.log('New friend request:', request);
+
     });
   }
 
@@ -231,8 +239,6 @@ get displayedProfiles() {
     window.location.href = "/";
   }
 
-
-
   getInitials(name: string): string {
     return name.split(' ').map(word => word.charAt(0)).join('').toUpperCase();
   }
@@ -257,7 +263,8 @@ get displayedProfiles() {
     return message === 'Typing...';
   }
 
-  // CHAT
+
+  //FRIENDS REQUEST
 
 
 }

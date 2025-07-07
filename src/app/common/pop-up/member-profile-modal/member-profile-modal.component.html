@@ -28,8 +28,33 @@
           </div>
           <div class="col-12 col-sm-6 col-6 my-auto mt-2">
             <div class="d-flex justify-content-end mt-2">
-              <button class="btn bt-danger-light bg-danger text-white me-3" (click)="addFriendRequest(memberProfile.id)">
-                <i class="fas fa-user-plus text-white me-2"></i>{{memberProfile.friendRequestStatus === request.Pending ? 'Cancel Friend Request' : 'Add Friend'}}
+              <button class="btn bt-danger-light bg-danger text-white me-3" (click)="cancelFriendRequest(memberProfile.id)" *ngIf="memberProfile.friendRequestStatus === request.Pending && memberProfile.isSentByThisProfile">
+                <i class="fas fa-user-times text-white me-2"></i>
+                Cancel Friend Request
+                 <div class="spinner-border text-light me-1 spinner-border-sm" role="status" *ngIf="isLoading">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </button>
+              <button class="btn bt-danger-light bg-danger text-white me-3" (click)="addFriendRequest(memberProfile.id)"  *ngIf="memberProfile.friendRequestStatus === null">
+                <i class="fas fa-user-plus text-white me-2"></i>
+                Add Friend
+                 <div class="spinner-border text-light me-1 spinner-border-sm" role="status" *ngIf="isLoading">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+              </button>
+               <button class="btn bt-danger-light bg-danger text-white me-3" (click)="confirmFriendRequest(memberProfile.id)" *ngIf="memberProfile.friendRequestStatus === request.Pending && !memberProfile.isSentByThisProfile">
+                <i class="fas fa-check text-white me-2"></i>
+                Confirm
+                  <div class="spinner-border text-light me-1 spinner-border-sm" role="status" *ngIf="isLoading">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+              </button>
+               <button class="btn bt-danger-light bg-danger text-white me-3" *ngIf="memberProfile.friendRequestStatus === request.Accepted">
+                <i class="fas fa-user text-white me-2"></i>
+                Friend
+                 <div class="spinner-border text-light me-1 spinner-border-sm" role="status" *ngIf="isLoading">
+                    <span class="sr-only">Loading...</span>
+                  </div>
               </button>
               <button class="btn btn-light"><i class="fas fa-comment-dots text-primary"></i> Message</button>
             </div>
@@ -206,7 +231,7 @@
             <!-- profileFamily Type -->
             <div>
               <div class="text-xs fw-normal">Family Type:</div>
-              <div class="fw-bold text-sm">{{ memberProfile.profileFamily?.familyType === 1 ? 'Joint Family' : 'Nuclear Family'}}</div>
+              <div class="fw-bold text-sm">{{ memberProfile.profileFamily?.familyType === 1 ? 'Joint Family' : memberProfile.profileFamily?.familyType == 2 ? 'Nuclear Family' : memberProfile.profileFamily?.familyType == 3 ? 'Extended Family': 'Single parent Family' }}</div>
             </div>
 
           </div>

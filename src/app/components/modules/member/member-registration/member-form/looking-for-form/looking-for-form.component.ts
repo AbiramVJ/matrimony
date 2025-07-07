@@ -54,16 +54,16 @@ export class LookingForFormComponent {
      window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   private _matchingProfileFormInit(){
-   this.profileMatchingForm = this._fb.group(
-  {
-    gender: [1],
-    minAge: ['', [Validators.required, Validators.min(18)]],
-    maxAge: ['', [Validators.required, Validators.max(60)]],
-  },
-  {
-    validators: [minLessThanMaxValidator('minAge', 'maxAge')]
-  }
-);
+      this.profileMatchingForm = this._fb.group(
+      {
+        gender: [1],
+        minAge: ['', [Validators.required, Validators.min(18)]],
+        maxAge: ['', [Validators.required, Validators.max(60)]],
+      },
+      {
+        validators: [minLessThanMaxValidator('minAge', 'maxAge')]
+      }
+    );
 
   }
 

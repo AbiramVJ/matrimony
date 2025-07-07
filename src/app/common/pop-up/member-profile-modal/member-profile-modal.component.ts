@@ -25,6 +25,7 @@ public tabs:any = [
 
 public currentTap : number = 1;
 public request = FriendRequestStatus;
+public isLoading:boolean = false;
 
 constructor(private _memberService:MemberService, private _toster:ToastrService){
 
@@ -43,15 +44,40 @@ ngOnChanges(): void {
 }
 
   public addFriendRequest(id:string){
+    this.isLoading = true;
     this._memberService.addFriendRequest(id).subscribe({
       next:(res:any)=>{
         this._toster.success(res,'Success');
       },
+      complete:()=>{
+        this.memberProfile.friendRequestStatus = 1;
+        this.isLoading = false;
+      },
       error:(error:any)=>{
-        console.log(error)
         this._toster.error(error.error.Error.Title,error.error.Error.Detail);
+        this.isLoading = false;
       }
     })
+  }
+
+  public confirmFriendRequest(id:string){
+    this.isLoading = true;
+    this._memberService.acceptFriendRequest(id).subscribe({
+      next:(res:any) => {
+        this._toster.success(res,'Confirm');
+      },
+      complete:()=>{
+        this.isLoading = false;
+      },
+      error:(error:any)=>{
+       this._toster.error(error.error.Error.Title,error.error.Error.Detail);
+       this.isLoading = false;
+      }
+    })
+  }
+
+  public cancelFriendRequest(id:string){
+
   }
 
 }

@@ -149,22 +149,9 @@
   </ng-select> -->
 
    <input type="text" id="country" formControlName="country" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('country')?.errors}"/>
-    <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userReligiousForm.get('country')?.errors">City is required</div>
+    <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userReligiousForm.get('country')?.errors">Country is required</div>
   </div>
-<!-- STREET -->
-<div class="col-12 col-md-6 mb-3">
-  <label for="Street text-sm" class="mb-2">Street<span class="text-danger">*</span> </label>
-  <input type="text" id="Street" formControlName="street" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('street')?.errors}"/>
-  <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userReligiousForm.get('street')?.errors">Street is required</div>
-</div>
-
-<div class="col-12 col-md-6 mb-3">
-  <label for="city text-sm" class="mb-2">City<span class="text-danger">*</span> </label>
-  <input type="text" id="city" formControlName="city" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('city')?.errors}"/>
-  <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userReligiousForm.get('city')?.errors">City is required</div>
-</div>
-
-  <div class="col-12 col-md-6 mb-3">
+   <div class="col-12 col-md-6 mb-3">
     <label for="province text-sm" class="mb-2">State/Province<span class="text-danger">*</span> </label>
     <input type="text" id="province" formControlName="stateProvince" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('stateProvince')?.errors}"/>
     <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userReligiousForm.get('stateProvince')?.errors">State/Province is required</div>
@@ -172,7 +159,17 @@
       [searchable]="true" [(ngModel)]="selectedProvince"  [ngModelOptions]="{standalone: true}" ></ng-select> -->
   </div>
 
-
+  <div class="col-12 col-md-6 mb-3">
+    <label for="city text-sm" class="mb-2">City/Village<span class="text-danger">*</span> </label>
+    <input type="text" id="city" formControlName="city" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('city')?.errors}"/>
+    <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userReligiousForm.get('city')?.errors">City is required</div>
+  </div>
+<!-- STREET -->
+<div class="col-12 col-md-6 mb-3">
+  <label for="Street text-sm" class="mb-2">Road<span class="text-danger">*</span> </label>
+  <input type="text" id="Street" formControlName="street" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('street')?.errors}"/>
+  <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userReligiousForm.get('street')?.errors">Street is required</div>
+</div>
 
    <!-- <div class="col-12 col-md-6 mb-3">
         <label for="province text-sm" class="mb-2">Zip Code<span class="text-danger">*</span> </label>

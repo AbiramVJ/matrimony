@@ -20664,6 +20664,7 @@ export const residencyStatusList = [
   { id: 2, name: 'Permanent Resident' },
   { id: 3, name: 'Work Visa' },
   { id: 4, name: 'Student Visa' },
+  { id: 5, name: 'Asylum Visa'},
 ];
 
 
@@ -20689,13 +20690,13 @@ export const yesOrNo = [
 ]
 
 export const DrinkHabit = [
-  { id: 1, name: "Doesn't Drink" },
+  { id: 1, name: "Don't Drink" },
   { id: 2, name: 'Drinks Occasionally' },
   { id: 3, name: 'Drinks Regularly' }
 ];
 
 export const SmokeHabit = [
-  { id: 1, name: "Doesn't Smoke" },
+  { id: 1, name: "Don't Smoke" },
   { id: 2, name: 'Occasionally' },
   { id: 3, name: 'Regularly' }
 ];
@@ -20711,6 +20712,8 @@ export const bodyTypes = [
 export const familyTypeList = [
   { id: 1, name: 'Joint Family' },
   { id: 2, name: 'Nuclear Family' },
+  { id: 3, name: 'Extended Family' },
+  { id: 2, name: 'Single parent Family' },
 ];
 
 
@@ -20727,8 +20730,12 @@ export const Religions = [
 //PROFILE
 export const LookingForList = [
   {id:1, name:'My Self'},
-  {id:2, name:'My Son'},
-  {id:3, name:'My Daughter'}
+  {id:2, name:'Son'},
+  {id:3, name:'Daughter'},
+  {id:4, name:'Brother'},
+  {id:4, name:'Sister'},
+  {id:4, name:'Friend'},
+  {id:4, name:'Relative'}
 ];
 
 export const Natshathira = [

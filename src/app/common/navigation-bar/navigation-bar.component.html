@@ -25,12 +25,19 @@
                 <i class="fas fa-users me-1 text-muted"></i> Members
               </a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link"
                 [routerLink]="['/home/friends']"
                 [class.active-link]="router.isActive('/home/friends', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })">
                <i class="fas fa-user-friends me-1 text-muted"></i> Friends
 
+              </a>
+            </li> -->
+            <li class="nav-item">
+              <a class="nav-link"
+                [routerLink]="['/home/chat']"
+                [class.active-link]="router.isActive('/home/chat', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })">
+               <i class="fas fa-comments fa-md me-1 text-muted"></i> Message
               </a>
             </li>
           </ul>

@@ -2,12 +2,16 @@ import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import * as signalR from '@microsoft/signalr';
+import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class FriendSignalRService {
   private hubConnection!: signalR.HubConnection;
-  private baseUrl = (environment as any).baseUrl;
+  private friendRequestReceivedSource = new Subject<any>();
+  friendRequestReceived$ = this.friendRequestReceivedSource.asObservable();
+
+
   constructor(private http: HttpClient) { }
 
    public startConnection(): void {
@@ -30,4 +34,11 @@ export class FriendSignalRService {
           //  this.getChatParticipants()
           }).catch(err => console.log('Error while starting connection: ' + err));
    }
+
+   private registerFriendRequestListener(): void {
+    this.hubConnection.on("FriendRequestReceived", (data) => {
+      console.log("Friend request received: ", data);
+      this.friendRequestReceivedSource.next(data);
+    });
+  }
 }

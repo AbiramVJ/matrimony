@@ -121,7 +121,7 @@ export class MemberService {
     );
   }
 
-
+  //ADD FRIEND
   public addFriendRequest(receiverId:string){
     let profileId = localStorage.getItem('currentMemberId');
     return this.http.post(this.baseUrl + `FriendRequest/send?senderId=${profileId}&receiverId=${receiverId}`,{}).pipe(
@@ -130,6 +130,27 @@ export class MemberService {
       })
     );
   }
+
+  //ACCEPT FRIEND REQUEST
+  public acceptFriendRequest(memberId:string){
+    return this.http.post(this.baseUrl + `FriendRequest/accept/${memberId}`,{}).pipe(
+          map((res: any) => {
+            console.log(res);
+            return res.Result;
+        })
+      );
+  }
+
+  //REJECT FD REQUEST
+  public rejectFriendRequest(memberId:string){
+      return this.http.get(this.baseUrl + `FriendRequest/reject/${memberId}`).pipe(
+        map((res: any) => {
+          console.log(res);
+          return res.Result;
+      })
+    );
+  }
+
   public GetFriends(){
       let profileId = localStorage.getItem('currentMemberId');
       return this.http.get(this.baseUrl + `FriendRequest/friends/${profileId}`).pipe(

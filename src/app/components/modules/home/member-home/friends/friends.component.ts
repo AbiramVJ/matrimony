@@ -16,6 +16,9 @@ ngOnInit(): void {
  this._memberService.GetFriends().subscribe({
   next : (res:any) =>{
     console.log(res);
+  },
+  complete:()=>{
+
   }
  })
 }
