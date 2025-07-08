@@ -4,7 +4,7 @@
       <!-- HEDER -->
       <div class="col-12 bg-danger p-3">
          <div class="modal-header p-0 border-bottom-0">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="currentTap = 1"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="currentTap = 1" id="member-profile-close-btn"></button>
       </div>
         <div class="row">
           <div class="col-12 col-sm-12 col-md-6">
@@ -56,7 +56,7 @@
                     <span class="sr-only">Loading...</span>
                   </div>
               </button>
-              <button class="btn btn-light"><i class="fas fa-comment-dots text-primary"></i> Message</button>
+              <button class="btn btn-light" (click)="openChat(memberProfile)" *ngIf="memberProfile.friendRequest && memberProfile.friendRequest!.status === request.Accepted"><i class="fas fa-comment-dots text-primary" ></i> Message</button>
             </div>
           </div>
         </div>

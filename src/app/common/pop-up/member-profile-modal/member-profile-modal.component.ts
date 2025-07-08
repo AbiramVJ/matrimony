@@ -4,8 +4,10 @@ import { MemberService } from './../../../services/member.service';
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { COMMON_DIRECTIVES } from '../../common-imports';
-import { FullUserProfile, Request } from '../../../models/index.model';
+import { ChatParticipant, FullUserProfile, MemberProfile, Request } from '../../../models/index.model';
 import { FriendRequestStatus } from '../../../helpers/enum';
+import { ChatService } from '../../../services/chat.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-member-profile-modal',
@@ -29,7 +31,13 @@ public request = FriendRequestStatus;
 public isLoading:boolean = false;
 public selectedMember:string = '';
 
-constructor(private _memberService:MemberService, private _toster:ToastrService, private _authService:AuthService){
+constructor(
+  private _memberService:MemberService,
+  private _toster:ToastrService,
+  private _authService:AuthService,
+  private _chatService: ChatService,
+  private router: Router,
+){
 
 }
 
@@ -107,5 +115,25 @@ ngOnChanges(): void {
       }
     })
   }
+
+    public openChat(member: FullUserProfile) {
+      this._chatService.clearParticipant();
+      const openChatMember = new ChatParticipant({
+        receiverProfileId: member.id,
+        name: member.firstName,
+        profileImage: member.profileImages[0].url,
+        lastSentAt: new Date().toString(),
+        isRead: false,
+      });
+      this._chatService.setParticipant(openChatMember);
+      let viewModal: HTMLElement = document.getElementById(
+                'member-profile-close-btn'
+              ) as HTMLElement;
+              if (viewModal) {
+                viewModal.click();
+              }
+              console.log(viewModal)
+      this.router.navigate(['/home/chat']);
+    }
 
 }
