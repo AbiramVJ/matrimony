@@ -343,8 +343,7 @@ export class FullUserProfile {
   profileAddresses: ProfileAddress[];
   profileEducations: ProfileEducation[];
   age: number;
-  friendRequestStatus:number;
-  isSentByThisProfile:boolean;
+  friendRequest:Request | null;
 
   constructor(obj: any) {
     const images = obj?.profileImages ?? [];
@@ -386,9 +385,11 @@ export class FullUserProfile {
     this.profileAddresses = obj?.profileAddresses?.map((x: any) => new ProfileAddress(x)) ?? [];
     this.profileEducations = obj?.profileEducations?.map((x: any) => new ProfileEducation(x)) ?? [];
     this.age = obj?.age ?? 0;
-    this.friendRequestStatus = obj.friendRequestStatus ?? null;
-    this.isSentByThisProfile = obj.isSentByThisProfile ?? false;
+    this.friendRequest = obj.friendRequest !== null ? new Request(obj.friendRequest) : null;
+
   }
+
+
 
   getMarriedStatus(status: number) {
     const option = maritalStatusOptions.find(opt => opt.id === status);
@@ -432,6 +433,24 @@ export class FullUserProfile {
 
 
 
+}
+
+export class Request {
+  id:string | null;
+  receiverProfileId:string | null;
+  requestedAt:string;
+  respondedAt:string;
+  senderProfileId:string | null;
+  status:number | null;
+
+  constructor(obj:any){
+    this.id = obj.id ?? null;
+    this.receiverProfileId = obj.receiverProfileId ?? null,
+    this.requestedAt = obj.requestedAt ?? '';
+    this.respondedAt = obj.respondedAt ?? '';
+    this.senderProfileId = obj.senderProfileId ?? '';
+    this.status = obj.status ?? null;
+  }
 }
 
 export function getNatshathira(status:number){

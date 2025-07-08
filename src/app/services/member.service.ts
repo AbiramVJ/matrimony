@@ -142,8 +142,18 @@ export class MemberService {
   }
 
   //REJECT FD REQUEST
-  public rejectFriendRequest(memberId:string){
-      return this.http.get(this.baseUrl + `FriendRequest/reject/${memberId}`).pipe(
+  public rejectFriendRequest(requestId:string){
+      return this.http.get(this.baseUrl + `FriendRequest/reject/${requestId}`).pipe(
+        map((res: any) => {
+          console.log(res);
+          return res.Result;
+      })
+    );
+  }
+
+  //CANCEL REQUEST
+  public cancelRequest(requestId:string){
+    return this.http.post(this.baseUrl + `FriendRequest/cancel/${requestId}`,{}).pipe(
         map((res: any) => {
           console.log(res);
           return res.Result;

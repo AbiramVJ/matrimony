@@ -1,9 +1,10 @@
+import { AuthService } from './../../../services/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { MemberService } from './../../../services/member.service';
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { COMMON_DIRECTIVES } from '../../common-imports';
-import { FullUserProfile } from '../../../models/index.model';
+import { FullUserProfile, Request } from '../../../models/index.model';
 import { FriendRequestStatus } from '../../../helpers/enum';
 
 @Component({
@@ -26,8 +27,9 @@ public tabs:any = [
 public currentTap : number = 1;
 public request = FriendRequestStatus;
 public isLoading:boolean = false;
+public selectedMember:string = '';
 
-constructor(private _memberService:MemberService, private _toster:ToastrService){
+constructor(private _memberService:MemberService, private _toster:ToastrService, private _authService:AuthService){
 
 }
 
@@ -41,16 +43,27 @@ ngOnChanges(): void {
         this.tabs = this.tabs.filter((tab:any) => tab.id !== 5);
       }
   }
+  this._getCurrentMember();
 }
+
+
+  private _getCurrentMember(){
+  this._authService.member$.subscribe(data => {
+      if(data){
+        this.selectedMember = data.id;
+      }
+    })
+  }
 
   public addFriendRequest(id:string){
     this.isLoading = true;
     this._memberService.addFriendRequest(id).subscribe({
       next:(res:any)=>{
+        var fr = new Request({status:1,id:res.id})
+        this.memberProfile.friendRequest = fr;
         this._toster.success(res,'Success');
       },
       complete:()=>{
-        this.memberProfile.friendRequestStatus = 1;
         this.isLoading = false;
       },
       error:(error:any)=>{
@@ -60,7 +73,7 @@ ngOnChanges(): void {
     })
   }
 
-  public confirmFriendRequest(id:string){
+  public confirmFriendRequest(id:any){
     this.isLoading = true;
     this._memberService.acceptFriendRequest(id).subscribe({
       next:(res:any) => {
@@ -76,8 +89,21 @@ ngOnChanges(): void {
     })
   }
 
-  public cancelFriendRequest(id:string){
-
+  public cancelFriendRequest(id:any){
+    this.isLoading = true;
+    this._memberService.cancelRequest(id).subscribe({
+      next:(res:any) => {
+        this._toster.success(res,'cancel');
+      },
+      complete:()=>{
+        this.memberProfile.friendRequest = null;
+        this.isLoading = false;
+      },
+      error:(error:any)=>{
+       this._toster.error(error.error.Error.Title,error.error.Error.Detail);
+       this.isLoading = false;
+      }
+    })
   }
 
 }
