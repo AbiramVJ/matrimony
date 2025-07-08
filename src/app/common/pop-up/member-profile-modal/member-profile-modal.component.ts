@@ -77,6 +77,8 @@ ngOnChanges(): void {
     this.isLoading = true;
     this._memberService.acceptFriendRequest(id).subscribe({
       next:(res:any) => {
+        var fr = new Request({status:this.request.Accepted})
+        this.memberProfile.friendRequest = fr;
         this._toster.success(res,'Confirm');
       },
       complete:()=>{
