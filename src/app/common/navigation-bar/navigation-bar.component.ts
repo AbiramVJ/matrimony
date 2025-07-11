@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ChatParticipant, MainUser, MemberProfile, RequestList, UserProfile } from '../../models/index.model';
 import { Router } from '@angular/router';
 import { ChatService } from '../../services/chat.service';
+import { FriendRequestStatus } from '../../helpers/enum';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -29,7 +30,7 @@ export class NavigationBarComponent {
   public isFriendRequestOpen = false;  // new state
   public selectedMember!:UserProfile;
   public memberProfiles:UserProfile[] = [];
-
+  public request = FriendRequestStatus;
   public loginUserDetails:any;
   public mainUser!:MainUser;
 
@@ -108,7 +109,8 @@ export class NavigationBarComponent {
     private _authService:AuthService,
     private _socialLoginService:SocialLoginService,
     private _chatService:ChatService,
-    private _friendSignalRService : FriendSignalRService
+    private _friendSignalRService : FriendSignalRService,
+    private _toster:ToastrService,
   ){}
 
 @HostListener('document:click', ['$event'])
@@ -145,14 +147,19 @@ handleClickOutside(event: MouseEvent) {
       this.participants = data;
       this.UnreadCount = this.participants.filter((p: ChatParticipant) => !p.isRead).length;
     });
-
-  //   this._friendSignalRService.friendRequestReceived$.subscribe(request => {
-  //  //   this.friendRequest = request;
-  //     console.log('New friend request:', request);
-
-  //   });
     this._friendSignalRService.registerFriendRequestListener((message: any) => {
+      var message:any = new RequestList(message);
+      this.friendRequestList.unshift(message);
       console.log("Received friend request in component:", message);
+      if (Notification.permission === 'granted') {
+      new Notification('New Friend Request', {
+        body: `You received a request from ${message.name}`, // Replace with real field
+        icon: 'assets/icons/friend-request.png' // Optional icon
+      });
+      const audio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-software-interface-start-2574.mp3');
+      audio.play();
+
+      }
     });
   }
 
@@ -278,5 +285,23 @@ get displayedProfiles() {
 
     })
   }
+
+    public confirmFriendRequest(id:any){
+      this.isLoading = true;
+      this._memberService.acceptFriendRequest(id).subscribe({
+        next:(res:any) => {
+        //  var fr = new Request({status:this.request.Accepted})
+         // this.memberProfile.friendRequest = fr;
+          this._toster.success(res,'Confirm');
+        },
+        complete:()=>{
+          this.isLoading = false;
+        },
+        error:(error:any)=>{
+         this._toster.error(error.error.Error.Title,error.error.Error.Detail);
+         this.isLoading = false;
+        }
+      })
+    }
 
 }
