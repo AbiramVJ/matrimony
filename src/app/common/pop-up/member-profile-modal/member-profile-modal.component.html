@@ -52,9 +52,10 @@
                <button class="btn bt-danger-light bg-danger text-white me-3"  [disabled]="isLoading" *ngIf="memberProfile.friendRequest && memberProfile.friendRequest!.status === request.Accepted">
                 <i class="fas fa-user text-white me-2"></i>
                 Friend
-                 <div class="spinner-border text-light me-1 spinner-border-sm" role="status" *ngIf="isLoading">
-                    <span class="sr-only">Loading...</span>
-                  </div>
+              </button>
+               <button class="btn bt-danger-light bg-danger text-white me-3"  [disabled]="isLoading" *ngIf="memberProfile.friendRequest && memberProfile.friendRequest!.status === request.Rejected">
+                <i class="fas fa-user text-white me-2"></i>
+                Rejected
               </button>
               <button class="btn btn-light" (click)="openChat(memberProfile)" *ngIf="memberProfile.friendRequest && memberProfile.friendRequest!.status === request.Accepted"><i class="fas fa-comment-dots text-primary" ></i> Message</button>
             </div>

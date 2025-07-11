@@ -3,7 +3,10 @@
   <div class="text-lg fw-bold">Matching Profile</div>
   <div class="text-md">Browse the profile below to learn more about their background and experience.</div>
 </div>
-<div class="text-lg fw-bold text-muted p-2">{{totalItemCount === 1 ? 'Matching profile' : 'Matching profiles' }} </div>
+<div class="d-flex justify-content-between">
+  <div class="text-lg fw-bold text-muted p-2">{{totalItemCount === 1 ? 'Matching profile' : 'Matching profiles' }} </div>
+  <div class="text-lg fw-bold text-muted p-2">Total Count : {{totalItemCount}} </div>
+</div>
 <div class="row m-0 member-list">
   <div class="d-flex justify-content-center my-auto" *ngIf="isLoading">
     <div class="spinner-grow text-danger me-1" role="status">

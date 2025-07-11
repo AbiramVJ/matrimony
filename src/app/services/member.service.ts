@@ -143,9 +143,8 @@ export class MemberService {
 
   //REJECT FD REQUEST
   public rejectFriendRequest(requestId:string){
-      return this.http.get(this.baseUrl + `FriendRequest/reject/${requestId}`).pipe(
+      return this.http.post(this.baseUrl + `FriendRequest/reject/${requestId}`,{}).pipe(
         map((res: any) => {
-          console.log(res);
           return res.Result;
       })
     );
@@ -175,7 +174,8 @@ export class MemberService {
     let profileId = localStorage.getItem('currentMemberId');
     return this.http.get(this.baseUrl + `FriendRequest/pending-requests/${profileId}?pageNumber=${pageNumber}&pageSize=${pageSize}`).pipe(
         map((res: any) => {
-          return res.Result.data.map((r:any)=> new RequestList(r));
+          //return res.Result.data.map((r:any)=> new RequestList(r));
+          return new CommonResponse<RequestList>(res.Result, RequestList);
       })
     );
   }

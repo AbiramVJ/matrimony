@@ -3,7 +3,7 @@ import { ROUTER_MODULES } from './../common-imports';
 import { SocialLoginService } from './../../services/auth/social-login.service';
 import { AuthService } from './../../services/auth/auth.service';
 import { MemberService } from './../../services/member.service';
-import { Component, ElementRef, HostListener, Input } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, SimpleChanges } from '@angular/core';
 import { COMMON_DIRECTIVES, FORM_MODULES } from '../common-imports';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
@@ -11,6 +11,7 @@ import { ChatParticipant, MainUser, MemberProfile, RequestList, UserProfile } fr
 import { Router } from '@angular/router';
 import { ChatService } from '../../services/chat.service';
 import { FriendRequestStatus } from '../../helpers/enum';
+import { CommonResponse } from '../../models/commonResponse.model';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -26,6 +27,12 @@ export class NavigationBarComponent {
   public canAddProfile:boolean = false;
   public isMessageOpen:boolean = false;
   public isProfileOpen:boolean = false;
+  public isRequestLoading:boolean = false;
+
+  public currentPage = 1;
+  public pageSize = 5;
+  public hasMoreRequests = true;
+
   public isNotificationOpen:boolean = false;
   public isFriendRequestOpen = false;  // new state
   public selectedMember!:UserProfile;
@@ -100,6 +107,7 @@ export class NavigationBarComponent {
 
   public participants: ChatParticipant[] = [];
   public friendRequestList:RequestList[] = [];
+  public totalRequestList:number = 0;
 
 
   constructor(private eRef: ElementRef,
@@ -148,13 +156,16 @@ handleClickOutside(event: MouseEvent) {
       this.UnreadCount = this.participants.filter((p: ChatParticipant) => !p.isRead).length;
     });
     this._friendSignalRService.registerFriendRequestListener((message: any) => {
-      var message:any = new RequestList(message);
+      const newRequest = new RequestList(message);
+      const existingIndex = this.friendRequestList.findIndex((r: any) => r.senderProfileId === newRequest.senderProfileId);
+      if (existingIndex !== -1) {
+        this.friendRequestList.splice(existingIndex, 1);
+      }
       this.friendRequestList.unshift(message);
-      console.log("Received friend request in component:", message);
       if (Notification.permission === 'granted') {
       new Notification('New Friend Request', {
-        body: `You received a request from ${message.name}`, // Replace with real field
-        icon: 'assets/icons/friend-request.png' // Optional icon
+        body: `You received a request from ${message.name}`,
+        icon: 'assets/icons/friend-request.png'
       });
       const audio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-software-interface-start-2574.mp3');
       audio.play();
@@ -277,31 +288,90 @@ get displayedProfiles() {
 
 
   //FRIENDS REQUEST
-  private _getRequests(){
-    this._memberService.GetFriendRequests(1,10).subscribe({
-      next:(res:any)=>{
-        this.friendRequestList = res;
-      },
+  private _getRequests() {
+    if (this.isRequestLoading || !this.hasMoreRequests) return;
 
+    this.isRequestLoading = true;
+
+    this._memberService.GetFriendRequests(this.currentPage, this.pageSize).subscribe({
+      next:(res: any) => {
+        if (res.data.length < this.pageSize) {
+          this.hasMoreRequests = false;
+
+        }
+        this.totalRequestList = res.totalCount;
+        this.friendRequestList.push(...res.data);
+        this.currentPage++;
+      },
+      complete: () => {
+        this.isRequestLoading = false;
+      }
+    });
+  }
+
+    onScroll(event: any) {
+      const element = event.target;
+      const scrollBottom = Math.ceil(element.scrollTop + element.clientHeight);
+
+      if (scrollBottom >= element.scrollHeight) {
+        this._getRequests();
+      }
+    }
+
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['isFriendRequestOpen']?.currentValue) {
+      this.resetAndLoadRequests();
+    }
+  }
+
+  resetAndLoadRequests() {
+    this.currentPage = 1;
+    this.hasMoreRequests = true;
+    this.friendRequestList = [];
+    this._getRequests();
+  }
+
+
+
+  public confirmFriendRequest(id:any){
+    this.isRequestLoading = true;
+    this._memberService.acceptFriendRequest(id).subscribe({
+      next:(res:any) => {
+        const request = this.friendRequestList.find((r: any) => r.id === id);
+        if (request) {
+          request.status = this.request.Accepted;
+        }
+        this._toster.success(res,'Confirm');
+      },
+      complete:()=>{
+        this.isRequestLoading = false;
+      },
+      error:(error:any)=>{
+        this._toster.error(error.error.Error.Title,error.error.Error.Detail);
+        this.isRequestLoading = false;
+      }
     })
   }
 
-    public confirmFriendRequest(id:any){
-      this.isLoading = true;
-      this._memberService.acceptFriendRequest(id).subscribe({
-        next:(res:any) => {
-        //  var fr = new Request({status:this.request.Accepted})
-         // this.memberProfile.friendRequest = fr;
-          this._toster.success(res,'Confirm');
-        },
-        complete:()=>{
-          this.isLoading = false;
-        },
-        error:(error:any)=>{
-         this._toster.error(error.error.Error.Title,error.error.Error.Detail);
-         this.isLoading = false;
+  public rejectFriendRequest(id:any){
+    this.isRequestLoading = true;
+    this._memberService.rejectFriendRequest(id).subscribe({
+      next:(res:any) => {
+        const request = this.friendRequestList.find((r: any) => r.id === id);
+        if (request) {
+          request.status = this.request.Rejected;
         }
-      })
-    }
+        this._toster.success(res,'rejected');
+      },
+      complete:()=>{
+        this.isRequestLoading = false;
+      },
+      error:(error:any)=>{
+        this._toster.error(error.error.Error.Title,error.error.Error.Detail);
+        this.isRequestLoading = false;
+      }
+    })
+  }
 
 }
