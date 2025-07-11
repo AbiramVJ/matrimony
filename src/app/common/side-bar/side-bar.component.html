@@ -9,6 +9,16 @@
     <div class="class btn btn-danger" (click)="clearFilter()">Clear Filter</div>
   </div>
 
+  <div class="mt-2 mb-2">
+  <div class="input-group">
+     <span class="input-group-text">
+      <i class="fas fa-search"></i>
+    </span>
+    <input type="text" class="form-control" [(ngModel)]="searchText" (keyup)="searchMembers(searchText)" placeholder="Search" />
+
+  </div>
+</div>
+
   <ul class="list-group" id="accordionFilter">
 
     <!-- Basic Info -->

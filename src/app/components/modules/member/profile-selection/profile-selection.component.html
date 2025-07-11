@@ -19,10 +19,10 @@
                       <div class="mt-2 name-card p-2">
                         <div class="text-md text-muted fw-bold">{{p.firstName + ' ' + p.lastName}}</div>
                         <!-- <div class="text-sm"><i class="fas fa-circle" [ngClass]="p.isActive ? 'active-color': 'in-active-color'" title="Online"></i> {{p.isActive ? 'Active' : '3 days ago'}}</div> -->
-                         <div class="active-bandage position-absolute">
+                         <!-- <div class="active-bandage position-absolute">
                           <span class="badge" [ngClass]="p.isActive ? 'bg-success': 'bg-secondary'">{{p.isActive ? 'Active' : '3 days ago'}}</span>
-                         </div>
-                          <div class="text-sm">{{p.email}}</div>
+                         </div> -->
+                          <div class="text-sm">{{p.profileJob?.title}}</div>
                           <div class="d-flex justify-content-end mt-1">
                             <div class="d-flex">
                               <div><i class="fas fa-edit text-primary me-2" (click)="navigateToEditForm(p.id)"></i></div>

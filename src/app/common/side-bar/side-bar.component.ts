@@ -21,7 +21,7 @@ import {
 } from '../../helpers/data';
 import { Community, Education, Religion } from '../../models/index.model';
 import { AuthService } from '../../services/auth/auth.service';
-import { forkJoin } from 'rxjs';
+import { BehaviorSubject, debounceTime, forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-side-bar',
@@ -31,6 +31,7 @@ import { forkJoin } from 'rxjs';
   encapsulation: ViewEncapsulation.None,
 })
 export class SideBarComponent {
+  public searchValue = new BehaviorSubject<any>(null);
   public countryList: any[] = [];
   public selectedCountry: any;
   public selectedLivingCountry: any;
@@ -55,6 +56,8 @@ export class SideBarComponent {
 
   public minSalaryValue: any = null;
   public maxSalaryValue: any = null;
+
+  public searchText:string = '';
 
   public ageOptions: Options = {
     floor: 18,
@@ -140,6 +143,11 @@ export class SideBarComponent {
   public ngOnInit(): void {
     this._loadInitialData();
     this._getCurrentMember();
+     this.searchValue.pipe(debounceTime(1000)).subscribe(searchText => {
+      if (searchText != null) {
+        this.getSearchActivities(searchText);
+      }
+    });
   }
 
   ngAfterViewInit() {
@@ -306,6 +314,7 @@ export class SideBarComponent {
 
   public applyFilters() {
     const filterPayload = {
+      searchText:this.searchText,
       minAge: this.minAgeValue,
       maxAge: this.maxAgeValue,
       OriginCountries: this.selectedCountry,
@@ -375,6 +384,7 @@ export class SideBarComponent {
     this.maxSalaryValue = null;
 
     const emptyPayload = {
+      searchText:'',
       minAge: null,
       maxAge: null,
       OriginCountries: [],
@@ -403,5 +413,14 @@ export class SideBarComponent {
     };
 
     this.memberService.setFilter(emptyPayload);
+  }
+
+  public searchMembers(searchText:string){
+     this.searchValue.next(searchText);
+  }
+
+  public getSearchActivities(searchText:string){
+    this.searchText = searchText;
+    this.applyFilters();
   }
 }

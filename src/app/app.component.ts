@@ -31,7 +31,8 @@ export class AppComponent {
      private router: Router,
      private _memberService:MemberService,
      private _chatService:ChatService,
-     private _friendSignalRService:FriendSignalRService
+     private _friendSignalRService:FriendSignalRService,
+     private _signalRService : SignalRService
     ){
 
   }
@@ -77,6 +78,7 @@ export class AppComponent {
           }
           this._chatService.startConnection();
           this._friendSignalRService.startConnection();
+          this._signalRService.startNotificationHub();
           this.isLoading = false;
         }
       },

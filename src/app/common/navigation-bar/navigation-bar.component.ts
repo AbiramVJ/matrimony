@@ -1,3 +1,4 @@
+import { SignalRService } from './../../services/signal-r.service';
 import { FriendSignalRService } from './../../services/friend-signal-r.service';
 import { ROUTER_MODULES } from './../common-imports';
 import { SocialLoginService } from './../../services/auth/social-login.service';
@@ -12,6 +13,7 @@ import { Router } from '@angular/router';
 import { ChatService } from '../../services/chat.service';
 import { FriendRequestStatus } from '../../helpers/enum';
 import { CommonResponse } from '../../models/commonResponse.model';
+import { SignalNode } from '@angular/core/primitives/signals';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -119,6 +121,7 @@ export class NavigationBarComponent {
     private _chatService:ChatService,
     private _friendSignalRService : FriendSignalRService,
     private _toster:ToastrService,
+    private _signalRService:SignalRService
   ){}
 
 @HostListener('document:click', ['$event'])
@@ -155,6 +158,7 @@ handleClickOutside(event: MouseEvent) {
       this.participants = data;
       this.UnreadCount = this.participants.filter((p: ChatParticipant) => !p.isRead).length;
     });
+
     this._friendSignalRService.registerFriendRequestListener((message: any) => {
       const newRequest = new RequestList(message);
       const existingIndex = this.friendRequestList.findIndex((r: any) => r.senderProfileId === newRequest.senderProfileId);
@@ -172,6 +176,10 @@ handleClickOutside(event: MouseEvent) {
 
       }
     });
+
+    this._signalRService.receiveNotification((notification:any) => {
+        console.log(notification);
+    })
   }
 
  public toggleDropdown(type: 'message' | 'notification' | 'profile' | 'friendRequest'): void {
