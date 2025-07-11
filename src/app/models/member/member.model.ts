@@ -453,6 +453,29 @@ export class Request {
   }
 }
 
+export class RequestList {
+  id: string | null;
+  name: string | null;
+  profileImageURL: string | null;
+  senderProfileId: string | null;
+  receiverProfileId: string | null;
+  status: number | null;
+  requestedAt: string;
+  respondedAt: string;
+
+  constructor(obj: any) {
+    this.id = obj.id ?? null;
+    this.name = obj.name ?? null;
+    this.profileImageURL = obj.profileImageURL ?? null;
+    this.senderProfileId = obj.senderProfileId ?? null;
+    this.receiverProfileId = obj.receiverProfileId ?? null;
+    this.status = obj.status ?? null;
+    this.requestedAt = obj.requestedAt ?? '';
+    this.respondedAt = obj.respondedAt ?? '';
+  }
+}
+
+
 export function getNatshathira(status:number){
   const option = Natshathira.find(opt => opt.id === status);
   return option ? option.name : null;

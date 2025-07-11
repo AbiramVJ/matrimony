@@ -7,7 +7,7 @@ import { Component, ElementRef, HostListener, Input } from '@angular/core';
 import { COMMON_DIRECTIVES, FORM_MODULES } from '../common-imports';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
-import { ChatParticipant, MainUser, MemberProfile, UserProfile } from '../../models/index.model';
+import { ChatParticipant, MainUser, MemberProfile, RequestList, UserProfile } from '../../models/index.model';
 import { Router } from '@angular/router';
 import { ChatService } from '../../services/chat.service';
 
@@ -98,6 +98,7 @@ export class NavigationBarComponent {
 ];
 
   public participants: ChatParticipant[] = [];
+  public friendRequestList:RequestList[] = [];
 
 
   constructor(private eRef: ElementRef,
@@ -138,16 +139,20 @@ handleClickOutside(event: MouseEvent) {
     this._getLoginUserDetails();
     this._getCurrentMember();
     this.getMainUser();
+    this._getRequests();
 
     this._chatService.onChatParticipantsReceived((data: any[]) => {
       this.participants = data;
       this.UnreadCount = this.participants.filter((p: ChatParticipant) => !p.isRead).length;
     });
 
-    this._friendSignalRService.friendRequestReceived$.subscribe(request => {
-   //   this.friendRequest = request;
-      console.log('New friend request:', request);
+  //   this._friendSignalRService.friendRequestReceived$.subscribe(request => {
+  //  //   this.friendRequest = request;
+  //     console.log('New friend request:', request);
 
+  //   });
+    this._friendSignalRService.registerFriendRequestListener((message: any) => {
+      console.log("Received friend request in component:", message);
     });
   }
 
@@ -265,6 +270,13 @@ get displayedProfiles() {
 
 
   //FRIENDS REQUEST
+  private _getRequests(){
+    this._memberService.GetFriendRequests(1,10).subscribe({
+      next:(res:any)=>{
+        this.friendRequestList = res;
+      },
 
+    })
+  }
 
 }

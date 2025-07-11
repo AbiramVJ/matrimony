@@ -116,24 +116,24 @@ ngOnChanges(): void {
     })
   }
 
-    public openChat(member: FullUserProfile) {
-      this._chatService.clearParticipant();
-      const openChatMember = new ChatParticipant({
-        receiverProfileId: member.id,
-        name: member.firstName,
-        profileImage: member.profileImages[0].url,
-        lastSentAt: new Date().toString(),
-        isRead: false,
-      });
-      this._chatService.setParticipant(openChatMember);
-      let viewModal: HTMLElement = document.getElementById(
-                'member-profile-close-btn'
-              ) as HTMLElement;
-              if (viewModal) {
-                viewModal.click();
-              }
-              console.log(viewModal)
-      this.router.navigate(['/home/chat']);
-    }
+  public openChat(member: FullUserProfile) {
+    this._chatService.clearParticipant();
+    const openChatMember = new ChatParticipant({
+      receiverProfileId: member.id,
+      name: member.firstName,
+      profileImage: member.profileImages[0].url,
+      lastSentAt: new Date().toString(),
+      isRead: false,
+    });
+    this._chatService.setParticipant(openChatMember);
+    let viewModal: HTMLElement = document.getElementById(
+              'member-profile-close-btn'
+            ) as HTMLElement;
+            if (viewModal) {
+              viewModal.click();
+            }
+            console.log(viewModal)
+    this.router.navigate(['/home/chat']);
+  }
 
 }

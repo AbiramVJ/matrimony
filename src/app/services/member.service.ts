@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map } from 'rxjs';
-import { Community, Education, FullUserProfile, MainUser, MemberProfile, Religion, UserProfile } from '../models/index.model';
+import { Community, Education, FullUserProfile, MainUser, MemberProfile, Religion, RequestList, UserProfile } from '../models/index.model';
 import { CommonResponse } from '../models/commonResponse.model';
 
 
@@ -170,4 +170,13 @@ export class MemberService {
         })
       );
     }
+
+  public GetFriendRequests(pageNumber:number, pageSize:number){
+    let profileId = localStorage.getItem('currentMemberId');
+    return this.http.get(this.baseUrl + `FriendRequest/pending-requests/${profileId}?pageNumber=${pageNumber}&pageSize=${pageSize}`).pipe(
+        map((res: any) => {
+          return res.Result.data.map((r:any)=> new RequestList(r));
+      })
+    );
+  }
 }
