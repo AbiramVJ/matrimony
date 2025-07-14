@@ -22,6 +22,7 @@ export class CommonNotificationResponse<T> {
   data: T[];
   totalCount: number;
   pageNumber: number;
+  totalUnreadCount:number;
   pageSize: number;
   totalPages?: number;
   hasPrevious?: boolean;
@@ -35,5 +36,6 @@ export class CommonNotificationResponse<T> {
     this.totalPages = obj.totalPages ?? 0;
     this.hasPrevious = obj.hasPrevious ?? false;
     this.hasNext = obj.hasNext ?? false;
+    this.totalUnreadCount = obj.totalUnreadCount ?? 0;
   }
 }

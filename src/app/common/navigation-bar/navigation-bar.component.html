@@ -80,7 +80,7 @@
             <!-- FRIEND REQUEST -->
             <div class="circles border me-2 pointer position-relative friend " (click)="toggleDropdown('friendRequest')" *ngIf="memberProfiles.length > 0" >
               <i class="fas fa-user-plus fa-lg"></i>
-              <div class="text-white bg-danger notification-bandage position-absolute p-2">{{totalRequestList}}</div>
+              <div class="text-white bg-danger notification-bandage position-absolute p-2" *ngIf="totalRequestList > 0">{{totalRequestList}}</div>
             </div>
             <!-- MESSAGE -->
             <div class="circles border me-2 pointer position-relative mes " (click)="toggleDropdown('message')" *ngIf="memberProfiles.length > 0" >
@@ -150,7 +150,7 @@
                <div *ngIf="!isNotificationLoading">
                 <div class="border bg-white p-3 notification-list pointer" *ngFor="let notification of notificationList">
                   <div class="d-flex">
-                    <div><img src="https://dev1mg.blob.core.windows.net/mgate/common/Groom.jpg" [alt]="'name'" class="avatar-image" onerror="this.style.display='none'"></div>
+                    <!-- <div><img src="https://dev1mg.blob.core.windows.net/mgate/common/Groom.jpg" [alt]="'name'" class="avatar-image" onerror="this.style.display='none'"></div> -->
                     <div class="ms-3 text-sm">
                       <div class="fw-bold">{{notification.title}}</div>
                       <div class="text-muted">{{notification.body}}</div>

@@ -135,12 +135,12 @@ handleClickOutside(event: MouseEvent) {
     });
 
     this._signalRService.receiveNotification((notification:any) => {
-       this.totalNotification = this.totalNotification + 1;
+       this.totalNotificationList = this.totalNotificationList + 1;
         const newNotification = new NotificationItem(notification);
         this.notificationList.unshift(newNotification);
         if (Notification.permission === 'granted') {
-          new Notification('New notification', {
-            body: `${notification.boy}`,
+          new Notification(`${newNotification.title}`, {
+            body: `${newNotification.body}`,
             icon: 'assets/icons/friend-request.png'
           });
         }
