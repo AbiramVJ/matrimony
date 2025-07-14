@@ -8,7 +8,7 @@ import { Component, ElementRef, HostListener, Input, SimpleChanges } from '@angu
 import { COMMON_DIRECTIVES, FORM_MODULES } from '../common-imports';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
-import { ChatParticipant, MainUser, MemberProfile, RequestList, UserProfile } from '../../models/index.model';
+import { ChatParticipant, MainUser, MemberProfile, NotificationItem, RequestList, UserProfile } from '../../models/index.model';
 import { Router } from '@angular/router';
 import { ChatService } from '../../services/chat.service';
 import { FriendRequestStatus } from '../../helpers/enum';
@@ -30,13 +30,20 @@ export class NavigationBarComponent {
   public isMessageOpen:boolean = false;
   public isProfileOpen:boolean = false;
   public isRequestLoading:boolean = false;
+  public isNotificationLoading:boolean = false;
+  public isUnread:boolean = false;
 
   public currentPage = 1;
   public pageSize = 5;
   public hasMoreRequests = true;
 
+  public currentNotificationPage = 1;
+  public notificationPageSize = 5;
+  public hasMoreNotification = true;
+
+
   public isNotificationOpen:boolean = false;
-  public isFriendRequestOpen = false;  // new state
+  public isFriendRequestOpen = false;
   public selectedMember!:UserProfile;
   public memberProfiles:UserProfile[] = [];
   public request = FriendRequestStatus;
@@ -48,69 +55,16 @@ export class NavigationBarComponent {
 
   public UnreadCount:number = 0;
 
-  public chatList: any[] = [
-  {
-    id: 1,
-    name: 'Abiram',
-    imageUrl: '',
-    lastMessage: 'hello, good morning',
-    isOnline: true,
-    unReadCount: 5
-  },
-  {
-    id: 2,
-    name: 'Sneha',
-    imageUrl: 'https://randomuser.me/api/portraits/women/65.jpg',
-    lastMessage: 'Are we still on for tonight?',
-    isOnline: false,
-    unReadCount: 0
-  },
-  {
-    id: 3,
-    name: 'Ravi Kumar',
-    imageUrl: 'https://randomuser.me/api/portraits/men/33.jpg',
-    lastMessage: 'Sent you the files.',
-    isOnline: true,
-    unReadCount: 2
-  },
-  {
-    id: 4,
-    name: 'Meera',
-    imageUrl: '',
-    lastMessage: 'Typing...',
-    isOnline: true,
-    unReadCount: 0
-  },
-  {
-    id: 5,
-    name: 'John Doe',
-    imageUrl: 'https://randomuser.me/api/portraits/men/74.jpg',
-    lastMessage: '👍',
-    isOnline: false,
-    unReadCount: 7
-  },
-  {
-    id: 6,
-    name: 'Priya Sharma',
-    imageUrl: 'https://randomuser.me/api/portraits/women/44.jpg',
-    lastMessage: 'Let me know once you’re free.',
-    isOnline: true,
-    unReadCount: 0
-  },
-  {
-    id: 7,
-    name: 'Nikhil Raj',
-    imageUrl: '',
-    lastMessage: 'Thanks!',
-    isOnline: false,
-    unReadCount: 1
-  }
-];
+  public chatList: any[] = [];
 
+  //FRIEND REQUESTS
   public participants: ChatParticipant[] = [];
   public friendRequestList:RequestList[] = [];
   public totalRequestList:number = 0;
 
+  //NOTIFICATION
+  public notificationList:NotificationItem [] = [];
+  public totalNotificationList:number = 0;
 
   constructor(private eRef: ElementRef,
     private _memberService:MemberService,
@@ -153,6 +107,7 @@ handleClickOutside(event: MouseEvent) {
     this._getCurrentMember();
     this.getMainUser();
     this._getRequests();
+    this.getNotifications();
 
     this._chatService.onChatParticipantsReceived((data: any[]) => {
       this.participants = data;
@@ -331,6 +286,9 @@ get displayedProfiles() {
     if (changes['isFriendRequestOpen']?.currentValue) {
       this.resetAndLoadRequests();
     }
+     if (changes['isNotificationOpen']?.currentValue) {
+      this.resetAndLoadNotification();
+    }
   }
 
   resetAndLoadRequests() {
@@ -339,6 +297,13 @@ get displayedProfiles() {
     this.friendRequestList = [];
     this._getRequests();
   }
+  resetAndLoadNotification() {
+    this.currentNotificationPage = 1;
+    this.hasMoreNotification = true;
+    this.notificationList = [];
+    this.getNotifications();
+  }
+
 
 
 
@@ -382,4 +347,32 @@ get displayedProfiles() {
     })
   }
 
+
+    //FRIENDS REQUEST
+  public getNotifications() {
+    if (this.isNotificationLoading || !this.hasMoreNotification) return;
+    this.isNotificationLoading = true;
+    this._memberService.GetNotification(this.currentNotificationPage, this.notificationPageSize, this.isUnread  ? this.isUnread : null).subscribe({
+      next:(res: any) => {
+        if (res.data.length < this.notificationPageSize) {
+          this.hasMoreNotification = false;
+        }
+        this.totalNotificationList = res.totalCount;
+        this.notificationList.push(...res.data);
+        this.currentNotificationPage++;
+      },
+      complete: () => {
+        this.isNotificationLoading = false;
+      }
+    });
+  }
+
+  public onNotificationScroll (event: any) {
+      const element = event.target;
+      const scrollBottom = Math.ceil(element.scrollTop + element.clientHeight);
+
+      if (scrollBottom >= element.scrollHeight) {
+        this.getNotifications();
+      }
+    }
 }

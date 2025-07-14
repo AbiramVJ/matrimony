@@ -137,8 +137,36 @@
             </div>
           </div>
           <!-- NOTIFICATION DROP DOWNBOX -->
-          <div class="boder rounded bg-white position-absolute message-box" *ngIf="isNotificationOpen">
-            <div class="h5">Notifications</div>
+          <div class="boder rounded bg-white position-absolute message-box bg-light p-0" *ngIf="isNotificationOpen" (scroll)="onNotificationScroll($event)">
+            <div class="bg-light">
+              <div class="h5 p-3">Notifications</div>
+              <div class="mt-3 bg-white border px-3 py-2">
+                <div class="d-flex text-md fw-bold">
+                  <div class="me-3 pointer" [ngClass]="{'text-primary':!isUnread}" (click)="isUnread = false; getNotifications()">All</div>
+                  <div class="pointer" [ngClass]="{'text-primary':isUnread}" (click)="isUnread = true;getNotifications()">Unread</div>
+                </div>
+              </div>
+              <!-- <div class="px-3 py-2">TODAY</div> -->
+               <div *ngIf="!isNotificationLoading">
+                <div class="border bg-white p-3 notification-list pointer" *ngFor="let notification of notificationList">
+                  <div class="d-flex">
+                    <div><img src="https://dev1mg.blob.core.windows.net/mgate/common/Groom.jpg" [alt]="'name'" class="avatar-image" onerror="this.style.display='none'"></div>
+                    <div class="ms-3 text-sm">
+                      <div class="fw-bold">{{notification.title}}</div>
+                      <div class="text-muted">{{notification.body}}</div>
+                      <div class="text-muted">2 hours ago</div>
+                    </div>
+                    <div class="notification-badge ms-auto my-auto" *ngIf="!notification.isRead"> <i  class="fas fa-circle text-danger"></i></div>
+                  </div>
+                </div>
+               </div>
+            </div>
+            <div class="mx-auto text-center mt-5" *ngIf="isNotificationLoading">
+                 <div class="spinner-border text-danger" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+               </div>
+
           </div>
           <!-- NOTIFICATION DROP DOWNBOX END -->
 
@@ -146,9 +174,9 @@
           <div class="boder rounded bg-white position-absolute message-box fw-bold" *ngIf="isMessageOpen">
             <h5>Messages</h5>
             <div class="message-wrapper mt-0" *ngIf="participants.length > 0">
-              <div class="search-wrapper">
+              <!-- <div class="search-wrapper">
                 <input type="text" class="search-field" placeholder="Search conversations..." [(ngModel)]="searchTerm">
-              </div>
+              </div> -->
               <div class="conversation-list">
                 <div class="conversation-item" [class.selected]="selectedChatId === participant.receiverProfileId" *ngFor="let participant of participants"
                   (click)="openChat(participant)">

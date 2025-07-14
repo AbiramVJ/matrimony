@@ -300,7 +300,8 @@ export class MemberProfile {
     this.age = obj?.age ?? null;
     this.religion = obj?.religion ?? '';
     this.jobTitle = obj?.jobTitle ?? null;
-    this.imageUrl = obj?.imageUrl ? obj?.imageUrl : obj?.gender === 1 ?'https://dev1mg.blob.core.windows.net/mgate/common/Groom.jpg' : 'https://dev1mg.blob.core.windows.net/mgate/common/Bride.jpg';
+    // this.imageUrl = obj?.imageUrl ? obj?.imageUrl : obj?.gender === 1 ?'https://dev1mg.blob.core.windows.net/mgate/common/Groom.jpg' : 'https://dev1mg.blob.core.windows.net/mgate/common/Bride.jpg';
+    this.imageUrl = obj?.imageUrl ?? ';'
     this.livingAddresses = obj.livingAddresses ? new LivingAddress(obj.livingAddresses) : null;
   }
 }
@@ -379,9 +380,8 @@ export class FullUserProfile {
     this.profileFamily = obj?.profileFamily ? new ProfileFamily(obj.profileFamily) : null;
     this.profileAstrology = obj?.profileAstrology ? new ProfileAstrology(obj.profileAstrology) : null;
     this.profileImages = obj?.profileImages?.map((x: any) => new ProfileImage(x)) ?? [];
-      this.profileImages = images.length > 0
-  ? images.map((i: any) => new ProfileImage(i))
-  : [new ProfileImage({ url: 'https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740', isVisible:false })];
+ //   this.profileImages = images.length > 0 ? images.map((i: any) => new ProfileImage(i)) : [new ProfileImage({ url: 'https://dev1mg.blob.core.windows.net/mgate/common/Groom.jpg', isVisible:false })];
+    this.profileImages = images.length > 0 ? images.map((i: any) => new ProfileImage(i)) : [];
     this.profileAddresses = obj?.profileAddresses?.map((x: any) => new ProfileAddress(x)) ?? [];
     this.profileEducations = obj?.profileEducations?.map((x: any) => new ProfileEducation(x)) ?? [];
     this.age = obj?.age ?? 0;
@@ -474,6 +474,33 @@ export class RequestList {
     this.respondedAt = obj.respondedAt ?? '';
   }
 }
+
+export class NotificationItem {
+  id: string | null;
+  title: string | null;
+  body: string | null;
+  payload: any;
+  notificationType: number | null;
+  receivedProfileId: string | null;
+  receivedUserId: string | null;
+  isRead: boolean;
+  readAt: string | null;
+  createdAt:string;
+
+  constructor(obj: any) {
+    this.id = obj.id ?? null;
+    this.title = obj.title ?? null;
+    this.body = obj.body ?? null;
+    this.payload = obj.payload ?? null;
+    this.notificationType = obj.notificationType ?? null;
+    this.receivedProfileId = obj.receivedProfileId ?? null;
+    this.receivedUserId = obj.receivedUserId ?? null;
+    this.isRead = obj.isRead ?? false;
+    this.readAt = obj.readAt ?? null;
+    this.createdAt = '2025-07-14 15:42:30';
+  }
+}
+
 
 
 export function getNatshathira(status:number){

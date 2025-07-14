@@ -74,6 +74,7 @@
   width: 100%;
   border-radius: 15px;
   max-height: 65vh;
+  min-height: 60vh;
   overflow: auto;
   // right: -129px;
 }
@@ -198,6 +199,12 @@
 .conversation-item:hover {
   background-color: #f8f9ff;
   transform: translateX(5px);
+}
+
+
+.notification-list:hover{
+ background-color: #f8f9ff !important;
+ //transform: translateX(2px);
 }
 
 .conversation-item:last-child {

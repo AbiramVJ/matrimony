@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map } from 'rxjs';
-import { Community, Education, FullUserProfile, MainUser, MemberProfile, Religion, RequestList, UserProfile } from '../models/index.model';
-import { CommonResponse } from '../models/commonResponse.model';
+import { Community, Education, FullUserProfile, MainUser, MemberProfile, NotificationItem, Religion, RequestList, UserProfile } from '../models/index.model';
+import { CommonNotificationResponse, CommonResponse } from '../models/commonResponse.model';
 
 
 @Injectable({
@@ -174,9 +174,23 @@ export class MemberService {
     let profileId = localStorage.getItem('currentMemberId');
     return this.http.get(this.baseUrl + `FriendRequest/pending-requests/${profileId}?pageNumber=${pageNumber}&pageSize=${pageSize}`).pipe(
         map((res: any) => {
-          //return res.Result.data.map((r:any)=> new RequestList(r));
           return new CommonResponse<RequestList>(res.Result, RequestList);
       })
     );
   }
+
+  public GetNotification(pageNumber: number, pageSize: number, isRead: boolean | null) {
+    const profileId = localStorage.getItem('currentMemberId');
+    let params = `pageNumber=${pageNumber}&pageSize=${pageSize}`;
+    if (isRead !== null) {
+      params = `isRead=${isRead}&` + params;
+    }
+    const url = `${this.baseUrl}Notification/profile/${profileId}?${params}`;
+    return this.http.get(url).pipe(
+      map((res: any) => {
+        return new CommonNotificationResponse<NotificationItem>(res.Result, NotificationItem);
+      })
+    );
+  }
+
 }
