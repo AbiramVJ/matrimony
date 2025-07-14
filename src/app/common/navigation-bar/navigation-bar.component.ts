@@ -61,6 +61,8 @@ export class NavigationBarComponent {
   public participants: ChatParticipant[] = [];
   public friendRequestList:RequestList[] = [];
   public totalRequestList:number = 0;
+  public totalNotification:number = 0;
+
 
   //NOTIFICATION
   public notificationList:NotificationItem [] = [];
@@ -115,6 +117,7 @@ handleClickOutside(event: MouseEvent) {
     });
 
     this._friendSignalRService.registerFriendRequestListener((message: any) => {
+      this.totalRequestList = this.totalRequestList + 1;
       const newRequest = new RequestList(message);
       const existingIndex = this.friendRequestList.findIndex((r: any) => r.senderProfileId === newRequest.senderProfileId);
       if (existingIndex !== -1) {
@@ -128,13 +131,20 @@ handleClickOutside(event: MouseEvent) {
       });
       const audio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-software-interface-start-2574.mp3');
       audio.play();
-
       }
     });
 
     this._signalRService.receiveNotification((notification:any) => {
-        console.log(notification);
-    })
+       this.totalNotification = this.totalNotification + 1;
+        const newNotification = new NotificationItem(notification);
+        this.notificationList.unshift(newNotification);
+        if (Notification.permission === 'granted') {
+          new Notification('New notification', {
+            body: `${notification.boy}`,
+            icon: 'assets/icons/friend-request.png'
+          });
+        }
+    });
   }
 
  public toggleDropdown(type: 'message' | 'notification' | 'profile' | 'friendRequest'): void {
