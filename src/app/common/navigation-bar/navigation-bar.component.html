@@ -90,7 +90,7 @@
             <!-- NOTIFICATION -->
             <div class="circles border me-2 pointer position-relative noti " (click)="toggleDropdown('notification')" *ngIf="memberProfiles.length > 0">
               <i class="fas fa-bell fa-lg"></i>
-              <div class="text-white bg-danger notification-bandage position-absolute p-2">{{totalNotificationList}}</div>
+              <div class="text-white bg-danger notification-bandage position-absolute p-2" *ngIf="totalUnReadCount > 0">{{totalUnReadCount}}</div>
             </div>
 
            <div class="profile-image pointer profi position-relative" (click)="toggleDropdown('profile')" *ngIf="mainUser">
@@ -141,20 +141,23 @@
             <div class="bg-light">
               <div class="h5 p-3">Notifications</div>
               <div class="mt-3 bg-white border px-3 py-2">
-                <div class="d-flex text-md fw-bold">
-                  <div class="me-3 pointer" [ngClass]="{'text-primary':!isUnread}" (click)="isUnread = false; hasMoreNotification = true; getNotifications()">All</div>
-                  <div class="pointer" [ngClass]="{'text-primary':isUnread}" (click)="isUnread = true;  hasMoreNotification = true; getNotifications()">Unread</div>
+                <div class="d-flex text-md fw-bold justify-content-between">
+                  <div class="my-auto">
+                    <span class="me-3 pointer" [ngClass]="{'text-primary':!isUnread}" (click)="isUnread = false; hasMoreNotification = true; getNotifications()">All</span>
+                    <span class="pointer" [ngClass]="{'text-primary':isUnread}" (click)="isUnread = true;  hasMoreNotification = true; getNotifications()">Unread</span>
+                  </div>
+                  <div class="btn btn-danger" (click)="markAllNotificationsAsRead()">Make all read</div>
                 </div>
               </div>
               <!-- <div class="px-3 py-2">TODAY</div> -->
                <div *ngIf="!isNotificationLoading">
                 <div class="border bg-white p-3 notification-list pointer" *ngFor="let notification of notificationList">
-                  <div class="d-flex">
-                    <!-- <div><img src="https://dev1mg.blob.core.windows.net/mgate/common/Groom.jpg" [alt]="'name'" class="avatar-image" onerror="this.style.display='none'"></div> -->
+                  <div class="d-flex" (click)="navigateToNotificationSection(notification)">
+                    <div><img src="{{notification.parsedPayload?.ImageUrl}}" [alt]="'name'" class="avatar-image" onerror="this.style.display='none'"></div>
                     <div class="ms-3 text-sm">
                       <div class="fw-bold">{{notification.title}}</div>
                       <div class="text-muted">{{notification.body}}</div>
-                      <div class="text-muted">2 hours ago</div>
+                      <div class="text-muted">{{notification.createdDate}}</div>
                     </div>
                     <div class="notification-badge ms-auto my-auto" *ngIf="!notification.isRead"> <i  class="fas fa-circle text-danger"></i></div>
                   </div>
@@ -269,3 +272,4 @@
     </div>
   </div>
 </div>
+

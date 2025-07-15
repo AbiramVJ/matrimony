@@ -8,16 +8,15 @@ import { Component, ElementRef, HostListener, Input, SimpleChanges } from '@angu
 import { COMMON_DIRECTIVES, FORM_MODULES } from '../common-imports';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
-import { ChatParticipant, MainUser, MemberProfile, NotificationItem, RequestList, UserProfile } from '../../models/index.model';
+import { ChatParticipant, FullUserProfile, MainUser, NotificationItem, RequestList, UserProfile } from '../../models/index.model';
 import { Router } from '@angular/router';
 import { ChatService } from '../../services/chat.service';
-import { FriendRequestStatus } from '../../helpers/enum';
-import { CommonResponse } from '../../models/commonResponse.model';
-import { SignalNode } from '@angular/core/primitives/signals';
+import { FriendRequestStatus, NotificationType } from '../../helpers/enum';
+
 
 @Component({
   selector: 'app-navigation-bar',
-  imports: [FORM_MODULES,COMMON_DIRECTIVES,ROUTER_MODULES,CommonModule],
+  imports: [FORM_MODULES, COMMON_DIRECTIVES, ROUTER_MODULES, CommonModule],
   templateUrl: './navigation-bar.component.html',
   styleUrl: './navigation-bar.component.scss'
 })
@@ -63,10 +62,13 @@ export class NavigationBarComponent {
   public totalRequestList:number = 0;
   public totalNotification:number = 0;
 
+  public filterMemberViewData!: FullUserProfile;
+
 
   //NOTIFICATION
   public notificationList:NotificationItem [] = [];
   public totalNotificationList:number = 0;
+  public totalUnReadCount:number = 0;
 
   constructor(private eRef: ElementRef,
     private _memberService:MemberService,
@@ -135,7 +137,7 @@ handleClickOutside(event: MouseEvent) {
     });
 
     this._signalRService.receiveNotification((notification:any) => {
-       this.totalNotificationList = this.totalNotificationList + 1;
+       this.totalUnReadCount = this.totalUnReadCount + 1;
         const newNotification = new NotificationItem(notification);
         this.notificationList.unshift(newNotification);
         if (Notification.permission === 'granted') {
@@ -368,6 +370,7 @@ get displayedProfiles() {
           this.hasMoreNotification = false;
         }
         this.totalNotificationList = res.totalCount;
+        this.totalUnReadCount = res.totalUnreadCount;
         this.notificationList.push(...res.data);
         this.currentNotificationPage++;
       },
@@ -378,11 +381,39 @@ get displayedProfiles() {
   }
 
   public onNotificationScroll (event: any) {
-      const element = event.target;
-      const scrollBottom = Math.ceil(element.scrollTop + element.clientHeight);
+    const element = event.target;
+    const scrollBottom = Math.ceil(element.scrollTop + element.clientHeight);
 
-      if (scrollBottom >= element.scrollHeight) {
-        this.getNotifications();
-      }
+    if (scrollBottom >= element.scrollHeight) {
+      this.getNotifications();
     }
+  }
+
+  public navigateToNotificationSection(type:NotificationItem){
+    if(type.notificationType === NotificationType.FriendRequestAccept && type.parsedPayload){
+      this._memberService.viewMemberById(type.parsedPayload?.ProfileId);
+      this._makeItAsReadNotification(type.id);
+    }
+  }
+
+  private _makeItAsReadNotification(notificationId:string){
+    this._memberService.MakeAsReadNotification(notificationId).subscribe({
+      next:(res:any) => {},
+      complete:()=>{
+       const notif = this.notificationList.find(n => n.id === notificationId);
+       if (notif) notif.isRead = true;
+      }
+    })
+  }
+
+  public markAllNotificationsAsRead(){
+    this._memberService.MakeAsReadAllNotification().subscribe({
+      next:(res:any) => {},
+      complete:()=>{
+        this.notificationList.forEach(n => n.isRead = true);
+        this._toastr.success('Messages marked as read.', 'Success');
+      }
+    })
+  }
+
 }

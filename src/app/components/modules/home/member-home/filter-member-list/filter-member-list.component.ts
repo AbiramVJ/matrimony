@@ -66,6 +66,12 @@ export class FilterMemberListComponent {
         }
       });
   }
+
+  ngOnInit(): void {
+    this.memberService.memberView$.subscribe((profileId: string) => {
+      this.viewMemberDetails(profileId);
+    });
+  }
   public changePerPageValue(pageNumber: number) {
     if (pageNumber != 0 && pageNumber != null) {
       this.currentPage = 1;

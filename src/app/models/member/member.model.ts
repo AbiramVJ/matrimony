@@ -1,4 +1,5 @@
 import { BloodGroup, bodyTypes, Complexion, diet, DrinkHabit, maritalStatusOptions, Natshathira, raasiList, SmokeHabit, willingToRelocate } from "../../helpers/data";
+import { getFormattedLastSentAt } from "../../helpers/Functions/timeConverter";
 
 export class ProfileSalary {
   isAnnual: boolean;
@@ -476,30 +477,42 @@ export class RequestList {
 }
 
 export class NotificationItem {
-  id: string | null;
+  id: string ;
   title: string | null;
   body: string | null;
   payload: any;
+  parsedPayload: { ProfileId: string; ImageUrl: string } | null;
   notificationType: number | null;
   receivedProfileId: string | null;
   receivedUserId: string | null;
   isRead: boolean;
   readAt: string | null;
-  createdAt:string;
+  createdDate: string;
 
   constructor(obj: any) {
     this.id = obj.id ?? null;
     this.title = obj.title ?? null;
     this.body = obj.body ?? null;
     this.payload = obj.payload ?? null;
+
+    try {
+      this.parsedPayload =
+        typeof this.payload === 'string'
+          ? JSON.parse(this.payload)
+          : this.payload;
+    } catch {
+      this.parsedPayload = null;
+    }
+
     this.notificationType = obj.notificationType ?? null;
     this.receivedProfileId = obj.receivedProfileId ?? null;
     this.receivedUserId = obj.receivedUserId ?? null;
     this.isRead = obj.isRead ?? false;
     this.readAt = obj.readAt ?? null;
-    this.createdAt = '2025-07-14 15:42:30';
+    this.createdDate = getFormattedLastSentAt(obj.createdDate) ?? '';
   }
 }
+
 
 
 

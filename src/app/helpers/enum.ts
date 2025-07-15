@@ -53,3 +53,11 @@ export enum FriendRequestStatus
     Rejected = 3
 }
 
+export enum NotificationType
+{
+  WelcomeMember = 1,
+  ForgotPasswordOtp = 2,
+  EmailVerificationOtp = 3,
+  FriendRequestAccept = 4,
+  FriendRequestReject = 5,
+}

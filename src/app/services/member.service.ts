@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, map, Subject } from 'rxjs';
 import { Community, Education, FullUserProfile, MainUser, MemberProfile, NotificationItem, Religion, RequestList, UserProfile } from '../models/index.model';
 import { CommonNotificationResponse, CommonResponse } from '../models/commonResponse.model';
 
@@ -15,6 +15,13 @@ export class MemberService {
 
   private filterSource = new BehaviorSubject<any>(null);
   filter$ = this.filterSource.asObservable();
+
+  private memberViewSubject = new Subject<string>();
+  memberView$ = this.memberViewSubject.asObservable();
+
+  viewMemberById(id: string) {
+    this.memberViewSubject.next(id);
+  }
 
   constructor(private http: HttpClient) { }
 
@@ -191,6 +198,15 @@ export class MemberService {
         return new CommonNotificationResponse<NotificationItem>(res.Result, NotificationItem);
       })
     );
+  }
+
+  public MakeAsReadNotification(notificationId:string){
+    let profileId = localStorage.getItem('currentMemberId');
+    return this.http.put<any>(this.baseUrl + `Notification/read/${profileId}?notificationId=${notificationId}`, {});
+  }
+  public MakeAsReadAllNotification(){
+    let profileId = localStorage.getItem('currentMemberId');
+    return this.http.put<any>(this.baseUrl + `Notification/read/${profileId}`, {});
   }
 
 }
