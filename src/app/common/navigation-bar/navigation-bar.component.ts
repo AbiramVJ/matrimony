@@ -392,8 +392,8 @@ get displayedProfiles() {
   public navigateToNotificationSection(type:NotificationItem){
     if(type.notificationType === NotificationType.FriendRequestAccept && type.parsedPayload){
       this._memberService.viewMemberById(type.parsedPayload?.ProfileId);
-      this._makeItAsReadNotification(type.id);
     }
+    this._makeItAsReadNotification(type.id);
   }
 
   private _makeItAsReadNotification(notificationId:string){
