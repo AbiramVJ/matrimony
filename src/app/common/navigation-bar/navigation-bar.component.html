@@ -46,20 +46,20 @@
 
          <!-- MOBILE SCREEN NAVIGATION OPTION -->
         <nav class="bottom-nav navbar fixed-bottom bg-white border-top shadow-sm py-2 d-block d-dm-block d-md-none">
-          <div class="container d-flex justify-content-around text-center mb-2">
+          <div class="container d-flex justify-content-around text-center">
             <a class="nav-item nav-link p-2"   [routerLink]="['/home/member']"
                 [class.active-m-link]="router.isActive('/home/member', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })">
-              <i class="fas fa-home fa-md d-block"></i>
+              <i class="fas fa-home text-xl d-block"></i>
               <!-- <small>Home</small> -->
             </a>
 
             <a class="nav-item nav-link p-2" [routerLink]="['/member/profiles']"
                 [class.active-m-link]="router.isActive('/member', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })">
-              <i class="fas fa-users fa-md d-block"></i>
+              <i class="fas fa-users text-xl d-block"></i>
             </a>
 
             <a class="nav-item nav-link p-2"[routerLink]="['home/chat']" [class.active-m-link]="router.isActive('/home/chat', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })"  >
-              <i class="fas fa-comments fa-md d-block" ></i>
+              <i class="fas fa-comments text-xl d-block" ></i>
             </a>
 
             <a class="nav-item nav-link p-2" [routerLink]="['home/main-user']" [class.active-m-link]="router.isActive('/home/main-user', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })" *ngIf="mainUser">
