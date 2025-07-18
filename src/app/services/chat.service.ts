@@ -105,6 +105,15 @@ export class ChatService {
     );
   }
 
+  public makeAllMessageAreRead(senderId:string){
+    let profileId = localStorage.getItem('currentMemberId');
+    return this.http.get(this.baseUrl + `Chat/read-chat?receiverId=${profileId}&senderId=${senderId}`).pipe(
+        map((res: any) => {
+        return res;
+      })
+    );
+  }
+
 
   //CHAT PARTICIPANTS CAME FROM FILTER LIST
   public setParticipant(participant: ChatParticipant) {
@@ -118,4 +127,5 @@ export class ChatService {
   public clearParticipant() {
     this.participant = null;
   }
+
 }

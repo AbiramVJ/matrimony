@@ -115,6 +115,7 @@ handleClickOutside(event: MouseEvent) {
 
     this._chatService.onChatParticipantsReceived((data: any[]) => {
       this.participants = data;
+      console.log(data)
       this.UnreadCount = this.participants.filter((p: ChatParticipant) => !p.isRead).length;
     });
 

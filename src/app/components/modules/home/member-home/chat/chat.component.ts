@@ -46,8 +46,6 @@ export class ChatComponent {
   public typingTimeout: any;
   public typingMembers = new Set<string>();
   public screenWidth: number = window.innerWidth;
-  name = 'Angular';
-  message = '';
   showEmojiPicker = false;
   sets = [
     'native',
@@ -198,6 +196,7 @@ export class ChatComponent {
       fileUrls,
       fileType
     );
+
     const sentMessage = new ChatMessage({
       id: null,
       senderProfileId: 'You',
@@ -288,7 +287,6 @@ export class ChatComponent {
 }
 
   public getPrivateMessage(receiver: ChatParticipant) {
-
     this.isOpenChat = true;
     this.selectedParticipant = receiver;
     this.isLoading = true;
@@ -298,6 +296,7 @@ export class ChatComponent {
         next: (res: any) => {
           this.messagesCheck = res;
           this.isLoadingPar = false;
+          this.readAllMessages(receiver.receiverProfileId);
         },
         complete: () => {
           this.isLoading = false;
@@ -317,16 +316,14 @@ export class ChatComponent {
       });
   }
 
-  // addEmoji(event:any) {
-  //   console.log(this.message)
-  //   const { message } = this;
-  //   console.log(message);
-  //   console.log(`${event.emoji.native}`)
-  //   const text = `${message}${event.emoji.native}`;
-
-  //   this.message = text;
-  //   this.showEmojiPicker = false;
-  // }
+  //READ ALL MESSAGES
+  public readAllMessages(senderId:string){
+    this._chatService.makeAllMessageAreRead(senderId).subscribe({
+      next:(res:any) =>{
+        console.log(res);
+      }
+    })
+  }
 
   toggleEmojiPicker() {
     this.showEmojiPicker = !this.showEmojiPicker;

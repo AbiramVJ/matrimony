@@ -35,8 +35,10 @@ export class ChatParticipant {
   lastMessage: string;
   fileType: number;
   isSentByMe:boolean;
-
+  lastOnlineAt:string;
+  isOnline:boolean;
   constructor(obj: any) {
+    console.log(obj);
     this.receiverProfileId = obj?.receiverProfileId ?? '';
     this.name = obj?.name ?? '';
     this.profileImage = obj?.profileImage ?? null;
@@ -45,5 +47,7 @@ export class ChatParticipant {
     this.lastMessage = obj?.lastMessage ?? '';
     this.fileType = obj?.fileType ?? 0;
     this.isSentByMe = obj?.isSentByMe ?? false;
+    this.lastOnlineAt = getFormattedLastSentAt(obj?.lastOnlineAt) ?? '';
+    this.isOnline = obj.isOnline ?? false;
   }
 }

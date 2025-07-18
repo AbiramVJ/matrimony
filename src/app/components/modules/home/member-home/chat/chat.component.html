@@ -25,11 +25,11 @@
                   <h6 class="mb-0 text-truncate fw-medium">
                     {{ member.name }}
                   </h6>
-                  <span class="text-sm">{{member.lastSentAt}}</span>
+                  <span class="text-sm" *ngIf="selectedParticipant.receiverProfileId !== member.receiverProfileId">{{selectedParticipant.isOnline ? 'Online' : 'Last seen at ' + member.lastOnlineAt}}</span>
                 </div>
                 <small >
                   <!-- {{ member. === 'online' ? 'Active now' : 'Last seen ' + member.lastSeen }} -->
-                    Active now
+                   <div class="recent-message"> {{member.isSentByMe ? 'You: ' : ''}} {{ member.lastMessage }} </div>
                 </small>
               </div>
             </div>
@@ -43,7 +43,7 @@
               </div>
               <div class="ms-3 text-sm my-auto">
                 <div class="fw-bold text-muted">{{selectedParticipant.name}}</div>
-                <div class="text-muted" >{{'Online'}}</div>
+                <div class="text-muted" >{{selectedParticipant.isOnline ? 'Online' : 'Last seen at ' + selectedParticipant.lastOnlineAt}}</div>
 
               </div>
             </div>
