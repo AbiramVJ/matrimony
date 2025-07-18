@@ -1,5 +1,5 @@
 import { BloodGroup, bodyTypes, Complexion, diet, DrinkHabit, maritalStatusOptions, Natshathira, raasiList, SmokeHabit, willingToRelocate } from "../../helpers/data";
-import { getFormattedLastSentAt } from "../../helpers/Functions/timeConverter";
+import { getFormattedDateAndTime } from "../../helpers/Functions/timeConverter";
 
 export class ProfileSalary {
   isAnnual: boolean;
@@ -509,12 +509,9 @@ export class NotificationItem {
     this.receivedUserId = obj.receivedUserId ?? null;
     this.isRead = obj.isRead ?? false;
     this.readAt = obj.readAt ?? null;
-    this.createdDate = getFormattedLastSentAt(obj.createdDate) ?? '';
+    this.createdDate = getFormattedDateAndTime(obj.createdDate) ?? '';
   }
 }
-
-
-
 
 export function getNatshathira(status:number){
   const option = Natshathira.find(opt => opt.id === status);

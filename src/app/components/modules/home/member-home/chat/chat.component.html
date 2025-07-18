@@ -14,7 +14,7 @@
              <div *ngFor="let member of filteredParticipants()" class="d-flex align-items-center p-3 border-bottom member-item conversation-item pointer" (click)="getPrivateMessage(member)" [ngClass]="{'bg-danger text-white':selectedParticipant && selectedParticipant.receiverProfileId === member.receiverProfileId}">
               <!-- Avatar -->
               <div class="position-relative me-3">
-                <div class="rounded-circle d-flex align-items-center justify-content-center fw-semibold text-white" style="width: 40px; height: 40px;">
+                <div class="rounded-circle d-flex align-items-center justify-content-center fw-semibold text-white" >
                 <img [src]="member.profileImage" [alt]="member.name" class="avatar-image" onerror="this.style.display='none'">
                 </div>
                 <span class="position-absolute bottom-0 end-0 rounded-circle border border-2 border-white bg-success" style="width: 12px; height: 12px;"></span>
@@ -25,7 +25,8 @@
                   <h6 class="mb-0 text-truncate fw-medium">
                     {{ member.name }}
                   </h6>
-                  <span class="text-sm" *ngIf="selectedParticipant.receiverProfileId !== member.receiverProfileId">{{selectedParticipant.isOnline ? 'Online' : 'Last seen at ' + member.lastOnlineAt}}</span>
+                  {{member.lastOnlineAt}}
+                  <span class="text-sm" *ngIf="selectedParticipant.receiverProfileId !== member.receiverProfileId">{{selectedParticipant.isOnline ? 'Online' : (member.lastOnlineAt  ? 'Last seen at ' + member.lastOnlineAt : '')}}</span> {{member.lastOnlineAt}}
                 </div>
                 <small >
                   <!-- {{ member. === 'online' ? 'Active now' : 'Last seen ' + member.lastSeen }} -->
@@ -151,7 +152,7 @@
              <div *ngFor="let member of filteredParticipants()" class="d-flex align-items-center p-3 border-bottom member-item conversation-item pointer" (click)="getPrivateMessage(member)" [ngClass]="{'bg-danger text-white':selectedParticipant && selectedParticipant.receiverProfileId === member.receiverProfileId}">
               <!-- Avatar -->
               <div class="position-relative me-3">
-                <div class="rounded-circle d-flex align-items-center justify-content-center fw-semibold text-white" style="width: 40px; height: 40px;">
+                <div class="rounded-circle d-flex align-items-center justify-content-center fw-semibold text-white">
                 <img [src]="member.profileImage" [alt]="member.name" class="avatar-image" onerror="this.style.display='none'">
                 </div>
                 <span class="position-absolute bottom-0 end-0 rounded-circle border border-2 border-white bg-success" style="width: 12px; height: 12px;"></span>

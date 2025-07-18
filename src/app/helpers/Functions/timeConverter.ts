@@ -1,4 +1,4 @@
-export function getFormattedLastSentAt(lastSentAt:any): string {
+export function getFormattedDateAndTime(lastSentAt:any): string {
     if (!lastSentAt) return '';
 
     const sentDate = new Date(lastSentAt);

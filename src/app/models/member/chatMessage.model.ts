@@ -1,4 +1,4 @@
-import { getFormattedLastSentAt } from "../../helpers/Functions/timeConverter";
+import { getFormattedDateAndTime } from "../../helpers/Functions/timeConverter";
 
 export class ChatMessage {
   id: string | null;
@@ -19,7 +19,7 @@ export class ChatMessage {
     this.textContent = obj?.textContent ?? null;
     this.fileUrls = obj?.fileUrls ?? [];
     this.fileType = obj?.fileType ?? 2;
-    this.sentAt = getFormattedLastSentAt(obj?.sentAt) ?? '';
+    this.sentAt = getFormattedDateAndTime(obj?.sentAt) ?? '';
     this.isRead = obj?.isRead ?? false;
     this.readAt = obj?.readAt ?? null;
     this.isMine = obj?.isMine ?? false;
@@ -35,19 +35,19 @@ export class ChatParticipant {
   lastMessage: string;
   fileType: number;
   isSentByMe:boolean;
-  lastOnlineAt:string;
+  lastOnlineAt:string | null;
   isOnline:boolean;
   constructor(obj: any) {
     console.log(obj);
     this.receiverProfileId = obj?.receiverProfileId ?? '';
     this.name = obj?.name ?? '';
     this.profileImage = obj?.profileImage ?? null;
-    this.lastSentAt = getFormattedLastSentAt(obj?.lastSentAt) ?? '';
+    this.lastSentAt = getFormattedDateAndTime(obj?.lastSentAt) ?? '';
     this.isRead = obj?.isRead ?? false;
     this.lastMessage = obj?.lastMessage ?? '';
     this.fileType = obj?.fileType ?? 0;
     this.isSentByMe = obj?.isSentByMe ?? false;
-    this.lastOnlineAt = getFormattedLastSentAt(obj?.lastOnlineAt) ?? '';
+    this.lastOnlineAt = getFormattedDateAndTime(obj?.lastOnlineAt) ?? null;
     this.isOnline = obj.isOnline ?? false;
   }
 }

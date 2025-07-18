@@ -85,7 +85,7 @@
             <!-- MESSAGE -->
             <div class="circles border me-2 pointer position-relative mes " (click)="toggleDropdown('message')" *ngIf="memberProfiles.length > 0" >
               <i class="fas fa-comments fa-md"></i>
-              <div class="text-white bg-danger notification-bandage position-absolute p-2">{{UnreadCount}}</div>
+              <div class="text-white bg-danger notification-bandage position-absolute p-2" *ngIf="UnreadCount > 0">{{UnreadCount}}</div>
             </div>
             <!-- NOTIFICATION -->
             <div class="circles border me-2 pointer position-relative noti " (click)="toggleDropdown('notification')" *ngIf="memberProfiles.length > 0">
