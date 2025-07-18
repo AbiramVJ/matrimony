@@ -101,8 +101,8 @@
             </div>
           </div>
           <!-- FRIEND REQUEST DROP DOWNBOX -->
-          <div class="boder rounded bg-white position-absolute message-box" *ngIf="isFriendRequestOpen"  (scroll)="onScroll($event)">
-            <div class="h5">Friend Requests</div>
+          <div class="boder rounded bg-white position-absolute message-box p-0" *ngIf="isFriendRequestOpen"  (scroll)="onScroll($event)">
+            <div class="border-bottom p-3 mb-2 bg-light"><h5 class="h5">Friend Requests</h5></div>
             <div class="mt-3" *ngIf="friendRequestList.length > 0">
               <div class="border border-15 p-2 mt-2" *ngFor="let r of friendRequestList">
                 <div class="d-flex">
@@ -140,7 +140,7 @@
           <div class="boder rounded bg-white position-absolute message-box bg-light p-0" *ngIf="isNotificationOpen" (scroll)="onNotificationScroll($event)">
             <div class="bg-light">
               <div class="h5 p-3" >Notifications</div>
-              <div class="mt-3 bg-white border px-3 py-2" *ngIf="friendRequestList.length !== 0">
+              <div class="bg-white border px-3 py-2" *ngIf="notificationList.length !== 0">
                 <div class="d-flex text-md fw-bold justify-content-between">
                   <div class="my-auto">
                     <span class="me-3 pointer" [ngClass]="{'text-primary':!isUnread}" (click)="isUnread = false; hasMoreNotification = true; getNotifications()">All</span>
@@ -186,8 +186,8 @@
           <!-- NOTIFICATION DROP DOWNBOX END -->
 
           <!-- CHAT DROP DOWN -->
-          <div class="boder rounded bg-white position-absolute message-box fw-bold" *ngIf="isMessageOpen">
-            <h5>Messages</h5>
+          <div class="boder rounded bg-white position-absolute message-box fw-bold p-0" *ngIf="isMessageOpen">
+            <div class="border-bottom p-3 mb-2 bg-light"><h5 class="h5">Messages</h5></div>
             <div class="message-wrapper mt-0" *ngIf="participants.length > 0">
               <!-- <div class="search-wrapper">
                 <input type="text" class="search-field" placeholder="Search conversations..." [(ngModel)]="searchTerm">
