@@ -14,7 +14,20 @@
 .active-link i {
   color: #007bff !important; /* Bootstrap's primary blue */
 }
+.nav-link:hover{
+   color: #007bff !important;
+   i{
+     color: #007bff !important;
+   }
+}
 
+/* In global styles.css or component CSS */
+.modal-backdrop {
+  z-index: 1040 !important;
+}
+.modal {
+  z-index: 1050 !important;
+}
 
 .circles {
   border-radius: 100%;
@@ -188,23 +201,10 @@
   font-weight: 600;
 }
 
-.conversation-item {
-  padding: 1rem 1.25rem;
-  border-bottom: 1px solid #f0f0f0;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-.conversation-item:hover {
-  background-color: #f8f9ff;
-  transform: translateX(5px);
-}
-
 
 .notification-list:hover{
- background-color: #f8f9ff !important;
- //transform: translateX(2px);
+ background-color: #f4e1e6 !important;
+ color: rgb(202, 70, 70);
 }
 
 .conversation-item:last-child {
@@ -335,18 +335,18 @@
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
 }
 
-.conversation-list::-webkit-scrollbar {
-  width: 6px;
-}
+// .conversation-list::-webkit-scrollbar {
+//   width: 6px;
+// }
 
-.conversation-list::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
+// .conversation-list::-webkit-scrollbar-track {
+//   background: #f1f1f1;
+// }
 
-.conversation-list::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 3px;
-}
+// .conversation-list::-webkit-scrollbar-thumb {
+//   background: #c1c1c1;
+//   border-radius: 3px;
+// }
 
 .dropdown-icon {
   position: absolute;
@@ -361,6 +361,10 @@
   align-items: center;
   box-shadow: 0 0 2px rgba(0,0,0,0.2);
   font-size: 12px;
+}
+
+.mark-all-bel:hover{
+  background-color: #f4e1e6;
 }
 
 

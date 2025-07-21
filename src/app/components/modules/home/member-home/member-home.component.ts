@@ -1,8 +1,10 @@
+import { MemberService } from './../../../../services/member.service';
 
 import { Component, HostListener } from '@angular/core';
 import { SideBarComponent } from "../../../../common/side-bar/side-bar.component";
 import { FilterMemberListComponent } from "./filter-member-list/filter-member-list.component";
 import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-member-home',
@@ -12,6 +14,7 @@ import { CommonModule } from '@angular/common';
 })
 export class MemberHomeComponent {
  public screenWidth: number = window.innerWidth;
+
   constructor(){}
 
   ngOnInit(): void {
@@ -26,4 +29,6 @@ export class MemberHomeComponent {
   private updateScreenWidth(): void {
     this.screenWidth = window.innerWidth;
   }
+
+
 }

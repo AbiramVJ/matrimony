@@ -71,9 +71,9 @@
         <!-- LEFT SIDE NOTIFICATION CHAT AND PROFILE -->
         <div class="me-2 position-relative d-none d-md-block">
           <div class="d-flex">
-            <div class="mt-2 me-3 member" *ngIf="!isLoading && selectedMember">
+            <div class="me-3 member" *ngIf="!isLoading && selectedMember">
               <div class="d-flex">
-                <img class="object-fit-cover me-2" src={{selectedMember.profileImages[0].url}} alt="profile" width="40px" height="40px">
+                <img class="object-fit-cover me-2 circles" src={{selectedMember.profileImages[0].url}} alt="profile" width="40px" height="40px">
                 <div class="my-auto fw-bold text-sm">{{selectedMember.firstName}}</div>
               </div>
             </div>
@@ -146,7 +146,7 @@
                     <span class="me-3 pointer" [ngClass]="{'text-primary':!isUnread}" (click)="isUnread = false; hasMoreNotification = true; getNotifications()">All</span>
                     <span class="pointer" [ngClass]="{'text-primary':isUnread}" (click)="isUnread = true;  hasMoreNotification = true; getNotifications()">Unread</span>
                   </div>
-                  <div class="btn btn-danger" (click)="markAllNotificationsAsRead()">Make all read</div>
+                  <div class="border p-2 rounded pointer mark-all-bel" (click)="markAllNotificationsAsRead()"><i class="fas fa-bell-slash text-warning"></i></div>
                 </div>
               </div>
               <!-- <div class="px-3 py-2">TODAY</div> -->
@@ -188,32 +188,21 @@
           <!-- CHAT DROP DOWN -->
           <div class="boder rounded bg-white position-absolute message-box fw-bold p-0" *ngIf="isMessageOpen">
             <div class="border-bottom p-3 mb-2 bg-light"><h5 class="h5">Messages</h5></div>
-            <div class="message-wrapper mt-0" *ngIf="participants.length > 0">
-              <!-- <div class="search-wrapper">
-                <input type="text" class="search-field" placeholder="Search conversations..." [(ngModel)]="searchTerm">
-              </div> -->
-              <div class="conversation-list">
-                <div class="conversation-item" [class.selected]="selectedChatId === participant.receiverProfileId" *ngFor="let participant of participants"
-                  (click)="openChat(participant)">
-                  <div class="d-flex align-items-center" [routerLink]="['home/chat']" >
-                    <div class="avatar-wrapper">
-                      <img *ngIf="participant.profileImage" [src]="participant.profileImage" [alt]="participant.name" class="avatar-image" onerror="this.style.display='none'">
-                      <div *ngIf="!participant.profileImage" class="avatar-initials"> {{ getInitials(participant.name) }} </div>
-                      <!-- <div *ngIf="participant.isRead" class="status-online"></div> -->
+            <div class=" mt-0" *ngIf="participants.length > 0">
+              <div class="">
+                <div class="border bg-white p-3 notification-list pointer mb-2" *ngFor="let participant of participants">
+                  <div class="d-flex" (click)="openChat(participant)">
+                    <div><img [src]="participant.profileImage" [alt]="participant.name" class="avatar-image" onerror="this.style.display='none'"></div>
+                    <div class="ms-3 text-sm w-100">
+                      <div class="d-flex justify-content-between">
+                        <div class="fw-bold">{{participant.name}}</div>
+                        <div class="text-muted">{{ participant.lastSentAt }}</div>
+                      </div>
+                      <div class="text-muted">{{participant.isSentByMe ? 'You: ' : ''}} {{ participant.lastMessage }}</div>
                     </div>
-
-                    <div class="conversation-details">
-                      <div class="user-name">{{ participant.name }}</div>
-                      <div class="recent-message" > {{participant.isSentByMe ? 'You: ' : ''}} {{ participant.lastMessage }} </div>
-                    </div>
-                    <div class="conversation-meta">
-                      <div class="message-time">{{ participant.lastSentAt }}</div>
-                      <!-- <div *ngIf="par.unReadCount > 0" class="notification-badge"> {{ chat.unReadCount }}</div> -->
-                       <!-- <div class="notification-badge" *ngIf="participant.isRead"> <i  class="fas fa-circle text-danger"></i></div> -->
-                    </div>
+                    <div class="notification-badge ms-auto mt-0" *ngIf="!participant.isRead"> <i  class="fas fa-circle text-danger"></i></div>
                   </div>
                 </div>
-
               </div>
             </div>
             <div *ngIf="participants.length === 0">
@@ -285,3 +274,5 @@
   </div>
 </div>
 
+
+<button class="d-none" data-bs-toggle="modal" data-bs-target="#staticBackdrops" id="viewProfileModals"></button>

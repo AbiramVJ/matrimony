@@ -16,12 +16,6 @@ export class MemberService {
   private filterSource = new BehaviorSubject<any>(null);
   filter$ = this.filterSource.asObservable();
 
-  private memberViewSubject = new Subject<string>();
-  memberView$ = this.memberViewSubject.asObservable();
-
-  viewMemberById(id: string) {
-    this.memberViewSubject.next(id);
-  }
 
   constructor(private http: HttpClient) { }
 

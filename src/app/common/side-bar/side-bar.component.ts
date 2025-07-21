@@ -37,7 +37,7 @@ export class SideBarComponent {
   public selectedLivingCountry: any;
   public selectedReligion: any;
   public selectedCommunity: any;
-  public selectedSubCommunity: any;
+  //public selectedSubCommunity: any;
   public selectedJobType: any;
   public selectedEducation: any;
   public selectedKnowLanguages: any;
@@ -333,7 +333,6 @@ export class SideBarComponent {
       knownLanguages: this.selectedKnowLanguages,
       religionIds: this.selectedReligion,
       communityIds: this.selectedCommunity,
-      subCommunityIds: this.selectedSubCommunity,
       jobSectors: this.sector,
       jobTypeIds: this.selectedJobType,
       educationQualificationIds: this.selectedEducation,
@@ -373,7 +372,6 @@ export class SideBarComponent {
     this.selectedKnowLanguages = [];
     this.selectedReligion = [];
     this.selectedCommunity = [];
-    this.selectedSubCommunity = [];
     this.sector = [];
     this.selectedJobType = [];
     this.selectedEducation = [];

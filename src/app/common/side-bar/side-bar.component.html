@@ -359,21 +359,8 @@
            ></ng-select>
         </div>
 
-        <div class="mt-3">
+        <!-- <div class="mt-3">
          <label class="fw-500">Sub Community</label>
-         <!-- <div class="form-check mt-2" *ngFor="let sub of SubCommunityList">
-            <input
-              class="form-check-input small-check"
-              type="checkbox"
-              [id]="'re_' + sub.id"
-              [value]="sub.id"
-              (change)="onSubCommunityChange($event)"
-              [checked]="subCommunity.includes(sub.id)"
-            >
-            <label class="form-check-label ms-2 text-sm" [for]="'re_' + sub.id">
-              {{ sub.name }}
-            </label>
-          </div> -->
           <ng-select
             [items]="SubCommunityList"
             bindLabel="name"
@@ -385,7 +372,7 @@
             [(ngModel)]="selectedSubCommunity"
              (change)="ngSelectChange()"
            ></ng-select>
-        </div>
+        </div> -->
 
          <div class="mt-3">
           <label class="fw-500">Marital Status</label>

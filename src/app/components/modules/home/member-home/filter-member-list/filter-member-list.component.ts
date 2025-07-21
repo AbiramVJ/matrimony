@@ -68,9 +68,9 @@ export class FilterMemberListComponent {
   }
 
   ngOnInit(): void {
-    this.memberService.memberView$.subscribe((profileId: string) => {
-      this.viewMemberDetails(profileId);
-    });
+    // this.memberService.memberView$.subscribe((profileId: string) => {
+    //   this.viewMemberDetails(profileId);
+    // });
   }
   public changePerPageValue(pageNumber: number) {
     if (pageNumber != 0 && pageNumber != null) {
@@ -140,6 +140,7 @@ export class FilterMemberListComponent {
       name: member.firstName,
       profileImage: member.imageUrl,
       lastSentAt: new Date().toString(),
+      lastOnlineAt:null,
       isRead: false,
     });
 

@@ -13,7 +13,7 @@
                  <img src="{{memberProfile.profileImages[0].url}}" alt="pf" class="profile-pic object-fit-cover" >
               </div>
               <div class="text-white my-auto">
-                <div class="text-lg fw-bold my-auto">{{memberProfile.firstName + ' ' + memberProfile.lastName}}</div>
+                <div class="text-lg fw-bold my-auto text-capitalize">{{memberProfile.firstName + ' ' + memberProfile.lastName}}</div>
                 <div class="d-flex">
                   <div class="me-2">25 years</div>
                   <div class=""><li>{{memberProfile.profileJob?.title}}</li></div>
@@ -178,7 +178,7 @@
             <div class="col-12 com-sm-12 com-md-10 p-3 bg-light">
               <div class="d-flex">
                   <div class="me-3"><i class="fas fa-briefcase"></i></div>
-                  <div class="text-sm fw-bold">{{memberProfile.profileJob.title}}
+                  <div class="text-sm fw-bold text-capitalize">{{memberProfile.profileJob.title}}
                     <div class="text-xs fw-normal">{{memberProfile.profileJob.companyName}}</div>
                 </div>
               </div>

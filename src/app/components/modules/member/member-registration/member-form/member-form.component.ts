@@ -184,7 +184,6 @@ private scrollToTop(): void {
       userId: this.userDetails?.UserId,
       religionId: this.UserReligiousDetails?.religion,
       communityId: this.UserReligiousDetails?.communityCast,
-      subCommunityId: this.UserReligiousDetails?.subCast,
       isVisibleCommunity: this.UserReligiousDetails?.isVisible,
       skinComplexion:this.userPersonalDetails.complexion,
       profileJob: this.userEducationDetails?.sector ? {

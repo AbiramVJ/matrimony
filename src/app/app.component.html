@@ -1,7 +1,7 @@
-<app-navigation-bar *ngIf="!isLoading && isLogin" [hideProps]="hideNavProps"></app-navigation-bar>
+<app-navigation-bar *ngIf="!isLoading && isLogin" [hideProps]="hideNavProps" (openMemberPopup)="openMemberViewPopUp($event)"></app-navigation-bar>
  <div class="m-shadow" *ngIf="!isLoading && isLogin">
-      <app-mobile-top-bar></app-mobile-top-bar>
-    </div>
+    <app-mobile-top-bar></app-mobile-top-bar>
+ </div>
 <router-outlet class="main-content" *ngIf="!isLoading"></router-outlet>
 
 <div class="d-flex justify-content-center align-items-center min-vh-100" *ngIf="isLoading">
@@ -16,3 +16,13 @@
   </div>
 </div>
 
+
+<div class="modal fade" id="staticBackdrops" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-body p-0">
+       <app-member-profile-modal [memberProfile]="filterMemberViewData"></app-member-profile-modal>
+      </div>
+    </div>
+  </div>
+</div>

@@ -28,28 +28,18 @@
         </div>
         </div>
         <div class="col-12 col-md-4 ">
-          <div class="text-md fw-bold text-muted text-truncate">{{member.firstName + ' ' + member.lastName}} </div>
-          <div class="mt-1 text-sm text-truncate" *ngIf="member.jobTitle"><i class="fas fa-briefcase me-2"></i>{{member.jobTitle}}</div>
+          <div class="text-md fw-bold text-muted text-capitalize">{{member.firstName + ' ' + member.lastName}} </div>
+          <div class="mt-1 text-sm text-truncate text-capitalize" *ngIf="member.jobTitle"><i class="fas fa-briefcase me-2"></i>{{member.jobTitle}}</div>
           <div class="mt-1 text-sm"><i class="fas fa-map-marker-alt me-2"></i>{{member.livingAddresses?.country}}</div>
           <div class="mt-1 text-sm"><i class="fas fa-user-clock me-2 "></i>{{member.age}} years old</div>
-          <!-- <div class="mt-1 text-sm text-truncate">
-          <i class="me-2 fas fa-user"></i> {{ member.gender === 1 ? 'Male' : member.gender === 2 ? 'Female' : 'Other' }}</div> -->
           <div class="mt-1 text-sm"><i class="fas fa-star me-2"></i>{{member.religion}}</div>
         </div>
 
         <div class="col-12 col-sm-12 col-md-4 mt-auto">
           <div class="me-2">
           <div class="ms-2 d-flex justify-content-end me-1">
-          <!-- <div class="me-2">
-              <button class="btn btn-primary" (click)="openChat(member)"><i class="fas fa-comment-dots text-white"></i></button>
-            </div> -->
-             <!--
-            <div class="me-2">
-              <button class="btn btn-light"><i class="fas fa-phone text-success"></i></button>
-            </div> -->
             <div>
               <button class="btn btn-danger" (click)="viewMemberDetails(member.id)"><i class="fas fa-eye text-white"></i></button>
-
             </div>
           </div>
         </div>
@@ -63,8 +53,7 @@
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSadlux1273cB0AkVXr679QPJmLVpbL_BENSg&s" alt="pf" class="object-fit-cover rounded" width="30%" height="250px">
     <div class="text-lg fw-bold text-muted">No matching profiles found</div>
     <div class="text-sm text-muted">Please adjust your filters and try again you'll likely find profiles that better match your criteria.</div>
-
-</div>
+  </div>
 </div>
 <!-- PAGINATION -->
 <div class="row mb-auto pagination mt-4" *ngIf="totalItemCount > 0">

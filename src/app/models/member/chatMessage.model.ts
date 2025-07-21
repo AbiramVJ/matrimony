@@ -38,7 +38,6 @@ export class ChatParticipant {
   lastOnlineAt:string | null;
   isOnline:boolean;
   constructor(obj: any) {
-    console.log(obj);
     this.receiverProfileId = obj?.receiverProfileId ?? '';
     this.name = obj?.name ?? '';
     this.profileImage = obj?.profileImage ?? null;
@@ -47,7 +46,7 @@ export class ChatParticipant {
     this.lastMessage = obj?.lastMessage ?? '';
     this.fileType = obj?.fileType ?? 0;
     this.isSentByMe = obj?.isSentByMe ?? false;
-    this.lastOnlineAt = getFormattedDateAndTime(obj?.lastOnlineAt) ?? null;
+    this.lastOnlineAt = obj?.lastOnlineAt !== null && obj?.lastOnlineAt !== "" ? getFormattedDateAndTime(obj?.lastOnlineAt) : null;
     this.isOnline = obj.isOnline ?? false;
   }
 }

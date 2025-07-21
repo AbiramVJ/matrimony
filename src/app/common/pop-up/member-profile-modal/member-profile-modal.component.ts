@@ -69,7 +69,7 @@ ngOnChanges(): void {
       next:(res:any)=>{
         var fr = new Request({status:1,id:res.id})
         this.memberProfile.friendRequest = fr;
-        this._toster.success(res,'Success');
+        this._toster.success('Friend request sent.','Success');
       },
       complete:()=>{
         this.isLoading = false;

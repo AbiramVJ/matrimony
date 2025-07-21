@@ -50,7 +50,6 @@ export interface UserReligiousInfo {
   communityCast: string;
   timeOfBirth: string;
   isVisible : boolean;
-  subCast: string;
   starNakshathra: number;
   raasi: number;
   chevvaiDosham: number;

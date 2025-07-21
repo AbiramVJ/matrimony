@@ -1,3 +1,4 @@
+import { FullUserProfile } from './models/member/member.model';
 import { FriendSignalRService } from './services/friend-signal-r.service';
 import { ChatService } from './services/chat.service';
 import { SignalRService } from './services/signal-r.service';
@@ -10,10 +11,12 @@ import { CommonModule } from '@angular/common';
 import { COMMON_DIRECTIVES } from './common/common-imports';
 import { MemberService } from './services/member.service';
 import { MobileTopBarComponent } from "./common/mobile-top-bar/mobile-top-bar.component";
+import { MemberProfileModalComponent } from "./common/pop-up/member-profile-modal/member-profile-modal.component";
+
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, COMMON_DIRECTIVES, NavigationBarComponent, MobileTopBarComponent],
+  imports: [RouterOutlet, CommonModule, COMMON_DIRECTIVES, NavigationBarComponent, MobileTopBarComponent, MemberProfileModalComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -24,7 +27,7 @@ export class AppComponent {
   public hideNavProps = false;
   public isCanRenderSideBar:boolean = false;
   public currentMemberDetails:any;
-
+  public filterMemberViewData: any;
   constructor(
      private dataProviderService:DataProviderService,
      private _authService:AuthService,
@@ -90,6 +93,24 @@ export class AppComponent {
       this.isLoading = false;
       }
     })
+  }
+
+  public openMemberViewPopUp(member:FullUserProfile){
+    this.filterMemberViewData = member;
+    let viewModal: HTMLElement = document.getElementById('viewProfileModals') as HTMLElement;
+    if (viewModal) {
+      viewModal.click();
+    }
+  }
+
+   public viewMemberDetails(id: string) {
+    this._memberService.GetFilterMemberViewData(id).subscribe({
+      next: (res: any) => {
+        this.filterMemberViewData = res;
+      },
+      complete: () => {},
+      error: (error: any) => {},
+    });
   }
 
 }

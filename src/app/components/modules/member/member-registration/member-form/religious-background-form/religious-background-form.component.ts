@@ -107,15 +107,15 @@ export class ReligiousBackgroundFormComponent {
     })
   }
 
-  public changeCommunity(): void {
-    this.selectedSubCommunity = null;
-    const selectedCommunity = this.communityList.find(
-      (community: Community) => community.id === this.selectedCommunity
-    );
+  // public changeCommunity(): void {
+  //   this.selectedSubCommunity = null;
+  //   const selectedCommunity = this.communityList.find(
+  //     (community: Community) => community.id === this.selectedCommunity
+  //   );
 
-   this.SubCommunityList = selectedCommunity?.subCommunities ?? [];
-   this.selectedSubCommunity = this.SubCommunityList[0] ? this.SubCommunityList[0].id : null ;
-  }
+  //  this.SubCommunityList = selectedCommunity?.subCommunities ?? [];
+  //  this.selectedSubCommunity = this.SubCommunityList[0] ? this.SubCommunityList[0].id : null ;
+  // }
 
   private _userReligiousFormInit(){
     this.userReligiousForm = this.fb.group({
@@ -160,7 +160,7 @@ export class ReligiousBackgroundFormComponent {
       religion:this.selectedReligions ,
       communityCast:this.selectedCommunity ,
       timeOfBirth:formValue.timeOfBirth ,
-      subCast: this.selectedSubCommunity ,
+
       starNakshathra:this.selectedStar ,
       raasi:this.selectedRaasi ,
       chevvaiDosham:formValue.chevvaiDosham ,
@@ -203,7 +203,7 @@ export class ReligiousBackgroundFormComponent {
           ...this.memberProfile,
           religionId: this.selectedReligions ,
           communityId: this.selectedCommunity ,
-          subCommunityId: this.selectedSubCommunity ,
+          // subCommunityId: this.selectedSubCommunity ,
           isVisibleCommunity: formValue.isVisible,
 
           profileAstrology: {
@@ -237,7 +237,6 @@ export class ReligiousBackgroundFormComponent {
     );
     this.selectedReligions = this.memberProfile.religionId;
     this.selectedCommunity = this.memberProfile.communityId;
-    this.selectedSubCommunity = this.memberProfile.subCommunityId;
     this.selectedStar = this.memberProfile.profileAstrology.nakshathiram;
     this.selectedRaasi = this.memberProfile.profileAstrology.raasi;
 
