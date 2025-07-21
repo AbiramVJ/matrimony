@@ -79,17 +79,17 @@
             </div>
             <!-- FRIEND REQUEST -->
             <div class="circles border me-2 pointer position-relative friend " (click)="toggleDropdown('friendRequest')" *ngIf="memberProfiles.length > 0" >
-              <i class="fas fa-user-plus fa-lg"></i>
+              <i class="fas fa-user-plus fa-lg"  [ngClass]="{'text-primary' : isFriendRequestOpen}"></i>
               <div class="text-white bg-danger notification-bandage position-absolute p-2" *ngIf="totalRequestList > 0">{{totalRequestList}}</div>
             </div>
             <!-- MESSAGE -->
             <div class="circles border me-2 pointer position-relative mes " (click)="toggleDropdown('message')" *ngIf="memberProfiles.length > 0" >
-              <i class="fas fa-comments fa-md"></i>
+              <i class="fas fa-comments fa-md"  [ngClass]="{'text-primary' : isMessageOpen}"></i>
               <div class="text-white bg-danger notification-bandage position-absolute p-2" *ngIf="UnreadCount > 0">{{UnreadCount}}</div>
             </div>
             <!-- NOTIFICATION -->
             <div class="circles border me-2 pointer position-relative noti " (click)="toggleDropdown('notification')" *ngIf="memberProfiles.length > 0">
-              <i class="fas fa-bell fa-lg"></i>
+              <i class="fas fa-bell fa-lg" [ngClass]="{'text-primary' : isNotificationOpen}"></i>
               <div class="text-white bg-danger notification-bandage position-absolute p-2" *ngIf="totalUnReadCount > 0">{{totalUnReadCount}}</div>
             </div>
 
