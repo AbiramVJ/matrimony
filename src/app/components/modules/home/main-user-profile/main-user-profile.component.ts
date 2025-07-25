@@ -4,6 +4,8 @@ import { FORM_MODULES } from '../../../../common/common-imports';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MemberService } from '../../../../services/member.service';
+import { AuthService } from '../../../../services/auth/auth.service';
+import { SocialLoginService } from '../../../../services/auth/social-login.service';
 
 @Component({
   selector: 'app-main-user-profile',
@@ -17,7 +19,11 @@ export class MainUserProfileComponent {
   imagePreview: string | null = null;
   mainUser!:MainUser;
 
-constructor(private fb: FormBuilder,private _memberService:MemberService,) {
+constructor(private fb: FormBuilder,
+  private _memberService:MemberService,
+  private _authService: AuthService,
+  private _socialLoginService: SocialLoginService
+) {
     this.profileForm = this.fb.group({
       firstName: ['fse', [Validators.required, Validators.minLength(2)]],
       lastName: ['', [Validators.required, Validators.minLength(2)]],
@@ -67,4 +73,13 @@ constructor(private fb: FormBuilder,private _memberService:MemberService,) {
       reader.readAsDataURL(file);
     }
    }
+
+   _authLogout() {
+    this._authService.removeAuthToken();
+    this._socialLoginService.signOut();
+    localStorage.removeItem('clientId');
+    localStorage.removeItem('currentMemberId');
+    this._authService.setUserDetails(null);
+    window.location.href = '/';
+  }
 }

@@ -45,25 +45,28 @@
         </nav>
 
          <!-- MOBILE SCREEN NAVIGATION OPTION -->
-        <nav class="bottom-nav navbar fixed-bottom bg-white border-top shadow-sm py-2 d-block d-dm-block d-md-none">
+        <nav class="bottom-nav navbar fixed-bottom bg-white border-top shadow-sm d-block d-dm-block d-md-none">
           <div class="container d-flex justify-content-around text-center">
             <a class="nav-item nav-link p-2"   [routerLink]="['/home/member']"
                 [class.active-m-link]="router.isActive('/home/member', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })">
-              <i class="fas fa-home text-xl d-block"></i>
-              <!-- <small>Home</small> -->
+              <i class="fas fa-home text-lg d-block"></i>
+              <small>Home</small>
             </a>
 
             <a class="nav-item nav-link p-2" [routerLink]="['/member/profiles']"
                 [class.active-m-link]="router.isActive('/member', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })">
-              <i class="fas fa-users text-xl d-block"></i>
+              <i class="fas fa-users text-lg d-block"></i>
+              <small>Members</small>
             </a>
 
             <a class="nav-item nav-link p-2"[routerLink]="['home/chat']" [class.active-m-link]="router.isActive('/home/chat', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })"  >
-              <i class="fas fa-comments text-xl d-block" ></i>
+              <i class="fas fa-comments text-lg d-block" ></i>
+              <small>chat</small>
             </a>
 
             <a class="nav-item nav-link p-2" [routerLink]="['home/main-user']" [class.active-m-link]="router.isActive('/home/main-user', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })" *ngIf="mainUser">
               <img  src="{{mainUser.image}}" class="m-list-profile object-fit-cover" alt="..." width="33px" height="33px">
+
             </a>
           </div>
         </nav>

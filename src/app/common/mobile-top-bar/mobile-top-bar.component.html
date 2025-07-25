@@ -3,18 +3,68 @@
     <div class="d-flex justify-content-between align-items-center position-relative">
       <!-- Logo -->
       <div>
-        <img src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png" alt="logo" class="me-2" style="height: 25px;">
+        <img src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png" alt="logo" class="me-2" style="width: 120px;">
       </div>
       <!-- MAIN-USER -->
-       <div class="mt-2 me-3 member" *ngIf="selectedMember">
-              <div class="d-flex">
-                <img class="object-fit-cover me-2" src={{selectedMember.profileImages[0].url}} alt="profile" width="30px" height="30px">
-                <div class="my-auto fw-bold text-sm">{{selectedMember.firstName}}</div>
-              </div>
+       <!-- <div class="me-3 member border p-2" *ngIf="selectedMember">
+          <div class="d-flex">
+            <img class="object-fit-cover me-2" src={{selectedMember.profileImages[0].url}} alt="profile" width="30px" height="30px">
+            <div class="my-auto fw-bold text-sm">{{selectedMember.firstName}}</div>
+          </div>
+        </div> -->
+        <ng-select
+          class="w-50"
+          [items]="memberProfiles"
+          bindLabel="firstName"
+          bindValue=""
+          [(ngModel)]="selectedMember"
+          [clearable]="false"
+          placeholder="Select a member"
+        >
+          <!-- Dropdown option template -->
+          <ng-template ng-option-tmp let-item="item">
+            <div class="d-flex align-items-center">
+              <img
+                [src]="item.profileImages[0]?.url"
+                class="me-2 rounded-circle"
+                width="30"
+                height="30"
+                alt="profile"
+              />
+              <span>{{ item.firstName }} {{ item.lastName }}</span>
             </div>
+          </ng-template>
 
+          <!-- Selected item display template -->
+          <ng-template ng-label-tmp let-item="item">
+            <div class="d-flex align-items-center" (click)="changeMemberProfile(item.id)">
+              <img
+                [src]="item.profileImages[0]?.url"
+                class="me-2 rounded-circle"
+                width="24"
+                height="24"
+                alt="profile"
+              />
+              <span>{{ item.firstName }}</span>
+            </div>
+          </ng-template>
+        </ng-select>
 
-
+        <!-- Optional: Display selectedMember details below -->
+        <!-- <div class="me-3 member border p-2 mt-3" *ngIf="selectedMember">
+          <div class="d-flex">
+            <img
+              class="object-fit-cover me-2 rounded-circle"
+              [src]="selectedMember.profileImages[0]?.url"
+              alt="profile"
+              width="30"
+              height="30"
+            />
+            <div class="my-auto fw-bold text-sm">
+              {{ selectedMember.firstName }} {{ selectedMember.lastName }}
+            </div>
+          </div>
+        </div> -->
     </div>
   </div>
   <!-- <div class="col-12 mt-2 border-top">
