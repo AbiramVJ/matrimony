@@ -4,8 +4,8 @@
 
 .circles {
   border-radius: 100%;
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,11 +14,23 @@
 
 .notification-bandage {
   border-radius: 100%;
-  width: 8px;
-  height: 8px;
+  width: 2px;
+  height: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
   top: -7px;
   right: 0px;
+}
+.dropdown-box {
+  min-width: 200px;
+  z-index: 1050;
+  border-radius: 8px;
+}
+.notification-bandage {
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
 }

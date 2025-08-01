@@ -5,13 +5,7 @@
       <div>
         <img src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png" alt="logo" class="me-2" style="width: 120px;">
       </div>
-      <!-- MAIN-USER -->
-       <!-- <div class="me-3 member border p-2" *ngIf="selectedMember">
-          <div class="d-flex">
-            <img class="object-fit-cover me-2" src={{selectedMember.profileImages[0].url}} alt="profile" width="30px" height="30px">
-            <div class="my-auto fw-bold text-sm">{{selectedMember.firstName}}</div>
-          </div>
-        </div> -->
+
         <ng-select
           class="w-50"
           [items]="memberProfiles"
@@ -20,6 +14,7 @@
           [(ngModel)]="selectedMember"
           [clearable]="false"
           placeholder="Select a member"
+         (change)="changeMemberProfile()"
         >
           <!-- Dropdown option template -->
           <ng-template ng-option-tmp let-item="item">
@@ -37,7 +32,7 @@
 
           <!-- Selected item display template -->
           <ng-template ng-label-tmp let-item="item">
-            <div class="d-flex align-items-center" (click)="changeMemberProfile(item.id)">
+            <div class="d-flex align-items-center" >
               <img
                 [src]="item.profileImages[0]?.url"
                 class="me-2 rounded-circle"
@@ -49,42 +44,39 @@
             </div>
           </ng-template>
         </ng-select>
-
-        <!-- Optional: Display selectedMember details below -->
-        <!-- <div class="me-3 member border p-2 mt-3" *ngIf="selectedMember">
-          <div class="d-flex">
-            <img
-              class="object-fit-cover me-2 rounded-circle"
-              [src]="selectedMember.profileImages[0]?.url"
-              alt="profile"
-              width="30"
-              height="30"
-            />
-            <div class="my-auto fw-bold text-sm">
-              {{ selectedMember.firstName }} {{ selectedMember.lastName }}
-            </div>
-          </div>
-        </div> -->
     </div>
   </div>
-  <!-- <div class="col-12 mt-2 border-top">
-    <div class="d-flex">
+  <div class="col-12 mt-2 border-top p-2" (click)="closeAllDropdowns()">
+  <div class="d-flex justify-content-end">
 
-      <div class="circles border me-2 pointer position-relative friend " >
-              <i class="fas fa-user-plus fa-lg" ></i>
-              <div class="text-white bg-danger notification-bandage position-absolute p-2"></div>
-            </div>
+    <!-- Friend Request -->
+    <div class="circles border me-2 pointer position-relative friend me-4 ms-2 p-2"
+         (click)="toggleDropdown('friend', $event)">
+      <i class="fas fa-user-plus fa-md"></i>
+      <div class="text-white bg-danger notification-bandage position-absolute p-2"></div>
 
-            <div class="circles border me-2 pointer position-relative mes " >
-              <i class="fas fa-comments fa-md" ></i>
-              <div class="text-white bg-danger notification-bandage position-absolute p-2" ></div>
-            </div>
-
-            <div class="circles border me-2 pointer position-relative noti " >
-              <i class="fas fa-bell fa-lg" ></i>
-              <div class="text-white bg-danger notification-bandage position-absolute p-2" ></div>
-            </div>
+      <!-- Dropdown -->
+      <div class="dropdown-box position-absolute top-100 end-0 bg-white border mt-2 p-2 shadow-sm"
+           *ngIf="showFriendDropdown">
+        <div>No new friend requests</div>
+      </div>
     </div>
-  </div> -->
+
+    <!-- Notification -->
+    <div class="circles border me-2 pointer position-relative noti p-2"
+         (click)="toggleDropdown('notification', $event)">
+      <i class="fas fa-bell fa-md"></i>
+      <div class="text-white bg-danger notification-bandage position-absolute p-2"></div>
+
+      <!-- Dropdown -->
+      <div class="dropdown-box position-absolute top-100 end-0 bg-white border mt-2 p-2 shadow-sm"
+           *ngIf="showNotificationDropdown">
+        <div>No new notifications</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 </div>
 
