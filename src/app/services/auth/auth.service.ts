@@ -18,6 +18,7 @@ export class AuthService {
   private memberListSubject$ = new BehaviorSubject<any>(null);
   memberList$ = this.memberListSubject$.asObservable();
 
+
   constructor(private http: HttpClient) { }
 
   public googleLogin(token: string): Observable<any> {
@@ -116,6 +117,7 @@ export class AuthService {
   public setUser(){
     var userDetails = this.getTokenDecodeData()
     localStorage.setItem('userType', userDetails.UserType);
+
   }
 
   public getUserType(){

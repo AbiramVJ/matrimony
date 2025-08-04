@@ -1,18 +1,18 @@
-export enum userType {
+export enum UserType {
   ADMIN = 'Admin',
   AGENT = 'Agent',
-  MEMBER = 'member'
+  MEMBER = 'Member'
 }
 
 export const userRoleNames = {
-  adminUser: 'MgateAdmin',
+  adminUser: 'Admin',
   member: 'Member'
 }
 
 export const clientData = {
   ADMIN: {
-    name: 'admin',
-    secretKey: 'admin123',
+    name: 'mgate',
+    secretKey: 'admin',
   },
 
   AGENT: {
@@ -28,16 +28,16 @@ export const clientData = {
 
 
 export const matrimonyConfig = {
-  userType: userType.ADMIN,
+  userType: UserType.ADMIN,
   clientData: clientData.ADMIN
 }
 
 export const matrimonyAgentConfig = {
-  userType: userType.AGENT,
+  userType: UserType.AGENT,
   clientData: clientData.AGENT
 }
 
 export const matrimonyMemberConfig = {
-  userType: userType.MEMBER,
+  userType: UserType.MEMBER,
   clientData: clientData.MEMBER
 }

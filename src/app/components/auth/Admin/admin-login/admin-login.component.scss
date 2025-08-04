@@ -1,0 +1,9 @@
+.logo-svg{
+  width: 300px;
+}
+
+@media (max-width: 480px) {
+  .logo-svg{
+   width: 200px;
+  }
+}

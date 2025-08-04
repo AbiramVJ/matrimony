@@ -105,6 +105,7 @@ export class LoginComponent implements OnInit {
     this.auth.getLoginClientToken(this.isAgent ? this._agentClientData : this._memberClientData).subscribe({
       next:(response:TokenResult)=>{
         this.clientToken = response.token;
+        localStorage.removeItem('clientId');
         localStorage.setItem('clientId',response.token);
       },
       complete:() =>{

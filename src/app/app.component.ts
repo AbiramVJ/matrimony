@@ -12,6 +12,7 @@ import { COMMON_DIRECTIVES } from './common/common-imports';
 import { MemberService } from './services/member.service';
 import { MobileTopBarComponent } from "./common/mobile-top-bar/mobile-top-bar.component";
 import { MemberProfileModalComponent } from "./common/pop-up/member-profile-modal/member-profile-modal.component";
+import { UserType } from './helpers/util';
 
 
 @Component({
@@ -28,6 +29,8 @@ export class AppComponent {
   public isCanRenderSideBar:boolean = false;
   public currentMemberDetails:any;
   public filterMemberViewData: any;
+  public userType = UserType;
+  public currentUserType:any;
   constructor(
      private dataProviderService:DataProviderService,
      private _authService:AuthService,
@@ -37,7 +40,7 @@ export class AppComponent {
      private _friendSignalRService:FriendSignalRService,
      private _signalRService : SignalRService
     ){
-
+      this.currentUserType = localStorage.getItem('userType');
   }
 
   ngOnInit(): void {
@@ -50,7 +53,12 @@ export class AppComponent {
     });
 
     if(this.isLogin){
-      this._getMemberList();
+      if(localStorage.getItem('userType') === UserType.ADMIN){
+        this._getAdmin();
+      }else{
+        this._getMemberList();
+      }
+
     }else{
       this.isLoading = false;
     }
@@ -93,6 +101,11 @@ export class AppComponent {
       this.isLoading = false;
       }
     })
+  }
+
+  private _getAdmin(){
+    this.isLoading = false;
+    this.router.navigateByUrl("admin/home");
   }
 
   public openMemberViewPopUp(member:FullUserProfile){

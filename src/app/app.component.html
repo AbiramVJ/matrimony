@@ -1,4 +1,4 @@
-<app-navigation-bar *ngIf="!isLoading && isLogin" [hideProps]="hideNavProps" (openMemberPopup)="openMemberViewPopUp($event)"></app-navigation-bar>
+<app-navigation-bar *ngIf="!isLoading && isLogin && currentUserType === userType.MEMBER" [hideProps]="hideNavProps" (openMemberPopup)="openMemberViewPopUp($event)"></app-navigation-bar>
  <div class="m-shadow" *ngIf="!isLoading && isLogin">
     <app-mobile-top-bar></app-mobile-top-bar>
  </div>
