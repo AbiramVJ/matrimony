@@ -1,19 +1,49 @@
-import { userType } from './../../helpers/util';
 import { Component } from '@angular/core';
 import { SocialLoginService } from '../../services/auth/social-login.service';
+import { MemberService } from '../../services/member.service';
+import { MainUser } from '../../models/index.model';
+import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth/auth.service';
 
 
 @Component({
   selector: 'app-top-bar',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './top-bar.component.html',
   styleUrl: './top-bar.component.scss'
 })
 export class TopBarComponent {
 
   public currentUser:any;
+  public mainUser!: MainUser;
 
-  constructor(private socialLoginService:SocialLoginService){
+  constructor(
+    private socialLoginService:SocialLoginService,
+    private _memberService: MemberService,
+    private _authService: AuthService
+  ){}
 
+  ngOnInit(){
+    this.getMainUser();
   }
+
+  private getMainUser() {
+    this._memberService.getMainUser().subscribe({
+      next: (res: any) => {
+        this.mainUser = res;
+      },
+      complete: () => {},
+      error: (error: any) => {},
+    });
+  }
+
+  public _authLogout() {
+    this._authService.removeAuthToken();
+    localStorage.removeItem('clientId');
+    localStorage.removeItem('userType');
+    localStorage.removeItem('currentMemberId');
+    this._authService.setUserDetails(null);
+    window.location.href = '/';
+  }
+
 }

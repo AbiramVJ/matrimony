@@ -13,11 +13,13 @@ import { MemberService } from './services/member.service';
 import { MobileTopBarComponent } from "./common/mobile-top-bar/mobile-top-bar.component";
 import { MemberProfileModalComponent } from "./common/pop-up/member-profile-modal/member-profile-modal.component";
 import { UserType } from './helpers/util';
+import { TopBarComponent } from "./common/top-bar/top-bar.component";
+import { AdminSideBarComponent } from "./common/admin-side-bar/admin-side-bar.component";
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, COMMON_DIRECTIVES, NavigationBarComponent, MobileTopBarComponent, MemberProfileModalComponent],
+  imports: [RouterOutlet, CommonModule, COMMON_DIRECTIVES, NavigationBarComponent, MobileTopBarComponent, MemberProfileModalComponent, TopBarComponent, AdminSideBarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

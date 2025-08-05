@@ -1,8 +1,22 @@
-<app-navigation-bar *ngIf="!isLoading && isLogin && currentUserType === userType.MEMBER" [hideProps]="hideNavProps" (openMemberPopup)="openMemberViewPopUp($event)"></app-navigation-bar>
- <div class="m-shadow" *ngIf="!isLoading && isLogin">
-    <app-mobile-top-bar></app-mobile-top-bar>
- </div>
-<router-outlet class="main-content" *ngIf="!isLoading"></router-outlet>
+<app-navigation-bar *ngIf="!isLoading && isLogin && currentUserType === userType.MEMBER" [hideProps]="hideNavProps"
+  (openMemberPopup)="openMemberViewPopUp($event)"></app-navigation-bar>
+
+<!-- ADMIN -->
+<div class="row m-0" *ngIf="!isLoading && isLogin && currentUserType === userType.ADMIN && isLogin">
+  <div class="col-2 p-0 rounded-0 side-bar border-end bg-white fixed-left">
+    <app-admin-side-bar ></app-admin-side-bar>
+  </div>
+  <div [ngClass]="isLogin ? 'col-10 main-div ' : 'col-12'">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+<app-top-bar *ngIf="!isLoading && isLogin && currentUserType === userType.ADMIN"></app-top-bar>
+
+<div class="m-shadow" *ngIf="!isLoading && isLogin && currentUserType === userType.MEMBER">
+  <app-mobile-top-bar></app-mobile-top-bar>
+</div>
+
+<router-outlet class="main-content" *ngIf="!isLoading && currentUserType === userType.MEMBER"></router-outlet>
 
 <div class="d-flex justify-content-center align-items-center min-vh-100" *ngIf="isLoading">
   <div class="spinner-grow text-danger me-1" role="status">
@@ -16,12 +30,12 @@
   </div>
 </div>
 
-
-<div class="modal fade" id="staticBackdrops" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrops" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-body p-0">
-       <app-member-profile-modal [memberProfile]="filterMemberViewData"></app-member-profile-modal>
+        <app-member-profile-modal [memberProfile]="filterMemberViewData"></app-member-profile-modal>
       </div>
     </div>
   </div>

@@ -5,6 +5,41 @@ app-navigation-bar {
   right: 0;
   z-index: 1000; /* Ensure it stays on top */
 }
+app-top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000; /* Ensure it stays on top */
+}
+
+.fixed-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+  height: 56px;
+  width: 100%;
+}
+
+.fixed-left {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  bottom: 0;
+  z-index: 1020;
+  width: 240px;
+  background-color: #343a40;
+}
+
+
+.main-div {
+  padding-top: 84px;
+  margin-left: 240px;
+  //overflow-y: auto;
+ // height: 100vh;
+}
 
 @media (max-width: 764px) {
   .profile-img{
@@ -18,5 +53,5 @@ app-navigation-bar {
     bottom: 0;
     right: 0;
     z-index: 1000;
-}
+  }
 }

@@ -1,8 +1,18 @@
-// .app-bg{
-//   background-color:  #111827;
-// }
+.nav-parent {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
 .logo-svg{
-  width: 300px !important;
+  width: 250px !important;
+}
+
+.list-profile {
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (max-width: 480px) {
