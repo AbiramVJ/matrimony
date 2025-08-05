@@ -10,13 +10,14 @@
     <router-outlet></router-outlet>
   </div>
 </div>
+
 <app-top-bar *ngIf="!isLoading && isLogin && currentUserType === userType.ADMIN"></app-top-bar>
 
 <div class="m-shadow" *ngIf="!isLoading && isLogin && currentUserType === userType.MEMBER">
   <app-mobile-top-bar></app-mobile-top-bar>
 </div>
 
-<router-outlet class="main-content" *ngIf="!isLoading && currentUserType === userType.MEMBER"></router-outlet>
+<router-outlet class="main-content" ></router-outlet>
 
 <div class="d-flex justify-content-center align-items-center min-vh-100" *ngIf="isLoading">
   <div class="spinner-grow text-danger me-1" role="status">
