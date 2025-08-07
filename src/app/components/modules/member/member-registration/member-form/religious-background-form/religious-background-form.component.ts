@@ -88,7 +88,7 @@ export class ReligiousBackgroundFormComponent {
     })
   }
 
-    private _getReligion(){
+  private _getReligion(){
     this.isLoading = true;
     this.memberService.getReligion().subscribe({
       next:(res:Religion[]) => {

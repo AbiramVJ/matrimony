@@ -121,6 +121,11 @@ input[type=number] {
   border-radius: 15px;
 }
 
+.content-box{
+  height: 72vh;
+  overflow: auto;
+}
+
 //FONT SIZE
 .text-xs {
   font-size:10px !important

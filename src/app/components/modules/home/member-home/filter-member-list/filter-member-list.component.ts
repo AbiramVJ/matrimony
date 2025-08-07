@@ -140,7 +140,7 @@ export class FilterMemberListComponent {
       name: member.firstName,
       profileImage: member.imageUrl,
       lastSentAt: new Date().toString(),
-      lastOnlineAt:null,
+      lastOnlineAt: null,
       isRead: false,
     });
 
@@ -153,6 +153,6 @@ export class FilterMemberListComponent {
     this.destroy$.next();
     this.destroy$.complete();
     this.memberService.setFilter(null);
-   // this._chatService.clearParticipant();
+    // this._chatService.clearParticipant();
   }
 }

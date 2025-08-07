@@ -13,7 +13,6 @@ export class AdminService {
   private baseUrl = (environment as any).baseUrl;
   constructor(private http: HttpClient) { }
 
-
   public GetAdminClientToken(){
     return this.http.get(this.baseUrl + `Client/client-token?name=${clientData.ADMIN.name}&secretKey=${clientData.ADMIN.secretKey}`).pipe(
         map((res: any) => {
@@ -22,12 +21,11 @@ export class AdminService {
       );
   }
 
-    //LOGIN
+  //LOGIN
   public login(body:any, clientToken:string){
     const headers = this._getHeader(clientToken);
     return this.http.post<any>(this.baseUrl + 'Auth/login', body, { 'headers': headers });
   }
-
 
   //HEDER
   private _getHeader(clientToken:string){
@@ -37,4 +35,5 @@ export class AdminService {
     .set('Authorization', `Bearer ${clientToken}`);
     return headers;
   }
+
 }

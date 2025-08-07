@@ -45,6 +45,14 @@ export class MemberService {
     );
   }
 
+  public getCommunityWithPagination(pageNumber:number, pageSize:number){
+    return this.http.get(this.baseUrl + `Community?pageNumber=${pageNumber}&pageSize=${pageSize}`).pipe(
+        map((res: any) => {
+          return new CommonResponse<Community>(res.Result, Community);
+      })
+    );
+  }
+
   public getReligion(){
     return this.http.get(this.baseUrl + 'Religion').pipe(
         map((res: any) => {
