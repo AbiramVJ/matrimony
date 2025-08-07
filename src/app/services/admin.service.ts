@@ -36,4 +36,12 @@ export class AdminService {
     return headers;
   }
 
+  public createCommunity(body:any){
+    return this.http.post<any>(this.baseUrl + 'community', body);
+  }
+
+  public editCommunity(id:string, body:any){
+    return this.http.put<any>(this.baseUrl + `community/${id}`, body);
+  }
+
 }
