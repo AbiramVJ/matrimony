@@ -5,6 +5,8 @@ import { TokenResult } from '../models/clientToken.model';
 import { clientData } from '../helpers/util';
 
 import { map } from 'rxjs';
+import { CommonResponse } from '../models/commonResponse.model';
+import { Education } from '../models/index.model';
 
 @Injectable({
   providedIn: 'root'
@@ -46,6 +48,14 @@ export class AdminService {
 
   public deleteCommunity(id:string){
     return this.http.delete<any>(this.baseUrl + `Community?id=${id}`);
+  }
+
+  public getEducationWithPagination(pageNumber:number, pageSize:number){
+      return this.http.get(this.baseUrl + `EducationQualification?pageNumber=${pageNumber}&pageSize=${pageSize}`).pipe(
+        map((res: any) => {
+          return new CommonResponse<Education>(res.Result, Education);
+      })
+    );
   }
 
 }

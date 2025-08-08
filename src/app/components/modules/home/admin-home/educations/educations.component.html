@@ -1,1 +1,98 @@
-<p>educations works!</p>
+<section class="content pt-3 rounded">
+  <div class="component-content">
+    <div class="row p-2 content-box">
+      <div class="col-10 mx-auto">
+        <div class="bg-danger text-white m-shadow p-3 mb-3">
+          <div>
+            <div class="text-md fw-bold">Education</div>
+            <div class="text-sm">Helps in finding users with similar preferences within the community.</div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between">
+          <div class="text-md fw-bold my-auto">Total : {{totalItemCount}}</div>
+          <div class="">
+            <div class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"
+              (click)="createEducationPopUp()">Create</div>
+          </div>
+        </div>
+        <div class="mt-3">
+          <div class="row m-0">
+            <div class="col-12 m-shadow rounded p-2 mt-3"
+              *ngFor="let education of educationList |  paginate: { itemsPerPage: itemsPerPage , currentPage: currentPage, totalItems: totalItemCount }">
+              <div class="d-flex justify-content-between">
+                <div class="text-sm fw-bold ms-3">{{education.name}}</div>
+                <div class="">
+                  <span (click)="setEducation(education)" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                      class="fas fa-edit text-primary me-2 pointer"></i></span>
+                  <span><i class="fas fa-trash text-danger text-primary pointer" data-bs-toggle="modal"
+                      data-bs-target="#deleteModal" (click)="deletedId = education.id"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center my-auto" *ngIf="isLoading">
+          <div class="spinner-grow text-danger me-1" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-grow text-warning me-1" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-grow text-danger" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+     <!-- PAGINATION -->
+    <div class="row">
+      <div class="col-10 mx-auto">
+        <div class="row mb-auto pagination mt-4 pb-3" *ngIf="totalItemCount > 0">
+          <div class="col-6 col-sm-4 mt-auto">
+            <div class="pull-left">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label text-sm fw-bold pt-0"><small>Entries
+                    per page</small></label>
+                <div class="col-sm-4 page-input">
+                  <input type="number" class="form-control" [(ngModel)]="itemsPerPage" min="1"
+                    (ngModelChange)="changePerPageValue(itemsPerPage)">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-8 text-right">
+            <div class="text-xs">
+              <pagination-controls (pageChange)="pageChanged($event)" [maxSize]="5" [previousLabel]="'Prev'">
+              </pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal" id="education-modal-btn">btn</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="exampleModalLabel">Add education</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="educationFrom">
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Name</label>
+            <input type="text" class="form-control" formControlName="name" [ngClass]="{'errorBorder': isSubmitted && educationFrom.get('name')?.errors}">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer border-0">
+        <button type="button" class="btn btn-danger" (click)="isUpdate ? _editEducation() : createEducation()" [disabled]="isLoading"><div class="spinner-border spinner-border-sm text-light me-1" role="status" *ngIf="isLoading"></div>{{isUpdate ? 'Update' : 'Save'}}</button>
+      </div>
+    </div>
+  </div>
+</div>
