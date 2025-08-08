@@ -22,8 +22,7 @@
                 <div class="text-sm fw-bold ms-3">{{community.name}}</div>
                 <div class="">
                   <span (click)="setCommunity(community)" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-edit text-primary me-2 pointer"></i></span>
-                  <span><i class="fas fa-trash text-danger text-primary pointer" data-bs-toggle="modal"
-                      data-bs-target="#staticBackdrop"></i></span>
+                  <span><i class="fas fa-trash text-danger text-primary pointer" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="deletedId = community.id"></i></span>
                 </div>
               </div>
             </div>
@@ -100,8 +99,17 @@
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
+      <div class="modal-header border-0">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="deleted-close-btn"></button>
+      </div>
       <div class="modal-body">
-
+        <div class="text-center">
+          <div class="text-center">
+            <img src="https://thumbs.dreamstime.com/b/male-clerk-throws-letters-trash-can-caucasian-businessman-deletes-spam-read-mail-mailbox-file-manager-deleting-284035753.jpg" alt="" width="300px">
+          </div>
+          <div class="text-md">Do yo want to delete this Community</div>
+          <button class="btn btn-danger mt-3" [disabled]="isLoading" (click)="deleteCommunity()"><div class="spinner-border spinner-border-sm text-light me-1" role="status" *ngIf="isLoading"></div>Confirm</button>
+        </div>
       </div>
     </div>
   </div>

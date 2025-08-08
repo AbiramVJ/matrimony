@@ -19,6 +19,7 @@ export class CommunityComponent {
   public isSubmitted:boolean = false;
   public isUpdate:boolean = false;
   public updatedId:string = '';
+  public deletedId:string = '';
   public communityList:Community[] = [];
   public totalItemCount: number = 0;
   public itemsPerPage: number = 6;
@@ -75,7 +76,7 @@ export class CommunityComponent {
       this._adminService.createCommunity(body).subscribe({
         next:()=>{},
         complete:()=>{
-          this.toastr.success("Community created", "Success");
+           this.toastr.success("Community created", "Success");
            let viewModal: HTMLElement = document.getElementById('community-modal-btn') as HTMLElement;
            if (viewModal) { viewModal.click();}
            this.communityFrom.reset();
@@ -124,6 +125,7 @@ export class CommunityComponent {
     this.isUpdate = false;
     this.communityFrom.get('name')?.patchValue(null);
   }
+
   public setCommunity(community:any){
     this.isUpdate = true;
     this.communityFrom.get('name')?.patchValue(community.name);
@@ -136,6 +138,25 @@ export class CommunityComponent {
       this.itemsPerPage = pageNumber;
       this._getCommunity();
     }
+  }
+
+  public deleteCommunity(){
+    this.isLoading = true;
+    this._adminService.deleteCommunity(this.deletedId).subscribe({
+      next:(res:any) => {},
+      complete:()=>{
+        this.toastr.success("Community Deleted", "Success");
+        this.deletedId = '';
+        this.isLoading = false;
+        let viewModal: HTMLElement = document.getElementById('deleted-close-btn') as HTMLElement;
+        if (viewModal) { viewModal.click();}
+        this._getCommunity();
+      },
+      error:(error:any)=>{
+        this.isLoading = false;
+        this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
+      }
+    })
   }
 
   public pageChanged(event: any) {

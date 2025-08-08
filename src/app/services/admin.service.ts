@@ -44,4 +44,8 @@ export class AdminService {
     return this.http.put<any>(this.baseUrl + `community/${id}`, body);
   }
 
+  public deleteCommunity(id:string){
+    return this.http.delete<any>(this.baseUrl + `Community?id=${id}`);
+  }
+
 }
