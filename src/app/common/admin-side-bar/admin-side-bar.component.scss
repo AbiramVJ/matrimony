@@ -3,3 +3,20 @@
   border: solid #837a7a 2px !important;
   border-radius: 10px !important;
 }
+
+.list-group-item {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Apply hover only if not active */
+.list-group-item:not(.active):hover {
+  background-color: #e6edf7 !important; /* light grey background */
+  transform: translateX(5px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Icon zoom effect on hover (non-active) */
+.list-group-item:not(.active):hover img {
+  transform: scale(1.1);
+  transition: transform 0.2s ease-in-out;
+}

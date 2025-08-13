@@ -3,8 +3,7 @@ import { Component } from '@angular/core';
 import { COMMON_DIRECTIVES, FORM_MODULES } from '../../../../../common/common-imports';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Education } from '../../../../../models/index.model';
-import { MemberService } from '../../../../../services/member.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -23,6 +22,7 @@ export class EducationsComponent {
   public isUpdate:boolean = false;
   public educationList: Education[] = [];
   public deletedId:string = '';
+  public updatedId:string = '';
 
   public educationFrom!:FormGroup;
 
@@ -32,6 +32,14 @@ export class EducationsComponent {
 
   ngOnInit(): void {
    this._getAllEducation();
+   this._editEducationFromInit();
+  }
+
+
+  private _editEducationFromInit(){
+    this.educationFrom = this.fb.group({
+      name:['', Validators.required]
+    })
   }
 
   private _getAllEducation(){
@@ -52,11 +60,13 @@ export class EducationsComponent {
   }
 
   public createEducationPopUp(){
-
+    this.isUpdate = false;
   }
 
   public setEducation(education:any){
-
+    this.isUpdate = true;
+    this.educationFrom.get('name')?.patchValue(education.name);
+    this.updatedId = education.id;
   }
 
   public changePerPageValue(pageNumber: number) {
@@ -73,10 +83,77 @@ export class EducationsComponent {
   }
 
   public _editEducation(){
-
+    this.isSubmitted = true;
+    this.isLoading = true;
+    if(this.educationFrom.valid){
+    let body = {
+      name:this.educationFrom.get('name')?.value,
+      isActive:true
+    }
+      this._adminService.editEducation(this.updatedId,body).subscribe({
+        next:()=>{},
+        complete:()=>{
+          this.toastr.success("Education Updated", "Success");
+           let viewModal: HTMLElement = document.getElementById('education-modal-btn') as HTMLElement;
+           if (viewModal) { viewModal.click();}
+           this.educationFrom.reset();
+           this.isSubmitted = false;
+           this.isUpdate = false;
+           this.updatedId = '';
+           this._getAllEducation();
+        },
+        error:(error:any)=>{
+           this.isLoading = false;
+           this.isSubmitted = false;
+           this.isUpdate = false;
+        }
+      })
+    }
   }
 
   public createEducation(){
-
+    this.isSubmitted = true;
+    this.isLoading = true;
+    if(this.educationFrom.valid){
+      let body = {
+        name:this.educationFrom.get('name')?.value,
+        isActive:true
+      }
+      this._adminService.createEducation(body).subscribe({
+        next:()=>{},
+        complete:()=>{
+           this.toastr.success("Education created", "Success");
+           let viewModal: HTMLElement = document.getElementById('education-modal-btn') as HTMLElement;
+           if (viewModal) { viewModal.click();}
+           this.educationFrom.reset();
+           this.isSubmitted = false;
+           this._getAllEducation();
+        },
+        error:(error:any)=>{
+           this.isLoading = false;
+           this.isSubmitted = false;
+        }
+      })
+    }
   }
+
+  public deleteEducation(){
+    this.isLoading = true;
+    this._adminService.deleteEducation(this.deletedId).subscribe({
+      next:(res:any) => {},
+      complete:()=>{
+        this.toastr.success("Education Deleted", "Success");
+        this.deletedId = '';
+        this.isLoading = false;
+        let viewModal: HTMLElement = document.getElementById('deleted-close-btn') as HTMLElement;
+        if (viewModal) { viewModal.click();}
+        this._getAllEducation();
+      },
+      error:(error:any)=>{
+        this.isLoading = false;
+        this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
+      }
+    })
+  }
+
 }
