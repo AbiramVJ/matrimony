@@ -283,7 +283,6 @@ export class SideBarComponent {
   public onJobSectorChange(event: Event) {
     const checkbox = event.target as HTMLInputElement;
     const id = +checkbox.value;
-    console.log(id);
     if (checkbox.checked) {
       if (!this.sector.includes(id)) {
         this.sector.push(id);

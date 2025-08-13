@@ -64,7 +64,6 @@ export class ChatComponent {
   ) {
     this._chatService.startConnection();
     const participant = this._chatService.getParticipant();
-    console.log(participant);
   }
 
   @HostListener('window:resize', ['$event'])
@@ -145,7 +144,6 @@ export class ChatComponent {
     });
 
     this._chatService.onMessageRead((messageId, senderId, readAt) => {
-       console.log(`Message ${messageId} was read by ${senderId} at ${readAt}`);
     //  const message = this.messagesCheck.find((m: any) => m.id === messageId);
     //   if (message) {
     //     message.isRead = true;
@@ -170,7 +168,6 @@ export class ChatComponent {
 
 
   focusInput() {
-    console.log(this.minSpend.first)
     this.minSpend.first.nativeElement.focus();
   }
 
@@ -320,7 +317,6 @@ export class ChatComponent {
   public readAllMessages(senderId:string){
     this._chatService.makeAllMessageAreRead(senderId).subscribe({
       next:(res:any) =>{
-        console.log(res);
       }
     })
   }
@@ -334,11 +330,10 @@ export class ChatComponent {
   }
 
   onFocus() {
-    console.log('focus');
     this.showEmojiPicker = false;
   }
   onBlur() {
-    console.log('onblur');
+
   }
 
   filteredParticipants(): any[] {

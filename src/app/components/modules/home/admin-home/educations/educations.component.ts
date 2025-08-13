@@ -46,7 +46,6 @@ export class EducationsComponent {
   this.isLoading = true;
     this._adminService.getEducationWithPagination(this.currentPage, this.itemsPerPage).subscribe({
       next:(res:any) => {
-        console.log(res);
         this.educationList = res.data;
         this.totalItemCount = res.totalCount;
       },

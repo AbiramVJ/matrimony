@@ -45,7 +45,6 @@ export class CommunityComponent {
     this.isLoading = true;
     this.memberService.getCommunityWithPagination(this.currentPage, this.itemsPerPage).subscribe({
       next:(res:any) => {
-        console.log(res);
         this.communityList = res.data;
         this.totalItemCount = res.totalCount;
       },

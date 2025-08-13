@@ -35,7 +35,6 @@ export class FriendSignalRService {
     this.hubConnection
       .start()
       .then(() => {
-        console.log('Connection started');
         //  this.getChatParticipants()
       })
       .catch((err) => console.log('Error while starting connection: ' + err));
@@ -43,7 +42,6 @@ export class FriendSignalRService {
 
   public registerFriendRequestListener(callback: (data: any) => void): void {
     this.hubConnection.on('FriendRequestReceived', (data) => {
-      console.log('Friend request received: ', data);
       callback(data); // use the passed-in callback
     });
   }

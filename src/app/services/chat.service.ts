@@ -31,7 +31,6 @@ export class ChatService {
       .build();
 
     this.hubConnection.start().then(() => {
-        console.log('Connection started');
         this.getChatParticipants()
       }).catch(err => console.log('Error while starting connection: ' + err));
 
@@ -39,7 +38,6 @@ export class ChatService {
   }
 
    public sendMessage(user: string, textContent: string, fileUrls:string[], fileType:any ): void {
-    console.log(user,textContent,fileUrls,fileType)
     this.hubConnection.invoke('SendMessage', user, textContent, fileUrls,fileType)
       .catch(err => console.error(err));
   }
@@ -85,7 +83,6 @@ export class ChatService {
 
 
   public markMessageAsRead(messageId: string): void {
-    console.log(messageId);
     this.hubConnection
       .invoke('MessageRead', messageId)
       .catch(err => console.error('Error calling MessageRead:', err));

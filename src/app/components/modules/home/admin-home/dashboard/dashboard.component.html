@@ -1,54 +1,192 @@
-<div class="row mt-3">
-  <div class="col-10 mx-auto">
-     <div class="bg-danger text-white m-shadow p-3 mb-3">
-          <div>
-            <div class="text-md fw-bold">Dashboard</div>
-            <div class="text-sm">Connect with Members Sharing Your Educational Background.</div>
-          </div>
-        </div>
+<div class="dashboard-wrapper">
+  <div class="row mt-3 m-0">
+    <div class="col-11 mx-auto">
 
-    <div class="mt-3 row">
-      <div class="col-6">
-        <div class="m-shadow bg-success text-white p-3">
-          <div class="d-flex justify-content-between">
-            <div class="mt-2 fw-bold">Total Members</div>
-            <div class="mt-3"><img src="https://cdn-icons-png.flaticon.com/512/4580/4580633.png" width="30px"></div>
+      <!-- Dashboard Header -->
+      <div class="dashboard-header p-card" style="animation-delay: 0.1s;">
+        <div class="header-content">
+          <div class="header-icon">
+            <i class="fas fa-tachometer-alt"></i>
           </div>
-          <div class="fw-bold fs-5">100</div>
-        </div>
-      </div>
-      <div class="col-6">
-        <div class="m-shadow bg-primary text-white p-3">
-          <div class="d-flex justify-content-between">
-            <div class="mt-2 fw-bold">Total Users</div>
-            <div class="mt-3"><img src="https://cdn-icons-png.flaticon.com/512/16901/16901362.png" width="30px"></div>
+          <div class="header-text">
+            <h2 class="header-title text-lg">Dashboard</h2>
+            <p class="header-subtitle">Connect with Members Sharing Your Educational Background</p>
           </div>
-          <div class="fw-bold fs-5">10</div>
+          <div class="header-decoration">
+            <div class="floating-shapes">
+              <div class="shape shape-1"></div>
+              <div class="shape shape-2"></div>
+              <div class="shape shape-3"></div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="col-6 mt-3">
-        <div class="m-shadow bg-danger text-white p-3">
-          <div class="d-flex justify-content-between">
-            <div class="mt-2 fw-bold">Total Earings</div>
-            <div class="mt-3"><img src="https://cdn-icons-png.flaticon.com/512/5775/5775312.png" width="30px"></div>
+      <!-- Stats Cards Grid -->
+      <div class="stats-grid">
+
+        <!-- Total Members Card -->
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="stat-card members-card p-card me-2 bg-danger" style="animation-delay: 0.2s;">
+            <div class="card-overlay"></div>
+            <div class="card-content">
+              <div class="card-header">
+                <div class="card-title">Total Members</div>
+                <div class="card-icon">
+                  <img src="https://cdn-icons-png.flaticon.com/512/4580/4580633.png"
+                       alt="Members" class="stat-icon">
+                </div>
+              </div>
+              <div class="card-value">
+                <span class="counter" data-target="100">0</span>
+              </div>
+              <div class="card-trend">
+                <i class="fas fa-arrow-up"></i>
+                <span>+12% from last month</span>
+              </div>
+            </div>
+            <div class="card-glow"></div>
           </div>
-          <div class="fw-bold fs-5">1500$</div>
+        </div>
+
+        <!-- Total Users Card -->
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="stat-card users-card p-card me-2 bg-warning" style="animation-delay: 0.3s;">
+            <div class="card-overlay"></div>
+            <div class="card-content">
+              <div class="card-header">
+                <div class="card-title">Total Users</div>
+                <div class="card-icon">
+                  <img src="https://cdn-icons-png.flaticon.com/512/16901/16901362.png"
+                       alt="Users" class="stat-icon">
+                </div>
+              </div>
+              <div class="card-value">
+                <span class="counter" data-target="10">0</span>
+              </div>
+              <div class="card-trend">
+                <i class="fas fa-arrow-up"></i>
+                <span>+8% from last month</span>
+              </div>
+            </div>
+            <div class="card-glow"></div>
+          </div>
+        </div>
+
+        <!-- Total Earnings Card -->
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="stat-card earnings-card p-card me-2 bg-success" style="animation-delay: 0.4s;">
+            <div class="card-overlay"></div>
+            <div class="card-content">
+              <div class="card-header">
+                <div class="card-title">Total Earnings</div>
+                <div class="card-icon">
+                  <img src="https://cdn-icons-png.flaticon.com/512/5775/5775312.png"
+                       alt="Earnings" class="stat-icon">
+                </div>
+              </div>
+              <div class="card-value">
+                $<span class="counter" data-target="1500">0</span>
+              </div>
+              <div class="card-trend">
+                <i class="fas fa-arrow-up"></i>
+                <span>+25% from last month</span>
+              </div>
+            </div>
+            <div class="card-glow"></div>
+          </div>
+        </div>
+
+        <!-- Recent Login Card -->
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="stat-card login-card p-card bg-primary" style="animation-delay: 0.5s;">
+            <div class="card-overlay"></div>
+            <div class="card-content">
+              <div class="card-header">
+                <div class="card-title me-2">Recent Login</div>
+                <div class="card-icon">
+                  <img src="https://cdn-icons-png.flaticon.com/512/13630/13630891.png"
+                       alt="Login" class="stat-icon">
+                </div>
+              </div>
+              <div class="card-value">
+                <span class="counter" data-target="80">0</span>%
+              </div>
+              <div class="card-trend">
+                <i class="fas fa-arrow-up"></i>
+                <span>+5% from last month</span>
+              </div>
+            </div>
+            <div class="card-glow"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Additional Dashboard Content -->
+      <div class="row mt-4">
+        <div class="col-lg-8 mb-4">
+          <div class="chart-card p-card bg-dark" style="animation-delay: 0.6s;">
+            <div class="card-header-custom">
+              <h5 class="card-title-custom">Analytics Overview</h5>
+              <div class="card-actions">
+                <button class="btn-custom">
+                  <i class="fas fa-download"></i>
+                </button>
+              </div>
+            </div>
+            <div class="chart-placeholder">
+              <div class="chart-bars">
+                <div class="bar" style="height: 60%;"></div>
+                <div class="bar" style="height: 80%;"></div>
+                <div class="bar" style="height: 40%;"></div>
+                <div class="bar" style="height: 90%;"></div>
+                <div class="bar" style="height: 70%;"></div>
+                <div class="bar" style="height: 50%;"></div>
+                <div class="bar" style="height: 85%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 mb-4">
+          <div class="activity-card p-card bg-secondary" style="animation-delay: 0.7s;">
+            <div class="card-header-custom">
+              <h5 class="card-title-custom">Recent Activity</h5>
+            </div>
+            <div class="activity-list">
+              <div class="activity-item">
+                <div class="activity-icon bg-success">
+                  <i class="fas fa-user-plus"></i>
+                </div>
+                <div class="activity-content">
+                  <div class="activity-title">New member joined</div>
+                  <div class="activity-time">2 minutes ago</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-icon bg-primary">
+                  <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="activity-content">
+                  <div class="activity-title">Revenue increased</div>
+                  <div class="activity-time">1 hour ago</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-icon bg-warning">
+                  <i class="fas fa-bell"></i>
+                </div>
+                <div class="activity-content">
+                  <div class="activity-title">System update</div>
+                  <div class="activity-time">3 hours ago</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="col-6 mt-3">
-        <div class="m-shadow bg-warning text-white p-3">
-          <div class="d-flex justify-content-between">
-            <div class="mt-2 fw-bold">Recent login</div>
-            <div class="mt-3"><img src="https://cdn-icons-png.flaticon.com/512/13630/13630891.png" width="30px"></div>
-          </div>
-          <div class="fw-bold fs-5">80%</div>
-        </div>
-      </div>
     </div>
   </div>
 </div>
-
-
-

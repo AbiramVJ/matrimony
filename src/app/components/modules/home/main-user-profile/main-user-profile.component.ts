@@ -55,7 +55,6 @@ constructor(private fb: FormBuilder,
         this.isLoading = false;
       },
       error:(error:any)=>{
-        console.log(error);
         this.isLoading = false;
       }
     })

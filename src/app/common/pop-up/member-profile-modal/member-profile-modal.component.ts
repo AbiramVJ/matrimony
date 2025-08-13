@@ -132,7 +132,6 @@ ngOnChanges(): void {
             if (viewModal) {
               viewModal.click();
             }
-            console.log(viewModal)
     this.router.navigate(['/home/chat']);
   }
 

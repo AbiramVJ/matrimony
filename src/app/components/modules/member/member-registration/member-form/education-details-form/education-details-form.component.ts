@@ -105,7 +105,6 @@ export class EducationDetailsFormComponent {
 
   public next(){
     this.isSubmitted = true;
-    console.log(this.userEducationFrom.valid);
     if(this.userEducationFrom.valid){
       const formValue = this.userEducationFrom.value;
       const userEducationValue:UserEducationDetails = {

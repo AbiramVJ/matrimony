@@ -158,7 +158,6 @@ export class ContactInfoFormComponent {
         this.contactDetailsEmitter.emit(formValues);
         return;
       } else {
-        console.log(formValues.address);
         //update flow
         this.isLoading = true;
           const birthAddress = this.memberProfile.profileAddresses.find((a: any) => a.addressType === AddressType.birth);

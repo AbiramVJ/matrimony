@@ -214,7 +214,6 @@ export class ReligiousBackgroundFormComponent {
           },
           profileAddresses: this.memberProfile.profileAddresses
         }
-        console.log(updatedProfile);
         this.memberService.updateMemberProfile(this.memberProfile.id, updatedProfile).subscribe({
           next:(res:any) => {},
           complete:()=>{

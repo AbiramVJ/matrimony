@@ -56,7 +56,6 @@ export class FamilyInformationFormComponent {
       if(!this.isEditFrom){
         const emitData = this.userFamilyInfoForm.value;
         emitData['originCountry'] = this.selectedCountry;
-        console.log(emitData);
         this.userFamilyEmitter.emit(emitData);
       }else{
         this.isLoading = true;

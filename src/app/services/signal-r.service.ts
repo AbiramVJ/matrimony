@@ -57,7 +57,6 @@ export class SignalRService {
 
   public receiveNotification(callback: (data: any) => void): void {
     this.hubConnection.on('NotificationReceived', (data) => {
-      console.log('notification received: ', data);
       callback(data);
     });
   }

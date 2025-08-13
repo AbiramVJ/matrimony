@@ -144,7 +144,6 @@ export class MemberService {
   public acceptFriendRequest(memberId:string){
     return this.http.post(this.baseUrl + `FriendRequest/accept/${memberId}`,{}).pipe(
           map((res: any) => {
-            console.log(res);
             return res.Result;
         })
       );
@@ -163,7 +162,6 @@ export class MemberService {
   public cancelRequest(requestId:string){
     return this.http.post(this.baseUrl + `FriendRequest/cancel/${requestId}`,{}).pipe(
         map((res: any) => {
-          console.log(res);
           return res.Result;
       })
     );
@@ -173,7 +171,6 @@ export class MemberService {
       let profileId = localStorage.getItem('currentMemberId');
       return this.http.get(this.baseUrl + `FriendRequest/friends/${profileId}`).pipe(
           map((res: any) => {
-            console.log(res);
             return res.Result;
         })
       );

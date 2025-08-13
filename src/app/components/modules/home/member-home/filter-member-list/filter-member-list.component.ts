@@ -111,7 +111,6 @@ export class FilterMemberListComponent {
     this.memberService.GetFilterMemberViewData(id).subscribe({
       next: (res: any) => {
         this.filterMemberViewData = res;
-        console.log(res);
         // this.isLoading = false;
       },
       complete: () => {

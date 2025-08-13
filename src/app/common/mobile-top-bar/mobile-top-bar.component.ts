@@ -51,7 +51,6 @@ export class MobileTopBarComponent {
   }
 
    public changeMemberProfile() {
-    console.log(this.selectedMember)
     localStorage.removeItem('currentMemberId');
     localStorage.setItem('currentMemberId', this.selectedMember.id);
     window.location.href = '/';
