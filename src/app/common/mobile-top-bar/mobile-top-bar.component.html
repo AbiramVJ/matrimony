@@ -6,52 +6,6 @@
         <img src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png" alt="logo" class="me-2"
           style="width: 120px;">
       </div>
-
-      <!-- <ng-select class="w-50" [items]="memberProfiles" bindLabel="firstName" bindValue="" [(ngModel)]="selectedMember"
-        [clearable]="false" placeholder="Select a member" (change)="changeMemberProfile()">
-
-        <ng-template ng-option-tmp let-item="item">
-          <div class="d-flex align-items-center">
-            <img [src]="item.profileImages[0]?.url" class="me-2 rounded-circle" width="30" height="30" alt="profile" />
-            <span>{{ item.firstName }} {{ item.lastName }}</span>
-          </div>
-        </ng-template>
-
-
-        <ng-template ng-label-tmp let-item="item">
-          <div class="d-flex align-items-center">
-            <img [src]="item.profileImages[0]?.url" class="me-2 rounded-circle" width="24" height="24" alt="profile" />
-            <span>{{ item.firstName }}</span>
-          </div>
-        </ng-template>
-      </ng-select> -->
-
-      <!-- <div class="d-flex justify-content-end">
-
-
-        <div class="me-1 pointer position-relative friend ms-2 p-2" (click)="toggleDropdown('friend', $event)">
-          <i class="fas fa-user-plus fa-md"></i>
-          <div class="text-white bg-danger notification-bandage position-absolute p-2"></div>
-
-          <div class="dropdown-box position-absolute top-100 end-0 bg-white border mt-2 p-2 shadow-sm"
-            *ngIf="showFriendDropdown">
-            <div>No new friend requests</div>
-          </div>
-        </div>
-
-
-        <div class="me-1 pointer position-relative noti p-2" (click)="toggleDropdown('notification', $event)">
-          <i class="fas fa-bell fa-md"></i>
-          <div class="text-white bg-danger notification-bandage position-absolute p-2"></div>
-
-
-          <div class="dropdown-box position-absolute top-100 end-0 bg-white border mt-2 p-2 shadow-sm"
-            *ngIf="showNotificationDropdown">
-            <div>No new notifications</div>
-          </div>
-        </div>
-
-      </div> -->
       <div class="actions-section me-3">
         <div class="text-white fw-bold me-2">{{selectedMember.firstName}}</div>
         <div class="action-button">
@@ -77,6 +31,4 @@
       </div>
     </div>
   </div>
-
-
 </div>
