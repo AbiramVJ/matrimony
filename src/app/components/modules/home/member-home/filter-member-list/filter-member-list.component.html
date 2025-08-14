@@ -1,8 +1,26 @@
 <div *ngIf="currentsUser">
-  <div class="bg-danger text-white m-shadow p-3 mb-4">
+  <!-- <div class="bg-danger text-white m-shadow p-3 mb-4">
   <div class="text-lg fw-bold">Matching Profile</div>
   <div class="text-md">Browse the profile below to learn more about their background and experience.</div>
-</div>
+</div> -->
+<div class="dashboard-header p-card" style="animation-delay: 0.1s;">
+          <div class="header-content">
+            <div class="header-icon">
+              <i class="fas fas fa-user p-4"></i>
+            </div>
+            <div class="header-text">
+              <h2 class="header-title text-lg">Matching Profile</h2>
+              <p class="header-subtitle">Browse the profile below to learn more about their background and experience.</p>
+            </div>
+            <div class="header-decoration">
+              <div class="floating-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+              </div>
+            </div>
+          </div>
+        </div>
 <div class="d-flex justify-content-between">
   <div class="text-lg fw-bold text-muted p-2">{{totalItemCount === 1 ? 'Matching profile' : 'Matching profiles' }} </div>
   <div class="text-lg fw-bold text-muted p-2">Total Count : {{totalItemCount}} </div>

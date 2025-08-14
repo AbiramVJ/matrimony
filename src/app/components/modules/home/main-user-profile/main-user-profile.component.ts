@@ -1,4 +1,4 @@
-import { MainUser } from './../../../../models/member/member.model';
+import { MainUser, UserProfile } from './../../../../models/member/member.model';
 import { Component } from '@angular/core';
 import { FORM_MODULES } from '../../../../common/common-imports';
 import { CommonModule } from '@angular/common';
@@ -18,6 +18,8 @@ export class MainUserProfileComponent {
   isLoading = false;
   imagePreview: string | null = null;
   mainUser!:MainUser;
+  public selectedMember!:UserProfile;
+  public memberProfiles: UserProfile[] = [];
 
 constructor(private fb: FormBuilder,
   private _memberService:MemberService,
@@ -35,6 +37,8 @@ constructor(private fb: FormBuilder,
 
    ngOnInit(): void {
     this.loadProfileData();
+    this._getCurrentMember();
+    this._getMemberProfiles();
   }
 
    loadProfileData(): void {
@@ -79,6 +83,29 @@ constructor(private fb: FormBuilder,
     localStorage.removeItem('clientId');
     localStorage.removeItem('currentMemberId');
     this._authService.setUserDetails(null);
+    window.location.href = '/';
+  }
+
+  private _getCurrentMember(){
+  this._authService.member$.subscribe(data => {
+      if(data){
+        this.selectedMember = data;
+      }
+    })
+  }
+
+
+  private _getMemberProfiles() {
+    this._authService.memberList$.subscribe((data) => {
+      if (data) {
+        this.memberProfiles = data;
+      }
+    });
+  }
+
+  public changeMemberProfile() {
+    localStorage.removeItem('currentMemberId');
+    localStorage.setItem('currentMemberId', this.selectedMember.id);
     window.location.href = '/';
   }
 }

@@ -14,12 +14,33 @@
 .active-link i {
   color: #007bff !important; /* Bootstrap's primary blue */
 }
-.nav-link:hover{
-   color: #007bff !important;
-   i{
-     color: #007bff !important;
-   }
+.friend-request-wrapper {
+  display: inline-block;
 }
+
+.friend-request-dropdown {
+  bottom: 100%; /* position above the icon */
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+  border-radius: 10px;
+  min-width: 200px;
+  z-index: 1050;
+}
+
+.friend-request-dropdown ul li.hover-bg:hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+.list-profile {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 
 /* In global styles.css or component CSS */
 .modal-backdrop {
@@ -153,31 +174,7 @@
   background: #e4e1fb;
 }
 
-.bottom-nav {
-  border-radius: 1rem 1rem 0 0;
-  overflow: hidden;
-}
 
-.bottom-nav .nav-link {
-  color: #888;
-  font-weight: 500;
-}
-
-.bottom-nav .nav-link.active {
-  color: #e91e63;
-  position: relative;
-}
-
-.bottom-nav .nav-link.active::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 25%;
-  width: 50%;
-  height: 3px;
-  background-color: #e91e63;
-  border-radius: 3px;
-}
 /* chat-list.component.css */
 
 .message-wrapper {
@@ -414,16 +411,10 @@
     border-radius: 3px;
   }
 
-  .active-m-link {
-    font-weight: bold !important;
-    color: rgb(73, 143, 248) !important;
-   // border-radius: 100%;
- //   background: #eb4949;
-  }
-  .active-m-link i {
-   // color: rgb(255, 255, 255) !important; /* Bootstrap's primary blue */
-  }
-
-
 
 }
+
+
+
+
+

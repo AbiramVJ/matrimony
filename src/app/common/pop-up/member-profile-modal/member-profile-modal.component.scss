@@ -29,6 +29,10 @@
   z-index: 10;
   position: relative;
 }
+
+.bg-gradiaon{
+  background: linear-gradient(135deg, #030303, #ec4b4b) !important;
+}
 @media (max-width: 764px) {
 
 .profile-pic{

@@ -47,43 +47,44 @@
          <!-- MOBILE SCREEN NAVIGATION OPTION -->
         <nav class="bottom-nav navbar fixed-bottom bg-white border-top shadow-sm d-block d-dm-block d-md-none">
           <div class="container d-flex justify-content-around text-center">
-            <a class="nav-item nav-link p-2"   [routerLink]="['/home/member']"
-                [class.active-m-link]="router.isActive('/home/member', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })">
-              <i class="fas fa-home text-lg d-block text-muted"></i>
-              <!-- <small>Home</small> -->
+            <a class="nav-link"
+              [routerLink]="['/home/member']"
+              routerLinkActive="active-link"
+              [routerLinkActiveOptions]="{ exact: true }">
+              <i class="fas fa-home fa-lg me-1 text-muted"></i>
             </a>
 
-            <a class="nav-item nav-link p-2" [routerLink]="['/member/profiles']"
-                [class.active-m-link]="router.isActive('/member/profiles', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })">
-              <i class="fas fa-users text-lg d-block text-muted"></i>
-              <!-- <small>Members</small> -->
+            <a class="nav-link"
+              [routerLink]="['/member/profiles']"
+              routerLinkActive="active-link"
+              [routerLinkActiveOptions]="{ exact: true }">
+              <i class="fas fa-users me-1 text-muted"></i>
             </a>
 
-            <!-- <a class="nav-item nav-link p-2 position-relative"
-              [routerLink]="['home/chat']"
-              [class.active-m-link]="router.isActive('/home/chat', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })">
-              <i class="fas fa-comments text-lg d-block"></i>
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger mt-2" *ngIf="UnreadCount > 0">
-                {{ UnreadCount }}
-              </span>
-            </a> -->
+            <a class="nav-link"
+              [routerLink]="['/home/chat']"
+              routerLinkActive="active-link"
+              [routerLinkActiveOptions]="{ exact: true }">
+              <i class="fas fa-comments fa-md me-1 text-muted"></i>
+            </a>
+
             <!-- MESSAGE -->
-            <div class="text-muted" (click)="toggleDropdown('message')" *ngIf="memberProfiles.length > 0" >
+            <!-- <div class="text-muted" (click)="toggleDropdown('message')" *ngIf="memberProfiles.length > 0" >
               <i class="fas fa-comments fa-md text-muted"  [ngClass]="{'text-primary' : isMessageOpen}"></i>
               <div class="text-white bg-danger notification-bandage p-2" *ngIf="UnreadCount > 0">{{UnreadCount}}</div>
-            </div>
+            </div> -->
 
             <!-- FRIEND REQUEST -->
-            <div class="text-muted" (click)="toggleDropdown('friendRequest')" *ngIf="memberProfiles.length > 0" >
+            <!-- <div class="text-muted" (click)="toggleDropdown('friendRequest')" *ngIf="memberProfiles.length > 0" >
               <i class="fas fa-user-plus fa-md"  [ngClass]="{'text-primary' : isFriendRequestOpen}"></i>
               <div class="text-white bg-danger notification-bandage p-2" *ngIf="totalRequestList > 0">{{totalRequestList}}</div>
-            </div>
+            </div> -->
 
             <!-- NOTIFICATION -->
-            <div class="text-muted" (click)="toggleDropdown('notification')" *ngIf="memberProfiles.length > 0">
+            <!-- <div class="text-muted" (click)="toggleDropdown('notification')" *ngIf="memberProfiles.length > 0">
               <i class="fas fa-bell fa-md" [ngClass]="{'text-primary' : isNotificationOpen}"></i>
               <div class="text-white bg-danger notification-bandage p-2" *ngIf="totalUnReadCount > 0">{{totalUnReadCount}}</div>
-            </div>
+            </div> -->
 
             <a class="nav-item nav-link p-2" [routerLink]="['home/main-user']" [class.active-m-link]="router.isActive('/home/main-user', { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' })" *ngIf="mainUser">
               <img  src="{{mainUser.image}}" class="m-list-profile object-fit-cover" alt="..." width="33px" height="33px">
