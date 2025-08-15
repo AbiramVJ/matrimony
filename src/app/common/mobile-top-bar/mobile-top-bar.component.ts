@@ -1,9 +1,11 @@
 import { Component, HostListener } from '@angular/core';
-import { UserProfile } from '../../models/index.model';
+import { RequestList, UserProfile } from '../../models/index.model';
 import { AuthService } from '../../services/auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FORM_MODULES } from '../common-imports';
+import { MemberService } from '../../services/member.service';
+import { FriendRequestStatus } from '../../helpers/enum';
 
 @Component({
   selector: 'app-mobile-top-bar',
@@ -17,7 +19,17 @@ export class MobileTopBarComponent {
   public memberProfiles: UserProfile[] = [];
   public showFriendDropdown = false;
   public showNotificationDropdown = false;
-  constructor(private _authService:AuthService){
+  public isRequestLoading: boolean = false;
+  public isNotificationLoading: boolean = false;
+  public isUnread: boolean = false;
+  public totalRequestList: number = 0;
+
+  public friendRequestList: RequestList[] = [];
+  public currentPage = 1;
+  public pageSize = 5;
+  public hasMoreRequests = true;
+  public request = FriendRequestStatus;
+  constructor(private _authService:AuthService,private _memberService: MemberService,){
 
   }
 
@@ -30,6 +42,7 @@ export class MobileTopBarComponent {
   ngOnInit(): void {
     this._getCurrentMember();
     this._getMemberProfiles();
+    this._getRequests();
   }
 
 
@@ -57,15 +70,38 @@ export class MobileTopBarComponent {
   }
 
   toggleDropdown(type: 'friend' | 'notification', event: MouseEvent): void {
-  event.stopPropagation();
-  event.stopPropagation()
-  if (type === 'friend') {
-    this.showFriendDropdown = !this.showFriendDropdown;
-    this.showNotificationDropdown = false;
-  } else {
-    this.showNotificationDropdown = !this.showNotificationDropdown;
-    this.showFriendDropdown = false;
+    event.stopPropagation();
+    event.stopPropagation()
+    if (type === 'friend') {
+      this.showFriendDropdown = !this.showFriendDropdown;
+      this.showNotificationDropdown = false;
+    } else {
+      this.showNotificationDropdown = !this.showNotificationDropdown;
+      this.showFriendDropdown = false;
+    }
   }
-}
+
+    //FRIENDS REQUEST
+  private _getRequests() {
+    if (this.isRequestLoading || !this.hasMoreRequests) return;
+
+    this.isRequestLoading = true;
+
+    this._memberService
+      .GetFriendRequests(this.currentPage, this.pageSize)
+      .subscribe({
+        next: (res: any) => {
+          if (res.data.length < this.pageSize) {
+            this.hasMoreRequests = false;
+          }
+          this.totalRequestList = res.totalCount;
+          this.friendRequestList.push(...res.data);
+          this.currentPage++;
+        },
+        complete: () => {
+          this.isRequestLoading = false;
+        },
+      });
+  }
 
 }

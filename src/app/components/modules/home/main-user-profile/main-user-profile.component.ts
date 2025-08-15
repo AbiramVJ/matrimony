@@ -7,9 +7,10 @@ import { MemberService } from '../../../../services/member.service';
 import { AuthService } from '../../../../services/auth/auth.service';
 import { SocialLoginService } from '../../../../services/auth/social-login.service';
 
+
 @Component({
   selector: 'app-main-user-profile',
-  imports: [FORM_MODULES, CommonModule, ],
+  imports: [FORM_MODULES, CommonModule],
   templateUrl: './main-user-profile.component.html',
   styleUrl: './main-user-profile.component.scss'
 })

@@ -35,7 +35,7 @@
 
             <!-- Form Body -->
             <div class="card-body p-4">
-              <div class="mb-3">
+              <div class="mb-3" *ngIf="memberProfiles">
                 <div class="text-lg fw-bold mb-3">Member</div>
                 <ng-select class="" [items]="memberProfiles" bindLabel="firstName" bindValue="" [(ngModel)]="selectedMember"
                   [clearable]="false" placeholder="Select a member" (change)="changeMemberProfile()">

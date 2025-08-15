@@ -145,6 +145,7 @@ export class NavigationBarComponent {
     this.getNotifications();
 
     this._chatService.onChatParticipantsReceived((data: any[]) => {
+      console.log(data);
       this.participants = data;
       this.UnreadCount = this.participants.filter(
         (p: ChatParticipant) => !p.isRead
@@ -152,6 +153,7 @@ export class NavigationBarComponent {
     });
 
     this._friendSignalRService.registerFriendRequestListener((message: any) => {
+      console.log(message);
       this.totalRequestList = this.totalRequestList + 1;
       const newRequest = new RequestList(message);
       const existingIndex = this.friendRequestList.findIndex(
@@ -174,6 +176,7 @@ export class NavigationBarComponent {
     });
 
     this._signalRService.receiveNotification((notification: any) => {
+
       this.totalUnReadCount = this.totalUnReadCount + 1;
       const newNotification = new NotificationItem(notification);
       this.notificationList.unshift(newNotification);
