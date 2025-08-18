@@ -153,7 +153,6 @@ export class NavigationBarComponent {
     });
 
     this._friendSignalRService.registerFriendRequestListener((message: any) => {
-      console.log(message);
       this.totalRequestList = this.totalRequestList + 1;
       const newRequest = new RequestList(message);
       const existingIndex = this.friendRequestList.findIndex(

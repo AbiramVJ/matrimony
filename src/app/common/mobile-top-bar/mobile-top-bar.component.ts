@@ -1,11 +1,13 @@
-import { Component, HostListener } from '@angular/core';
-import { RequestList, UserProfile } from '../../models/index.model';
+import { Component, EventEmitter, HostListener, Output } from '@angular/core';
+import { FullUserProfile, NotificationItem, RequestList, UserProfile } from '../../models/index.model';
 import { AuthService } from '../../services/auth/auth.service';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { FORM_MODULES } from '../common-imports';
 import { MemberService } from '../../services/member.service';
-import { FriendRequestStatus } from '../../helpers/enum';
+import { FriendRequestStatus, NotificationType } from '../../helpers/enum';
+import { ToastrService } from 'ngx-toastr';
+import { FriendSignalRService } from '../../services/friend-signal-r.service';
+import { SignalRService } from '../../services/signal-r.service';
 
 @Component({
   selector: 'app-mobile-top-bar',
@@ -15,6 +17,7 @@ import { FriendRequestStatus } from '../../helpers/enum';
 })
 
 export class MobileTopBarComponent {
+  @Output() openMemberPopup = new EventEmitter<FullUserProfile>();
   public selectedMember!:UserProfile;
   public memberProfiles: UserProfile[] = [];
   public showFriendDropdown = false;
@@ -29,7 +32,22 @@ export class MobileTopBarComponent {
   public pageSize = 5;
   public hasMoreRequests = true;
   public request = FriendRequestStatus;
-  constructor(private _authService:AuthService,private _memberService: MemberService,){
+
+  //NOTIFICATION
+  public notificationList: NotificationItem[] = [];
+  public totalNotificationList: number = 0;
+  public totalUnReadCount: number = 0;
+  public hasMoreNotification = true;
+  public currentNotificationPage = 1;
+  public notificationPageSize = 5;
+
+  constructor(
+    private _authService:AuthService,
+    private _memberService: MemberService,
+    private _toster: ToastrService,
+    private _friendSignalRService: FriendSignalRService,
+    private _signalRService: SignalRService
+  ){
 
   }
 
@@ -43,6 +61,32 @@ export class MobileTopBarComponent {
     this._getCurrentMember();
     this._getMemberProfiles();
     this._getRequests();
+    this.getNotifications();
+
+      this._friendSignalRService.registerFriendRequestListener((message: any) => {
+      this.totalRequestList = this.totalRequestList + 1;
+      const newRequest = new RequestList(message);
+      const existingIndex = this.friendRequestList.findIndex(
+        (r: any) => r.senderProfileId === newRequest.senderProfileId
+      );
+      if (existingIndex !== -1) {
+        this.friendRequestList.splice(existingIndex, 1);
+      }
+      this.friendRequestList.unshift(message);
+    });
+
+    this._signalRService.receiveNotification((notification: any) => {
+
+      this.totalUnReadCount = this.totalUnReadCount + 1;
+      const newNotification = new NotificationItem(notification);
+      this.notificationList.unshift(newNotification);
+      if (Notification.permission === 'granted') {
+        new Notification(`${newNotification.title}`, {
+          body: `${newNotification.body}`,
+          icon: 'assets/icons/friend-request.png',
+        });
+      }
+    });
   }
 
 
@@ -86,7 +130,6 @@ export class MobileTopBarComponent {
     if (this.isRequestLoading || !this.hasMoreRequests) return;
 
     this.isRequestLoading = true;
-
     this._memberService
       .GetFriendRequests(this.currentPage, this.pageSize)
       .subscribe({
@@ -102,6 +145,134 @@ export class MobileTopBarComponent {
           this.isRequestLoading = false;
         },
       });
+  }
+
+   public confirmFriendRequest(id: any) {
+    this.isRequestLoading = true;
+    this._memberService.acceptFriendRequest(id).subscribe({
+      next: (res: any) => {
+        const request = this.friendRequestList.find((r: any) => r.id === id);
+        if (request) {
+          request.status = this.request.Accepted;
+        }
+        this._toster.success(res, 'Confirm');
+      },
+      complete: () => {
+        this.isRequestLoading = false;
+      },
+      error: (error: any) => {
+        this._toster.error(error.error.Error.Title, error.error.Error.Detail);
+        this.isRequestLoading = false;
+      },
+    });
+  }
+
+    public rejectFriendRequest(id: any) {
+    this.isRequestLoading = true;
+    this._memberService.rejectFriendRequest(id).subscribe({
+      next: (res: any) => {
+        const request = this.friendRequestList.find((r: any) => r.id === id);
+        if (request) {
+          request.status = this.request.Rejected;
+        }
+        this._toster.success(res, 'rejected');
+      },
+      complete: () => {
+        this.isRequestLoading = false;
+      },
+      error: (error: any) => {
+        this._toster.error(error.error.Error.Title, error.error.Error.Detail);
+        this.isRequestLoading = false;
+      },
+    });
+  }
+
+    onScroll(event: any) {
+    const element = event.target;
+    const scrollBottom = Math.ceil(element.scrollTop + element.clientHeight);
+
+    if (scrollBottom >= element.scrollHeight) {
+      this._getRequests();
+    }
+  }
+
+    public getNotifications() {
+    if (this.isNotificationLoading || !this.hasMoreNotification) return;
+    this.isNotificationLoading = true;
+    this._memberService
+      .GetNotification(
+        this.currentNotificationPage,
+        this.notificationPageSize,
+        this.isUnread ? this.isUnread : null
+      )
+      .subscribe({
+        next: (res: any) => {
+          if (res.data.length < this.notificationPageSize) {
+            this.hasMoreNotification = false;
+          }
+          this.totalNotificationList = res.totalCount;
+          this.totalUnReadCount = res.totalUnreadCount;
+          this.notificationList.push(...res.data);
+          this.currentNotificationPage++;
+        },
+        complete: () => {
+          this.isNotificationLoading = false;
+        },
+      });
+  }
+
+  public navigateToNotificationSection(type: NotificationItem) {
+    if (
+      type.notificationType === NotificationType.FriendRequestAccept &&
+      type.parsedPayload
+    ) {
+    //  this.viewMemberDetails(type.parsedPayload?.ProfileId);
+    }
+    this._makeItAsReadNotification(type.id);
+  }
+
+  public viewMemberDetails(id: string) {
+    // this.isLoading = true;
+    this._memberService.GetFilterMemberViewData(id).subscribe({
+      next: (res: any) => {
+        this.openMemberPopup.emit(res);
+      },
+      complete: () => {
+        let viewModal: HTMLElement = document.getElementById(
+          'viewProfileModals'
+        ) as HTMLElement;
+        if (viewModal) {
+          viewModal.click();
+        }
+      },
+      error: (error: any) => {
+        //   this.isLoading = false;
+        this._toster.error(error.error.Error.Detail, error.error.Error.Title);
+      },
+    });
+  }
+
+  public markAllNotificationsAsRead() {
+    this._memberService.MakeAsReadAllNotification().subscribe({
+      next: (res: any) => {},
+      complete: () => {
+        this.notificationList.forEach((n) => (n.isRead = true));
+        this._toster.success('Messages marked as read.', 'Success');
+      },
+    });
+  }
+
+
+  private _makeItAsReadNotification(notificationId: string) {
+    this._memberService.MakeAsReadNotification(notificationId).subscribe({
+      next: (res: any) => {},
+      complete: () => {
+        const notif = this.notificationList.find(
+          (n) => n.id === notificationId
+        );
+        if (notif) notif.isRead = true;
+      },
+    });
   }
 
 }
