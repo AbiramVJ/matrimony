@@ -41,6 +41,7 @@ export class FilterMemberListComponent {
   public isLoading: boolean = false;
   public filter: any;
   private destroy$ = new Subject<void>();
+  public isGetUser:boolean = false;
 
   constructor(
     private auth: AuthService,
@@ -52,6 +53,7 @@ export class FilterMemberListComponent {
     this.auth.member$.subscribe((data) => {
       if (data) {
         this.currentsUser = data;
+        this.isGetUser = true;
       }
     });
 
@@ -87,7 +89,8 @@ export class FilterMemberListComponent {
 
   public getAllMatchingProfiles() {
     this.isLoading = true;
-    const userId = this.currentsUser.id;
+
+    const userId = this.currentsUser ?  this.currentsUser.id : '';
     this.memberService
       .getMatchingData(this.filter, userId, this.currentPage, this.itemsPerPage)
       .subscribe({
