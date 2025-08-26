@@ -31,5 +31,10 @@ export const AdminRoutingModules: Routes = [
   path:'educations',
   loadComponent: () => import('./admin-home/educations/educations.component').then(m => m.EducationsComponent),
   data:{accessUsers: [role.adminUser]}
+ },
+ {
+  path:'subscription',
+  loadComponent: () => import('./admin-home/subscription/subscription.component').then(m => m.SubscriptionComponent),
+  data:{accessUsers: [role.adminUser]}
  }
 ]

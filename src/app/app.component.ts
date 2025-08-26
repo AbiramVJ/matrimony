@@ -33,6 +33,7 @@ export class AppComponent {
   public filterMemberViewData: any;
   public userType = UserType;
   public currentUserType:any;
+
   constructor(
      private dataProviderService:DataProviderService,
      private _authService:AuthService,
@@ -107,7 +108,7 @@ export class AppComponent {
 
   private _getAdmin(){
     this.isLoading = false;
-    this.router.navigateByUrl("admin/home");
+    this.router.navigateByUrl("admin/dashboard");
   }
 
   public openMemberViewPopUp(member:FullUserProfile){

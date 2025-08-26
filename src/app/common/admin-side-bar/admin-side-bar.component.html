@@ -1,22 +1,21 @@
 <div class="sidebar-wrapper">
   <div class="list-group bg-transparent" id="list-tab" role="tablist">
-
-    <a class="list-group-item list-group-item-action sidebar-item"
-       [routerLink]="['admin/home']"
-       routerLinkActive="active">
-      <div class="item-content">
-        <i class="fas fa-home me-2 text-xl"></i>
-        <span class="menu-text">Home</span>
-      </div>
-      <div class="item-indicator"></div>
-    </a>
-
     <a class="list-group-item list-group-item-action sidebar-item"
        routerLink="admin/dashboard"
        routerLinkActive="active">
       <div class="item-content">
         <i class="fas fa-tachometer-alt me-2 text-xl"></i>
         <span class="menu-text">Dashboard</span>
+      </div>
+      <div class="item-indicator"></div>
+    </a>
+
+    <a class="list-group-item list-group-item-action sidebar-item"
+       [routerLink]="['admin/subscription']"
+       routerLinkActive="active">
+      <div class="item-content">
+         <i class="fas fa-credit-card me-2 text-xl"></i>
+        <span class="menu-text">Subscription</span>
       </div>
       <div class="item-indicator"></div>
     </a>

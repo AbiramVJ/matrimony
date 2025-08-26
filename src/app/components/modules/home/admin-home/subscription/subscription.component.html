@@ -1,0 +1,107 @@
+<section class="content pt-0 rounded">
+  <div class="component-content">
+    <div class="row p-2 content-a-box">
+      <div class="col-12 mx-auto">
+        <div class="container-fluid pt-4">
+          <div class="container">
+            <!-- Header Section -->
+            <div class="dashboard-header p-card" style="animation-delay: 0.1s">
+              <div class="header-content">
+                <div class="header-icon">
+                  <i class="fas fa-credit-card"></i>
+                </div>
+                <div class="header-text">
+                  <h2 class="header-title text-lg">Subscription</h2>
+                  <p class="header-subtitle">
+                    Helps in finding users with similar preferences within the
+                    community.
+                  </p>
+                </div>
+                <div class="header-decoration">
+                  <div class="floating-shapes">
+                    <div class="shape shape-1"></div>
+                    <div class="shape shape-2"></div>
+                    <div class="shape shape-3"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-between my-2">
+              <div class="text-lg fw-bold my-auto">Total : {{4}}</div>
+              <div class="">
+                <div class="btn btn-danger">Create</div>
+              </div>
+            </div>
+
+            <!-- Subscription Cards -->
+            <div class="row g-4 justify-content-center">
+              <!-- Free Plan -->
+              <div class="col-lg-3 col-md-6" *ngFor="let item of plan">
+                <div class="subscription-card-container">
+                  <div class="card subscription-card h-100">
+                    <div class="card-header text-center border-0 position-relative overflow-hidden">
+                      <div class="gradient-overlay free-gradient"></div>
+                      <div class="header-content">
+
+                        <h4 class="card-title text-white fw-bold mb-1"> Free Starter
+                        </h4>
+                        <p class="text-white-50 mb-0 small text-uppercase fw-semibold letter-spacing" > Free Plan
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="card-body text-center pb-0">
+                      <div class="price-section mb-2">
+                        <div class="price-wrapper">
+                          <span class="currency">$</span>
+                          <span class="price-amount">0</span>
+                          <span class="price-period">/ month</span>
+                        </div>
+                      </div>
+
+                      <div class="features-list">
+                        <ul class="list-unstyled text-start">
+                          <li class="feature-item mb-3">
+                            <i class="fas fa-users text-primary me-2"></i>
+                            <span class="fw-semibold">1</span>
+                            <span class="text-muted"> member included</span>
+                          </li>
+                          <li class="feature-item mb-3">
+                            <i class="fas fa-paper-plane text-primary me-2"></i>
+                            <span class="fw-semibold">5</span>
+                            <span class="text-muted">
+                              friend requests per month</span
+                            >
+                          </li>
+                          <li class="feature-item mb-3">
+                            <i class="fas fa-sync-alt text-primary me-2"></i>
+                            <span class="text-muted"
+                              >Billed every
+                              <span class="fw-semibold">1 month</span></span
+                            >
+                          </li>
+                          <li class="feature-item mb-2">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            <span class="text-success fw-semibold">Active Plan</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+
+                     <div class="d-flex justify-content-end me-3 mb-3">
+                       <div class="">
+                        <span><i class="fas fa-edit text-primary me-2 pointer"></i></span>
+                        <span><i class="fas fa-trash text-danger text-primary pointer"></i></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
