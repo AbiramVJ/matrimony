@@ -9,6 +9,7 @@ export * from './member/education.model'
 export * from './Interface/userDetails.interface'
 export * from './member/member.model'
 export * from './member/chatMessage.model'
+export * from './Subscription/subscription.model'
 
 
 

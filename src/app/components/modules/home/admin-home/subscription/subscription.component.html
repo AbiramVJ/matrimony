@@ -30,23 +30,31 @@
             <div class="d-flex justify-content-between my-2">
               <div class="text-lg fw-bold my-auto">Total : {{4}}</div>
               <div class="">
-                <div class="btn btn-danger">Create</div>
+                <div class="btn btn-danger" (click)="subscriptionForm.reset(); isUpdate = false;" data-bs-toggle="modal" data-bs-target="#exampleModal">Create</div>
               </div>
             </div>
 
             <!-- Subscription Cards -->
             <div class="row g-4 justify-content-center">
               <!-- Free Plan -->
-              <div class="col-lg-3 col-md-6" *ngFor="let item of plan">
+              <div class="col-lg-3 col-md-6" *ngFor="let plan of plans">
                 <div class="subscription-card-container">
                   <div class="card subscription-card h-100">
                     <div class="card-header text-center border-0 position-relative overflow-hidden">
-                      <div class="gradient-overlay free-gradient"></div>
-                      <div class="header-content">
+                      <div class="gradient-overlay free-gradient" [ngClass]="plan.subscriptionType === subscriptionType.Free ? 'free-gradient' : plan.subscriptionType === subscriptionType.Silver ? 'silver-gradient' : plan.subscriptionType === subscriptionType.Gold ? 'gold-gradient' : 'platinum-gradient'">
 
-                        <h4 class="card-title text-white fw-bold mb-1"> Free Starter
+                      </div>
+                      <div class="header-content">
+                         <div class="subscription-icon mb-2">
+                            <span class="display-4" *ngIf="plan.subscriptionType === subscriptionType.Free">🆓</span>
+                            <span class="display-4" *ngIf="plan.subscriptionType === subscriptionType.Silver">🥈</span>
+                            <span class="display-4" *ngIf="plan.subscriptionType === subscriptionType.Gold">🥇</span>
+                            <span class="display-4" *ngIf="plan.subscriptionType === subscriptionType.Platinum">💎</span>
+                          </div>
+                        <h4 class="card-title text-white fw-bold mb-1"> {{plan.name }}
                         </h4>
-                        <p class="text-white-50 mb-0 small text-uppercase fw-semibold letter-spacing" > Free Plan
+                        <p class="text-white-50 mb-0 small text-uppercase fw-semibold letter-spacing">
+                          {{plan.subscriptionType === subscriptionType.Free ? 'Free Plan' : plan.subscriptionType === subscriptionType.Silver ? 'Silver Plan' : plan.subscriptionType === subscriptionType.Gold ? 'Gold Plan' : 'Platinum Plan'}}
                         </p>
                       </div>
                     </div>
@@ -55,8 +63,9 @@
                       <div class="price-section mb-2">
                         <div class="price-wrapper">
                           <span class="currency">$</span>
-                          <span class="price-amount">0</span>
-                          <span class="price-period">/ month</span>
+                          <span class="price-amount">{{plan.price}}</span>
+                          <span class="price-period">/
+                            {{plan.interval === billingInterval.Month ? 'month' : plan.interval === billingInterval.Year ? 'year' : plan.interval === billingInterval.Week ? 'week' : 'day' }}</span>
                         </div>
                       </div>
 
@@ -64,35 +73,34 @@
                         <ul class="list-unstyled text-start">
                           <li class="feature-item mb-3">
                             <i class="fas fa-users text-primary me-2"></i>
-                            <span class="fw-semibold">1</span>
+                            <span class="fw-semibold me-1">{{plan.memberCount}}</span>
                             <span class="text-muted"> member included</span>
                           </li>
                           <li class="feature-item mb-3">
                             <i class="fas fa-paper-plane text-primary me-2"></i>
-                            <span class="fw-semibold">5</span>
+                            <span class="fw-semibold me-1">{{plan.sendFriendRequestCount}}</span>
                             <span class="text-muted">
-                              friend requests per month</span
-                            >
+                              friend requests per month</span>
                           </li>
                           <li class="feature-item mb-3">
                             <i class="fas fa-sync-alt text-primary me-2"></i>
-                            <span class="text-muted"
-                              >Billed every
-                              <span class="fw-semibold">1 month</span></span
-                            >
+                            <span class="text-muted">Billed every
+                              <span
+                                class="fw-semibold">{{plan.interval === billingInterval.Month ? 'month' : plan.interval === billingInterval.Year ? 'year' : plan.interval === billingInterval.Week ? 'week' : 'day' }}</span></span>
                           </li>
                           <li class="feature-item mb-2">
                             <i class="fas fa-check-circle text-success me-2"></i>
-                            <span class="text-success fw-semibold">Active Plan</span>
+                            <span
+                              class="text-success fw-semibold">{{plan.isActive ? 'Active Plan' : 'Inactive Plan'}}</span>
                           </li>
                         </ul>
                       </div>
                     </div>
 
-                     <div class="d-flex justify-content-end me-3 mb-3">
-                       <div class="">
-                        <span><i class="fas fa-edit text-primary me-2 pointer"></i></span>
-                        <span><i class="fas fa-trash text-danger text-primary pointer"></i></span>
+                    <div class="d-flex justify-content-end me-3 mb-3">
+                      <div class="">
+                        <span (click)="editSubscriptionPlan(plan)" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-edit text-primary me-2 pointer"></i></span>
+                        <span (click)="deletePlanId = plan.id" data-bs-toggle="modal" data-bs-target="#deleteModals"><i class="fas fa-trash text-danger text-primary pointer"></i></span>
                       </div>
                     </div>
                   </div>
@@ -105,3 +113,128 @@
     </div>
   </div>
 </section>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal" id="sub-modal-btn">btn</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="exampleModalLabel">{{isUpdate ? 'Edit' : 'Create'}} subscription</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="subscriptionForm">
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" formControlName="name"
+              placeholder="Enter subscription name">
+            <div *ngIf="subscriptionForm.get('name')?.touched && subscriptionForm.get('name')?.invalid"
+              class="text-danger">
+              Name is required.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" class="form-control" id="price" formControlName="price" placeholder="Enter price">
+            <div *ngIf="subscriptionForm.get('price')?.touched && subscriptionForm.get('price')?.invalid"
+              class="text-danger">
+              Price is required and must be a positive number.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="intervalType" class="form-label">Billing Interval</label>
+            <ng-select [items]="billingIntervalsList" bindLabel="name" bindValue="id" formControlName="intervalType"
+              placeholder="Select Interval Type">
+            </ng-select>
+            <div *ngIf="subscriptionForm.get('intervalType')?.touched && subscriptionForm.get('interval')?.invalid"
+              class="text-danger">
+              Billing intervalType is required.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="memberCount" class="form-label">Member Count</label>
+            <input type="number" class="form-control" id="memberCount" formControlName="memberCount"
+              placeholder="Enter member count">
+            <div *ngIf="subscriptionForm.get('memberCount')?.touched && subscriptionForm.get('memberCount')?.invalid"
+              class="text-danger">
+              Member count is required and must be a non-negative number.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="">Make It Active</label>
+            <div class="form-check mt-2">
+              <input class="form-check-input small-check" type="checkbox" [value]="true" formControlName="isActive">
+              <label class="form-check-label ms-2 text-sm" [for]="'isActive'">
+                Active
+              </label>
+            </div>
+          </div>
+          <label class="">Trial Period Days</label>
+          <div class="mb-3">
+            <input type="number" class="form-control" id="trialPeriodDays" formControlName="trialPeriodDays"
+              placeholder="Enter trial period days">
+            <div
+              *ngIf="subscriptionForm.get('trialPeriodDays')?.touched && subscriptionForm.get('trialPeriodDays')?.invalid"
+              class="text-danger">
+              Trial period days is required and must be a positive number.
+            </div>
+          </div>
+          <label class="">Subscription Type</label>
+          <div class="mb-3">
+            <ng-select [items]="subscriptionTypeList" bindLabel="name" bindValue="id" formControlName="subscriptionType"
+              placeholder="Select subscription type">
+            </ng-select>
+            <div
+              *ngIf="subscriptionForm.get('subscriptionType')?.touched && subscriptionForm.get('subscriptionType')?.invalid"
+              class="text-danger">
+              Subscription type is required.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Send Friend Request Count</label>
+            <input type="number" class="form-control" id="sendFriendRequestCount"
+              formControlName="sendFriendRequestCount" placeholder="Enter send friend request count">
+            <div
+              *ngIf="subscriptionForm.get('sendFriendRequestCount')?.touched && subscriptionForm.get('sendFriendRequestCount')?.invalid"
+              class="text-danger">
+              Send friend request count is required and must be a non-negative number.
+            </div>
+          </div>
+        </form>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-danger" [disabled]="isLoading" (click)=" isUpdate ? editSubscription() : createSubscriptionPlan()">
+            <div class="spinner-border spinner-border-sm text-light me-1" role="status" *ngIf="isLoading"></div>{{isUpdate ? 'Update' : 'Create'}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="deleteModals" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="deleted-close-btn"></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <div class="text-center">
+            <img src="https://thumbs.dreamstime.com/b/male-clerk-throws-letters-trash-can-caucasian-businessman-deletes-spam-read-mail-mailbox-file-manager-deleting-284035753.jpg" alt="" width="300px">
+          </div>
+          <div class="text-md">Do you want to delete this subscription?</div>
+          <button class="btn btn-danger mt-3" [disabled]="isLoading" (click)="deleteSubscriptionPlan()"><div class="spinner-border spinner-border-sm text-light me-1" role="status" *ngIf="isLoading"></div>Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

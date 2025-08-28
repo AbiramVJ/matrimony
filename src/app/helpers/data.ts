@@ -20821,4 +20821,16 @@ export const maritalStatusOptions = [
   { id: 5, name: 'Separated' }
 ];
 
+export const billingIntervalsList = [
+  {id: 1, name: 'Monthly'},
+  {id: 2, name: 'Yearly'},
+  {id: 3, name: 'Weekly'},
+  {id: 4, name: 'Daily'}
+]
 
+export const subscriptionTypeList = [
+  { id: 1, name: 'Free' },
+  { id: 2, name: 'Silver' },
+  { id: 3, name: 'Gold' },
+  { id: 4, name: 'Platinum' }
+];

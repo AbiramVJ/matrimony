@@ -61,3 +61,19 @@ export enum NotificationType
   FriendRequestAccept = 4,
   FriendRequestReject = 5,
 }
+
+
+export enum SubscriptionType
+{
+    Free = 1,
+    Silver = 2,
+    Gold = 3,
+    Platinum = 4
+}
+export enum BillingInterval
+{
+    Day = 1,
+    Week = 2,
+    Month = 3,
+    Year = 4
+}
