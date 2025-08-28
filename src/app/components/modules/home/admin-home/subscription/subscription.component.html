@@ -156,17 +156,6 @@
               Billing intervalType is required.
             </div>
           </div>
-
-          <div class="mb-3">
-            <label for="memberCount" class="form-label">Member Count</label>
-            <input type="number" class="form-control" id="memberCount" formControlName="memberCount"
-              placeholder="Enter member count">
-            <div *ngIf="subscriptionForm.get('memberCount')?.touched && subscriptionForm.get('memberCount')?.invalid"
-              class="text-danger">
-              Member count is required and must be a non-negative number.
-            </div>
-          </div>
-
           <div class="mb-3">
             <label class="">Make It Active</label>
             <div class="form-check mt-2">
@@ -197,6 +186,17 @@
               Subscription type is required.
             </div>
           </div>
+
+          <div class="mb-3">
+            <label for="memberCount" class="form-label">Member Count</label>
+            <input type="number" class="form-control" id="memberCount" formControlName="memberCount"
+              placeholder="Enter member count">
+            <div *ngIf="subscriptionForm.get('memberCount')?.touched && subscriptionForm.get('memberCount')?.invalid"
+              class="text-danger">
+              Member count is required and must be a non-negative number.
+            </div>
+          </div>
+
           <div class="mb-3">
             <label class="form-label">Send Friend Request Count</label>
             <input type="number" class="form-control" id="sendFriendRequestCount"
