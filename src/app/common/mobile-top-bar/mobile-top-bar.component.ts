@@ -60,10 +60,11 @@ export class MobileTopBarComponent {
   ngOnInit(): void {
     this._getCurrentMember();
     this._getMemberProfiles();
-    this._getRequests();
-    this.getNotifications();
+  //  this._getRequests();
+  //  this.getNotifications();
 
-      this._friendSignalRService.registerFriendRequestListener((message: any) => {
+    if(this.selectedMember){
+       this._friendSignalRService.registerFriendRequestListener((message: any) => {
       this.totalRequestList = this.totalRequestList + 1;
       const newRequest = new RequestList(message);
       const existingIndex = this.friendRequestList.findIndex(
@@ -87,6 +88,8 @@ export class MobileTopBarComponent {
         });
       }
     });
+    }
+
   }
 
 
@@ -94,6 +97,8 @@ export class MobileTopBarComponent {
   this._authService.member$.subscribe(data => {
       if(data){
         this.selectedMember = data;
+        this._getRequests();
+        this.getNotifications();
       }
     })
   }

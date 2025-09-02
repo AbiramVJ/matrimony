@@ -141,10 +141,10 @@ export class NavigationBarComponent {
     this._getLoginUserDetails();
     this._getCurrentMember();
     this.getMainUser();
-    this._getRequests();
-    this.getNotifications();
 
-    this._chatService.onChatParticipantsReceived((data: any[]) => {
+
+    if(this.selectedMember){
+         this._chatService.onChatParticipantsReceived((data: any[]) => {
       console.log(data);
       this.participants = data;
       this.UnreadCount = this.participants.filter(
@@ -186,6 +186,8 @@ export class NavigationBarComponent {
         });
       }
     });
+    }
+
   }
 
   public toggleDropdown(
@@ -230,6 +232,8 @@ export class NavigationBarComponent {
     this._authService.member$.subscribe((data) => {
       if (data) {
         this.selectedMember = data;
+         this._getRequests();
+         this.getNotifications();
       }
     });
   }

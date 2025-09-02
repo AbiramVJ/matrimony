@@ -6,7 +6,7 @@
         <img src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png" alt="logo" class="me-2"
           style="width: 120px" />
       </div>
-      <div class="actions-section me-3">
+      <div class="actions-section me-3" *ngIf="selectedMember">
         <div class="text-white fw-bold me-2">
           {{ selectedMember.firstName }}
         </div>
