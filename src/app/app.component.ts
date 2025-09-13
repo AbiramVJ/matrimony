@@ -1,4 +1,4 @@
-import { FullUserProfile } from './models/member/member.model';
+import { FullUserProfile, MainUser } from './models/member/member.model';
 import { FriendSignalRService } from './services/friend-signal-r.service';
 import { ChatService } from './services/chat.service';
 import { SignalRService } from './services/signal-r.service';
@@ -33,7 +33,7 @@ export class AppComponent {
   public filterMemberViewData: any;
   public userType = UserType;
   public currentUserType:any;
-
+  public mainUser!: MainUser;
   constructor(
      private dataProviderService:DataProviderService,
      private _authService:AuthService,
@@ -59,7 +59,8 @@ export class AppComponent {
       if(localStorage.getItem('userType') === UserType.ADMIN){
         this._getAdmin();
       }else{
-        this._getMemberList();
+        this.getMainUser();
+       // this.router.navigateByUrl('member/member-registration');
       }
 
     }else{
@@ -126,6 +127,24 @@ export class AppComponent {
       },
       complete: () => {},
       error: (error: any) => {},
+    });
+  }
+
+
+   private getMainUser() {
+    this.isLoading = true;
+    this._memberService.getMainUser().subscribe({
+      next: (res: any) => {
+        this.mainUser = res;
+        if(res.isActiveSubscription){
+          this._getMemberList();
+        } else{
+          this.isLoading = false;
+          this.router.navigateByUrl('member/plans');
+        }
+      },
+      complete: () => {},
+      error: (error: any) => {this.isLoading = false;},
     });
   }
 

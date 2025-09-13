@@ -239,6 +239,7 @@ export class MainUser {
   email: string;
   phoneNumber: string;
   image: string;
+  isActiveSubscription:boolean;
 
   constructor(obj: any) {
     this.id = obj?.id ?? null;
@@ -247,6 +248,7 @@ export class MainUser {
     this.email = obj?.email ?? null;
     this.phoneNumber = obj?.phoneNumber ?? null;
     this.image = obj?.image ?? 'https://cdn-icons-png.flaticon.com/512/9187/9187604.png';
+    this.isActiveSubscription = obj?.isActiveSubscription ?? false;
   }
 }
 

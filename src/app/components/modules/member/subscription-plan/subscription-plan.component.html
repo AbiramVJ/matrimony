@@ -1,0 +1,135 @@
+<section class="content pt-0 rounded">
+  <div class="component-content s-content">
+    <div class="row p-2 content-a-box m-0">
+      <div class="col-12 mx-auto">
+        <div class="container-fluid pt-4">
+          <div class="container">
+            <!-- Header Section -->
+            <!-- <div class="dashboard-header p-card" style="animation-delay: 0.1s">
+              <div class="header-content">
+                <div class="header-icon">
+                  <i class="fas fa-credit-card"></i>
+                </div>
+                <div class="header-text">
+                  <h2 class="header-title text-lg">Subscription</h2>
+                  <p class="header-subtitle">
+                    Helps in finding users with similar preferences within the
+                    community.
+                  </p>
+                </div>
+                <div class="header-decoration">
+                  <div class="floating-shapes">
+                    <div class="shape shape-1"></div>
+                    <div class="shape shape-2"></div>
+                    <div class="shape shape-3"></div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <div class="text-center mb-3">
+              <div class="my-auto d-flex d-none d-md-block pointer">
+                <img class="me-2" src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png" alt="logo"
+                  class="logo-svg">
+              </div>
+            </div>
+
+            <div class="text-center mb-3">
+              <h2 class="fw-bold">Choose Your Subscription Plan</h2>
+              <p class="text-muted">
+                Select the plan that best suits your needs and start enjoying
+                premium features today!
+              </p>
+            </div>
+
+            <!-- Subscription Cards -->
+            <div class="row g-4 justify-content-center" *ngIf="plans && !isLoading">
+              <!-- Free Plan -->
+              <div class="col-lg-3 col-md-6" *ngFor="let plan of plans.subscriptionPlans">
+                <div class="subscription-card-container">
+                  <div class="card subscription-card h-100">
+                    <div class="card-header text-center border-0 position-relative overflow-hidden">
+                      <div class="gradient-overlay free-gradient"
+                        [ngClass]="plan.subscriptionType === subscriptionType.Free ? 'free-gradient' : plan.subscriptionType === subscriptionType.Silver ? 'silver-gradient' : plan.subscriptionType === subscriptionType.Gold ? 'gold-gradient' : 'platinum-gradient'">
+
+                      </div>
+                      <div class="header-content">
+                        <div class="subscription-icon mb-2">
+                          <span class="display-4" *ngIf="plan.subscriptionType === subscriptionType.Free">🆓</span>
+                          <span class="display-4" *ngIf="plan.subscriptionType === subscriptionType.Silver">🥈</span>
+                          <span class="display-4" *ngIf="plan.subscriptionType === subscriptionType.Gold">🥇</span>
+                          <span class="display-4" *ngIf="plan.subscriptionType === subscriptionType.Platinum">💎</span>
+                        </div>
+                        <h4 class="card-title text-white fw-bold mb-1"> {{plan.name }}
+                        </h4>
+                        <p class="text-white-50 mb-0 small text-uppercase fw-semibold letter-spacing">
+                          {{plan.subscriptionType === subscriptionType.Free ? 'Free Plan' : plan.subscriptionType === subscriptionType.Silver ? 'Silver Plan' : plan.subscriptionType === subscriptionType.Gold ? 'Gold Plan' : 'Platinum Plan'}}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="card-body text-center pb-0">
+                      <div class="price-section mb-2">
+                        <div class="price-wrapper">
+                          <span class="currency">$</span>
+                          <span class="price-amount">{{plan.price}}</span>
+                          <span class="price-period">/
+                            {{plan.interval === billingInterval.Month ? 'month' : plan.interval === billingInterval.Year ? 'year' : plan.interval === billingInterval.Week ? 'week' : 'day' }}</span>
+                        </div>
+                      </div>
+
+                      <div class="features-list">
+                        <ul class="list-unstyled text-start">
+                          <li class="feature-item mb-3">
+                            <i class="fas fa-users text-primary me-2"></i>
+                            <span class="fw-semibold me-1">{{10}}</span>
+                            <span class="text-muted"> member included</span>
+                          </li>
+                          <li class="feature-item mb-3">
+                            <i class="fas fa-paper-plane text-primary me-2"></i>
+                            <span class="fw-semibold me-1">{{10}}</span>
+                            <span class="text-muted">
+                              friend requests per month</span>
+                          </li>
+                          <li class="feature-item mb-3">
+                            <i class="fas fa-sync-alt text-primary me-2"></i>
+                            <span class="text-muted">Billed every
+                              <span
+                                class="fw-semibold">{{plan.interval === billingInterval.Month ? 'month' : plan.interval === billingInterval.Year ? 'year' : plan.interval === billingInterval.Week ? 'week' : 'day' }}</span></span>
+                          </li>
+                          <li class="feature-item mb-2">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            <span
+                              class="text-success fw-semibold">{{plan.isActive ? 'Active Plan' : 'Inactive Plan'}}</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="btn btn-danger w-100 mb-2" (click)="moveToPayment(plan.id)">Choose Plan </div>
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- <div class="d-flex justify-content-center my-auto" *ngIf="isLoading">
+              <div class="spinner-grow text-danger me-1" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              <div class="spinner-grow text-warning me-1" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              <div class="spinner-grow text-danger" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div> -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+

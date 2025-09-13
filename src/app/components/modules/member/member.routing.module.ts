@@ -4,6 +4,18 @@ import { AuthGuardService } from '../../../middleware/auth-guard.service';
 import { userRoleNames as role } from '../../../helpers/util';
 
 export const MembersRoutingModules: Routes = [
+{
+  path:'plans',
+  loadComponent:()=> import('./subscription-plan/subscription-plan.component').then(m => m.SubscriptionPlanComponent),
+  canActivate:[AuthGuardService],
+  data:{accessUsers: [role.member]}
+ },
+ {
+  path:'payment/:id',
+  loadComponent:()=> import('./stripe-payment/stripe-payment.component').then(m => m.StripePaymentComponent),
+  canActivate:[AuthGuardService],
+  data:{accessUsers: [role.member]}
+ },
  {
   path:'profiles',
   loadComponent:()=> import('./profile-selection/profile-selection.component').then(m => m.ProfileSelectionComponent),

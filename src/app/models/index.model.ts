@@ -10,6 +10,8 @@ export * from './Interface/userDetails.interface'
 export * from './member/member.model'
 export * from './member/chatMessage.model'
 export * from './Subscription/subscription.model'
+export * from './Subscription/intent.model'
+
 
 
 

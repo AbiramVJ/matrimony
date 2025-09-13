@@ -27,6 +27,7 @@
     "@googlemaps/js-api-loader": "^1.16.10",
     "@microsoft/signalr": "^8.0.7",
     "@ng-select/ng-select": "^13.9.1",
+    "@stripe/stripe-js": "^5.10.0",
     "@types/google.maps": "^3.58.1",
     "angular-svg-icon": "^17.0.0",
     "bootstrap": "^5.3.3",

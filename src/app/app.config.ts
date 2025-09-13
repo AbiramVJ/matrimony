@@ -16,6 +16,7 @@ import { Loader } from '@googlemaps/js-api-loader';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimations(),
