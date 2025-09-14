@@ -104,7 +104,6 @@ export class StripePaymentComponent {
   private getSetUpIntent(){
     this.subscriptionService.setUpIntent().subscribe({
       next:(res:any) => {
-        console.log(res);
          this.clientSecret = res.setupIntent.clientSecret;
           this.stripe = Stripe(res.publishableKey);
           const cardElements = this.stripe.elements();
@@ -119,16 +118,19 @@ export class StripePaymentComponent {
   }
 
   public confirmPayment(){
-    this.isLoading = true;
-    console.log(this.clientSecret)
-    this.stripe.confirmCardSetup(this.clientSecret,{payment_method: {card: this.cardNumberElement},})
-    .then((result: any) => {
-      if (result.error) {
-        this.toastr.error(result.error.message, 'Error!');
-      } else {
-        this._addPaymentMethod(result.setupIntent.payment_method);
-      }
-    });
+     if(this.isCompleteCardNumber && this.isCompleteCardExpiry && this.isCompleteCardCVV && this.isCompleteCardPostCode) {
+       this.isLoading = true;
+      this.stripe.confirmCardSetup(this.clientSecret,{payment_method: {card: this.cardNumberElement},})
+      .then((result: any) => {
+        if (result.error) {
+          this.toastr.error(result.error.message, 'Error!');
+        } else {
+          this._addPaymentMethod(result.setupIntent.payment_method);
+        }
+      });
+     }else{
+      this.toastr.error("In complete",'Please fill the card information')
+     }
   }
 
   private _addPaymentMethod(paymentMethodId:string){
@@ -157,6 +159,7 @@ export class StripePaymentComponent {
       complete:()=>{
        this.isLoading = false;
        this.toastr.success('Payment method successfully updated', 'Success!');
+       window.location.href = "/";
       },
       error: (error:any) => {
         this.isLoading = false;

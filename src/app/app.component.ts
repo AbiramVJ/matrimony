@@ -99,7 +99,7 @@ export class AppComponent {
       },
       complete:() =>{
        // this._signalRService.startConnection();
-
+      //  this.router.navigateByUrl('home/member');
       },
       error:(error:any)=>{
       this.isLoading = false;

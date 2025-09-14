@@ -7,6 +7,20 @@
   width: 300px !important;
 }
 
+.card:hover{
+ border: 4px solid rgb(237, 53, 53) !important;
+}
+
+.container{
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.dim-btn{
+  border: 1px solid rgb(237, 53, 53) !important;
+}
+
 .s-content{
 
 }

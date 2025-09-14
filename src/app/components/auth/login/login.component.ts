@@ -1,3 +1,4 @@
+import { MemberService } from './../../../services/member.service';
 import { matrimonyAgentConfig, matrimonyMemberConfig } from './../../../helpers/util';
 import { Component, OnInit } from '@angular/core';
 import { FORM_MODULES, ROUTER_MODULES } from '../../../common/common-imports';
@@ -10,6 +11,7 @@ import { LoginType, ResetPasswordStep, TokenType } from '../../../helpers/enum';
 import { VerificationComponent } from "../verification/verification.component";
 import { PhoneNumberInputComponent } from "../../../common/phone-number-input/phone-number-input.component";
 import { SocialLoginComponent } from "./social-login/social-login.component";
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   imports: [FORM_MODULES, CommonModule, ROUTER_MODULES, FORM_MODULES, VerificationComponent, PhoneNumberInputComponent, SocialLoginComponent],
@@ -57,6 +59,8 @@ export class LoginComponent implements OnInit {
     private auth:AuthService,
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
+    private memberService:MemberService,
+    private router:Router,
   ){}
 
   ngOnInit(): void {
@@ -139,8 +143,9 @@ export class LoginComponent implements OnInit {
         this.auth.setUser();
       },
       complete:()=>{
-        this.isLoading = false;
-        if(!this.isAgent){ window.location.href = "/";}
+      //  this.isLoading = false;
+     //   if(!this.isAgent){ window.location.href = "/";}
+      this.getMainUser();
       },
       error:(error:any) =>{
       this.isLoading = false;
@@ -242,8 +247,9 @@ export class LoginComponent implements OnInit {
             this.isOtpVerification = false;
             this.auth.setAuthToken(res.Result.token);
             this.auth.setUser();
-            this.isLoading = false;
-            if(!this.isAgent){ window.location.href = "/";}
+          //  this.isLoading = false;
+            this.getMainUser()
+          //  if(!this.isAgent){ window.location.href = "/";}
           }
         },
         complete:()=>{ },
@@ -420,6 +426,24 @@ export class LoginComponent implements OnInit {
       text: 'None',
       class: ''
     };
+  }
+
+  //Subscription
+   private getMainUser() {
+    this.isLoading = true;
+    this.memberService.getMainUser().subscribe({
+      next: (res: any) => {
+        if(res.isActiveSubscription){
+          this.isLoading = false;
+          if(!this.isAgent){ window.location.href = "/";}
+        } else{
+          this.isLoading = false;
+          this.router.navigateByUrl('member/plans');
+        }
+      },
+      complete: () => {},
+      error: (error: any) => {this.isLoading = false;},
+    });
   }
 }
 

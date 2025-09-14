@@ -12,6 +12,7 @@ import { AuthService } from '../../../../services/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { fbAppId } from '../../../../environments/environment';
+import { MemberService } from '../../../../services/member.service';
 
 @Component({
   selector: 'app-social-login',
@@ -35,6 +36,7 @@ export class SocialLoginComponent {
     private auth:AuthService,
     private toastr: ToastrService,
     private router:Router,
+    private memberService:MemberService
   ) {}
 
   ngOnInit() {
@@ -75,7 +77,8 @@ export class SocialLoginComponent {
         },
 
         complete:()=>{
-          if(!this.isAgent){ window.location.href = "/";}
+         // if(!this.isAgent){ window.location.href = "/";}
+          this.getMainUser();
         },
 
         error:(error:any) =>{
@@ -86,4 +89,23 @@ export class SocialLoginComponent {
         }
       })
     }
+
+  //Subscription
+   private getMainUser() {
+    this.isLoading = true;
+    this.memberService.getMainUser().subscribe({
+      next: (res: any) => {
+        console.log(res)
+        if(res.isActiveSubscription){
+          this.isLoading = false;
+          if(!this.isAgent){ window.location.href = "/";}
+        } else{
+          this.isLoading = false;
+          this.router.navigateByUrl('member/plans');
+        }
+      },
+      complete: () => {},
+      error: (error: any) => {this.isLoading = false;},
+    });
+  }
 }

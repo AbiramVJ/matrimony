@@ -156,6 +156,17 @@
               Billing intervalType is required.
             </div>
           </div>
+
+          <div class="mb-3">
+            <label for="interval" class="form-label">Interval</label>
+             <input type="number" class="form-control" id="interval"
+              formControlName="interval" placeholder="Enter send friend request count">
+            <div *ngIf="subscriptionForm.get('interval')?.touched && subscriptionForm.get('interval')?.invalid"
+              class="text-danger">
+              Interval is required.
+            </div>
+          </div>
+
           <div class="mb-3">
             <label class="">Make It Active</label>
             <div class="form-check mt-2">

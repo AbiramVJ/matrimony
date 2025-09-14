@@ -45,7 +45,8 @@ export class SubscriptionComponent {
       trialPeriodDays: [0, [Validators.required, Validators.min(0)]],
       subscriptionType: [null, [Validators.required]],
       memberCount: [1, [Validators.required, Validators.min(1)]],
-      sendFriendRequestCount: [1, [Validators.required, Validators.min(0)]]
+      sendFriendRequestCount: [1, [Validators.required, Validators.min(0)]],
+      interval:[null,[Validators.required]]
     });
   }
 
@@ -67,7 +68,6 @@ export class SubscriptionComponent {
   }
 
   public createSubscriptionPlan() {
-    console.log(this.subscriptionForm.value);
     if (this.subscriptionForm.invalid) {
       this.toastr.error('Please fill in all required fields correctly.');
       return;

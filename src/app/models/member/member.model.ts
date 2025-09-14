@@ -1,4 +1,5 @@
 import { BloodGroup, bodyTypes, Complexion, diet, DrinkHabit, maritalStatusOptions, Natshathira, raasiList, SmokeHabit, willingToRelocate } from "../../helpers/data";
+import { SubscriptionStatus, SubscriptionType } from "../../helpers/enum";
 import { getFormattedDateAndTime } from "../../helpers/Functions/timeConverter";
 
 export class ProfileSalary {
@@ -240,15 +241,24 @@ export class MainUser {
   phoneNumber: string;
   image: string;
   isActiveSubscription:boolean;
+  userType:number;
+  isPasswordReset:boolean;
+  subscriptionType:number;
+  subscriptionStatus:number;
 
   constructor(obj: any) {
+    console.log(obj);
     this.id = obj?.id ?? null;
     this.firstName = obj?.firstName ?? null;
     this.lastName = obj?.lastName ?? null;
     this.email = obj?.email ?? null;
     this.phoneNumber = obj?.phoneNumber ?? null;
     this.image = obj?.image ?? 'https://cdn-icons-png.flaticon.com/512/9187/9187604.png';
-    this.isActiveSubscription = obj?.isActiveSubscription ?? false;
+    this.isActiveSubscription = (obj?.subscriptionStatus === SubscriptionStatus.Active  || obj?.subscriptionStatus === SubscriptionStatus.Trialing)  ? true : false;
+    this.userType = obj.userType ?? 0;
+    this.isPasswordReset = obj.isPasswordReset ?? false;
+    this.subscriptionType = obj.subscriptionType ?? null;
+    this.subscriptionStatus = obj.subscriptionStatus ?? 0;
   }
 }
 

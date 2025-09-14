@@ -77,3 +77,14 @@ export enum BillingInterval
     Month = 3,
     Year = 4
 }
+
+export enum SubscriptionStatus
+{
+    Active = 1,
+    Trialing = 2,
+    Canceled = 3,
+    Incomplete = 4,
+    IncompleteExpired = 5,
+    PastDue = 6,
+    Unpaid = 7
+}
