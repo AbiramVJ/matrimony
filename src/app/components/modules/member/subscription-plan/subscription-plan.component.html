@@ -1,18 +1,19 @@
 <section class="content pt-0 rounded">
   <div class="component-content s-content">
-    <div class="row p-2 content-a-box m-0 bg-image-s">
-      <div class="col-12 mx-auto">
+    <div class="row content-a-box m-0 bg-image-s">
+      <div class="col-12 mx-auto p-0">
+        <app-top-bar class="bg-white"></app-top-bar>
         <div class="container-fluid pt-4">
-          <div class="container m-shadow">
-            <div class="mb-3">
+          <div class="container">
+            <!-- <div class="mb-3">
               <div class="my-auto d-flex d-none d-md-block pointer">
                 <img class="me-2" src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png" alt="logo"
                   class="logo-svg">
               </div>
-            </div>
+            </div> -->
 
             <div class="text-center mb-4" *ngIf="plans && !isLoading">
-              <h2 class="fw-bold">Choose Your Subscription Plan</h2>
+              <h2 class="fw-bold">Choose Your Perfect Plan</h2>
               <p class="text-muted">
                 Select the plan that best suits your needs and start enjoying
                 premium features today!
@@ -24,7 +25,7 @@
               <!-- Free Plan -->
               <div class="col-lg-3 col-md-6" *ngFor="let plan of plans.subscriptionPlans">
                 <div class="subscription-card-container">
-                  <div class="card subscription-card h-100 pointer" (click)="moveToPayment(plan.id)">
+                  <div class="card subscription-card h-100 pointer border" (click)="moveToPayment(plan.id)">
                     <!-- <div class="text-center border-0 position-relative overflow-hidden"> -->
                       <!-- <div class="gradient-overlay free-gradient"
                         [ngClass]="plan.subscriptionType === subscriptionType.Free ? 'free-gradient' : plan.subscriptionType === subscriptionType.Silver ? 'silver-gradient' : plan.subscriptionType === subscriptionType.Gold ? 'gold-gradient' : 'platinum-gradient'">

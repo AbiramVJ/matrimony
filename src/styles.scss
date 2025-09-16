@@ -8,6 +8,15 @@ html, body {
   background-color: #f2f4f7;
 }
 
+.btn-danger{
+  background: linear-gradient(135deg, #e07431, #e53e3e, #f56565) !important;
+  border:none
+}
+
+.app-bg{
+  background-color: #fff6ef !important;
+}
+
 .bg-color{
   background-color: #f2f4f7;
 }
@@ -18,7 +27,8 @@ html, body {
 }
 
 .bg-image-s{
-  background-image: url('./app/helpers/svg/background.svg');
+ // background-image: url('./app/helpers/svg/background.svg');
+ background-color: #fff6ef !important;
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 100vh;

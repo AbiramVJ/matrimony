@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
   private _loginFormInit(){
     this.loginForm = this.formBuilder.group({
       email:[null,[Validators.required,]],
-      password:[null,[Validators.required,Validators.minLength(8)]],
+      password:[null,[Validators.required]],
     })
   }
 
@@ -164,8 +164,11 @@ export class LoginComponent implements OnInit {
       this.forgotForm.get('email')?.setValidators([]);
       this.forgotForm.get('email')?.updateValueAndValidity();
       body = phoneNumber;
-      this._phoneNumber ? isValid = true : false;
+      console.log(this._phoneNumber)
+      this._phoneNumber.length === 0 ? isValid = false :isValid = true;
     }else{
+      this.forgotForm.get('email')?.setValidators([Validators.required, Validators.email]);
+      this.forgotForm.get('email')?.updateValueAndValidity();
       isValid = this.forgotForm.valid;
     }
     this.isForgotSubmitted = true;
