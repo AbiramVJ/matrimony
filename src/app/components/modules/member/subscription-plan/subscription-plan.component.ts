@@ -44,6 +44,7 @@ export class SubscriptionPlanComponent {
     this.subscriptionService.getMemberSubscriptionPlans().subscribe({
       next:(res:any)=>{
         this.plans = res;
+        console.log(res);
         console.log('Subscription plans loaded:', this.plans);
       },
       complete: () => {

@@ -20822,10 +20822,10 @@ export const maritalStatusOptions = [
 ];
 
 export const billingIntervalsList = [
-  {id: 1, name: 'Monthly'},
-  {id: 2, name: 'Yearly'},
-  {id: 3, name: 'Weekly'},
-  {id: 4, name: 'Daily'}
+  {id: 3, name: 'Monthly'},
+  {id: 4, name: 'Yearly'},
+  {id: 2, name: 'Weekly'},
+  {id: 1, name: 'Daily'}
 ]
 
 export const subscriptionTypeList = [

@@ -1,5 +1,6 @@
 <app-navigation-bar *ngIf="!isLoading && isLogin && currentUserType === userType.MEMBER && mainUser.isActiveSubscription" [hideProps]="hideNavProps"
   (openMemberPopup)="openMemberViewPopUp($event)"></app-navigation-bar>
+
 <!-- ADMIN -->
 <div class="row m-0" *ngIf="!isLoading && isLogin && currentUserType === userType.ADMIN && isLogin">
   <div class="col-2 p-0 rounded-0 side-bar border-end bg-white fixed-left">

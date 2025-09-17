@@ -22,7 +22,7 @@
 .custom-slider {
   .ngx-slider {
     .ngx-slider-pointer {
-      background-color: #0db9f0;
+      background-color: rgb(243, 105, 105) !important;
       width: 25px;
       height: 25px;
       top: -11px;
@@ -38,6 +38,9 @@
       background: #fff;
       border-radius: 4px;
     }
+  }
+  .ngx-slider-selection{
+    background: rgb(243, 105, 105) !important;
   }
 }
 @media (max-width: 764px) {

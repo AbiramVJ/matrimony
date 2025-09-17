@@ -20,11 +20,7 @@
       </div>
     </div>
   </div>
-</section>
-
-
-
- -->
+</section> -->
 <section class="nav-parent">
         <div class="">
             <div class="row m-0 bg-white py-2">
@@ -34,11 +30,10 @@
                 <div class="col-6">
                     <div class="d-flex justify-content-end">
                         <div class="dropdown pointer px-2 rounded py-auto profile-btn">
-                            <div class="d-flex user-dropdown py-1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="d-flex user-dropdown py-1" data-bs-toggle="dropdown" aria-expanded="false" *ngIf="mainUser">
                                 <img src="{{mainUser.image}}" class="list-profile object-fit-cover me-3" alt="Profile">
                                 <div class="text-muted fw-bold my-auto">
-                                    <div class="text-md me-1">John Doe<span class="ms-1">▼</span></div>
-
+                                    <div class="text-md me-1">John Doe<span class="ms-3"><i class="fas fa-angle-down"></i></span></div>
                                 </div>
                             </div>
                             <ul class="dropdown-menu dropdown-menu-end">

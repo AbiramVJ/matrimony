@@ -9,12 +9,15 @@ html, body {
 }
 
 .btn-danger{
-  background: linear-gradient(135deg, #e07431, #e53e3e, #f56565) !important;
+  background: rgb(239, 90, 90) !important;
   border:none
 }
 
 .app-bg{
   background-color: #fff6ef !important;
+}
+.app-font-color{
+  color: #fde5d1;
 }
 
 .bg-color{
@@ -28,7 +31,7 @@ html, body {
 
 .bg-image-s{
  // background-image: url('./app/helpers/svg/background.svg');
- background-color: #fff6ef !important;
+ background-color: linear-gradient(180deg, hsl(25 100% 97%) 0%, hsl(25 60% 95%) 100%) !important;
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 100vh;
@@ -188,7 +191,7 @@ input[type=number] {
 
 // ngx-pagination design
 .ngx-pagination .current {
-  background-color:#a0a0a7 !important;
+  background-color:rgb(243, 105, 105) !important;
   border-radius: 5px !important;
   color: #ffffff !important;
 }
@@ -197,14 +200,14 @@ input[type=number] {
   border: solid 1px var(--app-color) !important;
   border-radius: 5px !important;
   color: white !important;
-  background-color: #e03c3c !important;
+  background-color: rgb(243, 105, 105) !important;
 }
 .ngx-pagination .disabled {
   padding: .1875rem .625rem;
   color: white !important;
   cursor: default;
   border:solid 1px #cacaca !important;
-  background-color: #e03c3c;
+  background-color: rgb(243, 105, 105);
 }
 
 .disabled-pagination{

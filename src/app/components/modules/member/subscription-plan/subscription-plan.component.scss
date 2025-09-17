@@ -22,7 +22,7 @@
 }
 
 .s-content{
-
+background: linear-gradient(180deg, hsl(25 100% 97%) 0%, hsl(25 60% 95%) 100%);
 }
 // Dashboard Header
 .dashboard-header {
@@ -218,7 +218,7 @@
 
 .price-amount {
   font-size: 2.5rem;
-  font-weight: 800;
+  font-weight: 500;
   color: #212529;
   line-height: 1;
 }

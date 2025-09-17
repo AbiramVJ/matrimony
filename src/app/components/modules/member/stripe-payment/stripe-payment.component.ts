@@ -1,13 +1,14 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SubscriptionService } from './../../../../services/subscription.service';
 
 import { Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { TopBarComponent } from "../../../../common/top-bar/top-bar.component";
 declare var Stripe: any;
 @Component({
   selector: 'app-stripe-payment',
-  imports: [CommonModule],
+  imports: [CommonModule, TopBarComponent],
   templateUrl: './stripe-payment.component.html',
   styleUrl: './stripe-payment.component.scss'
 })
@@ -31,7 +32,8 @@ export class StripePaymentComponent {
   private planId!:string;
   constructor(private subscriptionService:SubscriptionService,
     private route: ActivatedRoute,
-      private toastr: ToastrService,
+    private toastr: ToastrService,
+    private router: Router,
   ){
 
   }
@@ -159,7 +161,7 @@ export class StripePaymentComponent {
       complete:()=>{
        this.isLoading = false;
        this.toastr.success('Payment method successfully updated', 'Success!');
-       window.location.href = "/";
+       this.router.navigateByUrl('member/member-registration');
       },
       error: (error:any) => {
         this.isLoading = false;

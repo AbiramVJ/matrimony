@@ -1,56 +1,151 @@
 <section class="content pt-0 rounded">
   <div class="component-content s-content">
-    <div class="row p-2 content-a-box m-0 bg-image-s">
-       <div class="col-10 mx-auto mt-3 container">
-        <div class="mb-3">
-          <div class="my-auto d-flex d-none d-md-block pointer">
-            <img class="me-2" src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png" alt="logo"
-              class="logo-svg">
-          </div>
-        </div>
-        <div class="row mt-5">
-          <div class="col-6 mx-auto">
+    <div class="row m-0">
+      <app-top-bar class="p-0"></app-top-bar>
+      <div class="col-8 mx-auto">
+        <div class="row mt-4">
+          <!-- <div class="col-6 mx-auto">
             <div class="m-shadow p-3">
-          <div class="text-center h5">Card Information</div>
-          <div class="mt-3">
-             <div class="p-border-shadow-25 mt-3 padding-40">
-                <div class="row mt-3">
-                  <div class="col-12 ">
-                    <label for="floatingNumber" class="text-muted mb-1"> <span class="text-md fw-bold">Card number</span></label>
-                    <div id="floatingNumber" class="form-control" ></div>
-
-
-                  </div>
-                  <div class="col-6 mt-3 m-top-30">
-                    <label for="floatingExpiry" class="text-muted mb-1"><span class="text-md fw-bold">Expires</span></label>
-                    <div id="floatingExpiry" class="form-control" ></div>
-
-                  </div>
-                  <div class="col-6 mt-3 m-top-30">
-                    <label for="floatingCvc" class="text-muted mb-1"><span class="text-md fw-bold">CVV</span></label>
-                    <div class="input-group rounded">
-                      <div id="floatingCvc" class="form-control groupIcon" ></div>
+            <div class="text-center h5">Card Information</div>
+            <div class="mt-3">
+              <div class="p-border-shadow-25 mt-3 padding-40">
+                  <div class="row">
+                    <div class="col-12 ">
+                      <label for="floatingNumber" class="text-muted mb-1"> <span class="text-md fw-bold">Card number</span></label>
+                      <div id="floatingNumber" class="form-control" ></div>
+                    </div>
+                    <div class="col-6 mt-3 m-top-30">
+                      <label for="floatingExpiry" class="text-muted mb-1"><span class="text-md fw-bold">Expires</span></label>
+                      <div id="floatingExpiry" class="form-control" ></div>
 
                     </div>
-                  </div>
-                  <div class="col-sm-6 mt-3 m-top-30">
-                    <label for="floatingPost" class="fw-semibold mb-1"><span class="text-sm fw-bold">Billing postcode</span></label>
-                    <div id="floatingPost" class="form-control"></div>
+                    <div class="col-6 mt-3 m-top-30">
+                      <label for="floatingCvc" class="text-muted mb-1"><span class="text-md fw-bold">CVV</span></label>
+                      <div class="input-group rounded">
+                        <div id="floatingCvc" class="form-control groupIcon" ></div>
 
+                      </div>
+                    </div>
+                    <div class="col-sm-6 mt-3 m-top-30">
+                      <label for="floatingPost" class="fw-semibold mb-1"><span class="text-sm fw-bold">Billing postcode</span></label>
+                      <div id="floatingPost" class="form-control"></div>
+
+                    </div>
+                    <div class="col-12 justify-content-end d-sm-flex mt-4">
+                      <button class="btn btn-danger w-100" [disabled]="isLoading" (click)="confirmPayment()">
+                        <div class="spinner-border spinner-border-sm text-light me-1" role="status" *ngIf="isLoading"></div>
+                        Pay Now</button>
+                    </div>
                   </div>
-                  <div class="col-12 justify-content-end d-sm-flex mt-4">
-                    <button class="btn btn-danger w-100" [disabled]="isLoading" (click)="confirmPayment()">
-                      <div class="spinner-border spinner-border-sm text-light me-1" role="status" *ngIf="isLoading"></div>
-                      Pay Now</button>
+                </div>
+            </div>
+        </div>
+          </div> -->
+          <div class="col-sm-12 col-md-5">
+            <div class="m-2 border bg-white shadow-sm border-radios-15 p-3">
+              <h4 class="fw-bold fw-normal text-muted">Order Summary</h4>
+              <div class="text-sm">Review your selected plan details</div>
+
+              <div class="mt-3">
+                <div class="d-flex justify-content-between text-lg">
+                  <div class="fw-bold text-muted">Gold Plan</div>
+                  <div class="text-danger">$100/month</div>
+                </div>
+              </div>
+
+              <hr>
+              <div class="mt-3">
+                <div class="d-flex justify-content-between text-lg">
+                  <div class="fw-bold text-muted">Total</div>
+                  <div class="text-danger">$100</div>
+                </div>
+              </div>
+
+              <div class="mt-3">
+                <div class="border-radios-15 dc p-3">
+                  <div class="text-md">Plan Include</div>
+                  <div class="ms-5 mt-2">
+                    <li>abc</li>
+                    <li>abc</li>
+                    <li>abc</li>
+                    <li>abc</li>
                   </div>
                 </div>
               </div>
+
+            </div>
           </div>
-        </div>
+          <div class="col-sm-12 col-md-7">
+            <div class="m-2 border bg-white shadow-sm border-radios-15 p-3">
+              <h4 class="fw-bold fw-normal text-muted">Payment Information</h4>
+              <div class="text-sm">Enter your payment details securely.</div>
+              <div class="h5 text-muted mt-3">Contact Details</div>
+              <div class="mt-3 mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" formControlName="email" id="email" placeholder="">
+              </div>
+              <hr>
+              <div class="h5 text-muted mb-3">Payment Details</div>
+              <div class="row">
+                <div class="col-12 ">
+                  <label for="floatingNumber" class="text-muted mb-1"> <span class="text-md">Card
+                      number</span></label>
+                  <div id="floatingNumber" class="form-control"></div>
+                </div>
+                <div class="col-6 mt-3 m-top-30">
+                  <label for="floatingExpiry" class="text-muted mb-1"><span
+                      class="text-md">Expires</span></label>
+                  <div id="floatingExpiry" class="form-control"></div>
+
+                </div>
+                <div class="col-6 mt-3 m-top-30">
+                  <label for="floatingCvc" class="text-muted mb-1"><span class="text-md">CVV</span></label>
+                  <div class="input-group rounded">
+                    <div id="floatingCvc" class="form-control groupIcon"></div>
+
+                  </div>
+                </div>
+                <div class="col-sm-6 mt-3 m-top-30">
+                  <label for="floatingPost" class="fw-semibold mb-1"><span class="text-sm fw-normal">
+                      Post Code</span></label>
+                  <div id="floatingPost" class="form-control"></div>
+
+                </div>
+              </div>
+              <hr>
+               <div class="h5 text-muted mb-3">Billing Address</div>
+               <div class="row">
+                <div class="col-12">
+                   <div class="mt-3">
+                    <label for="address" class="form-label">Address</label>
+                    <input type="text" class="form-control" formControlName="email" id="address" placeholder="">
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="mt-3">
+                    <label for="city" class="form-label">City</label>
+                    <input type="text" class="form-control" formControlName="email" id="city" placeholder="">
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="mt-3">
+                    <label for="postCode" class="form-label">Post Code</label>
+                    <input type="text" class="form-control" formControlName="email" id="postCode" placeholder="">
+                  </div>
+                </div>
+               </div>
+               <div class="col-12 justify-content-end d-sm-flex mt-4">
+                      <button class="btn btn-danger w-100" [disabled]="isLoading" (click)="confirmPayment()">
+                        <div class="spinner-border spinner-border-sm text-light me-1" role="status" *ngIf="isLoading"></div>
+                        Pay Now</button>
+                    </div>
+                    <div class="text-xs text-muted mt-2 text-center">Your payment information is secure and encrypted. By completing this purchase, you agree to our Terms of Service and Privacy Policy.</div>
+            </div>
+
           </div>
         </div>
 
-       </div>
+      </div>
     </div>
   </div>
 </section>

@@ -90,7 +90,7 @@ export class FilterMemberListComponent {
   public getAllMatchingProfiles() {
     this.isLoading = true;
 
-    const userId = this.currentsUser ?  this.currentsUser.id : '';
+    const userId:any = this.currentsUser ?  this.currentsUser.id : localStorage.getItem("currentMemberId") ? localStorage.getItem("currentMemberId") : '';
     this.memberService
       .getMatchingData(this.filter, userId, this.currentPage, this.itemsPerPage)
       .subscribe({

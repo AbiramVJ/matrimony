@@ -9,10 +9,22 @@
 
 .active-link {
   font-weight: bold;
-  color: #ff002b !important;
+  color: #ffffff !important;
+  border:1px solid red;
+  border-radius: 5px;
+  background-color: rgb(243, 105, 105);
+  font-weight: bold;
 }
 .active-link i {
-  color: #ff002b !important; /* Bootstrap's primary blue */
+  color: #ffffff !important; /* Bootstrap's primary blue */
+}
+.nav-link:hover{
+  background-color: rgb(243, 105, 105);
+  border-radius: 5px;
+  color: #ffffff !important;
+  i {
+  color: #ffffff !important; /* Bootstrap's primary blue */
+}
 }
 .friend-request-wrapper {
   display: inline-block;

@@ -71,17 +71,22 @@
             </div>
             <!-- FRIEND REQUEST -->
             <div class="circles border me-2 pointer position-relative friend " (click)="toggleDropdown('friendRequest')" *ngIf="memberProfiles.length > 0" >
-              <i class="fas fa-user-plus fa-lg"  [ngClass]="{'text-primary' : isFriendRequestOpen}"></i>
+              <!-- <i class="fas fa-user-plus fa-lg"  ></i> -->
+              <span class="position-relative">
+                <i class="far fa-user fa-lg" [ngClass]="{'text-danger' : isFriendRequestOpen}"></i>
+                <i class="fas fa-plus position-absolute" style="font-size:0.6em; bottom:5; right:-10;"></i>
+              </span>
+
               <div class="text-white bg-danger notification-bandage position-absolute p-2" *ngIf="totalRequestList > 0">{{totalRequestList}}</div>
             </div>
             <!-- MESSAGE -->
             <div class="circles border me-2 pointer position-relative mes " (click)="toggleDropdown('message')" *ngIf="memberProfiles.length > 0" >
-              <i class="fas fa-comments fa-md"  [ngClass]="{'text-primary' : isMessageOpen}"></i>
+              <i class="far fa-comments fa-md"  [ngClass]="{'text-danger' : isMessageOpen}"></i>
               <div class="text-white bg-danger notification-bandage position-absolute p-2" *ngIf="UnreadCount > 0">{{UnreadCount}}</div>
             </div>
             <!-- NOTIFICATION -->
             <div class="circles border me-2 pointer position-relative noti " (click)="toggleDropdown('notification')" *ngIf="memberProfiles.length > 0">
-              <i class="fas fa-bell fa-lg" [ngClass]="{'text-primary' : isNotificationOpen}"></i>
+              <i class="far fa-bell fa-lg" [ngClass]="{'text-danger' : isNotificationOpen}"></i>
               <div class="text-white bg-danger notification-bandage position-absolute p-2" *ngIf="totalUnReadCount > 0">{{totalUnReadCount}}</div>
             </div>
 
