@@ -61,14 +61,16 @@
                 </div>
               </div>
 
-              <div class="mt-3">
+              <div class="mt-3" *ngIf="plan && !isLoading">
                 <div class="border-radios-15 dc p-3">
                   <div class="text-md">Plan Include</div>
                   <div class="ms-5 mt-2">
-                    <li>abc</li>
-                    <li>abc</li>
-                    <li>abc</li>
-                    <li>abc</li>
+                    <li>Member included : {{plan.subscriptionPlanFeature.memberCount}}</li>
+                    <li>Friend requests per month : {{plan.subscriptionPlanFeature.sendFriendRequestCount}}</li>
+                    <li>Advanced search filters</li>
+                    <li>Personalized match suggestions</li>
+                    <li>Unlimited matches</li>
+                    <li>Priority customer support</li>
                   </div>
                 </div>
               </div>
@@ -77,12 +79,17 @@
           </div>
           <div class="col-sm-12 col-md-7">
             <div class="m-2 border bg-white shadow-sm border-radios-15 p-3">
+              <form [formGroup]="subscriptionForm">
+
+
               <h4 class="fw-bold fw-normal text-muted">Payment Information</h4>
               <div class="text-sm">Enter your payment details securely.</div>
               <div class="h5 text-muted mt-3">Contact Details</div>
               <div class="mt-3 mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" formControlName="email" id="email" placeholder="">
+                <input type="email" class="form-control" formControlName="email" id="email" [disabled]="true" placeholder="" #addressInput
+                [ngClass]="{'errorBorder' : isSubmitted && subscriptionForm.get('email')?.errors}"
+                >
               </div>
               <hr>
               <div class="h5 text-muted mb-3">Payment Details</div>
@@ -118,19 +125,32 @@
                 <div class="col-12">
                    <div class="mt-3">
                     <label for="address" class="form-label">Address</label>
-                    <input type="text" class="form-control" formControlName="email" id="address" placeholder="">
+                    <input type="text" class="form-control" formControlName="address" id="address" placeholder=""
+                    [ngClass]="{'errorBorder' : isSubmitted && subscriptionForm.get('address')?.errors}">
                   </div>
                 </div>
                 <div class="col-6">
                   <div class="mt-3">
                     <label for="city" class="form-label">City</label>
-                    <input type="text" class="form-control" formControlName="email" id="city" placeholder="">
+                    <input type="text" class="form-control" formControlName="city" id="city" placeholder=""
+                    [ngClass]="{'errorBorder' : isSubmitted && subscriptionForm.get('city')?.errors}"
+                    >
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="mt-3">
+                    <label for="country" class="form-label">Country</label>
+                    <input type="text" class="form-control" formControlName="country" id="country" placeholder=""
+                    [ngClass]="{'errorBorder' : isSubmitted && subscriptionForm.get('country')?.errors}"
+                    >
                   </div>
                 </div>
                 <div class="col-6">
                   <div class="mt-3">
                     <label for="postCode" class="form-label">Post Code</label>
-                    <input type="text" class="form-control" formControlName="email" id="postCode" placeholder="">
+                    <input type="text" class="form-control" formControlName="postcode" id="postCode" placeholder=""
+                    [ngClass]="{'errorBorder' : isSubmitted && subscriptionForm.get('postcode')?.errors}"
+                    >
                   </div>
                 </div>
                </div>
@@ -140,6 +160,7 @@
                         Pay Now</button>
                     </div>
                     <div class="text-xs text-muted mt-2 text-center">Your payment information is secure and encrypted. By completing this purchase, you agree to our Terms of Service and Privacy Policy.</div>
+                    </form>
             </div>
 
           </div>

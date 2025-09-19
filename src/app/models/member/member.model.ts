@@ -245,9 +245,9 @@ export class MainUser {
   isPasswordReset:boolean;
   subscriptionType:number;
   subscriptionStatus:number;
+  memberCount:number;
 
   constructor(obj: any) {
-    console.log(obj);
     this.id = obj?.id ?? null;
     this.firstName = obj?.firstName ?? null;
     this.lastName = obj?.lastName ?? null;
@@ -259,6 +259,7 @@ export class MainUser {
     this.isPasswordReset = obj.isPasswordReset ?? false;
     this.subscriptionType = obj.subscriptionType ?? null;
     this.subscriptionStatus = obj.subscriptionStatus ?? 0;
+    this.memberCount = obj.memberCount ?? 0;
   }
 }
 

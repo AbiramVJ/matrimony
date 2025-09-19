@@ -359,8 +359,9 @@ export class LoginComponent implements OnInit {
         complete:()=>{
           this.isLoading = false;
           if(!this.isAgent){
-             window.location.href = "/";
+            //  window.location.href = "/";
            // this.router.navigateByUrl('home/member');
+            this.getMainUser()
           }
         },
         error:(error:any)=>{
@@ -436,9 +437,14 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
     this.memberService.getMainUser().subscribe({
       next: (res: any) => {
+        this.auth.setMainUser(res);
         if(res.isActiveSubscription){
+          if(res.memberCount > 0){
+            if(!this.isAgent){ window.location.href = "/";}
+          }else{
+            this.router.navigateByUrl('member/member-registration');
+          }
           this.isLoading = false;
-          if(!this.isAgent){ window.location.href = "/";}
         } else{
           this.isLoading = false;
           this.router.navigateByUrl('member/plans');
@@ -448,6 +454,7 @@ export class LoginComponent implements OnInit {
       error: (error: any) => {this.isLoading = false;},
     });
   }
+
 }
 
 

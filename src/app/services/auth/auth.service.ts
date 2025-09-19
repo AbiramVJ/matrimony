@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, catchError, map, Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { TokenResult } from '../../models/clientToken.model';
+import { MainUser } from '../../models/index.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,6 +18,9 @@ export class AuthService {
 
   private memberListSubject$ = new BehaviorSubject<any>(null);
   memberList$ = this.memberListSubject$.asObservable();
+
+  private mainUserSubject$ = new BehaviorSubject<MainUser | null>(null);
+  mainUser$ = this.mainUserSubject$.asObservable();
 
 
   constructor(private http: HttpClient) { }
@@ -159,6 +163,11 @@ export class AuthService {
 
   public setMemberList(memberList:any){
     this.memberListSubject$.next(memberList);
+  }
+
+
+  public setMainUser(userDetails:any){
+    this.mainUserSubject$.next(userDetails);
   }
 
 

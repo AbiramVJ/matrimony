@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
-import { Intent, SubscriptionPlan } from '../models/index.model';
-import { MemberPlan } from '../models/Subscription/MemberPlan.model';
+
+import { MemberPlan, SubscriptionPlan as Plan } from '../models/Subscription/MemberPlan.model';
+import { SubscriptionPlan } from '../models/index.model';
 
 @Injectable({
   providedIn: 'root',
@@ -49,11 +50,19 @@ export class SubscriptionService {
     );
   }
 
-  public confirmPayment(paymentMethod:string){
-    return this.http.post(this.baseUrl + `Subscription/add-payment-method/${paymentMethod}`,{});
+  public confirmPayment(paymentMethod:string, body:any){
+    return this.http.post(this.baseUrl + `Subscription/add-payment-method/${paymentMethod}`,body);
   }
 
   public makeSubscription(body:any){
    return this.http.post(this.baseUrl + `Subscription/make-subscription/${body.planId}/${body.paymentMethodId}?isReactive=${body.isReactive}`,{});
+  }
+
+  public getPlan(id:string){
+     return this.http.get(this.baseUrl + `Subscription/plan/${id}`).pipe(
+      map((res: any) => {
+        return  new Plan(res.Result);
+      })
+    );
   }
 }

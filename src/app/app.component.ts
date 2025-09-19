@@ -1,4 +1,4 @@
-import { FullUserProfile, MainUser } from './models/member/member.model';
+import { FullUserProfile, MainUser, UserProfile } from './models/member/member.model';
 import { FriendSignalRService } from './services/friend-signal-r.service';
 import { ChatService } from './services/chat.service';
 import { SignalRService } from './services/signal-r.service';
@@ -34,6 +34,7 @@ export class AppComponent {
   public userType = UserType;
   public currentUserType:any;
   public mainUser!: MainUser;
+  public memberList:UserProfile[] = [];
   constructor(
      private dataProviderService:DataProviderService,
      private _authService:AuthService,
@@ -72,6 +73,7 @@ export class AppComponent {
     this.isLoading = true;
     this._memberService.getProfiles().subscribe({
       next:(res:any) => {
+        this.memberList = res;
         if(res.length === 0){
           this.hideNavProps = true;
           this._authService.setMemberList(null);
@@ -136,6 +138,7 @@ export class AppComponent {
     this._memberService.getMainUser().subscribe({
       next: (res: any) => {
         this.mainUser = res;
+        this._authService.setMainUser(res);
         if(res.isActiveSubscription){
           this._getMemberList();
         } else{

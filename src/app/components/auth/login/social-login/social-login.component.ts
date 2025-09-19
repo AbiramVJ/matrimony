@@ -95,10 +95,14 @@ export class SocialLoginComponent {
     this.isLoading = true;
     this.memberService.getMainUser().subscribe({
       next: (res: any) => {
-        console.log(res)
+        this.auth.setMainUser(res);
         if(res.isActiveSubscription){
+         if(res.memberCount > 0){
+            if(!this.isAgent){ window.location.href = "/";}
+          }else{
+            this.router.navigateByUrl('member/member-registration');
+          }
           this.isLoading = false;
-          if(!this.isAgent){ window.location.href = "/";}
         } else{
           this.isLoading = false;
           this.router.navigateByUrl('member/plans');

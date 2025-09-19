@@ -17,6 +17,8 @@ export class MemberService {
   filter$ = this.filterSource.asObservable();
 
 
+
+
   constructor(private http: HttpClient) { }
 
   public setQuestionData(data:any){

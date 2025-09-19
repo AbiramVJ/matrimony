@@ -43,7 +43,14 @@ export class MemberFormComponent {
 
   public isEditFlow:boolean = true;
 
-  constructor(private route:Router,private activeRoute: ActivatedRoute, private _memberService:MemberService, private   AuthService:AuthService,private toastr: ToastrService){
+  constructor(private route:Router,
+    private activeRoute: ActivatedRoute,
+    private _memberService:MemberService,
+    private   AuthService:AuthService,
+    private toastr: ToastrService,
+    private _authService:AuthService
+
+  ){
   }
 
   ngOnInit(): void {
@@ -260,7 +267,10 @@ private scrollToTop(): void {
       next:(res:any) => {
         this.AuthService.setMemberList(res);
         if(res.length === 1){
+          localStorage.setItem('currentMemberId',res[0].id);
+          this._authService.setUserDetails(res[0]);
           window.location.href = "/";
+          return;
         }
         this.route.navigateByUrl('member/profiles');
       },

@@ -12,20 +12,21 @@
   color: #ffffff !important;
   border:1px solid red;
   border-radius: 5px;
-  background-color: rgb(243, 105, 105);
+  background-color: #ef4343;
   font-weight: bold;
 }
 .active-link i {
   color: #ffffff !important; /* Bootstrap's primary blue */
 }
+
+.active-link:hover{
+ background-color: #ef4343 !important;
+}
 .nav-link:hover{
-  background-color: rgb(243, 105, 105);
+  background-color: #f5d6d6;
   border-radius: 5px;
-  color: #ffffff !important;
-  i {
-  color: #ffffff !important; /* Bootstrap's primary blue */
 }
-}
+
 .friend-request-wrapper {
   display: inline-block;
 }
@@ -83,7 +84,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(187, 179, 179);
+  background-color: #f5d6d6;
 }
 
 .member-box {
