@@ -21,7 +21,7 @@ export const errorInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next:
     catchError((error: HttpErrorResponse) => {
       const status = error.status;
 
-      if ([401, 403, 404].includes(status)) {
+      if ([401, 403].includes(status)) {
         _authService.removeAuthToken();
         _socialLoginService.signOut();
         localStorage.removeItem('clientId');
