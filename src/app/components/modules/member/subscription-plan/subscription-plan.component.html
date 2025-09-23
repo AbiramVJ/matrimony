@@ -23,7 +23,7 @@
             <!-- Subscription Cards -->
             <div class="row g-4 justify-content-center" *ngIf="plans && !isLoading">
               <!-- Free Plan -->
-              <div class="col-lg-3 col-md-6" *ngFor="let plan of plans.subscriptionPlans">
+              <div class="col-lg-3 col-md-6 col-sm-12 col-12" *ngFor="let plan of plans.subscriptionPlans">
                 <div class="subscription-card-container">
                   <div class="card subscription-card h-100 pointer border" (click)="moveToPayment(plan.id)">
                     <!-- <div class="text-center border-0 position-relative overflow-hidden"> -->
