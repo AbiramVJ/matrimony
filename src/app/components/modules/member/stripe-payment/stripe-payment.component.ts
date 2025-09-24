@@ -10,10 +10,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FORM_MODULES } from '../../../../common/common-imports';
 import { MemberPlan, SubscriptionPlan } from '../../../../models/Subscription/MemberPlan.model';
 import { MainUser } from '../../../../models/index.model';
+import { BillingInterval } from '../../../../helpers/enum';
 declare var Stripe: any;
 @Component({
   selector: 'app-stripe-payment',
-  imports: [CommonModule, TopBarComponent, FORM_MODULES],
+  imports: [CommonModule, FORM_MODULES],
   templateUrl: './stripe-payment.component.html',
   styleUrl: './stripe-payment.component.scss'
 })
@@ -35,11 +36,14 @@ export class StripePaymentComponent {
   public clientSecret:string = '';
   public isSubmitted:boolean = false;
 
+  public name:string = '';
+
   private planId!:string;
   public plan!:SubscriptionPlan;
   public mainUser!:MainUser;
   public subscriptionForm!:FormGroup;
 
+  public billingInterval = BillingInterval;
   constructor(
     private subscriptionService:SubscriptionService,
     private route: ActivatedRoute,
@@ -66,7 +70,8 @@ private subScriptionFormInit() {
     address: ['', [Validators.required]],
     city: ['', [Validators.required]],
     postcode: ['', [Validators.required]],
-    country:['',[Validators.required]]
+    country:['',[Validators.required]],
+    name:[null]
   });
 }
 
@@ -119,16 +124,16 @@ private subScriptionFormInit() {
 
       });
     };
-    if (!this.cardPostCodeElement) {
-      this.cardPostCodeElement = cardElements.create('postalCode', {
-        ...inputFieldStyle,
-        placeholder: '-',
-      });
-      this.cardPostCodeElement.mount('#floatingPost');
-      this.cardPostCodeElement.on('change', (event: any) => {
-        this.isCompleteCardPostCode = event.complete;
-      });
-    };
+    // if (!this.cardPostCodeElement) {
+    //   this.cardPostCodeElement = cardElements.create('postalCode', {
+    //     ...inputFieldStyle,
+    //     placeholder: '-',
+    //   });
+    //   this.cardPostCodeElement.mount('#floatingPost');
+    //   this.cardPostCodeElement.on('change', (event: any) => {
+    //     this.isCompleteCardPostCode = event.complete;
+    //   });
+    // };
     this.isStripeLoading = false;
   }
 
@@ -152,7 +157,7 @@ private subScriptionFormInit() {
     console.log(this.subscriptionForm.value);
     this.isSubmitted = true;
     if(this.subscriptionForm.valid){
-       if(this.isCompleteCardNumber && this.isCompleteCardExpiry && this.isCompleteCardCVV && this.isCompleteCardPostCode) {
+       if(this.isCompleteCardNumber && this.isCompleteCardExpiry && this.isCompleteCardCVV) {
        this.isLoading = true;
       this.stripe.confirmCardSetup(this.clientSecret,{payment_method: {card: this.cardNumberElement},})
       .then((result: any) => {
@@ -237,7 +242,11 @@ private subScriptionFormInit() {
   private getMainUser(){
     this.authService.mainUser$.subscribe((res:any)=>{
       this.mainUser = res;
-      this.subscriptionForm.get('email')?.patchValue(res.email);
+      if(res !== null){
+        console.log(res);
+       this.subscriptionForm.get('email')?.patchValue(res.email);
+       this.subscriptionForm.get('name')?.patchValue(res.firstName + ' ' + res.lastName);
+      }
     })
   }
 

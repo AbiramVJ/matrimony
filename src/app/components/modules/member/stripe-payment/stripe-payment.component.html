@@ -41,7 +41,7 @@
             </div>
         </div>
           </div> -->
-          <div class="col-sm-12 col-md-5">
+          <div class="col-sm-12 col-md-5"  *ngIf="plan">
             <div class="m-2 border bg-white shadow-sm border-radios-15 p-3">
               <h4 class="fw-bold fw-normal text-muted">Order Summary</h4>
               <div class="text-sm">Review your selected plan details</div>
@@ -49,7 +49,14 @@
               <div class="mt-3">
                 <div class="d-flex justify-content-between text-lg">
                   <div class="fw-bold text-muted">Gold Plan</div>
-                  <div class="text-danger">$100/month</div>
+                 <div class="price-section mb-2">
+                        <div class="price-wrapper">
+                          <span class="currency">$</span>
+                          <span class="price-amount">{{plan.price}}</span>
+                          <span class="price-period">/
+                            {{plan.intervalType === billingInterval.Month ? 'month' : plan.intervalType === billingInterval.Year ? 'year' : plan.intervalType === billingInterval.Week ? 'week' : 'day' }}</span>
+                        </div>
+                      </div>
                 </div>
               </div>
 
@@ -57,7 +64,7 @@
               <div class="mt-3">
                 <div class="d-flex justify-content-between text-lg">
                   <div class="fw-bold text-muted">Total</div>
-                  <div class="text-danger">$100</div>
+                  <div class="text-muted text-lg">${{plan.price}}</div>
                 </div>
               </div>
 
@@ -80,16 +87,33 @@
           <div class="col-sm-12 col-md-7">
             <div class="m-2 border bg-white shadow-sm border-radios-15 p-3">
               <form [formGroup]="subscriptionForm">
-
-
               <h4 class="fw-bold fw-normal text-muted">Payment Information</h4>
               <div class="text-sm">Enter your payment details securely.</div>
               <div class="h5 text-muted mt-3">Contact Details</div>
               <div class="mt-3 mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" formControlName="email" id="email" [disabled]="true" placeholder="" #addressInput
-                [ngClass]="{'errorBorder' : isSubmitted && subscriptionForm.get('email')?.errors}"
-                >
+                <input
+                  type="email"
+                  class="form-control"
+                  formControlName="email"
+                  id="email"
+                  placeholder=""
+                  #addressInput
+                  [ngClass]="{'errorBorder' : isSubmitted && subscriptionForm.get('email')?.errors}"
+                  readonly
+                />
+
+              </div>
+              <div class="mt-3">
+                 <label for="text" class="form-label">Name</label>
+                  <input
+                  type="text"
+                  class="form-control"
+                  formControlName="name"
+                  id="name"
+                  placeholder=""
+                  readonly
+                />
               </div>
               <hr>
               <div class="h5 text-muted mb-3">Payment Details</div>
@@ -112,12 +136,12 @@
 
                   </div>
                 </div>
-                <div class="col-sm-6 mt-3 m-top-30">
+                <!-- <div class="col-sm-6 mt-3 m-top-30">
                   <label for="floatingPost" class="fw-semibold mb-1"><span class="text-sm fw-normal">
                       Post Code</span></label>
                   <div id="floatingPost" class="form-control"></div>
 
-                </div>
+                </div> -->
               </div>
               <hr>
                <div class="h5 text-muted mb-3">Billing Address</div>

@@ -25,7 +25,7 @@
               <!-- Free Plan -->
               <div class="col-lg-3 col-md-6 col-sm-12 col-12" *ngFor="let plan of plans.subscriptionPlans">
                 <div class="subscription-card-container">
-                  <div class="card subscription-card h-100 pointer border" (click)="moveToPayment(plan.id)">
+                  <div class="card subscription-card h-100 pointer border">
                     <!-- <div class="text-center border-0 position-relative overflow-hidden"> -->
                       <!-- <div class="gradient-overlay free-gradient"
                         [ngClass]="plan.subscriptionType === subscriptionType.Free ? 'free-gradient' : plan.subscriptionType === subscriptionType.Silver ? 'silver-gradient' : plan.subscriptionType === subscriptionType.Gold ? 'gold-gradient' : 'platinum-gradient'">
@@ -112,7 +112,7 @@
 
                         </ul>
                       </div>
-                      <div class="btn w-100 mb-2" (click)="moveToPayment(plan.id)" [ngClass]="plan.subscriptionType === subscriptionType.Platinum ? 'btn-danger':'btn-light dim-btn bg-white text-danger'">
+                      <div class="btn  w-100 mb-2 dim-btn bg-white text-danger" (click)="moveToPayment(plan.id)" >
                          <span class=""> Choose Plan</span>
                           <!-- <span class="" *ngIf="plan.subscriptionType === subscriptionType.Silver">Continue with Silver Plan</span>
                           <span class="" *ngIf="plan.subscriptionType === subscriptionType.Gold">Continue with Gold Plan</span>

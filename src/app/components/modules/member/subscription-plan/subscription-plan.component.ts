@@ -14,7 +14,7 @@ import { TopBarComponent } from "../../../../common/top-bar/top-bar.component";
 
 @Component({
   selector: 'app-subscription-plan',
-  imports: [FORM_MODULES, CommonModule, TopBarComponent],
+  imports: [FORM_MODULES, CommonModule],
   templateUrl: './subscription-plan.component.html',
   styleUrl: './subscription-plan.component.scss'
 })
