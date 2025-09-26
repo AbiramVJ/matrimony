@@ -84,7 +84,9 @@
 
             </div>
           </div>
-          <div class="col-sm-12 col-md-7">
+
+          <app-loading *ngIf="isLoading"></app-loading>
+          <div class="col-sm-12 col-md-7" *ngIf="plan">
             <div class="m-2 border bg-white shadow-sm border-radios-15 p-3">
               <form [formGroup]="subscriptionForm">
               <h4 class="fw-bold fw-normal text-muted">Payment Information</h4>

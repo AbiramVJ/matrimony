@@ -11,10 +11,11 @@ import { FORM_MODULES } from '../../../../common/common-imports';
 import { MemberPlan, SubscriptionPlan } from '../../../../models/Subscription/MemberPlan.model';
 import { MainUser } from '../../../../models/index.model';
 import { BillingInterval } from '../../../../helpers/enum';
+import { LoadingComponent } from "../../../../common/loading/loading.component";
 declare var Stripe: any;
 @Component({
   selector: 'app-stripe-payment',
-  imports: [CommonModule, FORM_MODULES],
+  imports: [CommonModule, FORM_MODULES, LoadingComponent],
   templateUrl: './stripe-payment.component.html',
   styleUrl: './stripe-payment.component.scss'
 })

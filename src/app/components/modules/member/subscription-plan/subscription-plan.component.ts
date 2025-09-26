@@ -9,12 +9,13 @@ import { MemberPlan } from '../../../../models/Subscription/MemberPlan.model';
 import { StripePaymentComponent } from "../stripe-payment/stripe-payment.component";
 import { Router } from '@angular/router';
 import { TopBarComponent } from "../../../../common/top-bar/top-bar.component";
+import { LoadingComponent } from "../../../../common/loading/loading.component";
 
 
 
 @Component({
   selector: 'app-subscription-plan',
-  imports: [FORM_MODULES, CommonModule],
+  imports: [FORM_MODULES, CommonModule, LoadingComponent],
   templateUrl: './subscription-plan.component.html',
   styleUrl: './subscription-plan.component.scss'
 })

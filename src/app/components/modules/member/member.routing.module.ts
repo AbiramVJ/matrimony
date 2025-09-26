@@ -35,6 +35,13 @@ export const MembersRoutingModules: Routes = [
   loadComponent:() => import('./member-registration/member-edit-form/member-edit-form.component').then(m => m.MemberEditFormComponent),
   canActivate:[AuthGuardService],
   data:{accessUsers: [role.member]}
+ },
+ {
+  path:'billing',
+  loadComponent:() => import('./billing/billing.component').then(m => m.BillingComponent),
+  canActivate:[AuthGuardService],
+  data:{accessUsers: [role.member]}
  }
+
 
 ];
