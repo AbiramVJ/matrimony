@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
 
 import { MemberPlan, SubscriptionPlan as Plan } from '../models/Subscription/MemberPlan.model';
-import { SubscriptionPlan } from '../models/index.model';
+import { MemberCurrentPlan, SubscriptionPlan } from '../models/index.model';
 
 @Injectable({
   providedIn: 'root',
@@ -62,6 +62,14 @@ export class SubscriptionService {
      return this.http.get(this.baseUrl + `Subscription/plan/${id}`).pipe(
       map((res: any) => {
         return  new Plan(res.Result);
+      })
+    );
+  }
+
+  public getPlanAndBilling(){
+     return this.http.get(this.baseUrl + `Invoice/plan-and-billing`).pipe(
+      map((res: any) => {
+        return new MemberCurrentPlan(res.Result);
       })
     );
   }
