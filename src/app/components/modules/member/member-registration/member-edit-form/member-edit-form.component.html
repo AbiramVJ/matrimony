@@ -1,15 +1,15 @@
 <section class="content">
   <div class="component-content">
-    <div class="bg-color-bar row m-0 p-0 ">
+    <div class="row m-0 p-0 ">
       <div class="bg-white mt-1 d-none d-md-block">
         <div class="d-flex justify-content-between mx-sm-5">
-            <div class="text-md pointer py-2 form-title" [ngClass]="{'text-primary border-bottom-title fw-bold' : currentStep === steps.lookingFor }" (click)="changeStep(steps.lookingFor)">Matching</div>
-            <div class="text-sm pointer py-2 form-title" [ngClass]="{'text-primary border-bottom-title fw-bold' : currentStep === steps.basic }" (click)="changeStep(steps.basic)">Personal Information</div>
-            <div class="text-sm pointer py-2 form-title" [ngClass]="{'text-primary border-bottom-title fw-bold' : currentStep === steps.contact }" (click)="changeStep(steps.contact)">Contact Details</div>
-            <div class="text-sm pointer py-2 form-title" [ngClass]="{'text-primary border-bottom-title fw-bold' : currentStep === steps.personal }" (click)="changeStep(steps.personal)">Personal Details</div>
-            <div class="text-sm pointer py-2 form-title" [ngClass]="{'text-primary border-bottom-title fw-bold' : currentStep === steps.family }"  (click)="changeStep(steps.family)">Family Information</div>
-            <div class="text-sm pointer py-2 form-title" [ngClass]="{'text-primary border-bottom-title fw-bold' : currentStep === steps.religionBackground}" (click)="changeStep(steps.religionBackground)">Religious Background</div>
-            <div class="text-sm pointer py-2 form-title" [ngClass]="{'text-primary border-bottom-title fw-bold' : currentStep === steps.education }" (click)="changeStep(steps.education)">Education & Career</div>
+            <div class="text-md pointer py-2 form-title" [ngClass]="{'text-danger border-bottom-title fw-bold' : currentStep === steps.lookingFor }" (click)="changeStep(steps.lookingFor)">Matching</div>
+            <div class="text-sm pointer py-2 form-title" [ngClass]="{'text-danger border-bottom-title fw-bold' : currentStep === steps.basic }" (click)="changeStep(steps.basic)">Personal Information</div>
+            <div class="text-sm pointer py-2 form-title" [ngClass]="{'text-danger border-bottom-title fw-bold' : currentStep === steps.contact }" (click)="changeStep(steps.contact)">Contact Details</div>
+            <div class="text-sm pointer py-2 form-title" [ngClass]="{'text-danger border-bottom-title fw-bold' : currentStep === steps.personal }" (click)="changeStep(steps.personal)">Personal Details</div>
+            <div class="text-sm pointer py-2 form-title" [ngClass]="{'text-danger border-bottom-title fw-bold' : currentStep === steps.family }"  (click)="changeStep(steps.family)">Family Information</div>
+            <div class="text-sm pointer py-2 form-title" [ngClass]="{'text-danger border-bottom-title fw-bold' : currentStep === steps.religionBackground}" (click)="changeStep(steps.religionBackground)">Religious Background</div>
+            <div class="text-sm pointer py-2 form-title" [ngClass]="{'text-danger border-bottom-title fw-bold' : currentStep === steps.education }" (click)="changeStep(steps.education)">Education & Career</div>
           </div>
       </div>
 
@@ -29,7 +29,7 @@
 
 
 
-      <div class="bg-color ">
+      <div class="">
         <div class="col-12 col-sm-10 col-md-8 col-lg-10 mx-auto mt-3 mb-5" *ngIf="!isLoading">
           <div class="row ">
             <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto">

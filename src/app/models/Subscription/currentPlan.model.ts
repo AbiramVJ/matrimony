@@ -1,4 +1,6 @@
 export class MemberCurrentPlan {
+  planId:string;
+  subscriptionIdString:string;
   planName: string;
   price: number;
   intervalType: number;
@@ -13,6 +15,8 @@ export class MemberCurrentPlan {
   remainingFriendRequestCount: number;
 
   constructor(data: any) {
+    this.planId = data.planId ?? '';
+    this.subscriptionIdString = data.subscriptionIdString ?? '';
     this.planName = data.planName ?? '';
     this.price = data.price ?? 0;
     this.intervalType = data.intervalType ?? 0;

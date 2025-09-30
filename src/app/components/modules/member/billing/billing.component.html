@@ -1,99 +1,130 @@
 <section class="content">
   <div class="component-content">
     <div class="row m-0 p-0 ">
-      <div class="col-8 mx-auto mt-3 ">
+      <div class="col-8 mx-auto mt-3 mb-3">
         <h3>Plan And Billing</h3>
         <div class="text-md">Manage your subscription plan and billing preferences</div>
 
         <div class="mt-3">
           <div class="border p-3 bg-white border-15">
             <div><i class="fas fa-credit-card me-3"></i><span class="fw-bold text-muted fs-4">Current Plan</span></div>
-            <div class="mt-3 d-flex justify-content-between">
+            <div class="mt-3 d-flex justify-content-between" *ngIf="!isPlanBillingLoading && currentPlan">
               <div>
-                <div class="text-lg fw-bold text-muted">Gold Plan</div>
+                <div class="text-lg fw-bold text-muted">{{currentPlan.planName}}</div>
                 <div class="price-section mb-2 mt-2">
                   <div class="price-wrapper">
                     <span class="currency">$</span>
-                    <span class="price-amount">{{10}}</span>
-                    <span class="price-period">/ Month
+                    <span class="price-amount">{{currentPlan.price}}</span>
+                    <span class="price-period">/ {{currentPlan.intervalType === billingInterval.Month ? 'month' : currentPlan.intervalType === billingInterval.Year ? 'year' : currentPlan.intervalType === billingInterval.Week ? 'week' : 'day' }}
                     </span>
                   </div>
                 </div>
               </div>
               <div>
-                <div><i class="far fa-calendar-alt me-2"></i><span class="me-3">Renews on 2024-02-15</span></div>
-                <div><i class="fas fa-user me-2"></i><span class="me-3">10 members included</span></div>
-                <div><i class="far fa-envelope me-2"></i><span class="me-3">Requests/month5</span></div>
+                <div><i class="far fa-calendar-alt me-2"></i><span class="me-3">Renews on {{currentPlan.currentPeriodEnd | date}}</span></div>
+                <div><i class="fas fa-user me-2"></i><span class="me-3">{{currentPlan.remainingMemberCount}} members included</span></div>
+                <div><i class="far fa-envelope me-2"></i><span class="me-3">{{currentPlan.remainingFriendRequestCount}} Requests/month</span></div>
               </div>
             </div>
-
+            <div class="d-flex justify-content-center" *ngIf="isPlanBillingLoading">
+                <div class="spinner-border text-danger" role="status" >
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            </div>
             <hr>
 
             <div class="mt-3 d-flex ">
-              <div class="btn dim-btn text-danger me-3">View Invoice</div>
-              <div class="btn dim-btn text-danger">Cancel Subscription</div>
+              <!-- <div class="btn dim-btn text-danger me-3">View Invoice</div> -->
+              <button class="btn dim-btn text-danger"[disabled]="isPlanBillingLoading" (click)="cancelSubscription(currentPlan.subscriptionIdString)" >   <div class="spinner-border spinner-border-sm text-light me-1" *ngIf="isCancelLoading"></div> Cancel Subscription</button>
             </div>
           </div>
         </div>
 
-        <div class="mt-4">
+        <!-- CART CHANGE -->
+        <div class="mt-4" >
             <h3>Payment Method</h3>
-            <div class="mt-3" *ngIf="correctPlan">
+            <div class="mt-3" >
               <div class="row">
                 <div class="col-12">
                   <div class="border p-3 bg-white border-15">
-                    <div class="row">
+                    <div class="row" *ngIf="currentPlan && !isPlanBillingLoading && !isPaymentChange">
                       <div class="col-4">
                         <div class="d-flex">
                           <div class="me-3"><img width="60" src="https://bublstorage.blob.core.windows.net/bubl/Documents/visa.svg" alt="Visa"></div>
                           <div class="me-2">
                             <div class="text-md">Visa</div>
-                            <div class="text-xs">{{correctPlan.last4Digit}}</div>
+                            <div class="text-xs">{{currentPlan.last4Digit}}</div>
                           </div>
                         </div>
                       </div>
-                      <div class="col-8 text-right my-auto text-danger pointer"><i class="fas fa-pencil-alt me-1"></i> Change</div>
+                      <div class="col-8 text-right my-auto text-danger pointer" (click)="changePaymentMethod()"><i class="fas fa-pencil-alt me-1"></i> Change</div>
                     </div>
+                    <div *ngIf="isPaymentChange">
+                       <div class="h5 text-muted mb-3">Payment Details</div>
+                        <div class="row">
+                          <div class="col-12 ">
+                            <label for="floatingNumber" class="text-muted mb-1"> <span class="text-md">Card
+                                number</span></label>
+                            <div id="floatingNumber" class="form-control"></div>
+                          </div>
+                          <div class="col-6 mt-3 m-top-30">
+                            <label for="floatingExpiry" class="text-muted mb-1"><span
+                                class="text-md">Expires</span></label>
+                            <div id="floatingExpiry" class="form-control"></div>
+
+                          </div>
+                          <div class="col-6 mt-3 m-top-30">
+                            <label for="floatingCvc" class="text-muted mb-1"><span class="text-md">CVV</span></label>
+                            <div class="input-group rounded">
+                              <div id="floatingCvc" class="form-control groupIcon"></div>
+
+                            </div>
+                          </div>
+                          <!-- <div class="col-sm-6 mt-3 m-top-30">
+                            <label for="floatingPost" class="fw-semibold mb-1"><span class="text-sm fw-normal">
+                                Post Code</span></label>
+                            <div id="floatingPost" class="form-control"></div>
+
+                          </div> -->
+                          <div class="col-12 justify-content-end d-sm-flex mt-4">
+                            <button class="btn btn-danger w-100 me-3"  (click)="confirmPayment()" [disabled]="isLoading">
+                              <div class="spinner-border spinner-border-sm text-light me-1" role="status" *ngIf="isChangeLoading" ></div>
+                              Change Now</button>
+                               <button class="btn btn-light w-100"  (click)="cancelChangeMethod()">
+                              <div class="spinner-border spinner-border-sm text-light me-1" role="status" *ngIf="isChangeLoading"></div>
+                              Cancel</button>
+                          </div>
+                    <div class="text-xs text-muted mt-2 text-center">Your payment information is secure and encrypted. By completing this purchase, you agree to our Terms of Service and Privacy Policy.</div>
+                        </div>
+                    </div>
+                     <div class="d-flex justify-content-center" *ngIf="isPlanBillingLoading">
+                      <div class="spinner-border text-danger" role="status" >
+                        <span class="visually-hidden">Loading...</span>
+                      </div>
+                      </div>
                   </div>
                 </div>
               </div>
             </div>
         </div>
-        <div class="mt-4">
+
+        <div class="mt-4" *ngIf="availablePlans">
            <h3>Change Plan</h3>
            <div class="mt-3">
               <!-- Subscription Cards -->
-            <div class="row g-4 justify-content-center">
+            <div class="row g-4 justify-content-center" *ngIf="!isAvailablePlanLoading && availablePlans">
               <!-- Free Plan -->
-              <div class="col-lg-4 col-md-6 col-sm-12 col-12" *ngFor="let plan of plans">
+              <div class="col-lg-4 col-md-6 col-sm-12 col-12" *ngFor="let plan of availablePlans.subscriptionPlans">
                 <div class="subscription-card-container">
                   <div class="card subscription-card h-100 pointer border">
-                    <!-- <div class="text-center border-0 position-relative overflow-hidden"> -->
-                      <!-- <div class="gradient-overlay free-gradient"
-                        [ngClass]="plan.subscriptionType === subscriptionType.Free ? 'free-gradient' : plan.subscriptionType === subscriptionType.Silver ? 'silver-gradient' : plan.subscriptionType === subscriptionType.Gold ? 'gold-gradient' : 'platinum-gradient'">
-
-                      </div> -->
-                      <!-- <div class="header-content">
-                        <div class="subscription-icon mb-2">
-                          <span class="display-4" *ngIf="plan.subscriptionType === subscriptionType.Free">🆓</span>
-                          <span class="display-4" *ngIf="plan.subscriptionType === subscriptionType.Silver">🥈</span>
-                          <span class="display-4" *ngIf="plan.subscriptionType === subscriptionType.Gold">🥇</span>
-                          <span class="display-4" *ngIf="plan.subscriptionType === subscriptionType.Platinum">💎</span>
-                        </div>
-                        <h4 class="card-title text-white fw-bold mb-1"> {{plan.name }}
-                        </h4>
-                        <p class="text-white-50 mb-0 small text-uppercase fw-semibold letter-spacing">
-                          {{plan.subscriptionType === subscriptionType.Free ? 'Free Plan' : plan.subscriptionType === subscriptionType.Silver ? 'Silver Plan' : plan.subscriptionType === subscriptionType.Gold ? 'Gold Plan' : 'Platinum Plan'}}
-                        </p>
-                      </div> -->
-                    <!-- </div> -->
 
                     <div class="text-center fw-bold pt-3 fs-4">
                       <div class="mb-2 text-muted">
-                          <span class="">Free Trial</span>
-                          <!-- <span class="" *ngIf="plan.subscriptionType === subscriptionType.Silver">Silver Plan</span>
+                          <span class=""></span>
+                          <span class="" *ngIf="plan.subscriptionType === subscriptionType.Free">Free Trial</span>
+                          <span class="" *ngIf="plan.subscriptionType === subscriptionType.Silver">Silver Plan</span>
                           <span class="" *ngIf="plan.subscriptionType === subscriptionType.Gold">Gold Plan</span>
-                          <span class="" *ngIf="plan.subscriptionType === subscriptionType.Platinum">Platinum Plan</span> -->
+                          <span class="" *ngIf="plan.subscriptionType === subscriptionType.Platinum">Platinum Plan</span>
                         </div>
                     </div>
 
@@ -103,7 +134,7 @@
                           <span class="currency">$</span>
                           <span class="price-amount">{{plan.price}}</span>
                           <span class="price-period">
-                            Year
+                            / {{plan.intervalType === billingInterval.Month ? 'month' : plan.intervalType === billingInterval.Year ? 'year' : plan.intervalType === billingInterval.Week ? 'week' : 'day' }}
                           </span>
                         </div>
                       </div>
@@ -155,16 +186,72 @@
 
                         </ul>
                       </div>
-                      <div class="btn  w-100 mb-2 dim-btn bg-white text-danger" >
+                      <button class="btn  w-100 mb-2 dim-btn bg-white text-danger" data-bs-toggle="modal" data-bs-target="#switchPlan" (click)="newPlanId = plan.subscriptionType">
                          <span class=""> Switch Plan</span>
                           <!-- <span class="" *ngIf="plan.subscriptionType === subscriptionType.Silver">Continue with Silver Plan</span>
                           <span class="" *ngIf="plan.subscriptionType === subscriptionType.Gold">Continue with Gold Plan</span>
                           <span class="" *ngIf="plan.subscriptionType === subscriptionType.Platinum">Continue with Platinum Plan</span> -->
-                      </div>
+                      </button>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
+             <div class="d-flex justify-content-center" *ngIf="isAvailablePlanLoading">
+                <div class="spinner-border text-danger" role="status" >
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            </div>
+
+           </div>
+        </div>
+
+        <div class="mt-4">
+           <h3>Invoice</h3>
+           <div class="mt-3">
+              <div class="border p-3 bg-white border-15">
+                <div *ngIf="!isInvoiceLoading && invoices">
+                    <div class="row border p-2 border-15 bg-danger text-white mb-2 m-0">
+                  <div class="col-3">Plan</div>
+                  <div class="col-3">Date</div>
+                  <div class="col-3">Amount</div>
+                  <div class="col-3">Status</div>
+                </div>
+                <div class="row border p-2 border-15 mt-2 m-0" *ngFor="let invoice of invoices |  paginate: { itemsPerPage: itemsPerPage , currentPage: currentPage, totalItems: totalItemCount }">
+                  <div class="col-3">{{invoice.planName}}</div>
+                  <div class="col-3">{{invoice.invoiceDate | date}}</div>
+                  <div class="col-3">{{invoice.amount}}</div>
+                  <div class="col-3">
+                    <span class="badge bg-success">{{invoice.status}}</span>
+                  </div>
+                </div>
+                 <!-- PAGINATION -->
+                <div class="row mb-auto pagination mt-4" *ngIf="totalItemCount > 4">
+                  <div class="col-6 col-sm-4 mt-auto">
+                    <div class="pull-left">
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label text-sm fw-bold pt-0"><small>Entries
+                            per page</small></label>
+                        <div class="col-sm-4 page-input">
+                          <input type="number" class="form-control" [(ngModel)]="itemsPerPage" min="1" (change)="changePerPageValue(itemsPerPage)">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-8 text-right">
+                    <div class="text-xs">
+                      <pagination-controls (pageChange)="pageChanged($event)" [maxSize]="5" [previousLabel]="'Prev'"></pagination-controls>
+                    </div>
+                  </div>
+                </div>
+                </div>
+
+                 <div class="d-flex justify-content-center" *ngIf="isInvoiceLoading">
+                <div class="spinner-border text-danger" role="status" >
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            </div>
             </div>
            </div>
         </div>
@@ -173,3 +260,20 @@
     </div>
   </div>
 </section>
+<div class="modal fade" id="switchPlan" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Change Plan</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-btn"></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center text-lg mb-3">Do you want to switch your plan?</div>
+        <div class="text-center d-flex">
+          <button type="button" class="btn btn-light w-75 me-3" data-bs-dismiss="modal">No</button>
+          <button type="button" class="btn btn-danger w-75" (click)="switchPlan()" [disabled]="isSwitchPlanLoading"> <div class="spinner-border spinner-border-sm text-light me-1" role="status" *ngIf="isSwitchPlanLoading"></div> Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

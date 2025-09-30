@@ -50,6 +50,7 @@ export class SubscriptionPlanFeature{
   sendFriendRequestCount:number;
 
   constructor(data:any){
+    console.log(data)
     this.memberCount = data.memberCount ?? 0;
     this.sendFriendRequestCount = data.sendFriendRequestCount ?? 0;
   }

@@ -5,6 +5,8 @@ import { map } from 'rxjs';
 
 import { MemberPlan, SubscriptionPlan as Plan } from '../models/Subscription/MemberPlan.model';
 import { MemberCurrentPlan, SubscriptionPlan } from '../models/index.model';
+import { CommonResponse } from '../models/commonResponse.model';
+import { Invoice } from '../models/Subscription/Invoice.model';
 
 @Injectable({
   providedIn: 'root',
@@ -72,5 +74,33 @@ export class SubscriptionService {
         return new MemberCurrentPlan(res.Result);
       })
     );
+  }
+
+  public getInvoice( pageNumber:number, pageSize:number) {
+    return this.http.get(`${this.baseUrl}Invoice/get-all-invoices?&pageNumber=${pageNumber}&pageSize=${pageSize}`).pipe(
+      map((res: any) => {
+        return new CommonResponse<Invoice>(res.Result, Invoice);
+      })
+    );
+  }
+
+  public getAvailablePlan(){
+     return this.http.get(this.baseUrl + `Subscription/available-change-subscription-plans`).pipe(
+      map((res: any) => {
+        return  new MemberPlan(res.Result);
+      })
+    );
+  }
+
+  public cancelSubscription(id:string){
+    return this.http.put<any>(this.baseUrl + `Subscription/cancel-subscription/${id}`, {});
+  }
+
+  public changePaymentMethod(paymentMethodId:string, subscriptionIdString:string){
+    return this.http.put<any>(this.baseUrl + `Subscription/change-payment-method/${subscriptionIdString}/${paymentMethodId}`,{});
+  }
+
+  public switchPlan(newPlanId:number, oldPlanId:number){
+    return this.http.put<any>(this.baseUrl + `Subscription/change-subscription?oldSubscriptionType=${oldPlanId}&newSubscriptionType=${newPlanId}`, {});
   }
 }

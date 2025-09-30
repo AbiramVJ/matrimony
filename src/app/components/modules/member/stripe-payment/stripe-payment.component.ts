@@ -1,14 +1,12 @@
 import { AuthService } from './../../../../services/auth/auth.service';
-import { Country } from './../../../../models/countryData.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SubscriptionService } from './../../../../services/subscription.service';
 import { Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
-import { TopBarComponent } from "../../../../common/top-bar/top-bar.component";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FORM_MODULES } from '../../../../common/common-imports';
-import { MemberPlan, SubscriptionPlan } from '../../../../models/Subscription/MemberPlan.model';
+import { SubscriptionPlan } from '../../../../models/Subscription/MemberPlan.model';
 import { MainUser } from '../../../../models/index.model';
 import { BillingInterval } from '../../../../helpers/enum';
 import { LoadingComponent } from "../../../../common/loading/loading.component";
@@ -155,7 +153,6 @@ private subScriptionFormInit() {
   }
 
   public confirmPayment(){
-    console.log(this.subscriptionForm.value);
     this.isSubmitted = true;
     if(this.subscriptionForm.valid){
        if(this.isCompleteCardNumber && this.isCompleteCardExpiry && this.isCompleteCardCVV) {
