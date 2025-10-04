@@ -96,6 +96,9 @@ export class SubscriptionService {
     return this.http.put<any>(this.baseUrl + `Subscription/cancel-subscription/${id}`, {});
   }
 
+  public reactivateSubscription(id:string){
+    return this.http.put<any>(this.baseUrl + `Subscription/re-active/${id}`, {});
+  }
   public changePaymentMethod(paymentMethodId:string, subscriptionIdString:string){
     return this.http.put<any>(this.baseUrl + `Subscription/change-payment-method/${subscriptionIdString}/${paymentMethodId}`,{});
   }

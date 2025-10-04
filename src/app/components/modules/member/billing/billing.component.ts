@@ -118,6 +118,7 @@ export class BillingComponent {
     this.subscriptionService.cancelSubscription(id).subscribe({
       next:(res:any)=>{
        this.toastr.success('Successfully cancel','Success');
+       this.isCancelLoading = false;
       },
       complete:()=>{
         this.isCancelLoading = true;
@@ -294,6 +295,23 @@ export class BillingComponent {
       error: (error:any) => {
         this.isSwitchPlanLoading = true;
         this.isLoading = false;
+        this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
+      }
+    })
+  }
+
+  public reactivePlan(){
+    this.isCancelLoading = true;
+    this.subscriptionService.reactivateSubscription(this.currentPlan.subscriptionIdString).subscribe({
+      next:(res:any)=>{
+      },
+      complete:()=>{
+        this.toastr.success('Plan reactivated','Success');
+        this.isCancelLoading = false;
+        this.getPlanAndBilling();
+      },
+      error: (error:any) => {
+        this.isCancelLoading = false;
         this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
       }
     })
