@@ -117,11 +117,13 @@ export class BillingComponent {
     this.isCancelLoading = true;
     this.subscriptionService.cancelSubscription(id).subscribe({
       next:(res:any)=>{
-       this.toastr.success('Successfully cancel','Success');
+
        this.isCancelLoading = false;
       },
       complete:()=>{
         this.isCancelLoading = true;
+        this.currentPlan.isRequestToCancel = true;
+        this.toastr.success('Successfully cancel. Your subscription will end after free trial period','Success');
       },
        error: (error:any) => {
         this.isCancelLoading = false;
@@ -308,6 +310,7 @@ export class BillingComponent {
       complete:()=>{
         this.toastr.success('Plan reactivated','Success');
         this.isCancelLoading = false;
+        this.currentPlan.isRequestToCancel = false;
         this.getPlanAndBilling();
       },
       error: (error:any) => {
