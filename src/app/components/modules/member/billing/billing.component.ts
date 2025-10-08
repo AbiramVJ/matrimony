@@ -280,7 +280,7 @@ export class BillingComponent {
 
   public switchPlan(){
     this.isSwitchPlanLoading = true;
-    this.subscriptionService.switchPlan(this.newPlanId, 1).subscribe({
+    this.subscriptionService.switchPlan(this.newPlanId, this.currentPlan.subscriptionType).subscribe({
       next:(res:any)=>{},
       complete:()=>{
         this.toastr.success('Plan changed','Success');
@@ -293,6 +293,7 @@ export class BillingComponent {
         this.isSwitchPlanLoading = false;
         this.getPlanAndBilling();
         this.getAvailablePlan();
+        this.newPlanId = 0;
       },
       error: (error:any) => {
         this.isSwitchPlanLoading = true;

@@ -13,6 +13,7 @@ export class MemberCurrentPlan {
   canChangeSubscription: boolean;
   remainingMemberCount: number;
   remainingFriendRequestCount: number;
+  subscriptionType:number;
 
   constructor(data: any) {
     this.planId = data.planId ?? '';
@@ -29,5 +30,6 @@ export class MemberCurrentPlan {
     this.canChangeSubscription = data.canChangeSubscription ?? false;
     this.remainingMemberCount = data.remainingMemberCount ?? 0;
     this.remainingFriendRequestCount = data.remainingFriendRequestCount ?? 0;
+    this.subscriptionType = data.subscriptionType ?? 0;
   }
 }
