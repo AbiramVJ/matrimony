@@ -42,6 +42,8 @@ export class FilterMemberListComponent {
   public filter: any;
   private destroy$ = new Subject<void>();
   public isGetUser:boolean = false;
+  public isMemberViewLoading:boolean = false;
+  public viewMemberId:string = '';
 
   constructor(
     private auth: AuthService,
@@ -110,13 +112,15 @@ export class FilterMemberListComponent {
   }
 
   public viewMemberDetails(id: string) {
-    // this.isLoading = true;
+    this.isMemberViewLoading = true;
+    this.viewMemberId = id;
     this.memberService.GetFilterMemberViewData(id).subscribe({
       next: (res: any) => {
         this.filterMemberViewData = res;
-        // this.isLoading = false;
+        this.isMemberViewLoading  = false;
       },
       complete: () => {
+        this.viewMemberId = '';
         let viewModal: HTMLElement = document.getElementById(
           'viewProfileModal'
         ) as HTMLElement;
@@ -125,7 +129,7 @@ export class FilterMemberListComponent {
         }
       },
       error: (error: any) => {
-        //   this.isLoading = false;
+        this.isMemberViewLoading  = false;
         this._toastr.error(error.error.Error.Detail, error.error.Error.Title);
       },
     });

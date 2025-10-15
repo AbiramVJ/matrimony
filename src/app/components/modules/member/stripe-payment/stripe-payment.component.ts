@@ -166,7 +166,7 @@ private subScriptionFormInit() {
         }
       });
      }else{
-      this.toastr.error("In complete",'Please fill the card information')
+      this.toastr.error("In complete",'Please fill the card information');
      }
     }else{
       if(!this.subscriptionForm.get('email')?.valid){

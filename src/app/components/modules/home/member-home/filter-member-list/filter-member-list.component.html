@@ -18,8 +18,31 @@
             </div>
           </div>
         </div> -->
+  <div style="position: relative; width: 100%; height: 300px; overflow: hidden; border-radius: 15px;" class="mb-5">
+    <img
+
+      src="https://img.freepik.com/premium-photo/indian-wedding-cartoon-images-background_1179130-851608.jpg?semt=ais_hybrid&w=740&q=80"
+      alt="Marriage Gate Background"
+      style="width: 100%; height: 100%; object-fit: cover; object-position: top; filter: brightness(40%);"
+    >
+
+    <div style="
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: white;
+      width: 90%;
+    ">
+      <h1 style="font-size: 2rem; margin: 0; letter-spacing: 2px;">WELCOME TO MARRIAGEGATE</h1>
+      <p style="font-size: 1.2rem; margin-top: 10px;">Find your perfect life partner through our trusted matchmaking platform.</p>
+      <p style="font-size: 1rem; margin-top: 5px;">Discover genuine profiles, connect with families, and start your forever journey today.</p>
+    </div>
+</div>
+<hr>
 <div class="d-flex justify-content-between">
-  <div class="text-lg fw-bold text-muted p-2">{{totalItemCount === 1 ? 'Matching profile' : 'Matching profiles' }} </div>
+  <div class="text-lg fw-bold text-muted p-2">✨{{totalItemCount === 1 ? 'Matching profile' : 'Matching profiles' }} </div>
   <div class="text-lg fw-bold text-muted p-2">Total Count : {{totalItemCount}} </div>
 </div>
 <div class="row m-0 member-list">
@@ -54,7 +77,10 @@
           <div class="me-2">
           <div class="ms-2 d-flex justify-content-end me-1">
             <div>
-              <button class="btn btn-danger" (click)="viewMemberDetails(member.id)"><i class="fas fa-eye text-white" style="color: white !important;"></i></button>
+              <button class="btn btn-danger" (click)="viewMemberDetails(member.id)" [disabled]="isMemberViewLoading">
+                <i class="fas fa-eye text-white" style="color: white !important;" [ngClass]="{'d-none': isMemberViewLoading && member.id === viewMemberId}"></i>
+                <div class="spinner-border spinner-border-sm text-light me-1" role="status" *ngIf="isMemberViewLoading && member.id === viewMemberId"></div>
+              </button>
             </div>
           </div>
         </div>

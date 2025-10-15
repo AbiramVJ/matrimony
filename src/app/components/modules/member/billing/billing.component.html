@@ -36,6 +36,7 @@
             <div class="mt-3 d-flex " *ngIf="currentPlan">
               <!-- <div class="btn dim-btn text-danger me-3">View Invoice</div> -->
               <button class="btn dim-btn text-danger"[disabled]="isPlanBillingLoading" (click)="currentPlan.isRequestToCancel ? reactivePlan() : cancelSubscription(currentPlan.subscriptionIdString)" > <div class="spinner-border spinner-border-sm text-light me-1" *ngIf="isCancelLoading"></div>{{!currentPlan.isRequestToCancel ? 'Cancel Subscription' : 'Reactive Plan'}} </button>
+              <button class="btn btn-danger ms-3" data-bs-toggle="modal" data-bs-target="#view-invoice">View Invoice</button>
             </div>
           </div>
         </div>
@@ -112,7 +113,7 @@
            <h3>Change Plan</h3>
            <div class="mt-3">
               <!-- Subscription Cards -->
-            <div class="row g-4 justify-content-center" *ngIf="!isAvailablePlanLoading && availablePlans">
+            <div class="row g-4" *ngIf="!isAvailablePlanLoading && availablePlans">
               <!-- Free Plan -->
               <div class="col-lg-4 col-md-6 col-sm-12 col-12" *ngFor="let plan of availablePlans.subscriptionPlans">
                 <div class="subscription-card-container">
@@ -206,55 +207,7 @@
            </div>
         </div>
 
-        <div class="mt-4">
-           <h3>Invoice</h3>
-           <div class="mt-3">
-              <div class="border p-3 bg-white border-15">
-                <div *ngIf="!isInvoiceLoading && invoices">
-                    <div class="row border p-2 border-15 bg-danger text-white mb-2 m-0">
-                  <div class="col-3">Plan</div>
-                  <div class="col-3">Date</div>
-                  <div class="col-3">Amount</div>
-                  <div class="col-3">Status</div>
-                </div>
-                <div class="row border p-2 border-15 mt-2 m-0" *ngFor="let invoice of invoices |  paginate: { itemsPerPage: itemsPerPage , currentPage: currentPage, totalItems: totalItemCount }">
-                  <div class="col-3">{{invoice.planName}}</div>
-                  <div class="col-3">{{invoice.invoiceDate | date}}</div>
-                  <div class="col-3">{{invoice.amount}}</div>
-                  <div class="col-3">
-                    <span class="badge bg-success">{{invoice.status}}</span>
-                  </div>
-                </div>
-                 <!-- PAGINATION -->
-                <div class="row mb-auto pagination mt-4" *ngIf="totalItemCount > 4">
-                  <div class="col-6 col-sm-4 mt-auto">
-                    <div class="pull-left">
-                      <div class="form-group row">
-                        <label class="col-sm-4 col-form-label text-sm fw-bold pt-0"><small>Entries
-                            per page</small></label>
-                        <div class="col-sm-4 page-input">
-                          <input type="number" class="form-control" [(ngModel)]="itemsPerPage" min="1" (change)="changePerPageValue(itemsPerPage)">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
 
-                  <div class="col-sm-8 text-right">
-                    <div class="text-xs">
-                      <pagination-controls (pageChange)="pageChanged($event)" [maxSize]="5" [previousLabel]="'Prev'"></pagination-controls>
-                    </div>
-                  </div>
-                </div>
-                </div>
-
-                 <div class="d-flex justify-content-center" *ngIf="isInvoiceLoading">
-                <div class="spinner-border text-danger" role="status" >
-              <span class="visually-hidden">Loading...</span>
-            </div>
-            </div>
-            </div>
-           </div>
-        </div>
 
       </div>
     </div>
@@ -272,6 +225,71 @@
         <div class="text-center d-flex">
           <button type="button" class="btn btn-light w-75 me-3" data-bs-dismiss="modal">No</button>
           <button type="button" class="btn btn-danger w-75" (click)="switchPlan()" [disabled]="isSwitchPlanLoading"> <div class="spinner-border spinner-border-sm text-light me-1" role="status" *ngIf="isSwitchPlanLoading"></div> Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="view-invoice" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header py-1">
+        <h4>Invoice</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-0">
+         <div class="mt-4 mb-4">
+
+            <div class="col-10 mx-auto">
+               <div class="mt-3">
+                <div class="border p-3 bg-white border-15">
+                  <div *ngIf="!isInvoiceLoading && invoices">
+                      <div class="row border p-2 border-15 bg-danger text-white mb-2 m-0">
+                    <div class="col-3">Plan</div>
+                    <div class="col-3">Date</div>
+                    <div class="col-3">Amount</div>
+                    <div class="col-3">Status</div>
+                  </div>
+                  <div class="row border p-2 border-15 mt-2 m-0" *ngFor="let invoice of invoices |  paginate: { itemsPerPage: itemsPerPage , currentPage: currentPage, totalItems: totalItemCount }">
+                    <div class="col-3">{{invoice.planName}}</div>
+                    <div class="col-3">{{invoice.invoiceDate | date}}</div>
+                    <div class="col-3">{{invoice.amount}}</div>
+                    <div class="col-3">
+                      <span class="badge bg-success">{{invoice.status}}</span>
+                    </div>
+                  </div>
+                  <!-- PAGINATION -->
+                  <div class="row mb-auto pagination mt-4" *ngIf="totalItemCount > 4">
+                    <div class="col-6 col-sm-4 mt-auto">
+                      <div class="pull-left">
+                        <div class="form-group row">
+                          <label class="col-sm-4 col-form-label text-sm fw-bold pt-0"><small>Entries
+                              per page</small></label>
+                          <div class="col-sm-4 page-input">
+                            <input type="number" class="form-control" [(ngModel)]="itemsPerPage" min="1" (change)="changePerPageValue(itemsPerPage)">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-8 text-right">
+                      <div class="text-xs">
+                        <pagination-controls (pageChange)="pageChanged($event)" [maxSize]="5" [previousLabel]="'Prev'"></pagination-controls>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+
+                  <div class="d-flex justify-content-center" *ngIf="isInvoiceLoading">
+                  <div class="spinner-border text-danger" role="status" >
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              </div>
+              </div>
+            </div>
+            </div>
+
         </div>
       </div>
     </div>

@@ -479,4 +479,9 @@ export class NavigationBarComponent {
       },
     });
   }
+
+  public enterPlanAndBilling(){
+    this.isProfileOpen = false;
+    this.router.navigateByUrl('member/billing');
+  }
 }
