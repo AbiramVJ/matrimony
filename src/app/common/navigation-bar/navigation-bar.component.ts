@@ -14,7 +14,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { COMMON_DIRECTIVES, FORM_MODULES } from '../common-imports';
-import { CommonModule } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import {
   ChatParticipant,
@@ -30,7 +30,7 @@ import { FriendRequestStatus, NotificationType } from '../../helpers/enum';
 
 @Component({
   selector: 'app-navigation-bar',
-  imports: [FORM_MODULES, COMMON_DIRECTIVES, ROUTER_MODULES, CommonModule],
+  imports: [FORM_MODULES, COMMON_DIRECTIVES, ROUTER_MODULES, CommonModule, TitleCasePipe],
   templateUrl: './navigation-bar.component.html',
   styleUrl: './navigation-bar.component.scss',
 })

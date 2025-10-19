@@ -246,6 +246,7 @@ export class MainUser {
   subscriptionType:number;
   subscriptionStatus:number;
   memberCount:number;
+  remainingMemberCount:number;
 
   constructor(obj: any) {
     this.id = obj?.id ?? null;
@@ -257,9 +258,10 @@ export class MainUser {
     this.isActiveSubscription = (obj?.subscriptionStatus === SubscriptionStatus.Active  || obj?.subscriptionStatus === SubscriptionStatus.Trialing)  ? true : false;
     this.userType = obj.userType ?? 0;
     this.isPasswordReset = obj.isPasswordReset ?? false;
-    this.subscriptionType = obj.subscriptionType ?? null;
+    this.subscriptionType = obj.currentSubscriptionType ?? null;
     this.subscriptionStatus = obj.subscriptionStatus ?? 0;
     this.memberCount = obj.memberCount ?? 0;
+    this.remainingMemberCount = obj.remainingMemberCount ?? 0;
   }
 }
 

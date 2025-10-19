@@ -1,7 +1,7 @@
 import { AuthService } from './../../../services/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { MemberService } from './../../../services/member.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { COMMON_DIRECTIVES } from '../../common-imports';
 import { ChatParticipant, FullUserProfile, MemberProfile, Request } from '../../../models/index.model';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-member-profile-modal',
-  imports: [CommonModule,COMMON_DIRECTIVES],
+  imports: [CommonModule,COMMON_DIRECTIVES, TitleCasePipe],
   templateUrl: './member-profile-modal.component.html',
   styleUrl: './member-profile-modal.component.scss'
 })

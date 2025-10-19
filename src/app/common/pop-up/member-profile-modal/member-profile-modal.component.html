@@ -212,15 +212,15 @@
             <!-- Father's Info -->
             <div class="mb-3">
               <div class="text-xs fw-normal">Father's Name:</div>
-              <div class="fw-bold text-sm">{{ memberProfile.profileFamily?.fatherName }}</div>
-              <div class="text-xs">{{ memberProfile.profileFamily?.fatherOccupation }}</div>
+              <div class="fw-bold text-sm">{{ memberProfile.profileFamily?.fatherName | titlecase }}</div>
+              <div class="text-xs">{{ memberProfile.profileFamily?.fatherOccupation | titlecase }}</div>
             </div>
 
             <!-- Mother's Info -->
             <div class="mb-3">
               <div class="text-xs fw-normal">Mother's Name:</div>
-              <div class="fw-bold text-sm">{{ memberProfile.profileFamily?.motherName }}</div>
-              <div class="text-xs">{{ memberProfile.profileFamily?.motherOccupation }}</div>
+              <div class="fw-bold text-sm">{{ memberProfile.profileFamily?.motherName | titlecase }}</div>
+              <div class="text-xs">{{ memberProfile.profileFamily?.motherOccupation | titlecase }}</div>
             </div>
 
             <!-- Siblings -->

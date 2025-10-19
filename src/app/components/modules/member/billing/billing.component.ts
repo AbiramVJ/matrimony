@@ -1,18 +1,20 @@
 
 import { SubscriptionService } from './../../../../services/subscription.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FORM_MODULES } from '../../../../common/common-imports';
 import { MemberCurrentPlan } from '../../../../models/index.model';
 import { Invoice } from '../../../../models/Subscription/Invoice.model';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { BillingInterval, SubscriptionType } from '../../../../helpers/enum';
+import { BillingInterval, SubscriptionStatus, SubscriptionType } from '../../../../helpers/enum';
 import { MemberPlan } from '../../../../models/Subscription/MemberPlan.model';
 import { ToastrService } from 'ngx-toastr';
+import { forkJoin } from 'rxjs';
+import { LoadingComponent } from "../../../../common/loading/loading.component";
 declare var Stripe: any;
 @Component({
   selector: 'app-billing',
-  imports: [CommonModule,FORM_MODULES, NgxPaginationModule,],
+  imports: [CommonModule, FORM_MODULES, NgxPaginationModule, LoadingComponent, TitleCasePipe ],
   templateUrl: './billing.component.html',
   styleUrl: './billing.component.scss'
 })
@@ -27,6 +29,7 @@ export class BillingComponent {
   public currentPage: number = 1;
   public billingInterval = BillingInterval;
   public subscriptionType = SubscriptionType;
+  public subscriptionStatus = SubscriptionStatus;
   public isPlanBillingLoading:boolean = false;
   public isAvailablePlanLoading:boolean = false;
   public isInvoiceLoading:boolean = false;
@@ -59,10 +62,38 @@ export class BillingComponent {
     private toastr: ToastrService,
   ){}
   ngOnInit(): void {
-    this.getPlanAndBilling();
-    this.getAllInvoice();
-    this.getAvailablePlan();
-  }
+  this.loadBillingData();
+}
+
+private loadBillingData(): void {
+  this.isPlanBillingLoading = true;
+  this.isInvoiceLoading = true;
+  this.isAvailablePlanLoading = true;
+
+  forkJoin([
+    this.subscriptionService.getPlanAndBilling(),
+    this.subscriptionService.getInvoice(this.currentPage, this.itemsPerPage),
+    this.subscriptionService.getAvailablePlan()
+  ]).subscribe({
+    next: ([plan, invoicesRes, availablePlans]) => {
+      this.currentPlan = plan;
+      this.invoices = invoicesRes.data;
+      this.totalItemCount = invoicesRes.totalCount;
+      this.availablePlans = availablePlans;
+    },
+    complete: () => {
+      this.isPlanBillingLoading = false;
+      this.isInvoiceLoading = false;
+      this.isAvailablePlanLoading = false;
+    },
+    error: (error) => {
+      this.isPlanBillingLoading = false;
+      this.isInvoiceLoading = false;
+      this.isAvailablePlanLoading = false;
+      this.toastr.error(error.error.Error.Detail, error.error.Error.Title);
+    }
+  });
+}
 
   private getPlanAndBilling(){
     this.isPlanBillingLoading = true;
@@ -117,11 +148,10 @@ export class BillingComponent {
     this.isCancelLoading = true;
     this.subscriptionService.cancelSubscription(id).subscribe({
       next:(res:any)=>{
-
-       this.isCancelLoading = false;
+       //this.isCancelLoading = false;
       },
       complete:()=>{
-        this.isCancelLoading = true;
+        this.isCancelLoading = false;
         this.currentPlan.isRequestToCancel = true;
         this.toastr.success('Successfully cancel. Your subscription will end after free trial period','Success');
       },
@@ -269,6 +299,7 @@ export class BillingComponent {
         this.isChangeLoading = false;
         this.isLoading = false;
         this.isPaymentChange = false;
+        this.getPlanAndBilling();
       },
       error: (error:any) => {
         this.isLoading = false;

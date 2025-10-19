@@ -48,7 +48,7 @@
 
                     <div class="text-center fw-bold pt-3 fs-4">
                       <div class="mb-2 text-muted">
-                          <span class="" *ngIf="plan.subscriptionType === subscriptionType.Free">Free Trial</span>
+                          <span class="" *ngIf="plan.subscriptionType === subscriptionType.Free">Free Plan</span>
                           <span class="" *ngIf="plan.subscriptionType === subscriptionType.Silver">Silver Plan</span>
                           <span class="" *ngIf="plan.subscriptionType === subscriptionType.Gold">Gold Plan</span>
                           <span class="" *ngIf="plan.subscriptionType === subscriptionType.Platinum">Platinum Plan</span>
@@ -70,13 +70,13 @@
                           <li class="feature-item mb-3">
                             <i class="fas fa-check me-2 text-success"></i>
                             <span class="fw-semibold me-1">{{plan.subscriptionPlanFeature.memberCount}}</span>
-                            <span class="text-muted"> member included</span>
+                            <span class="text-muted"> Member included</span>
                           </li>
                           <li class="feature-item mb-3">
                             <i class="fas fa-check me-2 text-success"></i>
                             <span class="fw-semibold me-1">{{plan.subscriptionPlanFeature.sendFriendRequestCount}}</span>
                             <span class="text-muted">
-                              friend requests per month</span>
+                              Friend requests per month</span>
                           </li>
                           <li class="feature-item mb-3">
                             <i class="fas fa-check me-2 text-success"></i>

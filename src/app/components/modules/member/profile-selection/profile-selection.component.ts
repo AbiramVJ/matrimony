@@ -6,7 +6,7 @@ import { AuthService } from '../../../../services/auth/auth.service';
 import { SocialLoginService } from '../../../../services/auth/social-login.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { UserProfile } from '../../../../models/index.model';
+import { MainUser, UserProfile } from '../../../../models/index.model';
 @Component({
   selector: 'app-profile-selection',
   imports: [CommonModule, COMMON_DIRECTIVES, FORM_MODULES,ROUTER_MODULES],
@@ -29,10 +29,12 @@ export class ProfileSelectionComponent {
   public memberProfiles:UserProfile[] = [];
   public isLoading:boolean = false;
   public deleteMemberId:string = '';
+  public mainUser!:MainUser;
 
   ngOnInit(): void {
    this._getMemberProfiles();
-  this.scrollToTop();
+   this.scrollToTop();
+   this.getMainUser();
   }
 
   private scrollToTop(): void {
@@ -122,6 +124,13 @@ export class ProfileSelectionComponent {
       error:(error:any)=>{
       this.isLoading = false;
       }
+    })
+  }
+
+
+  private getMainUser(){
+    this.auth.mainUser$.subscribe((res:any)=>{
+      this.mainUser = res;
     })
   }
 }

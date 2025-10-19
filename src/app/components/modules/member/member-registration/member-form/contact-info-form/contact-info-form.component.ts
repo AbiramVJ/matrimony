@@ -93,8 +93,8 @@ export class ContactInfoFormComponent {
       residencyStatus: [1, Validators.required],
       zipCode: ['', Validators.required],
       addressType: [0],
-      latitude:[null],
-      longitude:[null],
+      latitude:[0],
+      longitude:[0],
      // province:[null,[Validators.required]],
       country:[null,[Validators.required]]
       // temporaryAddress: this.fb.group({

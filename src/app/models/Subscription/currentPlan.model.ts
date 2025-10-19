@@ -1,3 +1,5 @@
+import { GetPaymentCardImage } from "../../helpers/Functions/timeConverter";
+
 export class MemberCurrentPlan {
   planId:string;
   subscriptionIdString:string;
@@ -14,6 +16,10 @@ export class MemberCurrentPlan {
   remainingMemberCount: number;
   remainingFriendRequestCount: number;
   subscriptionType:number;
+  totalMemberCount:number;
+  totalFriendRequestCount:number;
+  cardImage:string;
+  subscriptionStatus:number;
 
   constructor(data: any) {
     this.planId = data.planId ?? '';
@@ -31,5 +37,10 @@ export class MemberCurrentPlan {
     this.remainingMemberCount = data.remainingMemberCount ?? 0;
     this.remainingFriendRequestCount = data.remainingFriendRequestCount ?? 0;
     this.subscriptionType = data.subscriptionType ?? 0;
+    this.totalMemberCount = data.totalMemberCount ?? 0;
+    this.totalFriendRequestCount = data.totalFriendRequestCount ?? 0;
+    this.cardImage = GetPaymentCardImage(data.cardType).image ?? '';
+    this.subscriptionStatus = data.subscriptionStatus ?? 0;
+
   }
 }

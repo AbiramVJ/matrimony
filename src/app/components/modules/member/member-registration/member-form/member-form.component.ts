@@ -2,7 +2,7 @@ import { AuthService } from './../../../../../services/auth/auth.service';
 import { MemberService } from '../../../../../services/member.service';
 import { Component } from '@angular/core';
 import { MemberProfileFormComponent } from "./member-profile-form/member-profile-form.component";
-import { MatchPreferences, PersonalDetails, UserBasicForm, UserContactForm, UserDetails, UserEducationDetails, UserFamilyInfo, UserReligiousInfo } from '../../../../../models/index.model';
+import { MainUser, MatchPreferences, PersonalDetails, UserBasicForm, UserContactForm, UserDetails, UserEducationDetails, UserFamilyInfo, UserReligiousInfo } from '../../../../../models/index.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { COMMON_DIRECTIVES } from '../../../../../common/common-imports';
 import { MemberRegistrationStep } from '../../../../../helpers/enum';
@@ -42,6 +42,7 @@ export class MemberFormComponent {
   public isLoading:boolean = false;
 
   public isEditFlow:boolean = true;
+  public mainUser!:MainUser;
 
   constructor(private route:Router,
     private activeRoute: ActivatedRoute,
@@ -280,6 +281,12 @@ private scrollToTop(): void {
       error:(error:any)=>{
       this.isLoading = false;
       }
+    })
+  }
+
+   private getMainUser(){
+    this._authService.mainUser$.subscribe((res:any)=>{
+      this.mainUser = res;
     })
   }
 

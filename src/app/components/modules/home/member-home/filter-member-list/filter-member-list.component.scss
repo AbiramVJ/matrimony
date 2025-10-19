@@ -21,19 +21,16 @@
 .m-card:hover{
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   transform: scale(1.05);
-  color: #ec4b4b;
-  i{
-     color: #ec4b4b !important;
-  }
+  //color: #ec4b4b;
+  // i{
+  //    color: #ec4b4b !important;
+  // }
+
 }
 
 // Dashboard Header
 .dashboard-header {
-  background: linear-gradient(135deg, #030303, #ec4b4b) !important;
-
-
-
-
+  background: linear-gradient(135deg, #9c0903, #ed9c1f) !important;
   .header-title {
     color: white;
     font-weight: 700;

@@ -28,9 +28,21 @@
                     </div>
                   </div>
                 </div>
-                <div class="text-end mt-3">
-                  <button class="btn btn-danger"  (click)="navigateToFrom()"> <span class="fw-bold">+</span> Add Member</button>
+                <!-- <div class="text-end mt-3 me-2" *ngIf="mainUser">
+                  <button class="btn btn-danger me-2"  (click)="navigateToFrom()" [disabled]="mainUser.remainingMemberCount === 0"> <span class="fw-bold">+</span> Add Member</button>
+                  <i class="fas fa-info-circle"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="bottom"
+                    title="Your plan will renew on October 25, 2025"
+                    style="cursor: pointer; font-size: 1.2rem; color: #6c757d;"></i>
+
+                </div> -->
+                <div class="text-end mt-3 me-2" *ngIf="mainUser">
+                  <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="You reached maximum member limit.">
+                    <button class="btn btn-danger me-2" type="button" (click)="navigateToFrom()" [disabled]="mainUser.remainingMemberCount === 0"><span class="fw-bold">+</span> Add Member</button>
+                  </span>
                 </div>
+
                 <div class="row mt-3 ms-0 me-0">
                     <div class="col-12 col-sm-6 p-2 position-relative" *ngFor="let p of memberProfiles">
                       <div class="mx-auto m-shadow p-2">

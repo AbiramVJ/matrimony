@@ -243,7 +243,7 @@ private subScriptionFormInit() {
       if(res !== null){
         console.log(res);
        this.subscriptionForm.get('email')?.patchValue(res.email);
-       this.subscriptionForm.get('name')?.patchValue(res.firstName + ' ' + res.lastName);
+       this.subscriptionForm.get('name')?.patchValue(res.firstName + ' ' + (res.lastName !== null ? res.lastName : ''));
       }
     })
   }
