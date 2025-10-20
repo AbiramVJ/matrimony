@@ -56,6 +56,21 @@
   </div> -->
 
   <div class="col-12 col-md-6 mb-3">
+    <label for="diet" class="mb-1">Raasi</label>
+    <ng-select
+    [items]="rasiList"
+    bindLabel="name"
+    bindValue="id"
+    [ngModelOptions]="{standalone: true}"
+    [clearable]="true"
+    [searchable]="true"
+    [(ngModel)]="selectedRaasi"
+    (ngModelChange)="changeRasi($event)"
+    >
+    </ng-select>
+  </div>
+
+  <div class="col-12 col-md-6 mb-3">
     <label for="diet" class="mb-1">Star/Nakshathra</label>
     <ng-select
     [items]="natshathiraList"
@@ -69,19 +84,6 @@
     </ng-select>
   </div>
 
-  <div class="col-12 col-md-6 mb-3">
-    <label for="diet" class="mb-1">Raasi</label>
-    <ng-select
-    [items]="rasiList"
-    bindLabel="name"
-    bindValue="id"
-    [ngModelOptions]="{standalone: true}"
-    [clearable]="true"
-    [searchable]="true"
-    [(ngModel)]="selectedRaasi"
-    >
-    </ng-select>
-  </div>
   <div class="text-md fw-bold text-muted mb-3 mt-3">Birth Details</div>
  <div class="col-12 col-md-6 mb-3">
   <div class="form-group mb-3">

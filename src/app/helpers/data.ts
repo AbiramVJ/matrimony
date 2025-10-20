@@ -20768,19 +20768,130 @@ export const Natshathira = [
   { id: 27, name: "Revati" }
 ];
 
+// export const raasiList = [
+//   { id: 1, name: "Mesham (Aries)" },
+//   { id: 2, name: "Rishabam (Taurus)" },
+//   { id: 3, name: "Mithunam (Gemini)" },
+//   { id: 4, name: "Kadagam (Cancer)" },
+//   { id: 5, name: "Simmam (Leo)" },
+//   { id: 6, name: "Kanni (Virgo)" },
+//   { id: 7, name: "Thulam (Libra)" },
+//   { id: 8, name: "Viruchigam (Scorpio)" },
+//   { id: 9, name: "Dhanusu (Sagittarius)" },
+//   { id: 10, name: "Magaram (Capricorn)" },
+//   { id: 11, name: "Kumbam (Aquarius)" },
+//   { id: 12, name: "Meenam (Pisces)" }
+// ];
+
 export const raasiList = [
-  { id: 1, name: "Mesham (Aries)" },
-  { id: 2, name: "Rishabam (Taurus)" },
-  { id: 3, name: "Mithunam (Gemini)" },
-  { id: 4, name: "Kadagam (Cancer)" },
-  { id: 5, name: "Simmam (Leo)" },
-  { id: 6, name: "Kanni (Virgo)" },
-  { id: 7, name: "Thulam (Libra)" },
-  { id: 8, name: "Viruchigam (Scorpio)" },
-  { id: 9, name: "Dhanusu (Sagittarius)" },
-  { id: 10, name: "Magaram (Capricorn)" },
-  { id: 11, name: "Kumbam (Aquarius)" },
-  { id: 12, name: "Meenam (Pisces)" }
+  {
+    id: 1,
+    name: "Mesham (Aries)",
+    rasi: [
+      { id: 1, name: "Ashwini" },
+      { id: 2, name: "Bharani" },
+      { id: 3, name: "Krittika (1st pada)" }
+    ]
+  },
+  {
+    id: 2,
+    name: "Rishabam (Taurus)",
+    rasi: [
+      { id: 3, name: "Krittika (2nd–4th padas)" },
+      { id: 4, name: "Rohini" },
+      { id: 5, name: "Mrigashirsha (1st pada)" }
+    ]
+  },
+  {
+    id: 3,
+    name: "Mithunam (Gemini)",
+    rasi: [
+      { id: 5, name: "Mrigashirsha (2nd–4th padas)" },
+      { id: 6, name: "Ardra" },
+      { id: 7, name: "Punarvasu (1st pada)" }
+    ]
+  },
+  {
+    id: 4,
+    name: "Kadagam (Cancer)",
+    rasi: [
+      { id: 7, name: "Punarvasu (2nd–4th padas)" },
+      { id: 8, name: "Pushya" },
+      { id: 9, name: "Ashlesha" }
+    ]
+  },
+  {
+    id: 5,
+    name: "Simmam (Leo)",
+    rasi: [
+      { id: 10, name: "Magha" },
+      { id: 11, name: "Purva Phalguni" },
+      { id: 12, name: "Uttara Phalguni (1st pada)" }
+    ]
+  },
+  {
+    id: 6,
+    name: "Kanni (Virgo)",
+    rasi: [
+      { id: 12, name: "Uttara Phalguni (2nd–4th padas)" },
+      { id: 13, name: "Hasta" },
+      { id: 14, name: "Chitra (1st pada)" }
+    ]
+  },
+  {
+    id: 7,
+    name: "Thulam (Libra)",
+    rasi: [
+      { id: 14, name: "Chitra (2nd–4th padas)" },
+      { id: 15, name: "Swati" },
+      { id: 16, name: "Vishakha (1st pada)" }
+    ]
+  },
+  {
+    id: 8,
+    name: "Viruchigam (Scorpio)",
+    rasi: [
+      { id: 16, name: "Vishakha (2nd–4th padas)" },
+      { id: 17, name: "Anuradha" },
+      { id: 18, name: "Jyeshtha" }
+    ]
+  },
+  {
+    id: 9,
+    name: "Dhanusu (Sagittarius)",
+    rasi: [
+      { id: 19, name: "Mula" },
+      { id: 20, name: "Purva Ashadha" },
+      { id: 21, name: "Uttara Ashadha (1st pada)" }
+    ]
+  },
+  {
+    id: 10,
+    name: "Magaram (Capricorn)",
+    rasi: [
+      { id: 21, name: "Uttara Ashadha (2nd–4th padas)" },
+      { id: 22, name: "Shravana" },
+      { id: 23, name: "Dhanishta (1st pada)" }
+    ]
+  },
+  {
+    id: 11,
+    name: "Kumbam (Aquarius)",
+    rasi: [
+      { id: 23, name: "Dhanishta (2nd–4th padas)" },
+      { id: 24, name: "Shatabhisha" },
+      { id: 25, name: "Purva Bhadrapada (1st pada)" }
+    ]
+  },
+  {
+    id: 12,
+    name: "Meenam (Pisces)",
+    rasi: [
+      { id: 25, name: "Purva Bhadrapada (2nd–4th padas)" },
+      { id: 26, name: "Uttara Bhadrapada" },
+      { id: 27, name: "Revati" }
+    ]
+  }
 ];
 
 export const Complexion = [

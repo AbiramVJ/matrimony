@@ -10,11 +10,10 @@ import { BillingInterval, SubscriptionStatus, SubscriptionType } from '../../../
 import { MemberPlan } from '../../../../models/Subscription/MemberPlan.model';
 import { ToastrService } from 'ngx-toastr';
 import { forkJoin } from 'rxjs';
-import { LoadingComponent } from "../../../../common/loading/loading.component";
 declare var Stripe: any;
 @Component({
   selector: 'app-billing',
-  imports: [CommonModule, FORM_MODULES, NgxPaginationModule, LoadingComponent, TitleCasePipe ],
+  imports: [CommonModule, FORM_MODULES, NgxPaginationModule, TitleCasePipe ],
   templateUrl: './billing.component.html',
   styleUrl: './billing.component.scss'
 })

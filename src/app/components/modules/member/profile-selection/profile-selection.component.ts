@@ -92,10 +92,13 @@ export class ProfileSelectionComponent {
     this.isLoading = true;
     this._memberService.deleteMember(this.deleteMemberId).subscribe({
       next:(res:any) => {
+        this.mainUser.memberCount -= 1;
+        this.mainUser.remainingMemberCount += 1;
+        this.auth.setMainUser(this.mainUser);
         this._getMemberList();
       },
       complete:() => {
-
+         this._toastr.success('Member deleted successfully','Success');
       },
       error:(error:any) => {
        this.isLoading = false;

@@ -55,6 +55,7 @@ export class MemberFormComponent {
   }
 
   ngOnInit(): void {
+    this.getMainUser();
     this.getProfileQusData();
     this.userDetails = this.AuthService.getTokenDecodeData();
   }
@@ -248,9 +249,12 @@ private scrollToTop(): void {
       },
       complete:()=>{
         this.isLoading = false;
+        this.mainUser.memberCount +=1;
+        this.mainUser.remainingMemberCount -=1;
+        this.AuthService.setMainUser(this.mainUser);
         if(this.AuthService.isLoggedIn()){
-          this._getMemberList();
 
+          this._getMemberList();
         }else{
           this.route.navigateByUrl('home/member');
         }
@@ -267,6 +271,7 @@ private scrollToTop(): void {
     this._memberService.getProfiles().subscribe({
       next:(res:any) => {
         this.AuthService.setMemberList(res);
+
         if(res.length === 1){
           localStorage.setItem('currentMemberId',res[0].id);
           this._authService.setUserDetails(res[0]);

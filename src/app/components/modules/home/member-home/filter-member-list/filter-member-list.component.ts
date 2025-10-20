@@ -112,27 +112,28 @@ export class FilterMemberListComponent {
   }
 
   public viewMemberDetails(id: string) {
-    this.isMemberViewLoading = true;
-    this.viewMemberId = id;
-    this.memberService.GetFilterMemberViewData(id).subscribe({
-      next: (res: any) => {
-        this.filterMemberViewData = res;
-        this.isMemberViewLoading  = false;
-      },
-      complete: () => {
-        this.viewMemberId = '';
-        let viewModal: HTMLElement = document.getElementById(
-          'viewProfileModal'
-        ) as HTMLElement;
-        if (viewModal) {
-          viewModal.click();
-        }
-      },
-      error: (error: any) => {
-        this.isMemberViewLoading  = false;
-        this._toastr.error(error.error.Error.Detail, error.error.Error.Title);
-      },
-    });
+    this.router.navigateByUrl(`home/profile/${id}`);
+    // this.isMemberViewLoading = true;
+    // this.viewMemberId = id;
+    // this.memberService.GetFilterMemberViewData(id).subscribe({
+    //   next: (res: any) => {
+    //     this.filterMemberViewData = res;
+    //     this.isMemberViewLoading  = false;
+    //   },
+    //   complete: () => {
+    //     this.viewMemberId = '';
+    //     let viewModal: HTMLElement = document.getElementById(
+    //       'viewProfileModal'
+    //     ) as HTMLElement;
+    //     if (viewModal) {
+    //       viewModal.click();
+    //     }
+    //   },
+    //   error: (error: any) => {
+    //     this.isMemberViewLoading  = false;
+    //     this._toastr.error(error.error.Error.Detail, error.error.Error.Title);
+    //   },
+    // });
   }
 
   public addMember() {

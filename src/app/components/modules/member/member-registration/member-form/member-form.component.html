@@ -156,7 +156,7 @@
                      </div>
                       <div class="m-shadow p-3 profile-card pointer">
                         <div class="px-2" >
-                          <div  [ngClass]="mainUser && mainUser.memberCount > 0 && currentStep !== steps.lookingFor ? 'd-flex justify-content-between' : 'text-center'">
+                          <div  [ngClass]="mainUser && mainUser.memberCount > 0 ? 'd-flex justify-content-between' : 'text-center'">
                             <i class="fas fa-arrow-left fs-5 mt-2 text-danger" (click)="goBack()" *ngIf="
                               mainUser &&
                               mainUser.memberCount > 0

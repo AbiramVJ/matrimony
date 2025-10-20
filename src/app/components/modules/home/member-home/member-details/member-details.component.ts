@@ -3,11 +3,14 @@ import { ActivatedRoute } from '@angular/router';
 import { MemberService } from '../../../../../services/member.service';
 import { FullUserProfile } from '../../../../../models/index.model';
 import { ToastrService } from 'ngx-toastr';
-import { MemberProfileModalComponent } from "../../../../../common/pop-up/member-profile-modal/member-profile-modal.component";
+
+import { MemberProfileModalComponent } from '../../../../../common/pop-up/member-profile-modal/member-profile-modal.component';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-member-details',
-  imports: [MemberProfileModalComponent],
+  imports: [MemberProfileModalComponent, CommonModule],
   templateUrl: './member-details.component.html',
   styleUrl: './member-details.component.scss',
   standalone:true
@@ -15,6 +18,7 @@ import { MemberProfileModalComponent } from "../../../../../common/pop-up/member
 export class MemberDetailsComponent {
 public memberId!: string;
 public filterMemberViewData!: FullUserProfile;
+public isLoading:boolean = false;
 
 constructor(
   private route: ActivatedRoute,
@@ -34,10 +38,12 @@ constructor(
   }
 
   public viewMemberDetails() {
+    this.isLoading = true;
     this.memberService.GetFilterMemberViewData(this.memberId).subscribe({
       next: (res: any) => {this.filterMemberViewData = res;},
-      complete: () => {},
+      complete: () => {this.isLoading = false;},
       error: (error: any) => {
+        this.isLoading = false;
         this._toastr.error(error.error.Error.Detail, error.error.Error.Title);
       },
     });

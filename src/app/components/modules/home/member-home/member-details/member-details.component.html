@@ -1,6 +1,6 @@
 <section class="content">
-  <div class="component-content">
-    <div class="col-8 mx-auto bg-white">
+  <div class="component-content mt-3">
+    <div class="col-8 mx-auto bg-white pb-3" *ngIf="!isLoading">
       <app-member-profile-modal [memberProfile]="filterMemberViewData"></app-member-profile-modal>
     </div>
   </div>
