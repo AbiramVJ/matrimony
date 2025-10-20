@@ -4,10 +4,11 @@ import { COMMON_DIRECTIVES, FORM_MODULES } from '../../../../../../common/common
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { UserBasicForm, UserProfile } from '../../../../../../models/index.model';
 import { ToastrService } from 'ngx-toastr';
+import { ImageCropperComponent } from "../../../../../../common/image-cropper/image-cropper.component";
 
 @Component({
   selector: 'app-member-profile-form',
-  imports: [COMMON_DIRECTIVES,FORM_MODULES],
+  imports: [COMMON_DIRECTIVES, FORM_MODULES, ImageCropperComponent],
   templateUrl: './member-profile-form.component.html',
   styleUrl: './member-profile-form.component.scss',
   standalone:true,
@@ -41,32 +42,43 @@ export class MemberProfileFormComponent {
     })
   }
 
-  onFileSelected(event: Event): void {
-    this.isUploading = false;
-    const input = event.target as HTMLInputElement;
-    if (!input.files || input.files.length === 0) return;
-    const file = input.files[0];
-    const formData = new FormData();
-    formData.append('file', file);
+  // onFileSelected(event: Event): void {
+  //   this.isUploading = false;
+  //   const input = event.target as HTMLInputElement;
+  //   if (!input.files || input.files.length === 0) return;
+  //   const file = input.files[0];
+  //   const formData = new FormData();
+  //   formData.append('file', file);
 
-    this._memberService.uploadImageToBulb(formData).subscribe({
-      next: (res) => {
-        this.images.push(res.Result);
-      },
-      complete:() => {
-        this.isUploading = false;
-      },
-      error: (err) => {
-        console.error('Upload failed:', err);
-        this.isUploading = false;
-      }
-    });
+  //   this._memberService.uploadImageToBulb(formData).subscribe({
+  //     next: (res) => {
+  //       this.images.push(res.Result);
+  //     },
+  //     complete:() => {
+  //       this.isUploading = false;
 
-    input.value = '';
-  }
+  //     },
+  //     error: (err) => {
+  //       console.error('Upload failed:', err);
+  //       this.isUploading = false;
+  //     }
+  //   });
+
+  //   input.value = '';
+  // }
 
   removeImage(index: number): void {
     this.images.splice(index, 1);
+  }
+
+  onImageCropped(event: any): void {
+    this.images.push(event);
+    let viewModal: HTMLElement = document.getElementById(
+          'close-btn'
+        ) as HTMLElement;
+        if (viewModal) {
+          viewModal.click();
+        }
   }
 
   //
@@ -117,22 +129,22 @@ export class MemberProfileFormComponent {
 }
 
 
-   public ngOnChanges(){
-    if(this.memberProfile){
-      this.userBasicFrom.patchValue({
-      gender: this.memberProfile.gender,
-      firstName: this.memberProfile.firstName,
-      lastName: this.memberProfile.lastName,
-      dateOfBirth: this.memberProfile.dateOfBirth,
-      maritalStatus: this.memberProfile.marriageStatus,
-      height: this.memberProfile.height,
-      weight: this.memberProfile.weight,
-    });
+public ngOnChanges(){
+  if(this.memberProfile){
+    this.userBasicFrom.patchValue({
+    gender: this.memberProfile.gender,
+    firstName: this.memberProfile.firstName,
+    lastName: this.memberProfile.lastName,
+    dateOfBirth: this.memberProfile.dateOfBirth,
+    maritalStatus: this.memberProfile.marriageStatus,
+    height: this.memberProfile.height,
+    weight: this.memberProfile.weight,
+  });
 
-      this.memberProfile.profileImages.forEach((element :any) => {
-        this.images.push(element.url);
-        this.userBasicFrom.get('isVisible')?.patchValue(element.isVisible);
-      });
+  this.memberProfile.profileImages.forEach((element :any) => {
+      this.images.push(element.url);
+      this.userBasicFrom.get('isVisible')?.patchValue(element.isVisible);
+     });
     }
   }
 }

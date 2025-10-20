@@ -76,7 +76,7 @@
                   <i class="fa fa-window-close text-md text-danger" aria-hidden="true"></i>
                   </button>
                 </div>
-                <div *ngIf="images.length < 5" class="img-box border rounded pointer d-flex justify-content-center align-items-center" style="width: 80px; height: 80px;" (click)="fileInput.click()">
+                <div *ngIf="images.length < 5" class="img-box border rounded pointer d-flex justify-content-center align-items-center" style="width: 80px; height: 80px;" data-bs-toggle="modal" data-bs-target="#exampleModal">
                   <span class="text-md fw-bold" *ngIf="!isUploading">+</span>
                   <div class="spinner-border spinner-border-sm text-light me-1" role="status" *ngIf="isUploading"></div>
                 </div>
@@ -86,7 +86,7 @@
 
 
           <!-- Hidden File Input -->
-          <input type="file"  accept="image/*"  #fileInput (change)="onFileSelected($event)" style="display: none"/>
+
           <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && images.length === 0">Image is required</div>
           <div class="form-check mt-1">
             <input class="form-check-input small-check" type="checkbox" [value]="true" id="flexCheckChecked" formControlName="isVisible">
@@ -172,4 +172,21 @@
 <button class="btn btn-danger me-3 w-100 mt-5" (click)="next()" [disabled]="isLoading">
     <div class="spinner-border spinner-border-sm text-light me-1" *ngIf="isLoading"></div>{{isEditFrom ? 'UPDATE': 'NEXT'}}</button>
 </form>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Image Cropper</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-btn"></button>
+      </div>
+      <div class="modal-body">
+        <app-image-cropper (imageCroppedEvent)="onImageCropped($event)"></app-image-cropper>
+      </div>
+    </div>
+  </div>
+</div>
 
