@@ -154,6 +154,7 @@ export function minimumAgeValidator(minAge: number) {
     const dobValue = control.value;
     if (!dobValue) return null;
 
+
     const today = new Date();
     const birthDate = new Date(dobValue);
     let age = today.getFullYear() - birthDate.getFullYear();
