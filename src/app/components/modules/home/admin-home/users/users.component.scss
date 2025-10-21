@@ -102,3 +102,9 @@
   font-weight: 500;
   letter-spacing: 0.3px;
 }
+
+
+::ng-deep .my-select .ng-select .ng-select-container {
+  height: 40px !important;
+}
+
