@@ -20940,8 +20940,21 @@ export const billingIntervalsList = [
 ]
 
 export const subscriptionTypeList = [
+  { id: 0, name: 'All' },
   { id: 1, name: 'Free' },
   { id: 2, name: 'Silver' },
   { id: 3, name: 'Gold' },
   { id: 4, name: 'Platinum' }
+];
+
+export const sortedBy = [
+  { id: 0, name: 'All' },
+  { id: 1, name: 'Name' },
+  { id: 2, name: 'Created Date' },
+];
+
+export const sortedDirection = [
+  { id: 0, name: 'All' },
+  { id: 1, name: 'Ascending' },
+  { id: 2, name: 'Descending' },
 ];

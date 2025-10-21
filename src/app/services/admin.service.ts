@@ -7,6 +7,8 @@ import { clientData } from '../helpers/util';
 import { map } from 'rxjs';
 import { CommonResponse } from '../models/commonResponse.model';
 import { Education, Religion } from '../models/index.model';
+import { User } from '../models/member/user.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -98,7 +100,6 @@ export class AdminService {
     );
   }
 
-
   public createReligion(body:any){
      return this.http.post<any>(this.baseUrl + 'Religion', body);
   }
@@ -109,6 +110,18 @@ export class AdminService {
 
   public deleteReligion(id:string){
     return this.http.delete<any>(this.baseUrl + `Religion?id=${id}`);
+  }
+
+  public getAllUsers(pageNumber:number, pageSize:number, body:any){
+    return this.http.post(this.baseUrl + `User/get-all-users?pageNumber=${pageNumber}&pageSize=${pageSize}`,body).pipe(
+        map((res: any) => {
+          return new CommonResponse<User>(res.Result, User);
+      })
+    );
+  }
+
+  public deleteUser(id:string){
+    return this.http.delete<any>(this.baseUrl + `Auth/delete-user/${id}`);
   }
 
 

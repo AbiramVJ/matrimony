@@ -142,7 +142,7 @@
           <!-- NOTIFICATION DROP DOWNBOX -->
           <div class="boder rounded bg-white position-absolute message-box bg-light p-0" *ngIf="isNotificationOpen" (scroll)="onNotificationScroll($event)">
             <div class="bg-light">
-              <div class="h5 p-3" >Notifications</div>
+              <div class="h5 p-4 border-bottom m-0" >Notifications</div>
               <div class="bg-white border px-3 py-2" *ngIf="notificationList.length !== 0">
                 <div class="d-flex text-md fw-bold justify-content-between">
                   <div class="my-auto">
@@ -167,7 +167,7 @@
                 </div>
                </div>
                <div *ngIf="friendRequestList.length === 0">
-              <div class="text-md text-center mb-3" *ngIf="notificationList.length === 0">
+              <div class="text-md text-center mb-3 bg-white" *ngIf="notificationList.length === 0">
                 <div>
                   <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                       stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-muted">
@@ -253,7 +253,7 @@
                <span class="ms-3"> Plan & Billing</span>
              </div>
 
-              <div class="text-md fw-bold text-muted pointer toggle-navigation py-3 my-auto ps-1">
+              <div class="text-md fw-bold text-muted pointer toggle-navigation py-3 my-auto ps-1" (click)="enterSettings()">
                 <span class="border bg-light rounded p-2">
                   <i class="fas fa-cog"></i>
                 </span>

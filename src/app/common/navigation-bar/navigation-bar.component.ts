@@ -480,8 +480,12 @@ export class NavigationBarComponent {
     });
   }
 
-  public enterPlanAndBilling(){
+  public enterSettings(){
     this.isProfileOpen = false;
+    this.router.navigateByUrl('home/main-user');
+  }
+
+  public enterPlanAndBilling(){
     this.router.navigateByUrl('member/billing');
   }
 }
