@@ -432,7 +432,7 @@ export class NavigationBarComponent {
       type.notificationType === NotificationType.FriendRequestAccept &&
       type.parsedPayload
     ) {
-      this.viewMemberDetails(type.parsedPayload?.ProfileId);
+       this.router.navigateByUrl(`home/profile/${type.parsedPayload?.ProfileId}`);
     }
     this._makeItAsReadNotification(type.id);
   }

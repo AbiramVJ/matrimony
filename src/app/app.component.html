@@ -20,17 +20,6 @@
 
 <router-outlet class="main-content" ></router-outlet>
 
-<div class="d-flex justify-content-center align-items-center min-vh-100" *ngIf="isLoading">
-  <div class="spinner-grow text-danger me-1" role="status">
-    <span class="visually-hidden">Loading...</span>
-  </div>
-  <div class="spinner-grow text-warning me-1" role="status">
-    <span class="visually-hidden">Loading...</span>
-  </div>
-  <div class="spinner-grow text-danger" role="status">
-    <span class="visually-hidden">Loading...</span>
-  </div>
-</div>
 
 <div class="modal fade" id="staticBackdrops" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -42,3 +31,4 @@
     </div>
   </div>
 </div>
+<app-loading *ngIf="isLoading"></app-loading>

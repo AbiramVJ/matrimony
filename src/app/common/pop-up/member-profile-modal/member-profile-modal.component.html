@@ -35,7 +35,7 @@
                     <span class="sr-only">Loading...</span>
                   </div>
                 </button>
-              <button class="btn bt-danger-light bg-danger text-white me-3"  [disabled]="isLoading" (click)="addFriendRequest(memberProfile.id)"  *ngIf="memberProfile.friendRequest?.receiverProfileId !== selectedMember && memberProfile.friendRequest === null">
+              <button class="btn bt-danger-light bg-danger text-white me-3"  [disabled]="isLoading " (click)="addFriendRequest(memberProfile.id)"  *ngIf="memberProfile.friendRequest?.receiverProfileId !== selectedMember && memberProfile.friendRequest === null">
                 <i class="fas fa-user-plus text-white me-2"></i>
                 Add Friend
                  <div class="spinner-border text-light me-1 spinner-border-sm" role="status" *ngIf="isLoading">

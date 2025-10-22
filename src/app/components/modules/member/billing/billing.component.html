@@ -189,7 +189,7 @@
 
                         </ul>
                       </div>
-                      <button class="btn  w-100 mb-2 dim-btn bg-white text-danger" data-bs-toggle="modal" data-bs-target="#switchPlan" (click)="newPlanId = plan.subscriptionType">
+                      <button class="btn w-100 mb-2 bg-white text-danger" [ngClass]="currentPlan.canChangeSubscription ? 'btn-danger':'btn-striped'" data-bs-toggle="modal" data-bs-target="#switchPlan" (click)="newPlanId = plan.subscriptionType" [disabled]="!currentPlan.canChangeSubscription">
                          <span class=""> Switch Plan</span>
                           <!-- <span class="" *ngIf="plan.subscriptionType === subscriptionType.Silver">Continue with Silver Plan</span>
                           <span class="" *ngIf="plan.subscriptionType === subscriptionType.Gold">Continue with Gold Plan</span>
@@ -228,7 +228,7 @@
         <div class="text-center text-lg mb-3">Do you want to switch your plan?</div>
         <div class="text-center d-flex">
           <button type="button" class="btn btn-light w-75 me-3" data-bs-dismiss="modal">No</button>
-          <button type="button" class="btn btn-danger w-75" (click)="switchPlan()" [disabled]="isSwitchPlanLoading"> <div class="spinner-border spinner-border-sm text-light me-1" role="status" *ngIf="isSwitchPlanLoading"></div> Yes</button>
+          <button type="button" class="btn btn-danger w-75" (click)="switchPlan()" [disabled]="isSwitchPlanLoading " > <div class="spinner-border spinner-border-sm text-light me-1" role="status" *ngIf="isSwitchPlanLoading"></div> Yes</button>
         </div>
       </div>
     </div>
@@ -294,6 +294,35 @@
             </div>
             </div>
 
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#retrieve-staticBackdrop" id="open-retrieve-payment-modal">
+  retrieve payment
+</button>
+
+
+<!-- Modal -->
+<div class="modal fade" id="retrieve-staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-12 text-center">
+            <img src="https://cdni.iconscout.com/illustration/premium/thumb/payment-failed-illustration-svg-download-png-3822060.png" alt="payment-declined" width="300" class="mb-3">
+            <h4>Your previous payment method was declined.</h4>
+            <div class="text-center text-md mb-3 text-muted"> Please update your payment information to continue your subscription.</div>
+            <div class="text-center d-flex justify-content-center">
+              <button type="button" class="btn btn-danger w-75" data-bs-dismiss="modal">Ok</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

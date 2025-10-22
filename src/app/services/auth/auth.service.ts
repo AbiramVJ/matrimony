@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, catchError, map, Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
@@ -21,6 +21,12 @@ export class AuthService {
 
   private mainUserSubject$ = new BehaviorSubject<MainUser | null>(null);
   mainUser$ = this.mainUserSubject$.asObservable();
+
+  public isActiveSubscription$ = new BehaviorSubject<boolean | null>(null);
+
+  // public isActiveSubscriptionSignal = signal<boolean>(false);
+
+
 
 
   constructor(private http: HttpClient) { }
@@ -169,6 +175,18 @@ export class AuthService {
   public setMainUser(userDetails:any){
     this.mainUserSubject$.next(userDetails);
   }
+
+  public setActiveSubscription(isActiveSubscription: boolean) {
+    this.isActiveSubscription$.next(isActiveSubscription);
+  }
+
+  // setIsActiveSubscription(isActive: boolean) {
+  //   this.isActiveSubscriptionSignal.set(isActive);
+  // }
+
+  // getIsActiveSubscription() {
+  //   return this.isActiveSubscriptionSignal.asReadonly();
+  // }
 
 
 }

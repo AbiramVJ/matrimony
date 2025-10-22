@@ -16,6 +16,14 @@ export class AuthGuardService {
     const user = this.authService.getUserType();
     const routeUserAccess = route.data['accessUsers'];
     if (routeUserAccess.includes(user)) {
+        // this.authService.isActiveSubscription$.subscribe((active: boolean | null) => {
+        //   // if(!active){
+        //   //   this.router.navigateByUrl('member/billing');
+        //   // }
+        //    if(!active && route.routeConfig?.path !== 'member/billing' && !route.routeConfig?.path?.includes('member/billing')) {
+        //          this.router.navigateByUrl('member/billing');
+        //     }
+        // });
       return true;
     } else {
       this.router.navigateByUrl('not-found');

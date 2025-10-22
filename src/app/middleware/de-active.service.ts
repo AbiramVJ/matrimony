@@ -17,7 +17,6 @@ export class DeActiveService implements CanActivate {
       return !this.authService.isLoggedIn();
     }
 
-   // user === 'Student' ? this.router.navigateByUrl('student-home') : this.router.navigateByUrl('admin/home');
    this.router.navigateByUrl('home/member');
    return this.authService.isLoggedIn();
 

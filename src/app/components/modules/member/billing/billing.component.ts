@@ -1,3 +1,4 @@
+import { MainUser } from './../../../../models/member/member.model';
 
 import { SubscriptionService } from './../../../../services/subscription.service';
 import { CommonModule, TitleCasePipe } from '@angular/common';
@@ -10,6 +11,7 @@ import { BillingInterval, SubscriptionStatus, SubscriptionType } from '../../../
 import { MemberPlan } from '../../../../models/Subscription/MemberPlan.model';
 import { ToastrService } from 'ngx-toastr';
 import { forkJoin } from 'rxjs';
+import { AuthService } from '../../../../services/auth/auth.service';
 declare var Stripe: any;
 @Component({
   selector: 'app-billing',
@@ -22,6 +24,7 @@ export class BillingComponent {
   public availablePlans!: MemberPlan;
   public currentPlan!:MemberCurrentPlan;
   public invoices:Invoice[] = [];
+  public mainUser!:MainUser;
 
   public totalItemCount: number = 0;
   public itemsPerPage: number = 6;
@@ -50,6 +53,7 @@ export class BillingComponent {
   public clientSecret:string = '';
   public isLoading:boolean = false;
   public isSwitchPlanLoading = false;
+  public isActiveSubscription: boolean | null = null;
 
   public newPlanId:number = 0;
 
@@ -59,8 +63,11 @@ export class BillingComponent {
   constructor(
     private subscriptionService:SubscriptionService,
     private toastr: ToastrService,
+    private authService:AuthService
   ){}
   ngOnInit(): void {
+  this.loadMainUserSubscriptionStatus();
+  this.getMainUser();
   this.loadBillingData();
 }
 
@@ -269,8 +276,6 @@ private loadBillingData(): void {
     }
   }
 
-
-
   public confirmPayment(){
     this.isSubmitted = true;
     this.isChangeLoading = true;
@@ -326,7 +331,13 @@ private loadBillingData(): void {
         this.newPlanId = 0;
       },
       error: (error:any) => {
-        this.isSwitchPlanLoading = true;
+        let viewModal: HTMLElement = document.getElementById(
+          'close-btn'
+        ) as HTMLElement;
+        if (viewModal) {
+          viewModal.click();
+        }
+        this.isSwitchPlanLoading = false;
         this.isLoading = false;
         this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
       }
@@ -342,12 +353,38 @@ private loadBillingData(): void {
         this.toastr.success('Plan reactivated','Success');
         this.isCancelLoading = false;
         this.currentPlan.isRequestToCancel = false;
-        this.getPlanAndBilling();
+        this.mainUser.isActiveSubscription = true;
+        this.authService.setMainUser(this.mainUser);
+        this.authService.setActiveSubscription(true);
+        // this.authService.setIsActiveSubscription(true);
+        window.location.href = "/";
+       // this.getPlanAndBilling();
       },
       error: (error:any) => {
         this.isCancelLoading = false;
         this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
       }
+    })
+  }
+
+  public loadMainUserSubscriptionStatus(){
+    this.authService.isActiveSubscription$.subscribe((active: boolean | null) => {
+      console.log(active);
+      this.isActiveSubscription = active;
+      if(!active && active){
+        let viewModal: HTMLElement = document.getElementById(
+          'open-retrieve-payment-modal'
+        ) as HTMLElement;
+        if (viewModal) {
+          viewModal.click();
+        }
+      }
+    });
+  }
+
+  private getMainUser(){
+    this.authService.mainUser$.subscribe((res:any)=>{
+      this.mainUser = res;
     })
   }
 

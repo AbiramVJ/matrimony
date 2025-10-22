@@ -4,7 +4,7 @@ import { MemberService } from './../../../services/member.service';
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { COMMON_DIRECTIVES } from '../../common-imports';
-import { ChatParticipant, FullUserProfile, MemberProfile, Request } from '../../../models/index.model';
+import { ChatParticipant, FullUserProfile, MainUser, MemberProfile, Request } from '../../../models/index.model';
 import { FriendRequestStatus } from '../../../helpers/enum';
 import { ChatService } from '../../../services/chat.service';
 import { Router } from '@angular/router';
@@ -18,6 +18,8 @@ import { Router } from '@angular/router';
 })
 export class MemberProfileModalComponent {
 @Input() memberProfile!:FullUserProfile;
+
+public mainUser!:MainUser;
 
 public tabs:any = [
   { id: 1, icon: 'fas fa-user', label: 'Overview' },
@@ -40,6 +42,10 @@ constructor(
   private router: Router,
 ){
 
+}
+
+ngOnInit(): void {
+  this.getMainUser();
 }
 
 ngOnChanges(): void {
@@ -134,6 +140,12 @@ ngOnChanges(): void {
               viewModal.click();
             }
     this.router.navigate(['/home/chat']);
+  }
+
+  private getMainUser(){
+    this._authService.mainUser$.subscribe((res:any)=>{
+      this.mainUser = res;
+    })
   }
 
 }

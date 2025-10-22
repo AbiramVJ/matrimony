@@ -21,3 +21,14 @@
   background-color: rgb(63 144 63);
   color: white !important;
 }
+.btn-striped {
+            background: repeating-linear-gradient(
+                45deg,
+                #f0f0f0,
+                #f0f0f0 10px,
+                #e0e0e0 10px,
+                #e0e0e0 20px
+            );
+            color: #999;
+            cursor: not-allowed;
+        }

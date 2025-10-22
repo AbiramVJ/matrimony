@@ -2,6 +2,8 @@
 import { Routes } from '@angular/router';
 import { AuthGuardService } from '../../../middleware/auth-guard.service';
 import { userRoleNames as role } from '../../../helpers/util';
+import { DeActiveService } from '../../../middleware/de-active.service';
+import { deactivateGuard } from '../../../middleware/deactivate.guard';
 
 export const MembersRoutingModules: Routes = [
 {
@@ -39,9 +41,9 @@ export const MembersRoutingModules: Routes = [
  {
   path:'billing',
   loadComponent:() => import('./billing/billing.component').then(m => m.BillingComponent),
-  canActivate:[AuthGuardService],
-  data:{accessUsers: [role.member]}
- }
+  data:{accessUsers: [role.member]},
+  canDeactivate: [deactivateGuard]
+}
 
 
 ];

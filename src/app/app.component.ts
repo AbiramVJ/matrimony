@@ -1,10 +1,11 @@
+import { SubscriptionStatus } from './helpers/enum';
 import { FullUserProfile, MainUser, UserProfile } from './models/member/member.model';
 import { FriendSignalRService } from './services/friend-signal-r.service';
 import { ChatService } from './services/chat.service';
 import { SignalRService } from './services/signal-r.service';
 import { AuthService } from './services/auth/auth.service';
 import { DataProviderService } from './services/data-provider.service';
-import { Component } from '@angular/core';
+import { Component, effect, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { NavigationBarComponent } from "./common/navigation-bar/navigation-bar.component";
 import { CommonModule } from '@angular/common';
@@ -15,11 +16,12 @@ import { MemberProfileModalComponent } from "./common/pop-up/member-profile-moda
 import { UserType } from './helpers/util';
 import { TopBarComponent } from "./common/top-bar/top-bar.component";
 import { AdminSideBarComponent } from "./common/admin-side-bar/admin-side-bar.component";
+import { LoadingComponent } from "./common/loading/loading.component";
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, COMMON_DIRECTIVES, NavigationBarComponent, MobileTopBarComponent, MemberProfileModalComponent, TopBarComponent, AdminSideBarComponent],
+  imports: [RouterOutlet, CommonModule, COMMON_DIRECTIVES, NavigationBarComponent, MobileTopBarComponent, MemberProfileModalComponent, TopBarComponent, AdminSideBarComponent, LoadingComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -35,6 +37,8 @@ export class AppComponent {
   public currentUserType:any;
   public mainUser!: MainUser;
   public memberList:UserProfile[] = [];
+  public isActiveSubscription = false;
+
   constructor(
      private dataProviderService:DataProviderService,
      private _authService:AuthService,
@@ -45,7 +49,8 @@ export class AppComponent {
      private _signalRService : SignalRService
     ){
       this.currentUserType = localStorage.getItem('userType');
-  }
+
+    }
 
   ngOnInit(): void {
     this.dataProviderService.getUserGeoLocation();
@@ -139,11 +144,13 @@ export class AppComponent {
       next: (res: any) => {
         this.mainUser = res;
         this._authService.setMainUser(res);
+        this._authService.setActiveSubscription(res.isActiveSubscription);
         if(res.isActiveSubscription){
           this._getMemberList();
         } else{
+          console.log('redirect to plan');
           this.isLoading = false;
-          this.router.navigateByUrl('member/plans');
+          res.SubscriptionStatus === null ? this.router.navigateByUrl('member/plans') : this.router.navigateByUrl('member/billing');
         }
       },
       complete: () => {},
