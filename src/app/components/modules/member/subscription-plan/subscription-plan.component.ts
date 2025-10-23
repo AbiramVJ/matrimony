@@ -15,7 +15,7 @@ import { LoadingComponent } from "../../../../common/loading/loading.component";
 
 @Component({
   selector: 'app-subscription-plan',
-  imports: [FORM_MODULES, CommonModule, LoadingComponent],
+  imports: [FORM_MODULES, CommonModule, LoadingComponent, TopBarComponent],
   templateUrl: './subscription-plan.component.html',
   styleUrl: './subscription-plan.component.scss'
 })

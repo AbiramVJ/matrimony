@@ -5,10 +5,11 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminService } from '../../../../../services/admin.service';
 import { ToastrService } from 'ngx-toastr';
+import { LoadingComponent } from "../../../../../common/loading/loading.component";
 
 @Component({
   selector: 'app-religion',
-  imports: [COMMON_DIRECTIVES,NgxPaginationModule,FORM_MODULES],
+  imports: [COMMON_DIRECTIVES, NgxPaginationModule, FORM_MODULES, LoadingComponent],
   templateUrl: './religion.component.html',
   styleUrl: './religion.component.scss'
 })

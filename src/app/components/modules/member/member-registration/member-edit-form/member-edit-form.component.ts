@@ -13,10 +13,11 @@ import { FamilyInformationFormComponent } from "../member-form/family-informatio
 import { ReligiousBackgroundFormComponent } from "../member-form/religious-background-form/religious-background-form.component";
 import { EducationDetailsFormComponent } from "../member-form/education-details-form/education-details-form.component";
 import { UpperCasePipe } from '@angular/common';
+import { LoadingComponent } from "../../../../../common/loading/loading.component";
 
 @Component({
   selector: 'app-member-edit-form',
-  imports: [FORM_MODULES, ROUTER_MODULES, COMMON_DIRECTIVES, LookingForFormComponent, MemberProfileFormComponent, ContactInfoFormComponent, PersonalDetailsFormComponent, FamilyInformationFormComponent, ReligiousBackgroundFormComponent, EducationDetailsFormComponent, UpperCasePipe],
+  imports: [FORM_MODULES, ROUTER_MODULES, COMMON_DIRECTIVES, LookingForFormComponent, MemberProfileFormComponent, ContactInfoFormComponent, PersonalDetailsFormComponent, FamilyInformationFormComponent, ReligiousBackgroundFormComponent, EducationDetailsFormComponent, UpperCasePipe, LoadingComponent],
   templateUrl: './member-edit-form.component.html',
   styleUrl: './member-edit-form.component.scss'
 })

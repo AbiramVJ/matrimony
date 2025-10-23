@@ -1,4 +1,5 @@
 
+<app-top-bar *ngIf="mainUser.memberCount === 0"></app-top-bar>
 <section class="content">
   <div class="component-content">
     <div class="row m-0" [ngClass]="currentStep === steps.family || currentStep === steps.lookingFor ? 'bg-small':'bg-color'">

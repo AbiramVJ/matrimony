@@ -37,6 +37,7 @@ export class AppComponent {
   public currentUserType:any;
   public mainUser!: MainUser;
   public memberList:UserProfile[] = [];
+  public subscriptionStatus = SubscriptionStatus;
   public isActiveSubscription = false;
 
   constructor(
@@ -150,7 +151,7 @@ export class AppComponent {
         } else{
           console.log('redirect to plan');
           this.isLoading = false;
-          res.SubscriptionStatus === null ? this.router.navigateByUrl('member/plans') : this.router.navigateByUrl('member/billing');
+          res.subscriptionStatus === this.subscriptionStatus.none ? this.router.navigateByUrl('member/plans') : this.router.navigateByUrl('member/billing');
         }
       },
       complete: () => {},

@@ -4,6 +4,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { MemberService } from '../../services/member.service';
 
+
 interface AspectRatio {
   label: string;
   value: number;
@@ -83,29 +84,60 @@ export class ImageCropperComponent {
     this.resetImage();
   }
 
-  saveCroppedImage(): void {
-  console.log("hi");
-  if (!this.croppedBlob) {
-    console.warn('No cropped image to upload');
-    return;
-  }
-  this.isUploading = true;
-  const formData = new FormData();
-  formData.append('file', this.croppedBlob, `cropped-image-${Date.now()}.png`);
-  this._memberService.uploadImageToBulb(formData).subscribe({
-    next: (res) => {
-      this.imageCroppedEvent.emit(res.Result);
-      this.showPreview = true;
-      this.resetImage();
-    },
-    error: (err) => {
-      console.error('Upload failed:', err);
-    },
-    complete: () => {
-      this.isUploading = false;
 
+
+  async saveCroppedImage(): Promise<void> {
+    if (!this.croppedBlob) {
+      console.warn('No cropped image to upload');
+      return;
     }
-  });
-}
 
+    this.isUploading = true;
+
+    try {
+      // Compress the image
+      const compressedBlob = await compressBlob(this.croppedBlob, 1024, 0.8);
+
+      // Prepare form data
+      const formData = new FormData();
+      formData.append('file', compressedBlob, `cropped-image-${Date.now()}.png`);
+
+      // Upload
+      this._memberService.uploadImageToBulb(formData).subscribe({
+        next: (res) => {
+          this.imageCroppedEvent.emit(res.Result);
+          this.showPreview = true;
+          this.resetImage();
+        },
+        error: (err) => {
+          console.error('Upload failed:', err);
+        },
+        complete: () => {
+          this.isUploading = false;
+        }
+      });
+    } catch (error) {
+      console.error('Compression failed:', error);
+      this.isUploading = false;
+    }
+  }
+
+
+}
+export function compressBlob(blob: Blob, maxWidth: number = 1024, quality: number = 0.8): Promise<Blob> {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const scale = Math.min(maxWidth / img.width, 1);
+      canvas.width = img.width * scale;
+      canvas.height = img.height * scale;
+      const ctx = canvas.getContext('2d');
+      ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);
+      canvas.toBlob((b) => {
+        if (b) resolve(b);
+      }, 'image/png', quality);
+    };
+    img.src = URL.createObjectURL(blob);
+  });
 }

@@ -17,7 +17,8 @@ import {
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ToastrService } from 'ngx-toastr';
 import { MemberProfileModalComponent } from '../../../../../common/pop-up/member-profile-modal/member-profile-modal.component';
-import { distinctUntilChanged, Subject, takeUntil } from 'rxjs';
+import { combineLatest, distinctUntilChanged, filter, Subject, takeUntil } from 'rxjs';
+import { LoadingComponent } from "../../../../../common/loading/loading.component";
 
 @Component({
   selector: 'app-filter-member-list',
@@ -27,7 +28,8 @@ import { distinctUntilChanged, Subject, takeUntil } from 'rxjs';
     CommonModule,
     NgxPaginationModule,
     MemberProfileModalComponent,
-  ],
+    LoadingComponent
+],
   templateUrl: './filter-member-list.component.html',
   styleUrl: './filter-member-list.component.scss',
 })
@@ -52,23 +54,18 @@ export class FilterMemberListComponent {
     private router: Router,
     private _chatService: ChatService
   ) {
-    this.auth.member$.subscribe((data) => {
-      if (data) {
-        this.currentsUser = data;
-        this.isGetUser = true;
-      }
-    });
-
-    this.memberService.filter$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((filter) => {
-        if (filter) {
-          this.filter = filter;
-          this.itemsPerPage = 6;
-          this.currentPage = 1;
-          this.getAllMatchingProfiles();
-        }
-      });
+     combineLatest([
+    this.auth.member$.pipe(filter(user => !!user)),
+    this.memberService.filter$.pipe(filter(f => !!f))
+  ])
+  .pipe(takeUntil(this.destroy$))
+  .subscribe(([user, filterData]) => {
+    this.currentsUser = user;
+    this.filter = filterData;
+    this.itemsPerPage = 6;
+    this.currentPage = 1;
+    this.getAllMatchingProfiles();
+  });
   }
 
   ngOnInit(): void {
@@ -112,28 +109,28 @@ export class FilterMemberListComponent {
   }
 
   public viewMemberDetails(id: string) {
-    this.router.navigateByUrl(`home/profile/${id}`);
-    // this.isMemberViewLoading = true;
-    // this.viewMemberId = id;
-    // this.memberService.GetFilterMemberViewData(id).subscribe({
-    //   next: (res: any) => {
-    //     this.filterMemberViewData = res;
-    //     this.isMemberViewLoading  = false;
-    //   },
-    //   complete: () => {
-    //     this.viewMemberId = '';
-    //     let viewModal: HTMLElement = document.getElementById(
-    //       'viewProfileModal'
-    //     ) as HTMLElement;
-    //     if (viewModal) {
-    //       viewModal.click();
-    //     }
-    //   },
-    //   error: (error: any) => {
-    //     this.isMemberViewLoading  = false;
-    //     this._toastr.error(error.error.Error.Detail, error.error.Error.Title);
-    //   },
-    // });
+   // this.router.navigateByUrl(`home/profile/${id}`);
+    this.isMemberViewLoading = true;
+    this.viewMemberId = id;
+    this.memberService.GetFilterMemberViewData(id).subscribe({
+      next: (res: any) => {
+        this.filterMemberViewData = res;
+        this.isMemberViewLoading  = false;
+      },
+      complete: () => {
+        this.viewMemberId = '';
+        let viewModal: HTMLElement = document.getElementById(
+          'viewProfileModal'
+        ) as HTMLElement;
+        if (viewModal) {
+          viewModal.click();
+        }
+      },
+      error: (error: any) => {
+        this.isMemberViewLoading  = false;
+        this._toastr.error(error.error.Error.Detail, error.error.Error.Title);
+      },
+    });
   }
 
   public addMember() {

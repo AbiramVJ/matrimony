@@ -21,6 +21,9 @@ export class MainUserProfileComponent {
   mainUser!:MainUser;
   public selectedMember!:UserProfile;
   public memberProfiles: UserProfile[] = [];
+  public isGeneral:boolean = true;
+
+  public resetPasswordFrom!:FormGroup;
 
 constructor(private fb: FormBuilder,
   private _memberService:MemberService,
@@ -36,18 +39,27 @@ constructor(private fb: FormBuilder,
     });
   }
 
-   ngOnInit(): void {
+
+  ngOnInit(): void {
     this.loadProfileData();
     this._getCurrentMember();
     this._getMemberProfiles();
+    this._resetFromInit();
   }
 
-   loadProfileData(): void {
+  private _resetFromInit(){
+    this.resetPasswordFrom = this.fb.group({
+      correctPassword:['',[Validators.required]],
+      newPassword:['',[Validators.required]],
+      confirmNewPassword:['',[Validators.required]],
+    })
+  }
+
+  loadProfileData(): void {
     this.isLoading = true;
     this._memberService.getMainUser().subscribe({
       next:(res:any)=>{
       this.mainUser = res;
-
       },
       complete:()=>{
         this.profileForm.patchValue({

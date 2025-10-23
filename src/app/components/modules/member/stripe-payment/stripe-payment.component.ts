@@ -10,10 +10,11 @@ import { SubscriptionPlan } from '../../../../models/Subscription/MemberPlan.mod
 import { MainUser } from '../../../../models/index.model';
 import { BillingInterval } from '../../../../helpers/enum';
 import { LoadingComponent } from "../../../../common/loading/loading.component";
+import { TopBarComponent } from "../../../../common/top-bar/top-bar.component";
 declare var Stripe: any;
 @Component({
   selector: 'app-stripe-payment',
-  imports: [CommonModule, FORM_MODULES, LoadingComponent],
+  imports: [CommonModule, FORM_MODULES, LoadingComponent, TopBarComponent],
   templateUrl: './stripe-payment.component.html',
   styleUrl: './stripe-payment.component.scss'
 })

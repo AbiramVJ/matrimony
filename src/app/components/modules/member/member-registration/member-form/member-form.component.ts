@@ -14,11 +14,12 @@ import { EducationDetailsFormComponent } from "./education-details-form/educatio
 import { LookingForFormComponent } from "./looking-for-form/looking-for-form.component";
 import { ToastrService } from 'ngx-toastr';
 import { LoadingComponent } from "../../../../../common/loading/loading.component";
+import { TopBarComponent } from "../../../../../common/top-bar/top-bar.component";
 
 
 @Component({
   selector: 'app-member-form',
-  imports: [MemberProfileFormComponent, COMMON_DIRECTIVES, ContactInfoFormComponent, PersonalDetailsFormComponent, FamilyInformationFormComponent, ReligiousBackgroundFormComponent, EducationDetailsFormComponent, LookingForFormComponent, LoadingComponent],
+  imports: [MemberProfileFormComponent, COMMON_DIRECTIVES, ContactInfoFormComponent, PersonalDetailsFormComponent, FamilyInformationFormComponent, ReligiousBackgroundFormComponent, EducationDetailsFormComponent, LookingForFormComponent, LoadingComponent, TopBarComponent],
   templateUrl: './member-form.component.html',
   styleUrl: './member-form.component.scss'
 })
@@ -253,7 +254,6 @@ private scrollToTop(): void {
         this.mainUser.remainingMemberCount -=1;
         this.AuthService.setMainUser(this.mainUser);
         if(this.AuthService.isLoggedIn()){
-
           this._getMemberList();
         }else{
           this.route.navigateByUrl('home/member');

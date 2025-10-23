@@ -8,10 +8,16 @@ html, body {
   background-color: #f7f7f7;
 }
 
-.btn-danger{
-  background: #ef4343 !important;
-  border:none
+.btn-danger {
+  background: linear-gradient(135deg, #ef2626 0%, #c34242 100%);
+  color: white;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+  }
 }
+
 
 .app-bg{
   background-color: #fff6ef !important;

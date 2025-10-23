@@ -80,6 +80,7 @@ export enum BillingInterval
 
 export enum SubscriptionStatus
 {
+    none = 0,
     Active = 1,
     Trialing = 2,
     Canceled = 3,

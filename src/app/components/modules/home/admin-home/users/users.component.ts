@@ -7,10 +7,11 @@ import { NgSelectComponent } from "@ng-select/ng-select";
 import { User } from '../../../../../models/member/user.model';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { BehaviorSubject, debounceTime } from 'rxjs';
+import { LoadingComponent } from "../../../../../common/loading/loading.component";
 
 @Component({
   selector: 'app-users',
-  imports: [CommonModule, FormsModule, NgSelectComponent, NgxPaginationModule],
+  imports: [CommonModule, FormsModule, NgSelectComponent, NgxPaginationModule, LoadingComponent],
   templateUrl: './users.component.html',
   styleUrl: './users.component.scss'
 })

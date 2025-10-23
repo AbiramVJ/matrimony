@@ -5,10 +5,11 @@ import { ToastrService } from 'ngx-toastr';
 import { AdminService } from '../../../../../services/admin.service';
 import { COMMON_DIRECTIVES, FORM_MODULES } from '../../../../../common/common-imports';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { LoadingComponent } from "../../../../../common/loading/loading.component";
 
 @Component({
   selector: 'app-jobs',
-  imports: [COMMON_DIRECTIVES,NgxPaginationModule,FORM_MODULES],
+  imports: [COMMON_DIRECTIVES, NgxPaginationModule, FORM_MODULES, LoadingComponent],
   templateUrl: './jobs.component.html',
   styleUrl: './jobs.component.scss'
 })

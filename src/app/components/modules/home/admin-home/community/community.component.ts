@@ -6,10 +6,11 @@ import { COMMON_DIRECTIVES, FORM_MODULES } from '../../../../../common/common-im
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { LoadingComponent } from "../../../../../common/loading/loading.component";
 
 @Component({
   selector: 'app-community',
-  imports: [COMMON_DIRECTIVES,NgxPaginationModule,FORM_MODULES],
+  imports: [COMMON_DIRECTIVES, NgxPaginationModule, FORM_MODULES, LoadingComponent],
   templateUrl: './community.component.html',
   styleUrl: './community.component.scss'
 })

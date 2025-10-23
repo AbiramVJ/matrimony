@@ -1,4 +1,4 @@
-<div class="image-cropper-container">
+<div class="image-cropper-container bg-danger">
   <div class="cropper-card">
     <!-- Header -->
     <!-- <div class="cropper-header">
@@ -60,6 +60,7 @@
         </button>
       </div>
 
+
       <!-- Cropper -->
       <div class="cropper-wrapper">
         <image-cropper
@@ -67,6 +68,7 @@
           [maintainAspectRatio]="maintainAspectRatio"
           [aspectRatio]="currentAspectRatio"
           [resizeToWidth]="1024"
+
           format="png"
           [roundCropper]="roundCropper"
           (imageCropped)="imageCropped($event)"
@@ -93,14 +95,6 @@
           </svg>
           Save Image <div class="spinner-border spinner-border-sm text-light me-1" *ngIf="isUploading"></div>
         </button>
-      </div>
-    </div>
-
-    <!-- Preview Section -->
-    <div class="preview-section" *ngIf="croppedImage && showPreview">
-      <h3 class="preview-title">Preview</h3>
-      <div class="preview-wrapper">
-        <img [src]="croppedImage" alt="Cropped preview" class="preview-image"/>
       </div>
     </div>
   </div>
