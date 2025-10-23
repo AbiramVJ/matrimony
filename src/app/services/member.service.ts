@@ -205,9 +205,14 @@ export class MemberService {
     let profileId = localStorage.getItem('currentMemberId');
     return this.http.put<any>(this.baseUrl + `Notification/read/${profileId}?notificationId=${notificationId}`, {});
   }
+
   public MakeAsReadAllNotification(){
     let profileId = localStorage.getItem('currentMemberId');
     return this.http.put<any>(this.baseUrl + `Notification/read/${profileId}`, {});
+  }
+
+  public editMainUser(body:any){
+    return this.http.put<any>(this.baseUrl + `User`, body)
   }
 
 }

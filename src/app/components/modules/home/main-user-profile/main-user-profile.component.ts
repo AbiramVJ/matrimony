@@ -6,29 +6,34 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MemberService } from '../../../../services/member.service';
 import { AuthService } from '../../../../services/auth/auth.service';
 import { SocialLoginService } from '../../../../services/auth/social-login.service';
+import { ImageCropperComponent } from "../../../../common/image-cropper/image-cropper.component";
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
   selector: 'app-main-user-profile',
-  imports: [FORM_MODULES, CommonModule],
+  imports: [FORM_MODULES, CommonModule, ImageCropperComponent],
   templateUrl: './main-user-profile.component.html',
   styleUrl: './main-user-profile.component.scss'
 })
 export class MainUserProfileComponent {
-  profileForm: FormGroup;
-  isLoading = false;
-  imagePreview: string | null = null;
-  mainUser!:MainUser;
+  public profileForm: FormGroup;
+  public isLoading = false;
+  public imagePreview: string | null = null;
+  public mainUser!:MainUser;
   public selectedMember!:UserProfile;
   public memberProfiles: UserProfile[] = [];
   public isGeneral:boolean = true;
+  public isSaveLoading:boolean = false;
 
   public resetPasswordFrom!:FormGroup;
+  public images:string = '';
 
 constructor(private fb: FormBuilder,
   private _memberService:MemberService,
   private _authService: AuthService,
-  private _socialLoginService: SocialLoginService
+  private _socialLoginService: SocialLoginService,
+  private toastr: ToastrService,
 ) {
     this.profileForm = this.fb.group({
       firstName: ['fse', [Validators.required, Validators.minLength(2)]],
@@ -69,6 +74,7 @@ constructor(private fb: FormBuilder,
           phoneNumber: this.mainUser.phoneNumber,
           image: this.mainUser.image
         });
+        this.images = this.mainUser.image;
         this.isLoading = false;
       },
       error:(error:any)=>{
@@ -120,5 +126,39 @@ constructor(private fb: FormBuilder,
     localStorage.removeItem('currentMemberId');
     localStorage.setItem('currentMemberId', this.selectedMember.id);
     window.location.href = '/';
+  }
+
+   onImageCropped(event: any): void {
+    this.images = event;
+    this.mainUser.image = event;
+    let viewModal: HTMLElement = document.getElementById(
+          'close-btn'
+        ) as HTMLElement;
+        if (viewModal) {
+          viewModal.click();
+        }
+  }
+
+  public saveUser(){
+    this.isSaveLoading = true;
+    let body = this.mainUser;
+    body.firstName = this.profileForm.value.firstName;
+    body.lastName = this.profileForm.value.lastName;
+    body.image = this.images;
+
+    this._memberService.editMainUser(body).subscribe({
+      next:(res:any)=>{
+
+      },
+      complete:()=>{
+        this.isSaveLoading = false;
+        this.mainUser = body;
+        this._authService.setMainUser(this.mainUser);
+      },
+      error:(error:any)=>{
+        this.isSaveLoading = false;
+        this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
+      }
+    })
   }
 }
