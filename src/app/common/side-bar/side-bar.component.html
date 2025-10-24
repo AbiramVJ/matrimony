@@ -1,6 +1,6 @@
 
 <div class="content-side p-3" >
-  <div class="mb-3 d-flex justify-content-between" *ngIf="!isLoading">
+  <div class="mb-3 d-flex justify-content-between" *ngIf="!isLoading && !isInitialLoad">
     <div class="text-lg fw-bold text-muted">
       <i class="fas fa-filter"></i>
        Filter
@@ -9,7 +9,7 @@
     <div class="class btn btn-danger" (click)="clearFilter()">Clear Filter</div>
   </div>
 
-<div class="mt-2 mb-2" *ngIf="!isLoading">
+<div class="mt-2 mb-2" *ngIf="!isLoading && !isInitialLoad">
   <div class="input-group">
      <span class="input-group-text">
       <i class="fas fa-search text-muted"></i>
@@ -18,7 +18,7 @@
   </div>
 </div>
 
-  <ul class="list-group" id="accordionFilter" *ngIf="!isLoading">
+  <ul class="list-group" id="accordionFilter" *ngIf="!isLoading && !isInitialLoad">
 
     <!-- Basic Info -->
     <li class="list-group-item pointer fw-bold bg-light" data-bs-toggle="collapse" data-bs-target="#filterBasic" id="default-coll"> <i class="far fa-user me-2 "></i>Basic Info</li>

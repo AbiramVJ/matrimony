@@ -4,7 +4,7 @@
       <!-- HEDER -->
       <div class="col-12 p-3 bg-danger">
          <div class="modal-header p-0 border-bottom-0">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="currentTap = 1" id="member-profile-close-btn"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="currentTap = 1" id="member-profile-close-btn" *ngIf="isPopUp"></button>
       </div>
         <div class="row">
           <div class="col-12 col-sm-12 col-md-6">
@@ -117,7 +117,8 @@
           <div class="row mt-3">
             <div class="col-3 p-0 pointer" *ngFor="let m of memberProfile.profileImages">
               <div class="div p-2">
-                <img class="object-fit-cover profile-photo" src="{{m.url}}" alt="photos" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <img class="object-fit-cover profile-photo" src="{{m.url}}" alt="photos" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal" *ngIf="isPopUp">
+                <img class="object-fit-cover profile-photo" src="{{m.url}}" alt="photos" data-bs-target="#exampleModal222" data-bs-toggle="modal" data-bs-dismiss="modal" *ngIf="!isPopUp">
               </div>
             </div>
           </div>
@@ -287,11 +288,11 @@
 </button> -->
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal222" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Images</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" *ngIf="memberProfile">

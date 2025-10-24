@@ -103,6 +103,7 @@ export class AppComponent {
           this._friendSignalRService.startConnection();
           this._signalRService.startNotificationHub();
           this.isLoading = false;
+          this._memberService.setInitialLoading(false);
         }
       },
       complete:() =>{
@@ -140,6 +141,7 @@ export class AppComponent {
 
 
    private getMainUser() {
+    this._memberService.setInitialLoading(true);
     this.isLoading = true;
     this._memberService.getMainUser().subscribe({
       next: (res: any) => {

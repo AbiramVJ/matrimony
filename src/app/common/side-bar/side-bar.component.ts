@@ -123,6 +123,7 @@ export class SideBarComponent {
 
   public selectedNatshathira:any;
   public selectedRasi:any;
+  public isInitialLoad:boolean = false;
   constructor(
     private dataProvider: DataProviderService,
     private memberService: MemberService,
@@ -130,6 +131,7 @@ export class SideBarComponent {
   ) {
     this.countryList = this.dataProvider.getPhoneCode();
     effect(() => {
+     this.isInitialLoad = memberService.isInitialLoad();
       const userGeoLocationDetails = this.dataProvider.userGeoLocation();
       const defaultCountryCode = this.countryList.find(
         (pc: any) => pc.iso === userGeoLocationDetails?.country_code
@@ -138,6 +140,7 @@ export class SideBarComponent {
         this.selectedLivingCountry = [defaultCountryCode.country];
         this.selectedProvince = defaultCountryCode.stateProvinces[0].name;
       }
+
     });
   }
 

@@ -428,10 +428,7 @@ export class NavigationBarComponent {
   }
 
   public navigateToNotificationSection(type: NotificationItem) {
-    if (
-      type.notificationType === NotificationType.FriendRequestAccept &&
-      type.parsedPayload
-    ) {
+    if (type.notificationType === NotificationType.FriendRequestAccept && type.parsedPayload) {
        this.router.navigateByUrl(`home/profile/${type.parsedPayload?.ProfileId}`);
     }
     this._makeItAsReadNotification(type.id);
@@ -441,10 +438,11 @@ export class NavigationBarComponent {
     this._memberService.MakeAsReadNotification(notificationId).subscribe({
       next: (res: any) => {},
       complete: () => {
-        const notif = this.notificationList.find(
-          (n) => n.id === notificationId
-        );
-        if (notif) notif.isRead = true;
+       const notif = this.notificationList.find(n => n.id === notificationId);
+        if (notif) {
+          notif.isRead = true;
+          this.notificationList = [...this.notificationList];
+        }
       },
     });
   }

@@ -1,6 +1,6 @@
 import { MemberService } from './../../../../services/member.service';
 
-import { Component, HostListener } from '@angular/core';
+import { Component, effect, HostListener } from '@angular/core';
 import { SideBarComponent } from "../../../../common/side-bar/side-bar.component";
 import { FilterMemberListComponent } from "./filter-member-list/filter-member-list.component";
 import { CommonModule } from '@angular/common';
@@ -15,8 +15,13 @@ import { CommonModule } from '@angular/common';
 export class MemberHomeComponent {
  public screenWidth: number = window.innerWidth;
  public isLoading:boolean = true;
+ public isInitialLoad:boolean = false;
 
-  constructor(){}
+  constructor(public memberService:MemberService){
+    effect(()=>{
+      this.isInitialLoad = memberService.isInitialLoad();
+    })
+  }
 
   ngOnInit(): void {
    this.updateScreenWidth();

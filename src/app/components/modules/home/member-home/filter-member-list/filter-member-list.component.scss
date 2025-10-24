@@ -76,3 +76,53 @@
 .p-card{
   animation: fadeInUp 0.6s ease;
 }
+/* styles.scss or component-specific SCSS */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: red;       /* fallback background */
+  background-image: none;      /* remove default SVG */
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-control-prev-icon::after {
+  content: '<';               /* left arrow */
+  color: white;               /* arrow color */
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding-bottom: 5px;
+
+}
+
+.carousel-control-next-icon::after {
+  content: '>';               /* right arrow */
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding-bottom: 5px;
+  padding-left: 3px;
+}
+
+.c-image{
+  height: 400px;
+  object-fit: contain;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 764px) {
+
+.profile-pic{
+    width: 50%;
+    border-radius: 100%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

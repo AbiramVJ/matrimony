@@ -1,8 +1,8 @@
 <section class="content ">
   <div class="component-content bg-color" [ngClass]="{'d-none':isLoading}" >
 
-    <div class="p-3 responsive-sideBar">
-      <div class="border bg-white border-15 me-4 side-bar d-none d-md-block" *ngIf="screenWidth > 764">
+    <div class="p-3 responsive-sideBar" >
+      <div class="border-15 me-4 side-bar d-none d-md-block" *ngIf="screenWidth > 764 || !isInitialLoad" [ngClass]="{'bg-white border':!isInitialLoad}">
           <app-side-bar (newLoadEvent)="loadChildEmitter($event)"></app-side-bar>
       </div>
         <div class="home-box">

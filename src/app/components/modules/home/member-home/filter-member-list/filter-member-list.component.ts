@@ -47,6 +47,8 @@ export class FilterMemberListComponent {
   public isMemberViewLoading:boolean = false;
   public viewMemberId:string = '';
 
+  public memberImages:string[] = [];
+
   constructor(
     private auth: AuthService,
     private memberService: MemberService,

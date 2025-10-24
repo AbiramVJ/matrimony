@@ -40,7 +40,8 @@ constructor(
   public viewMemberDetails() {
     this.isLoading = true;
     this.memberService.GetFilterMemberViewData(this.memberId).subscribe({
-      next: (res: any) => {this.filterMemberViewData = res;},
+      next: (res: any) =>
+      {this.filterMemberViewData = res;},
       complete: () => {this.isLoading = false;},
       error: (error: any) => {
         this.isLoading = false;

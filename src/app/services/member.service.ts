@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { environment } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, Subject } from 'rxjs';
@@ -16,7 +16,7 @@ export class MemberService {
   private filterSource = new BehaviorSubject<any>(null);
   filter$ = this.filterSource.asObservable();
 
-
+  public isInitialLoad = signal(false);
 
 
   constructor(private http: HttpClient) { }
@@ -213,6 +213,10 @@ export class MemberService {
 
   public editMainUser(body:any){
     return this.http.put<any>(this.baseUrl + `User`, body)
+  }
+
+  public setInitialLoading(load:boolean){
+    this.isInitialLoad.set(load);
   }
 
 }
