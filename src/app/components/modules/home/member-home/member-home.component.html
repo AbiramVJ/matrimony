@@ -1,9 +1,9 @@
 <section class="content ">
-  <div class="component-content bg-color">
+  <div class="component-content bg-color" [ngClass]="{'d-none':isLoading}" >
 
     <div class="p-3 responsive-sideBar">
       <div class="border bg-white border-15 me-4 side-bar d-none d-md-block" *ngIf="screenWidth > 764">
-          <app-side-bar></app-side-bar>
+          <app-side-bar (newLoadEvent)="loadChildEmitter($event)"></app-side-bar>
       </div>
         <div class="home-box">
           <div class="text-right float-right mb-2 d-sm-block d-md-none"> <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#filterModal"> <i class="fas fa-filter me-2"></i>Filter</button></div>

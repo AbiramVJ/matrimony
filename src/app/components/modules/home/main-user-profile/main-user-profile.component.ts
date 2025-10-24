@@ -8,15 +8,17 @@ import { AuthService } from '../../../../services/auth/auth.service';
 import { SocialLoginService } from '../../../../services/auth/social-login.service';
 import { ImageCropperComponent } from "../../../../common/image-cropper/image-cropper.component";
 import { ToastrService } from 'ngx-toastr';
+import { LoadingComponent } from "../../../../common/loading/loading.component";
 
 
 @Component({
   selector: 'app-main-user-profile',
-  imports: [FORM_MODULES, CommonModule, ImageCropperComponent],
+  imports: [FORM_MODULES, CommonModule, ImageCropperComponent, LoadingComponent],
   templateUrl: './main-user-profile.component.html',
   styleUrl: './main-user-profile.component.scss'
 })
 export class MainUserProfileComponent {
+
   public profileForm: FormGroup;
   public isLoading = false;
   public imagePreview: string | null = null;

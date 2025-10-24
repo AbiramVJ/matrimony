@@ -39,7 +39,7 @@
       bindLabel="name"
       bindValue="id"
       [ngModelOptions]="{standalone: true}"
-      [clearable]="true"
+      [clearable]="selectedSector === 0 ? false : true"
       [searchable]="true"
       [(ngModel)]="selectedSector"
       (change)="changeJobSector()"
@@ -54,7 +54,7 @@
       bindLabel="name"
       bindValue="id"
       [ngModelOptions]="{standalone: true}"
-      [clearable]="true"
+      [clearable]="selectedJob === ''? false : true"
       [searchable]="true"
       [ngClass]="{'errorSelect': isSubmitted && selectedJob  === '' && selectedSector !== null && selectedSector }"
       [disabled]="selectedSector === null"
@@ -81,11 +81,11 @@
         <input type="number" id="salaryDetails" formControlName="salaryDetails" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userEducationFrom.get('salaryDetails')?.errors}" (change)="changeSalary()">
         <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userEducationFrom.get('salaryDetails')?.errors">Salary is required</div>
         <div class="form-check mt-1">
-            <input class="form-check-input small-check" type="checkbox" [value]="true" id="flexCheckChecked" formControlName="isVisible">
-            <label class="form-check-label ms-2 text-sm" for="flexCheckChecked">
-              Make it visible.
-            </label>
-          </div>
+          <input class="form-check-input small-check" type="checkbox" [value]="true" id="flexCheckChecked" formControlName="isVisible">
+          <label class="form-check-label ms-2 text-sm" for="flexCheckChecked">
+            Make it visible.
+          </label>
+        </div>
     </div>
     <div class="col-12 col-md-6 mb-3">
       <label for="diet" class="mb-1">Currency</label>

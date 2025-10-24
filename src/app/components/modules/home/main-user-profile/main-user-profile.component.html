@@ -4,15 +4,17 @@
     <div class="container mt-4">
       <div class="row justify-content-center pb-3">
         <div class="col-md-8 col-lg-10">
-          <div class="row" *ngIf="mainUser" >
+          <div class="row" *ngIf="mainUser && !isLoading" >
             <div class="col-4">
-              <div class="list-group">
+              <div class="w-50 ms-auto">
+                <div class="list-group">
                 <div class="list-group-item list-group-item-action pointer" (click)="isGeneral = true" [ngClass]="{'bg-danger text-white':isGeneral}">
                   General
                 </div>
                 <div class="list-group-item list-group-item-action pointer"  (click)="isGeneral = false" [ngClass]="{'bg-danger text-white':!isGeneral}">
                   Security
                 </div>
+              </div>
               </div>
             </div>
             <div class="col-8">
@@ -167,6 +169,7 @@
 
             </div>
           </div>
+          <app-loading *ngIf="isLoading"></app-loading>
         </div>
       </div>
 

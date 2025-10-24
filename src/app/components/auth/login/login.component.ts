@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
 
   private _loginFormInit(){
     this.loginForm = this.formBuilder.group({
-      email:[null,[Validators.required,]],
+      email:[null,[Validators.required,Validators.email]],
       password:[null,[Validators.required]],
     })
   }
@@ -157,12 +157,13 @@ export class LoginComponent implements OnInit {
   //OTP
   public sendOtp(){
     let body = this.forgotForm.value.email;
-    let phoneNumberText = this._phoneNumber.split('+');
-    let phoneNumber = '%2B' + phoneNumberText[1];
+
     let isValid:boolean = true;
     if(!this.isEmailLogin){
       this.forgotForm.get('email')?.setValidators([]);
       this.forgotForm.get('email')?.updateValueAndValidity();
+      let phoneNumberText = this._phoneNumber.split('+');
+      let phoneNumber = '%2B' + phoneNumberText[1];
       body = phoneNumber;
       console.log(this._phoneNumber)
       this._phoneNumber.length === 0 ? isValid = false :isValid = true;
@@ -226,14 +227,14 @@ export class LoginComponent implements OnInit {
     const formValue = this.loginForm.value;
     const body = {
       password: formValue.password,
-      loginType: this._phoneNumber ? LoginType.PhoneNumber : LoginType.Email,
+      loginType: this.isEmailLogin ? LoginType.Email : LoginType.PhoneNumber,
       ...(!this.isEmailLogin ? { phoneNumber: this._phoneNumber } : { email: formValue.email })
     };
     if(!this.isEmailLogin){
       this.loginForm.get('email')?.setValidators([]);
       this.loginForm.get('email')?.updateValueAndValidity();
     }else{
-      this.loginForm.get('email')?.setValidators([Validators.required]);
+      this.loginForm.get('email')?.setValidators([Validators.required, Validators.email]);
       this.loginForm.get('email')?.updateValueAndValidity();
     }
 

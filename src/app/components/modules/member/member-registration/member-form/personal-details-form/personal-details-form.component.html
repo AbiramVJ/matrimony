@@ -108,7 +108,7 @@
       bindLabel="name"
       bindValue="id"
       [ngModelOptions]="{standalone: true}"
-      [clearable]="true"
+      [clearable]="selectedBloodGroup == 0 ? false : true"
       [searchable]="true"
       [(ngModel)]="selectedBloodGroup"
       >

@@ -1,7 +1,7 @@
 import { SubCommunity } from './../../models/member/community.model';
 import { MemberService } from './../../services/member.service';
 import { CommonModule } from '@angular/common';
-import { Component, effect, ViewEncapsulation } from '@angular/core';
+import { Component, effect, EventEmitter, Output, ViewEncapsulation } from '@angular/core';
 import { DataProviderService } from '../../services/data-provider.service';
 import { COMMON_DIRECTIVES, FORM_MODULES } from '../common-imports';
 import { NgxSliderModule, Options } from '@angular-slider/ngx-slider';
@@ -31,6 +31,7 @@ import { BehaviorSubject, debounceTime, forkJoin } from 'rxjs';
   encapsulation: ViewEncapsulation.None,
 })
 export class SideBarComponent {
+  @Output() newLoadEvent = new EventEmitter<boolean>();
   public searchValue = new BehaviorSubject<any>(null);
   public countryList: any[] = [];
   public selectedCountry: any;
@@ -159,6 +160,7 @@ export class SideBarComponent {
     }
   }
   private _loadInitialData(): void {
+    this.newLoadEvent.emit(true);
     this.isLoading = true;
     forkJoin({
       religions: this.memberService.getReligion(),
@@ -174,15 +176,17 @@ export class SideBarComponent {
         this.educationList = educations;
       },
       complete: () => {
-        this.isLoading = false;
+
         if (!this.hasAppliedFilters) {
           this.applyFilters();
           this.hasAppliedFilters = true;
         }
+        this.newLoadEvent.emit(false);
       },
       error: (err: any) => {
         console.error('Failed to load initial data', err);
         this.isLoading = false;
+        this.newLoadEvent.emit(false);
       },
     });
   }
@@ -346,6 +350,7 @@ export class SideBarComponent {
         : null,
     };
     this.memberService.setFilter(filterPayload);
+    this.isLoading = false;
   }
 
   ngOnDestroy(): void {

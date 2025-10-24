@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 })
 export class MemberHomeComponent {
  public screenWidth: number = window.innerWidth;
+ public isLoading:boolean = true;
 
   constructor(){}
 
@@ -28,6 +29,10 @@ export class MemberHomeComponent {
 
   private updateScreenWidth(): void {
     this.screenWidth = window.innerWidth;
+  }
+
+  public loadChildEmitter(event:any){
+    this.isLoading = event;
   }
 
 

@@ -32,7 +32,13 @@
                           <div class="mb-3 mt-3" *ngIf="isEmailLogin">
                             <label for="email" class="form-label" >{{isEmailLogin ? 'Email' : 'Phone number'}}</label>
                             <input type="email" class="form-control" formControlName="email" id="email" placeholder=""  [ngClass]="{'errorBorder' : isSubmitted && loginForm.get('email')?.errors}" autocomplete="disabled">
-                            <div class="text-xs text-danger" *ngIf="isSubmitted && loginForm.get('email')?.errors">Email is required</div>
+                            <div class="text-xs text-danger" *ngIf="isSubmitted && loginForm.get('email')?.errors?.['required']">
+                                Email is required
+                              </div>
+                              <div class="text-xs text-danger" *ngIf="isSubmitted && loginForm.get('email')?.errors?.['email']">
+                                Enter a valid email address
+                              </div>
+
                           </div>
                           <div class="mb-3 mt-3" *ngIf="!isEmailLogin">
                             <app-phone-number-input (phoneNumberEmitter)="getPhoneNumber($event)" [isSubmitted]="isSubmitted"></app-phone-number-input>
@@ -66,8 +72,8 @@
                       <div class="text-md text-center text-muted mt-3">
                         We send a six digits verification code to your email <b>{{ !isSingUp ? loginForm.get('email')?.value : forgotForm.get('email')?.value}}</b>. You can check your inbox.
                       </div>
-                      <div class="mt-3 text-primary pointer" (click)="login()">
-                        <u>I didn't receive the code? Send again</u>
+                      <div class="mt-3 text-primary" >
+                        <u class="pointer" (click)="login()">I didn't receive the code? Send again</u>
                       </div>
                      </div>
                     </div>
@@ -119,8 +125,8 @@
                         <div class="text-md text-center text-muted mt-3">
                           We send a six digits verification code to your email <b>{{signUpForm.get('email')?.value}}</b>. You can check your inbox.
                         </div>
-                        <div class="mt-3 text-primary pointer" (click)="resentOtp()">
-                          <u>I didn't receive the code? Send again</u>
+                        <div class="mt-3 text-primary">
+                          <u class="pointer" (click)="resentOtp()">I didn't receive the code? Send again</u>
                         </div>
                       </div>
                     </div>
@@ -259,7 +265,6 @@
                                       />
                                     </div>
                                     <div class="text-xs text-danger" *ngIf="isForgotSubmitted && forgotForm.get('email')?.errors">Invalid email</div>
-
                                   </div>
 
                                   <div *ngIf="!isEmailLogin">
@@ -279,10 +284,10 @@
                                     </div>
                                 </div>
                                 <div class="text-md text-center text-muted mt-3">
-                                  We send six digits verification code to your email <b>{{forgotForm.get('email')?.value}}</b>. You can check your inbox.
+                                  We send six digits verification code to your <b>{{isEmailLogin ? forgotForm.get('email')?.value : 'mobile'}}</b>. You can check your {{isEmailLogin ? 'inbox.' : 'message'}}
                                 </div>
-                                <div class="mt-3 text-primary pointer" (click)="sendOtp()">
-                                  <u>I didn't receive the code? Send again</u>
+                                <div class="mt-3 text-primary" >
+                                  <u class="pointer" (click)="sendOtp()">I didn't receive the code? Send again</u>
                                 </div>
                                   <!-- <button class="btn btn-danger me-3 w-100 mt-3 mb-3" [disabled]="isLoading" (click)="verifyOtp()" *ngIf="step === resetStep.verification">
                                       <div class="spinner-border spinner-border-sm text-light me-1" role="status" *ngIf="isLoading"></div>Verify
@@ -292,7 +297,7 @@
                               <div *ngIf="step === resetStep.resetPassword">
                               <div class="text-center">
                                 <img src="https://cdni.iconscout.com/illustration/premium/thumb/forgot-password-reset-illustration-download-in-svg-png-gif-file-formats--restore-cyber-security-business-technology-pack-illustrations-5889578.png" alt="" width="150px">
-                                <div class="text-center text-muted">Your new password must be different from previously used passwords.</div>
+                                <!-- <div class="text-center text-muted">Your new password must be different from previously used passwords.</div> -->
                               </div>
 
                               <div class="mt-3">
@@ -329,6 +334,7 @@
                         <button class="btn btn-danger me-3 w-100 mt-3 mb-3" [disabled]="isLoading" (click)="createPassword()" *ngIf="step === resetStep.resetPassword">
                           <div class="spinner-border spinner-border-sm text-light me-1" role="status" *ngIf="isLoading"></div>LOGIN
                         </button>
+
                       </div>
                     </div>
                    </div>
@@ -341,4 +347,5 @@
     </div>
   </div>
 </section>
+  {{isEmailLogin}}
 

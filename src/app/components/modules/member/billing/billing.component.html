@@ -1,7 +1,7 @@
 <section class="content">
   <div class="component-content">
     <div class="row m-0 p-0 ">
-      <div class="col-8 mx-auto mt-3 mb-3">
+      <div class="col-8 mx-auto mt-3 mb-3" *ngIf="!isPlanBillingLoading">
         <h3>Plan And Billing</h3>
         <div class="text-md">Manage your subscription plan and billing preferences</div>
 
@@ -28,11 +28,11 @@
                 <div><i class="far fa-envelope me-2"></i><span class="me-3">Remaining request: <b>{{currentPlan.remainingFriendRequestCount}}/month</b></span></div>
               </div>
             </div>
-            <div class="d-flex justify-content-center" *ngIf="isPlanBillingLoading">
+            <!-- <div class="d-flex justify-content-center" *ngIf="isPlanBillingLoading">
                 <div class="spinner-border text-danger" role="status" >
               <span class="visually-hidden">Loading...</span>
-            </div>
-            </div>
+             </div>
+            </div> -->
             <hr>
 
             <div class="mt-3 d-flex " *ngIf="currentPlan">
@@ -100,11 +100,11 @@
                     <div class="text-xs text-muted mt-2 text-center">Your payment information is secure and encrypted. By completing this purchase, you agree to our Terms of Service and Privacy Policy.</div>
                         </div>
                     </div>
-                     <div class="d-flex justify-content-center" *ngIf="isPlanBillingLoading">
+                     <!-- <div class="d-flex justify-content-center" *ngIf="isPlanBillingLoading">
                       <div class="spinner-border text-danger" role="status" >
                         <span class="visually-hidden">Loading...</span>
                       </div>
-                      </div>
+                      </div> -->
                   </div>
                 </div>
               </div>
@@ -200,11 +200,11 @@
                 </div>
               </div>
             </div>
-             <div class="d-flex justify-content-center" *ngIf="isAvailablePlanLoading">
+             <!-- <div class="d-flex justify-content-center" *ngIf="isAvailablePlanLoading">
                 <div class="spinner-border text-danger" role="status" >
               <span class="visually-hidden">Loading...</span>
             </div>
-            </div>
+            </div> -->
 
            </div>
         </div>
@@ -212,6 +212,8 @@
 
 
       </div>
+
+      <app-loading *ngIf="isPlanBillingLoading"></app-loading>
 
 
     </div>

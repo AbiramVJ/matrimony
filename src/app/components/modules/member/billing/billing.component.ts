@@ -12,10 +12,11 @@ import { MemberPlan } from '../../../../models/Subscription/MemberPlan.model';
 import { ToastrService } from 'ngx-toastr';
 import { forkJoin } from 'rxjs';
 import { AuthService } from '../../../../services/auth/auth.service';
+import { LoadingComponent } from "../../../../common/loading/loading.component";
 declare var Stripe: any;
 @Component({
   selector: 'app-billing',
-  imports: [CommonModule, FORM_MODULES, NgxPaginationModule, TitleCasePipe ],
+  imports: [CommonModule, FORM_MODULES, NgxPaginationModule, TitleCasePipe, LoadingComponent],
   templateUrl: './billing.component.html',
   styleUrl: './billing.component.scss'
 })
@@ -102,49 +103,49 @@ private loadBillingData(): void {
 }
 
   private getPlanAndBilling(){
-    this.isPlanBillingLoading = true;
+    //this.isPlanBillingLoading = true;
     this.subscriptionService.getPlanAndBilling().subscribe({
       next:(res:any)=>{
         this.currentPlan = res;
       },
       complete:()=>{
-        this.isPlanBillingLoading = false;
+       // this.isPlanBillingLoading = false;
       },
       error: (error:any) => {
-        this.isPlanBillingLoading = false;
+       // this.isPlanBillingLoading = false;
         this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
       }
     })
   }
 
   private getAllInvoice(){
-    this.isInvoiceLoading = true;
+   // this.isInvoiceLoading = true;
     this.subscriptionService.getInvoice(this.currentPage, this.itemsPerPage).subscribe({
       next:(res:any)=>{
         this.invoices = res.data;
         this.totalItemCount = res.totalCount;
       },
       complete:()=>{
-         this.isInvoiceLoading = false;
+   //      this.isInvoiceLoading = false;
       },
       error: (error:any) => {
-        this.isInvoiceLoading = true;
+    //    this.isInvoiceLoading = true;
         this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
       }
     })
   }
 
   public getAvailablePlan(){
-    this.isPlanBillingLoading = true;
+   // this.isPlanBillingLoading = true;
      this.subscriptionService.getAvailablePlan().subscribe({
       next:(res:any)=>{
        this.availablePlans = res;
       },
       complete:()=>{
-        this.isAvailablePlanLoading = false;
+  //      this.isAvailablePlanLoading = false;
       },
        error: (error:any) => {
-        this.isAvailablePlanLoading = false;
+     //   this.isAvailablePlanLoading = false;
         this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
       }
     })
