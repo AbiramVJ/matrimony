@@ -188,5 +188,9 @@ export class AuthService {
   //   return this.isActiveSubscriptionSignal.asReadonly();
   // }
 
+  public changePassword(body:any){
+     return this.http.post<any>(`${this.baseUrl}Password/change-password`, body );
+  }
+
 
 }

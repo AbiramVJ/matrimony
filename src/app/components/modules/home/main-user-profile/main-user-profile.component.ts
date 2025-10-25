@@ -21,15 +21,24 @@ export class MainUserProfileComponent {
 
   public profileForm: FormGroup;
   public isLoading = false;
+  public isChangesPasswordLoading:boolean = false;
   public imagePreview: string | null = null;
   public mainUser!:MainUser;
   public selectedMember!:UserProfile;
   public memberProfiles: UserProfile[] = [];
   public isGeneral:boolean = true;
   public isSaveLoading:boolean = false;
+  public isSubmitted:boolean = false;
+  public isMatchPwd:boolean = true;
 
   public resetPasswordFrom!:FormGroup;
   public images:string = '';
+
+  public passwordStrength = {
+    value: 0,
+    text: 'None',
+    class: ''
+  };
 
 constructor(private fb: FormBuilder,
   private _memberService:MemberService,
@@ -56,9 +65,9 @@ constructor(private fb: FormBuilder,
 
   private _resetFromInit(){
     this.resetPasswordFrom = this.fb.group({
-      correctPassword:['',[Validators.required]],
-      newPassword:['',[Validators.required]],
-      confirmNewPassword:['',[Validators.required]],
+      correctPassword:[null],
+      newPassword:[null,[Validators.required]],
+      confirmNewPassword:[null,[Validators.required]],
     })
   }
 
@@ -163,4 +172,83 @@ constructor(private fb: FormBuilder,
       }
     })
   }
+
+  public updatePasswordStrength(isSignUp:boolean): void {
+    let password = null;
+    password = this.resetPasswordFrom.get('newPassword')?.value;
+    this.passwordStrength = { value: 0, text: 'None', class: '' };
+    if (!password || password.length === 0) return;
+    let strength = 0;
+    if (password.length >= 8) strength += 25;
+    if (/[A-Z]/.test(password)) strength += 25;
+    if (/[a-z]/.test(password)) strength += 15;
+    if (/[0-9]/.test(password)) strength += 15;
+    if (/[^A-Za-z0-9]/.test(password)) strength += 20;
+
+    this.passwordStrength.value = strength;
+    if (strength < 30) {
+      this.passwordStrength.class = 'bg-danger';
+      this.passwordStrength.text = 'Weak';
+    } else if (strength < 60) {
+      this.passwordStrength.class = 'bg-warning';
+      this.passwordStrength.text = 'Fair';
+    } else if (strength < 80) {
+      this.passwordStrength.class = 'bg-info';
+      this.passwordStrength.text = 'Good';
+    } else {
+      this.passwordStrength.class = 'bg-success';
+      this.passwordStrength.text = 'Excellent';
+    }
+  }
+
+  public changesPassword(){
+    this.isSubmitted = true;
+    this.resetPasswordFrom.valid;
+    const pwdValues = this.resetPasswordFrom.value;
+    if(pwdValues.newPassword === pwdValues.confirmNewPassword ){
+      this.isMatchPwd = true;
+    }else{
+      this.isMatchPwd = false;
+      return;
+    }
+    if(this.resetPasswordFrom.valid){
+    this.isChangesPasswordLoading = true;
+    let body = {
+        isSetNewPassword:this.mainUser.isPasswordReset ? false : true,
+        currentPassword:this.mainUser.isPasswordReset ? this.resetPasswordFrom.value.correctPassword : null,
+        newPassword: this.resetPasswordFrom.value.newPassword
+      }
+
+    this._authService.changePassword(body).subscribe({
+      next:(res:any)=>{
+          this._authService.setAuthToken(res.Result.token);
+      },
+      complete:()=>{
+        this.mainUser.isPasswordReset = true;
+        this._authService.setMainUser(this.mainUser);
+        this.isChangesPasswordLoading = false;
+        this.isSubmitted = false;
+        this.resetPasswordFrom.reset();
+        this.passwordStrength = {
+            value: 0,
+            text: 'None',
+            class: ''
+          };
+
+        this.toastr.success('Password successfully updated','Success');
+
+      },
+      error:(error:any)=>{
+        this.isChangesPasswordLoading = false;
+        this.isSubmitted = false;
+        this.toastr.error(error.error.Error.Detail,error.error.Error.Title);
+      }
+    })
+    }
+  }
+  public onInputChange() {
+      this.isMatchPwd = true;
+    }
+
+
 }
