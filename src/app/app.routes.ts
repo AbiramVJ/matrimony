@@ -40,6 +40,10 @@ export const routes: Routes = [
     canActivate:[AuthGuardService],
     data:{accessUsers: [role.adminUser]}
   },
+  {
+    path: 'privacy-policy',
+    loadComponent:() => import('./common/privacy-policy/privacy-policy.component').then(m => m.PrivacyPolicyComponent)
+  }
 
 ];
 

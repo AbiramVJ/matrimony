@@ -487,4 +487,9 @@ export class NavigationBarComponent {
     this.isProfileOpen = false;
     this.router.navigateByUrl('member/billing');
   }
+
+  public enterPrivacyPolicy(){
+    this.isProfileOpen = false;
+     this.router.navigateByUrl('privacy-policy');
+  }
 }

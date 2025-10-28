@@ -156,6 +156,7 @@ constructor(private fb: FormBuilder,
     body.firstName = this.profileForm.value.firstName;
     body.lastName = this.profileForm.value.lastName;
     body.image = this.images;
+    body.phoneNumber = this.profileForm.value.phoneNumber;
 
     this._memberService.editMainUser(body).subscribe({
       next:(res:any)=>{
