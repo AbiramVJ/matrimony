@@ -106,7 +106,7 @@ export class AppComponent {
           {
             this.router.navigateByUrl('member/approval');
           }else{
-            this.router.navigateByUrl('home/member');
+          //  this.router.navigateByUrl('home/member');
 
           }
           this._chatService.startConnection();

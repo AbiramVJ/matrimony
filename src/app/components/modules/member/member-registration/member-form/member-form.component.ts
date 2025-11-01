@@ -1,3 +1,4 @@
+import { MemberApproval } from './../../../../../helpers/enum';
 import { AuthService } from './../../../../../services/auth/auth.service';
 import { MemberService } from '../../../../../services/member.service';
 import { Component } from '@angular/core';
@@ -272,14 +273,20 @@ private scrollToTop(): void {
       next:(res:any) => {
         this.AuthService.setMemberList(res);
 
-        if(res.length === 1){
-          // localStorage.setItem('currentMemberId',res[0].id);
-          // this._authService.setUserDetails(res[0]);
+        if(res.length === 1 && res[0].memberApproval === MemberApproval.Pending ){
+          localStorage.setItem('currentMemberId',res[0].id);
+          this._authService.setUserDetails(res[0]);
           // window.location.href = "/";
           // return;
-           this.route.navigateByUrl('member/profiles');
+         //  this.route.navigateByUrl('member/profiles');
+          // res.memberApproval === MemberApproval.Pending ?
+           this.route.navigateByUrl('member/approval')
+          // :  this.route.navigateByUrl('member/profiles');
+        }else{
+         this.route.navigateByUrl('member/profiles');
+
         }
-        this.route.navigateByUrl('member/approval');
+       // res.memberApproval === MemberApproval.Pending  this.route.navigateByUrl('member/approval');
       },
       complete:() =>{
         this.isLoading = false;

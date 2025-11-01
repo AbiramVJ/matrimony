@@ -48,7 +48,6 @@ export const MembersRoutingModules: Routes = [
 {
   path:'approval',
   loadComponent:()=> import('./approval/approval.component').then(m => m.ApprovalComponent),
-
 },
 {
   path:'modify/edit/:id',

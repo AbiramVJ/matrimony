@@ -42,6 +42,9 @@ export class ApprovalComponent {
    this._memberService.getMemberProfileById(memberId).subscribe({
     next:(res:any)=>{
      this.memberProfile = res;
+     if(res.memberApproval === MemberApproval.Approved){
+      this.router.navigateByUrl('home/member')
+     }
     },
     complete:()=>{
       this.isLoading = false;
