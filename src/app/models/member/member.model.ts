@@ -187,6 +187,7 @@ export class UserProfile {
   profileEducations: ProfileEducation[];
   phoneCode:string;
   age:number;
+  memberApproval:number;
 
   constructor(obj: any = {}) {
     const images = obj?.profileImages ?? [];
@@ -231,6 +232,7 @@ export class UserProfile {
     this.profileEducations = (obj?.profileEducations ?? []).map((e: any) => new ProfileEducation(e));
     this.phoneCode = obj.phoneCode ?? '';
     this.age = obj.age ?? 0;
+    this.memberApproval = obj.memberApproval ?? 0;
   }
 }
 export class MainUser {

@@ -1,4 +1,4 @@
-<app-navigation-bar *ngIf="!isLoading && isLogin && currentUserType === userType.MEMBER && mainUser && mainUser.isActiveSubscription && memberList.length > 0" [hideProps]="hideNavProps"
+<app-navigation-bar *ngIf="!isLoading && isLogin && currentUserType === userType.MEMBER && mainUser && mainUser.isActiveSubscription && memberList.length > 0 && currentMember.memberApproval === 2" [hideProps]="hideNavProps"
   (openMemberPopup)="openMemberViewPopUp($event)" ></app-navigation-bar>
 
 <!-- <app-top-bar *ngIf="memberList.length === 0 && !isLoading && isLogin && currentUserType !== userType.ADMIN"></app-top-bar> -->

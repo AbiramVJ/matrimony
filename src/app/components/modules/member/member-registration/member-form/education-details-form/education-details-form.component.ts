@@ -5,6 +5,7 @@ import { Education, UserEducationDetails, UserProfile } from '../../../../../../
 import { MemberService } from '../../../../../../services/member.service';
 import { ToastrService } from 'ngx-toastr';
 import { countryCode, currency, incomeTypeList, sectorList } from '../../../../../../helpers/data';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-education-details-form',
@@ -39,7 +40,7 @@ export class EducationDetailsFormComponent {
   public selectedJob:string = '';
   public selectedCurrency:any = null;
   public selectedIncomeType:number = 0;
-  constructor(private fb:FormBuilder,private memberService:MemberService,
+  constructor(private fb:FormBuilder,private memberService:MemberService,private router:Router,
       private toastr: ToastrService){this.educationFormInit();}
 
   ngOnInit(): void {
@@ -152,7 +153,12 @@ export class EducationDetailsFormComponent {
         }
 
         this.memberService.updateMemberProfile(this.memberProfile.id, updatedProfile).subscribe({
-          next:(res:any) => {},
+          next:(res:any) => {
+            console.log(res)
+            if(res.Result.memberApproval === 1 ){
+               this.router.navigateByUrl('member/approval');
+            }
+          },
           complete:()=>{
             this.isLoading = false;
             this.toastr.success("Update successfully",'success');

@@ -1,4 +1,4 @@
-import { SubscriptionStatus } from './helpers/enum';
+import { MemberApproval, SubscriptionStatus } from './helpers/enum';
 import { FullUserProfile, MainUser, UserProfile } from './models/member/member.model';
 import { FriendSignalRService } from './services/friend-signal-r.service';
 import { ChatService } from './services/chat.service';
@@ -39,6 +39,7 @@ export class AppComponent {
   public memberList:UserProfile[] = [];
   public subscriptionStatus = SubscriptionStatus;
   public isActiveSubscription = false;
+  public currentMember:any;
 
   constructor(
      private dataProviderService:DataProviderService,
@@ -94,10 +95,19 @@ export class AppComponent {
           const currentMemberId = localStorage.getItem('currentMemberId');
           if(currentMemberId){
             const member = res.find((member:any) => member.id === currentMemberId);
+            this.currentMember = member;
             this._authService.setUserDetails(member);
           }else{
             localStorage.setItem('currentMemberId',res[0].id);
             this._authService.setUserDetails(res[0]);
+          }
+
+          if(res.length === 1 && res[0].memberApproval === MemberApproval.Pending)
+          {
+            this.router.navigateByUrl('member/approval');
+          }else{
+            this.router.navigateByUrl('home/member');
+
           }
           this._chatService.startConnection();
           this._friendSignalRService.startConnection();

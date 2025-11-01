@@ -234,9 +234,10 @@
                <hr>
               <div>
                 <div class="member-toggle-list pointer mt-2"  *ngFor="let p of displayedProfiles">
-                  <div class="d-flex p-2 member-card border-radios-15" (click)="changeMemberProfile(p.id)"  [ngClass]="{'active-user' : p.id == selectedMember.id }">
+                  <div class="d-flex p-2 member-card border-radios-15" (click)="p.memberApproval != 1 && changeMemberProfile(p.id)"  [ngClass]="{'active-user' : p.id == selectedMember.id, 'disabled-card': p.memberApproval == 1 }">
                     <div class="me-3"> <img [src]="p.profileImages[0].url" class="list-profile object-fit-cover" alt="..."></div>
                     <div class="my-auto fw-normal"> {{p.firstName +' ' + p.lastName}}</div>
+                    <div class="ms-auto text-xs my-auto"><span class="badge bg-danger">Approval pending</span></div>
                   </div>
                   </div>
               </div>

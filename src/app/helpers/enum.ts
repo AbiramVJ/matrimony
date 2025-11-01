@@ -89,3 +89,10 @@ export enum SubscriptionStatus
     PastDue = 6,
     Unpaid = 7
 }
+
+export enum MemberApproval
+{
+    Pending = 1,
+    Approved = 2,
+    Rejected = 3
+}

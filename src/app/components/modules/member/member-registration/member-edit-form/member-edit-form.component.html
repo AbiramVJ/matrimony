@@ -1,5 +1,7 @@
-<section class="content">
+<app-top-bar *ngIf="memberProfile.memberApproval === 1 && memberProfile"></app-top-bar>
+<section class="content" [ngClass]="{'pt-3':memberProfile.memberApproval === 1}">
   <div class="component-content">
+
     <div class="row m-0 p-0 ">
       <div class="bg-white mt-1 d-none d-md-block">
         <div class="d-flex justify-content-between mx-sm-5">

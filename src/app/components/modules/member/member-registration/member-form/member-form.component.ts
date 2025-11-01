@@ -273,12 +273,13 @@ private scrollToTop(): void {
         this.AuthService.setMemberList(res);
 
         if(res.length === 1){
-          localStorage.setItem('currentMemberId',res[0].id);
-          this._authService.setUserDetails(res[0]);
-          window.location.href = "/";
-          return;
+          // localStorage.setItem('currentMemberId',res[0].id);
+          // this._authService.setUserDetails(res[0]);
+          // window.location.href = "/";
+          // return;
+           this.route.navigateByUrl('member/profiles');
         }
-        this.route.navigateByUrl('member/profiles');
+        this.route.navigateByUrl('member/approval');
       },
       complete:() =>{
         this.isLoading = false;
