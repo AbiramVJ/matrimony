@@ -98,16 +98,27 @@ export class AppComponent {
             this.currentMember = member;
             this._authService.setUserDetails(member);
           }else{
-            localStorage.setItem('currentMemberId',res[0].id);
-            this._authService.setUserDetails(res[0]);
+            const approvalMembers = res.filter((member: any) => member.memberApproval === MemberApproval.Approved);
+            if(approvalMembers.length > 0){
+              localStorage.setItem('currentMemberId',res[0].id);
+              this._authService.setUserDetails(res[0]);
+              this.currentMember = res[0];
+            }else{
+               localStorage.setItem('currentMemberId',res[0].id);
+               this._authService.setUserDetails(res[0]);
+               this.currentMember = res[0];
+               this.router.navigateByUrl('member/approval');
+               this.isLoading =  false;
+               return;
+            }
+
           }
 
           if(res.length === 1 && res[0].memberApproval === MemberApproval.Pending)
           {
             this.router.navigateByUrl('member/approval');
-          }else{
-          //  this.router.navigateByUrl('home/member');
-
+            this.isLoading =  false;
+            return;
           }
           this._chatService.startConnection();
           this._friendSignalRService.startConnection();

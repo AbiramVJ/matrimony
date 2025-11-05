@@ -54,8 +54,11 @@
                           <div class="text-left my-auto ms-3">
                             <div class="fw-bold text-md text-capitalize">{{p.firstName + ' ' + p.lastName}}</div>
                             <div class="text-muted text-sm text-capitalize">{{p.profileJob?.title}}</div>
+                           <div class="ms-auto text-xs my-auto text-center mt-2" *ngIf="p.memberApproval === 1"><span class="badge bg-danger">Approval pending</span></div>
+
                           </div>
                         </div>
+
 
                         <div class="me-3 my-auto">
                           <!-- <div class="dropdown">

@@ -6,11 +6,12 @@ import { ToastrService } from 'ngx-toastr';
 
 import { MemberProfileModalComponent } from '../../../../../common/pop-up/member-profile-modal/member-profile-modal.component';
 import { CommonModule } from '@angular/common';
+import { LoadingComponent } from "../../../../../common/loading/loading.component";
 
 
 @Component({
   selector: 'app-member-details',
-  imports: [MemberProfileModalComponent, CommonModule],
+  imports: [MemberProfileModalComponent, CommonModule, LoadingComponent],
   templateUrl: './member-details.component.html',
   styleUrl: './member-details.component.scss',
   standalone:true
@@ -28,14 +29,15 @@ constructor(
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.memberId = params['id'];
+      this.viewMemberDetails();
     });
   }
 
-  ngAfterViewInit(): void {
-    if(this.memberId) {
-      this.viewMemberDetails();
-    }
-  }
+  // ngAfterViewInit(): void {
+  //   if(this.memberId) {
+  //     this.viewMemberDetails();
+  //   }
+  // }
 
   public viewMemberDetails() {
     this.isLoading = true;

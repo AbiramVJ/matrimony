@@ -112,12 +112,17 @@ export class ProfileSelectionComponent {
     this._memberService.getProfiles().subscribe({
       next:(res:any) => {
         if(res.length  === 0){
-          window.location.href = "/";
+
         }else{
+          let currentMemberId = localStorage.getItem('currentMemberId');
           this.auth.setMemberList(res);
           this.isLoading = false;
           let deleteModal: HTMLElement = document.getElementById('deleteMemberModalId') as HTMLElement;
           deleteModal.click();
+          if(currentMemberId === this.deleteMemberId){
+            localStorage.removeItem('currentMemberId');
+            window.location.href = "/";
+          }
         }
 
       },

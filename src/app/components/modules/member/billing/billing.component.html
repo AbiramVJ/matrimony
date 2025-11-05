@@ -189,7 +189,7 @@
 
                         </ul>
                       </div>
-                      <button class="btn w-100 mb-2 bg-white text-danger" [ngClass]="currentPlan.canChangeSubscription ? 'btn-danger':'btn-striped'" data-bs-toggle="modal" data-bs-target="#switchPlan" (click)="newPlanId = plan.subscriptionType" [disabled]="!currentPlan.canChangeSubscription">
+                      <button class="btn w-100 mb-2 bg-white" [ngClass]="currentPlan.canChangeSubscription ? 'btn-danger text-white':'btn-striped text-danger'" data-bs-toggle="modal" data-bs-target="#switchPlan" (click)="newPlanId = plan.subscriptionType" [disabled]="!currentPlan.canChangeSubscription">
                          <span class=""> Switch Plan</span>
                           <!-- <span class="" *ngIf="plan.subscriptionType === subscriptionType.Silver">Continue with Silver Plan</span>
                           <span class="" *ngIf="plan.subscriptionType === subscriptionType.Gold">Continue with Gold Plan</span>

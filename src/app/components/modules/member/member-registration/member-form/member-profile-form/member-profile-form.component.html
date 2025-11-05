@@ -44,7 +44,7 @@
       <div class="col-12 col-md-3">
         <div class="form-group mb-3">
           <label for="height" class="mb-1">Height (Cm) <span class="text-danger">*</span></label>
-          <input type="number" id="height" formControlName="height" class="form-control"  [ngClass]="{'errorBorder': isSubmitted && userBasicFrom.get('height')?.errors}">
+          <input type="number" id="height" formControlName="height" class="form-control"  maxlength="3" oninput="this.value = this.value.slice(0, 3)" [ngClass]="{'errorBorder': isSubmitted && userBasicFrom.get('height')?.errors}">
           <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userBasicFrom.get('height')?.errors" class="error-message">
             <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userBasicFrom.get('height')?.errors?.['required']">Height is required</div>
             <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userBasicFrom.get('height')?.errors?.['min']">Invalid height</div>
@@ -54,7 +54,7 @@
       <div class="col-12 col-md-3">
         <div class="form-group mb-3">
           <label for="weight" class="mb-1">Weight (Kg) <span class="text-danger">*</span> </label>
-          <input type="number" id="weight" formControlName="weight" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userBasicFrom.get('weight')?.errors}">
+          <input type="number" id="weight" formControlName="weight" class="form-control"  maxlength="3" oninput="this.value = this.value.slice(0, 3)"  [ngClass]="{'errorBorder': isSubmitted && userBasicFrom.get('weight')?.errors}">
           <div *ngIf="isSubmitted && userBasicFrom.get('weight')?.errors" class="error-message">
             <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userBasicFrom.get('weight')?.errors?.['required']">Weight is required</div>
             <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userBasicFrom.get('weight')?.errors?.['min']">Invalid weight</div>

@@ -20786,113 +20786,114 @@ export const Natshathira = [
 export const raasiList = [
   {
     id: 1,
-    name: "Mesham (Aries)",
+    name: "Aries",
     rasi: [
-      { id: 1, name: "Ashwini" },
+      { id: 1, name: "Aswini" },
       { id: 2, name: "Bharani" },
-      { id: 3, name: "Krittika (1st pada)" }
+      { id: 3, name: "Karthigai (1st quarter)" }
     ]
   },
   {
     id: 2,
-    name: "Rishabam (Taurus)",
+    name: "Taurus",
     rasi: [
-      { id: 3, name: "Krittika (2nd–4th padas)" },
+      { id: 3, name: "Karthigai (last 3 quarters)" },
       { id: 4, name: "Rohini" },
-      { id: 5, name: "Mrigashirsha (1st pada)" }
+      { id: 5, name: "Mrigashirsha (1st 2 quarters)" }
     ]
   },
   {
     id: 3,
-    name: "Mithunam (Gemini)",
+    name: "Gemini",
     rasi: [
-      { id: 5, name: "Mrigashirsha (2nd–4th padas)" },
-      { id: 6, name: "Ardra" },
-      { id: 7, name: "Punarvasu (1st pada)" }
+      { id: 5, name: "Mrigashirsha (last 2 quarters)" },
+      { id: 6, name: "Thiruvathirai" },
+      { id: 7, name: "Punarpoosam (1st 3 quarters)" }
     ]
   },
   {
     id: 4,
-    name: "Kadagam (Cancer)",
+    name: "Cancer",
     rasi: [
-      { id: 7, name: "Punarvasu (2nd–4th padas)" },
-      { id: 8, name: "Pushya" },
-      { id: 9, name: "Ashlesha" }
+      { id: 7, name: "Punarpoosam (last quarter)" },
+      { id: 8, name: "Poosam" },
+      { id: 9, name: "Ayilyam" }
     ]
   },
   {
     id: 5,
-    name: "Simmam (Leo)",
+    name: "Leo",
     rasi: [
-      { id: 10, name: "Magha" },
-      { id: 11, name: "Purva Phalguni" },
-      { id: 12, name: "Uttara Phalguni (1st pada)" }
+      { id: 10, name: "Magam" },
+      { id: 11, name: "Pooram" },
+      { id: 12, name: "Uthiram (1st quarter)" }
     ]
   },
   {
     id: 6,
-    name: "Kanni (Virgo)",
+    name: "Virgo",
     rasi: [
-      { id: 12, name: "Uttara Phalguni (2nd–4th padas)" },
-      { id: 13, name: "Hasta" },
-      { id: 14, name: "Chitra (1st pada)" }
+      { id: 12, name: "Uthiram (last 3 quarters)" },
+      { id: 13, name: "Hastham" },
+      { id: 14, name: "Chithirai" }
     ]
   },
   {
     id: 7,
-    name: "Thulam (Libra)",
+    name: "Libra",
     rasi: [
-      { id: 14, name: "Chitra (2nd–4th padas)" },
-      { id: 15, name: "Swati" },
-      { id: 16, name: "Vishakha (1st pada)" }
+      { id: 15, name: "Swathi" },
+      { id: 16, name: "Vishakam" },
+      { id: 17, name: "Anusham (1st quarter)" }
     ]
   },
   {
     id: 8,
-    name: "Viruchigam (Scorpio)",
+    name: "Scorpio",
     rasi: [
-      { id: 16, name: "Vishakha (2nd–4th padas)" },
-      { id: 17, name: "Anuradha" },
-      { id: 18, name: "Jyeshtha" }
+      { id: 17, name: "Anusham (last 3 quarters)" },
+      { id: 18, name: "Kettai" },
+      { id: 19, name: "Moolam (1st 2 quarters)" }
     ]
   },
   {
     id: 9,
-    name: "Dhanusu (Sagittarius)",
+    name: "Sagittarius",
     rasi: [
-      { id: 19, name: "Mula" },
-      { id: 20, name: "Purva Ashadha" },
-      { id: 21, name: "Uttara Ashadha (1st pada)" }
+      { id: 19, name: "Moolam (last 2 quarters)" },
+      { id: 20, name: "Pooradam" },
+      { id: 21, name: "Uthiradam (1st quarter)" }
     ]
   },
   {
     id: 10,
-    name: "Magaram (Capricorn)",
+    name: "Capricorn",
     rasi: [
-      { id: 21, name: "Uttara Ashadha (2nd–4th padas)" },
-      { id: 22, name: "Shravana" },
-      { id: 23, name: "Dhanishta (1st pada)" }
+      { id: 21, name: "Uthiradam (last 3 quarters)" },
+      { id: 22, name: "Thiruvonam" },
+      { id: 23, name: "Avittam" }
     ]
   },
   {
     id: 11,
-    name: "Kumbam (Aquarius)",
+    name: "Aquarius",
     rasi: [
-      { id: 23, name: "Dhanishta (2nd–4th padas)" },
-      { id: 24, name: "Shatabhisha" },
-      { id: 25, name: "Purva Bhadrapada (1st pada)" }
+      { id: 24, name: "Sathayam" },
+      { id: 25, name: "Poorattadhi" },
+      { id: 26, name: "Uthirattadhi (1st 3 quarters)" }
     ]
   },
   {
     id: 12,
-    name: "Meenam (Pisces)",
+    name: "Pisces",
     rasi: [
-      { id: 25, name: "Purva Bhadrapada (2nd–4th padas)" },
-      { id: 26, name: "Uttara Bhadrapada" },
-      { id: 27, name: "Revati" }
+      { id: 26, name: "Uthirattadhi (last quarter)" },
+      { id: 27, name: "Revathi" },
+      { id: 1, name: "Aswini (starts next Aries cycle)" }
     ]
   }
 ];
+
 
 export const Complexion = [
   { id: 1, name: "Very Fair" },

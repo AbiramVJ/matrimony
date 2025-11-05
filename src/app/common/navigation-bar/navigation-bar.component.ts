@@ -430,6 +430,7 @@ export class NavigationBarComponent {
   public navigateToNotificationSection(type: NotificationItem) {
     if (type.notificationType === NotificationType.FriendRequestAccept && type.parsedPayload) {
        this.router.navigateByUrl(`home/profile/${type.parsedPayload?.ProfileId}`);
+       this.isNotificationOpen = false;
     }
     this._makeItAsReadNotification(type.id);
   }
@@ -442,6 +443,7 @@ export class NavigationBarComponent {
         if (notif) {
           notif.isRead = true;
           this.notificationList = [...this.notificationList];
+          this.totalUnReadCount - 1;
         }
       },
     });

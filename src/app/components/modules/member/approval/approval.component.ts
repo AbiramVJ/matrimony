@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-approval',
-  imports: [TopBarComponent,CommonModule],
+  imports: [TopBarComponent, CommonModule],
   templateUrl: './approval.component.html',
   styleUrl: './approval.component.scss'
 })
