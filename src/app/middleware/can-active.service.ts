@@ -30,11 +30,9 @@ export class CanActivateService implements CanActivate {
         }
 
         if (memberList && memberList.length > 0) {
-          // Redirect to registration if members exist but not logged in
           return this.router.createUrlTree(['/member/member-registration']);
         }
 
-        // Redirect to login page
         return this.router.createUrlTree(['/home/member']);
       })
     );

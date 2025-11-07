@@ -11,6 +11,7 @@ export class User {
   subscriptionStatus: string | null;
   memberCount: number;
   remainingMemberCount: number;
+  userProfiles:userMember[];
 
   constructor(obj: any) {
     this.id = obj?.id ?? '';
@@ -25,5 +26,21 @@ export class User {
     this.subscriptionStatus = obj?.subscriptionStatus ?? null;
     this.memberCount = obj?.memberCount ?? 0;
     this.remainingMemberCount = obj?.remainingMemberCount ?? 0;
+    this.userProfiles = obj.userProfiles ? obj.userProfiles.map((user:any) => new userMember(user) ) : [];
+
+  }
+}
+
+export class userMember {
+  id:string;
+  firstName: string;
+  lastName: string;
+  memberApproval:number;
+
+  constructor(obj:any){
+    this.id = obj?.id ?? '';
+    this.firstName = obj?.firstName ?? '';
+    this.lastName = obj?.lastName ?? '';
+    this.memberApproval = obj.memberApproval ?? 0;
   }
 }

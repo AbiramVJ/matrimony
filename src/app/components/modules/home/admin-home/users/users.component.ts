@@ -1,3 +1,4 @@
+import { MemberService } from './../../../../../services/member.service';
 import { FormsModule } from '@angular/forms';
 import { AdminService } from '../../../../../services/admin.service';
 import { sortedBy, sortedDirection, subscriptionTypeList } from './../../../../../helpers/data';
@@ -8,10 +9,13 @@ import { User } from '../../../../../models/member/user.model';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { BehaviorSubject, debounceTime } from 'rxjs';
 import { LoadingComponent } from "../../../../../common/loading/loading.component";
+import { FullUserProfile } from '../../../../../models/index.model';
+import { MemberProfileModalComponent } from "../../../../../common/pop-up/member-profile-modal/member-profile-modal.component";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-users',
-  imports: [CommonModule, FormsModule, NgSelectComponent, NgxPaginationModule, LoadingComponent],
+  imports: [CommonModule, FormsModule, NgSelectComponent, NgxPaginationModule, LoadingComponent, MemberProfileModalComponent],
   templateUrl: './users.component.html',
   styleUrl: './users.component.scss'
 })
@@ -22,10 +26,13 @@ export class UsersComponent {
 
   public searchText:string = '';
   public deleteUserId:string = '';
+  public viewMemberId:string = '';
 
   public itemsPerPage: number = 6;
   public currentPage: number = 1;
   public isLoading:boolean = false;
+  public isMemberViewLoading:boolean = false;
+  public isApprovalLoading:boolean = false;
 
   public selectedStatus:number = 0;
   public selectedSortBy:number = 0;
@@ -34,10 +41,12 @@ export class UsersComponent {
   public subscriptionTypes = subscriptionTypeList;
   public sortedBy = sortedBy;
   public sortedDirection = sortedDirection;
+  public openedUserId: number | null = null;
+  public filterMemberViewData!: FullUserProfile;
 
   public searchValue = new BehaviorSubject<any>(null);
 
-  constructor(private _adminService:AdminService) { }
+  constructor(private _adminService:AdminService, private memberService:MemberService,private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.loadUsers();
@@ -58,6 +67,7 @@ export class UsersComponent {
     }
     this._adminService.getAllUsers(this.currentPage, this.itemsPerPage, body).subscribe({
       next:(res:any) => {
+        console.log(res);
         this.userList = res.data;
         this.totalItemCount = res.totalCount;
         this.isLoading = false;
@@ -115,5 +125,56 @@ export class UsersComponent {
         this.isLoading = false;
       }
     });
+  }
+
+  public viewMember(id:string){
+    this.isMemberViewLoading = true;
+    this.viewMemberId = id;
+    this.memberService.getMemberProfileById(id).subscribe({
+      next: (res: any) => {
+        this.filterMemberViewData = res;
+      },
+      complete: () => {
+        this.isMemberViewLoading = false;
+        this.viewMemberId = '';
+        let viewModal: HTMLElement = document.getElementById(
+          'adminModal'
+        ) as HTMLElement;
+        if (viewModal) {
+          viewModal.click();
+        }
+         this.viewMemberId = '';
+      },
+      error: (error: any) => {
+        this.toastr.error(error.error.Error.Detail, error.error.Error.Title);
+      },
+    });
+  }
+
+
+
+  toggleOpen(id: number) {
+    this.openedUserId = this.openedUserId === id ? null : id;
+  }
+
+  public makeApprove(id:string, approvalType:number){
+    this.isApprovalLoading = true;
+    this._adminService.memberApproval(id,approvalType).subscribe({
+      next:()=>{
+        this.loadUsers();
+      },
+      complete:()=>{
+          this.isApprovalLoading = false;
+          this.toastr.success(approvalType === 1 ? 'Approval Rejected Successfully' : 'Approval Successfully', 'Success');
+      },
+       error: (error: any) => {
+         this.isApprovalLoading = false;
+        this.toastr.error(error.error.Error.Detail, error.error.Error.Title);
+      },
+    })
+  }
+
+  public removeApprove(id:string){
+
   }
 }

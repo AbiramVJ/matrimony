@@ -54,7 +54,7 @@ export class FilterMemberListComponent {
     private memberService: MemberService,
     private _toastr: ToastrService,
     private router: Router,
-    private _chatService: ChatService
+    private _chatService: ChatService,
   ) {
      combineLatest([
     this.auth.member$.pipe(filter(user => !!user)),

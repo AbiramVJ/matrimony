@@ -125,4 +125,8 @@ export class AdminService {
   }
 
 
+  public memberApproval(id:string, approvalType:number){
+    return this.http.put<any>(this.baseUrl + `Profile/member-approval/${id}?memberApproval=${approvalType}`,{})
+  }
+
 }

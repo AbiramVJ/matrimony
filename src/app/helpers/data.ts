@@ -19840,6 +19840,7 @@ export const languageList = [
         "name": "Nsenga"
     }
 ];
+
 export const currency = [
     {
         "id": 1,
@@ -20658,7 +20659,6 @@ export const currency = [
     }
 ];
 
-
 export const residencyStatusList = [
   { id: 1, name: 'Citizen' },
   { id: 2, name: 'Permanent Resident' },
@@ -20666,8 +20666,6 @@ export const residencyStatusList = [
   { id: 4, name: 'Student Visa' },
   { id: 5, name: 'Asylum Visa'},
 ];
-
-
 
 export const knownLanguages = [
   {id:1, name:'Tamil'},
@@ -20701,7 +20699,6 @@ export const SmokeHabit = [
   { id: 3, name: 'Regularly' }
 ];
 
-
 export const bodyTypes = [
   { id: 1, name: 'Slim' },
   { id: 2, name: 'Athletic' },
@@ -20715,7 +20712,6 @@ export const familyTypeList = [
   { id: 3, name: 'Extended Family' },
   { id: 2, name: 'Single parent Family' },
 ];
-
 
 export const Religions = [
   { id: 1, name: 'Christianity' },
@@ -20767,21 +20763,6 @@ export const Natshathira = [
   { id: 26, name: "Uttara Bhadrapada" },
   { id: 27, name: "Revati" }
 ];
-
-// export const raasiList = [
-//   { id: 1, name: "Mesham (Aries)" },
-//   { id: 2, name: "Rishabam (Taurus)" },
-//   { id: 3, name: "Mithunam (Gemini)" },
-//   { id: 4, name: "Kadagam (Cancer)" },
-//   { id: 5, name: "Simmam (Leo)" },
-//   { id: 6, name: "Kanni (Virgo)" },
-//   { id: 7, name: "Thulam (Libra)" },
-//   { id: 8, name: "Viruchigam (Scorpio)" },
-//   { id: 9, name: "Dhanusu (Sagittarius)" },
-//   { id: 10, name: "Magaram (Capricorn)" },
-//   { id: 11, name: "Kumbam (Aquarius)" },
-//   { id: 12, name: "Meenam (Pisces)" }
-// ];
 
 export const raasiList = [
   {
@@ -20894,7 +20875,6 @@ export const raasiList = [
   }
 ];
 
-
 export const Complexion = [
   { id: 1, name: "Very Fair" },
   { id: 2, name: "Fair" },
@@ -20919,7 +20899,6 @@ export const willingToRelocate = [
    { id: 2, name: "No" },
    { id: 3, name: "Maybe" }
 ]
-
 
 export const sectorList = [{id:1, name:'Government'}, {id:2, name:'Private'}];
 

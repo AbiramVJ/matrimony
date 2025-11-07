@@ -114,13 +114,45 @@
                   <!-- Actions Section -->
                   <div class="col-lg-3 col-md-3 col-6 text-end">
                     <button
-                      class="btn btn-outline-danger btn-sm"
+                      class="btn btn-outline-danger btn-sm me-2"
                       (click)="deleteUserId = user.id"
                       title="Delete user" data-bs-toggle="modal" data-bs-target="#deleteModal" >
                       <i class="fas fa-trash me-1"></i>Delete
                     </button>
+                    <span
+                    *ngIf="user.userProfiles.length > 0"
+                      class="p-2 pointer"
+                      data-bs-toggle="collapse"
+                      [attr.data-bs-target]="'#collapseExample' + user.id"
+                      aria-expanded="false"
+                      [attr.aria-controls]="'collapseExample' + user.id">
+                      <i class="fas fa-chevron-down"></i>
+                    </span>
+
                   </div>
-                </div>
+
+                    <div class="collapse mt-2" [id]="'collapseExample' + user.id">
+                      <div class="card card-body">
+                          <div class="mb-3 border rounded p-2 mt-2" *ngFor="let member of user.userProfiles">
+                              <div class="row">
+                                <div class="col-3 fw-normal">
+                                  {{member.firstName + member.lastName}}
+                                </div>
+                                <div class="col-3">
+                                  <span class="badge" [ngClass]="{'bg-success':member.memberApproval === 2,'bg-secondary':member.memberApproval === 1, 'bg-warning':member.memberApproval === 3 }">{{member.memberApproval === 1 ? "Pending" : member.memberApproval === 2 ? "Aproved" : "Reject"}}</span>
+                                </div>
+                                <div class="col-6">
+                                  <div class="d-flex justify-content-end fw-bold">
+                                    <button class="btn text-right me-2 pointer" [ngClass]="{'btn-danger':member.memberApproval === 2, 'btn-success':member.memberApproval }" [disabled]="isApprovalLoading" (click)="member.memberApproval !== 2 ? makeApprove(member.id, 2) : makeApprove(member.id, 1)" >{{member.memberApproval === 2 ? 'Reject' : 'Approve'}}</button>
+                                    <div class="spinner-border spinner-border-sm text-light me-1" role="status" *ngIf="isApprovalLoading"></div>
+                                    <button class="btn btn-primary text-right me-2 pointer" [disabled]="isMemberViewLoading" (click)="viewMember(member.id)" >    <div class="spinner-border spinner-border-sm text-light me-1" role="status" *ngIf="isMemberViewLoading && viewMemberId === member.id"></div> View</button>
+                                  </div>
+                                </div>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
               </div>
             </div>
 
@@ -168,7 +200,7 @@
 </section>
 
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog modal-dialog-centered ">
     <div class="modal-content">
       <div class="modal-header border-0">
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-delete-user-modal-btn"></button>
@@ -185,3 +217,26 @@
     </div>
   </div>
 </div>
+
+<button type="button" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#memberAdminView" id="adminModal">
+  Launch static backdrop modal
+</button>
+<!-- Modal -->
+<div class="modal fade" id="memberAdminView" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="memberAdminViewLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="memberAdminViewLabel">Member Details</h5>
+
+      </div>
+      <div class="modal-body">
+       <app-member-profile-modal [memberProfile]="filterMemberViewData" [isPopUp]="true"></app-member-profile-modal>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+

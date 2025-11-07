@@ -68,7 +68,6 @@ export class AppComponent {
         this._getAdmin();
       }else{
         this.getMainUser();
-       // this.router.navigateByUrl('member/member-registration');
       }
 
     }else{
@@ -111,9 +110,7 @@ export class AppComponent {
                this.isLoading =  false;
                return;
             }
-
           }
-
           if(res.length === 1 && res[0].memberApproval === MemberApproval.Pending)
           {
             this.router.navigateByUrl('member/approval');
@@ -127,12 +124,9 @@ export class AppComponent {
           this._memberService.setInitialLoading(false);
         }
       },
-      complete:() =>{
-       // this._signalRService.startConnection();
-      //  this.router.navigateByUrl('home/member');
-      },
+      complete:() =>{},
       error:(error:any)=>{
-      this.isLoading = false;
+        this.isLoading = false;
       }
     })
   }
@@ -142,15 +136,7 @@ export class AppComponent {
     this.router.navigateByUrl("admin/dashboard");
   }
 
-  public openMemberViewPopUp(member:FullUserProfile){
-    this.filterMemberViewData = member;
-    let viewModal: HTMLElement = document.getElementById('viewProfileModals') as HTMLElement;
-    if (viewModal) {
-      viewModal.click();
-    }
-  }
-
-   public viewMemberDetails(id: string) {
+  public viewMemberDetails(id: string) {
     this._memberService.GetFilterMemberViewData(id).subscribe({
       next: (res: any) => {
         this.filterMemberViewData = res;
@@ -161,7 +147,7 @@ export class AppComponent {
   }
 
 
-   private getMainUser() {
+  private getMainUser() {
     this._memberService.setInitialLoading(true);
     this.isLoading = true;
     this._memberService.getMainUser().subscribe({

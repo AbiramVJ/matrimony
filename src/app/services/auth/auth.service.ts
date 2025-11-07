@@ -24,10 +24,6 @@ export class AuthService {
 
   public isActiveSubscription$ = new BehaviorSubject<boolean | null>(null);
 
-  // public isActiveSubscriptionSignal = signal<boolean>(false);
-
-
-
 
   constructor(private http: HttpClient) { }
 
@@ -149,8 +145,6 @@ export class AuthService {
     } else {
       decodeToken['LoginUserType'] = 'Admin';
     }
-
-
     return decodeToken;
   }
 
@@ -179,14 +173,6 @@ export class AuthService {
   public setActiveSubscription(isActiveSubscription: boolean) {
     this.isActiveSubscription$.next(isActiveSubscription);
   }
-
-  // setIsActiveSubscription(isActive: boolean) {
-  //   this.isActiveSubscriptionSignal.set(isActive);
-  // }
-
-  // getIsActiveSubscription() {
-  //   return this.isActiveSubscriptionSignal.asReadonly();
-  // }
 
   public changePassword(body:any){
      return this.http.post<any>(`${this.baseUrl}Password/change-password`, body );

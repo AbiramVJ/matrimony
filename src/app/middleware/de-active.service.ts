@@ -8,18 +8,15 @@ import { AuthService } from '../services/auth/auth.service';
 
 export class DeActiveService implements CanActivate {
 
-
   constructor(private authService: AuthService, private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-   // const user = this.authService.getUserType();
     if(!this.authService.isLoggedIn()) {
       return !this.authService.isLoggedIn();
     }
 
    this.router.navigateByUrl('home/member');
    return this.authService.isLoggedIn();
-
 
   }
 }
