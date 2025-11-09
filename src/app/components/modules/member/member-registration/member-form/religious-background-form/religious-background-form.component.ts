@@ -140,6 +140,9 @@ export class ReligiousBackgroundFormComponent {
   // }
 
   public changeRasi(event: any) {
+    if(event === null){
+      this.selectedStar = 0;
+    }
     if (!event) {
       this.natshathiraList = Natshathira;
     } else {

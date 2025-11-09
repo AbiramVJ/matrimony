@@ -285,6 +285,12 @@ export class NavigationBarComponent {
   public openChat(member: ChatParticipant) {
     this.selectedChatId = member.receiverProfileId;
     this._chatService.clearParticipant();
+    this.UnreadCount = this.UnreadCount - 1;
+    this.participants.forEach((p: any) => {
+      if (p.receiverProfileId === member.receiverProfileId) {
+        p.isRead = true;
+      }
+    });
     const openChatMember = new ChatParticipant({
       receiverProfileId: member.receiverProfileId,
       name: member.name,
@@ -296,6 +302,8 @@ export class NavigationBarComponent {
 
     this._chatService.setParticipant(openChatMember);
     this.isMessageOpen = false;
+
+
     this.router.navigate(['/home/chat']);
   }
   //FRIENDS REQUEST
@@ -364,6 +372,7 @@ export class NavigationBarComponent {
       },
       complete: () => {
         this.isRequestLoading = false;
+        this.totalRequestList = this.totalRequestList - 1;
       },
       error: (error: any) => {
         this._toster.error(error.error.Error.Title, error.error.Error.Detail);
@@ -384,6 +393,7 @@ export class NavigationBarComponent {
       },
       complete: () => {
         this.isRequestLoading = false;
+        this.totalRequestList = this.totalRequestList - 1;
       },
       error: (error: any) => {
         this._toster.error(error.error.Error.Title, error.error.Error.Detail);
@@ -443,7 +453,7 @@ export class NavigationBarComponent {
         if (notif) {
           notif.isRead = true;
           this.notificationList = [...this.notificationList];
-          this.totalUnReadCount - 1;
+          this.totalUnReadCount = this.totalUnReadCount - 1;
         }
       },
     });

@@ -62,7 +62,7 @@
     bindLabel="name"
     bindValue="id"
     [ngModelOptions]="{standalone: true}"
-    [clearable]="true"
+    [clearable]="selectedRaasi === 0 ? false : true"
     [searchable]="true"
     [(ngModel)]="selectedRaasi"
     (ngModelChange)="changeRasi($event)"
@@ -74,10 +74,11 @@
     <label for="diet" class="mb-1">Star/Nakshathra</label>
     <ng-select
     [items]="natshathiraList"
+    [disabled]="selectedRaasi === 0 || selectedRaasi === null"
     bindLabel="name"
     bindValue="id"
     [ngModelOptions]="{standalone: true}"
-    [clearable]="true"
+    [clearable]="selectedStar === 0 ? false : true"
     [searchable]="true"
     [(ngModel)]="selectedStar"
     >

@@ -75,14 +75,13 @@ export class PersonalDetailsFormComponent {
        names = this.knownLanguagesList.filter(lang => this.selectedKnowLanguage.includes(lang.id)).map(lang => lang.name);
     }
     if (this.selectedMotherTongue) {
-      motherTongue = this.motherTongueList.find((lang: any) => lang.id === this.selectedMotherTongue);
-
+     motherTongue = this.motherTongueList.find((lang: any) => lang.id === Number(this.selectedMotherTongue));
     }
 
     const personalDetailsValue:PersonalDetails = {
       aboutMe:formsValue.aboutMe,
       disability:formsValue.disability,
-      motherTongue:motherTongue?.name,
+      motherTongue:motherTongue?.name ?? this.motherTongueList[0].name,
       diet:this.selectedDiet,
       smoking:this.selectedSmoke,
       drinking:this.selectedDrinking,

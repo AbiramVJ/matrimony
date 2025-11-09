@@ -1,6 +1,6 @@
 
-<app-top-bar *ngIf="mainUser.memberCount === 0"></app-top-bar>
-<section class="content">
+<app-top-bar *ngIf="mainUser && mainUser.memberCount === 0"></app-top-bar>
+<section class="content" [ngClass]="{'p-0':mainUser && mainUser.memberCount === 0}">
   <div class="component-content">
     <div class="row m-0" [ngClass]="currentStep === steps.family || currentStep === steps.lookingFor ? 'bg-small':'bg-color'">
       <div class="col-12 col-md-12 col-lg-10 mx-auto">
@@ -157,15 +157,25 @@
                      </div>
                       <div class="m-shadow p-3 profile-card pointer">
                         <div class="px-2" >
-                          <div  [ngClass]="mainUser && mainUser.memberCount > 0 ? 'd-flex justify-content-between' : 'text-center'">
-                            <i class="fas fa-arrow-left fs-5 mt-2 text-danger" (click)="goBack()" *ngIf="
-                              mainUser &&
-                              mainUser.memberCount > 0
-                              && currentStep === steps.lookingFor"
+                          <div  [ngClass]="mainUser && mainUser.memberCount > 0 ? 'd-flex justify-content-between' : 'text-center'" *ngIf="mainUser &&
+                              mainUser.memberCount > 0">
+                            <i class="fas fa-arrow-left fs-5 mt-2 text-danger" (click)="goBack()"
                               ></i>
                             <div class="text-xl fw-bold text-center fs-4">USER REGISTRATION</div>
                             <div></div>
                           </div>
+
+                          <div  [ngClass]="(mainUser && mainUser.memberCount === 0 && currentStep !== steps.lookingFor) ? 'd-flex justify-content-between' : 'text-center'" *ngIf="mainUser &&
+                              mainUser.memberCount === 0">
+
+                              <i class="fas fa-arrow-left fs-5 mt-2 text-danger" (click)="goBack()" *ngIf="
+                               currentStep !== steps.lookingFor"
+                              ></i>
+                            <div class="text-xl fw-bold text-center fs-4">USER REGISTRATION</div>
+                            <div></div>
+                          </div>
+
+
 
                           <!-- <div class="mt-1">Complete this form to make your profile even better.</div> -->
                           <div class="mt-4 fw-bold text-md">STEP {{currentStep + 1}} OF 7</div>
@@ -185,7 +195,7 @@
                             <app-looking-for-form (userMatchingDetailsEmitter)="getUserLookingForDetails($event)"></app-looking-for-form>
                           </div>
                           <div class="mt-4" [ngClass]="{'d-none' :currentStep !== steps.basic }">
-                            <app-member-profile-form (basicDetailsEmitter)="getUserBasicDetailsEmitter($event)"></app-member-profile-form>
+                            <app-member-profile-form (basicDetailsEmitter)="getUserBasicDetailsEmitter($event)" [hideGender]="isHideGender"></app-member-profile-form>
                           </div>
                           <div class="mt-4" [ngClass]="{'d-none' :currentStep !== steps.contact }">
                             <app-contact-info-form (contactDetailsEmitter)="getUserContactDetailsEmitter($event)"></app-contact-info-form>

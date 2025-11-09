@@ -16,6 +16,7 @@ import { LookingForFormComponent } from "./looking-for-form/looking-for-form.com
 import { ToastrService } from 'ngx-toastr';
 import { LoadingComponent } from "../../../../../common/loading/loading.component";
 import { TopBarComponent } from "../../../../../common/top-bar/top-bar.component";
+import { async } from 'rxjs';
 
 
 @Component({
@@ -45,6 +46,7 @@ export class MemberFormComponent {
 
   public isEditFlow:boolean = true;
   public mainUser!:MainUser;
+  public isHideGender:boolean = false;
 
   constructor(private route:Router,
     private activeRoute: ActivatedRoute,
@@ -69,6 +71,11 @@ export class MemberFormComponent {
 
   public getUserLookingForDetails(event:MatchPreferences){
     this.matchingInfo = event;
+    if(this.matchingInfo.profileFor === 1 || this.matchingInfo.profileFor === 5 || this.matchingInfo.profileFor === 6){
+      this.isHideGender = false;
+    }else{
+      this.isHideGender = true;
+    }
     this.currentStep = MemberRegistrationStep.basic;
     this.scrollToTop();
   }

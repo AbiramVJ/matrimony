@@ -1,36 +1,24 @@
-import { MemberApproval } from './../helpers/enum';
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  Router,
-  RouterStateSnapshot,
-  UrlTree
-} from '@angular/router';
-import { AuthService } from '../services/auth/auth.service';
-import { Observable, of } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { ActivatedRouteSnapshot, CanDeactivate, RouterStateSnapshot } from '@angular/router';
+import { Observable } from 'rxjs';
+import { ApprovalComponent } from '../components/modules/member/approval/approval.component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ApprovalGuardService implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
+export class LeaveApprovalGuard implements CanDeactivate<ApprovalComponent> {
+  canDeactivate(
+    component: ApprovalComponent,
+    currentRoute: ActivatedRouteSnapshot,
+    currentState: RouterStateSnapshot,
+    nextState?: RouterStateSnapshot
+  ): Observable<boolean> | Promise<boolean> | boolean {
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean | UrlTree> {
-    return this.authService.memberList$.pipe(
-      take(1),
-      map((memberList) => {
-          if(memberList && memberList.length === 1 && memberList[0].memberApproval === MemberApproval.Pending){
-             return this.router.createUrlTree(['member/approval']);
-          }else{
-            return this.router.createUrlTree(['home/member']);
-          }
+    if (component.memberProfile.memberApproval === 1) {
 
-      })
-    );
+      return false;
+    }
+
+    return true;
   }
 }

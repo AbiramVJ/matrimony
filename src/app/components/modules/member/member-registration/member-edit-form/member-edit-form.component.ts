@@ -1,6 +1,6 @@
 import { MemberService } from './../../../../../services/member.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component } from '@angular/core';
+import { Component, Input, input, Output, EventEmitter } from '@angular/core';
 import { COMMON_DIRECTIVES, FORM_MODULES, ROUTER_MODULES } from '../../../../../common/common-imports';
 import { MatchPreferences, PersonalDetails, UserBasicForm, UserContactForm, UserEducationDetails, UserFamilyInfo, UserProfile, UserReligiousInfo } from '../../../../../models/index.model';
 import { ToastrService } from 'ngx-toastr';
@@ -24,6 +24,9 @@ import { TopBarComponent } from "../../../../../common/top-bar/top-bar.component
 })
 export class MemberEditFormComponent {
 
+  @Input() memberIdInput:string = '';
+  @Output() goBackEmitter = new EventEmitter<boolean>();
+
   public isLoading:boolean = false;
   public memberProfile!:UserProfile;
   public memberId:string = '' ;
@@ -39,6 +42,7 @@ export class MemberEditFormComponent {
   public steps = MemberRegistrationStep;
   public userMatchingSetData!:MatchPreferences;
   public memberBasicDetails!:UserBasicForm;
+  public isHideGender:boolean = false;
 
   stepList = [
   { key: this.steps.lookingFor, label: 'Matching' },
@@ -59,6 +63,9 @@ export class MemberEditFormComponent {
   }
 
   ngOnInit(){
+    if(this.activatedRoute.snapshot.paramMap.get('id') === null){
+      this.memberId = this.memberIdInput;
+    }
     this._getMemberProfile();
   }
 
@@ -70,6 +77,11 @@ export class MemberEditFormComponent {
     },
     complete:()=>{
       this.isLoading = false;
+      if(this.memberProfile.profileFor === 1 || this.memberProfile.profileFor === 5 || this.memberProfile.profileFor === 6){
+      this.isHideGender = false;
+    }else{
+      this.isHideGender = true;
+    }
     },
     error:(error:any) => {
       this.isLoading = false;
@@ -85,7 +97,8 @@ export class MemberEditFormComponent {
 
   public goBack(){
     if(this.memberProfile.memberApproval === 1){
-       this.route.navigateByUrl('member/approval');
+       //this.route.navigateByUrl('member/approval');
+       this.goBackEmitter.emit(false);
     }else{
        this.route.navigateByUrl('member/profiles');
     }

@@ -7,10 +7,11 @@ import { UserProfile } from '../../../../models/index.model';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { MemberEditFormComponent } from "../member-registration/member-edit-form/member-edit-form.component";
 
 @Component({
   selector: 'app-approval',
-  imports: [TopBarComponent, CommonModule],
+  imports: [TopBarComponent, CommonModule, MemberEditFormComponent],
   templateUrl: './approval.component.html',
   styleUrl: './approval.component.scss'
 })
@@ -18,6 +19,8 @@ export class ApprovalComponent {
 
   public isLoading:boolean  = false;
   public memberProfile!:UserProfile;
+  public isMoveEdit:boolean = false;
+  public memberId:string = '';
 
   constructor(private _memberService:MemberService,
     private auth:AuthService,
@@ -31,7 +34,9 @@ export class ApprovalComponent {
 
     this.auth.member$.subscribe((member:any)=>{
       if(member){
+         this.memberId = member.id;
         this._getMemberProfile(member.id);
+
       }
     })
 
@@ -57,7 +62,15 @@ export class ApprovalComponent {
   }
 
   public navigateToEditForm(memberId:string){
-   this.router.navigate(['member/modify/edit', memberId]);
+   this.isMoveEdit = true;
+
+
+
+   //this.router.navigate(['member/approval/modify/edit', memberId]);
+  }
+
+  public getGoBackEmitter(event:any){
+    this.isMoveEdit = event;
   }
 
 }

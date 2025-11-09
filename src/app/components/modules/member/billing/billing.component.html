@@ -262,7 +262,7 @@
                     <div class="col-3">{{invoice.invoiceDate | date}}</div>
                     <div class="col-3">{{invoice.amount}}</div>
                     <div class="col-3">
-                      <span class="badge bg-success">{{invoice.status}}</span>
+                      <span class="badge" [ngClass]="{'bg-primary':invoice.status === 'FREE TRIAL', 'bg-success':invoice.status === 'PAID','bg-secondary':invoice.status === 'FAIL' }">{{invoice.status}}</span>
                     </div>
                   </div>
                   <!-- PAGINATION -->

@@ -181,13 +181,26 @@
                   </div>
                 </div>
                </div>
-               <div class="col-12 justify-content-end d-sm-flex mt-4">
-                      <button class="btn btn-danger w-100" [disabled]="isLoading" (click)="confirmPayment()">
+
+                    <div class="form-check mb-2">
+                      <input
+                        type="checkbox"
+                        id="agree"
+
+                        class="form-check-input me-2"
+                        (change)="changeAgree($event)"
+                      />
+                       <div class="text-xs text-muted mt-2 text-center">
+                      Your payment information is secure and encrypted. By completing this purchase, you agree to our  <a href="/terms" target="_blank" rel="noopener">Terms of Service</a> and <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a>.
+                    </div>
+                    </div>
+
+
+                    <button class="btn btn-danger w-100" [disabled]="isLoading" (click)="confirmPayment()" [disabled]="!agreed">
                         <div class="spinner-border spinner-border-sm text-light me-1" role="status" *ngIf="isLoading"></div>
                         Pay Now</button>
-                    </div>
-                    <div class="text-xs text-muted mt-2 text-center">Your payment information is secure and encrypted. By completing this purchase, you agree to our Terms of Service and Privacy Policy.</div>
-                    </form>
+                  </form>
+
             </div>
 
           </div>

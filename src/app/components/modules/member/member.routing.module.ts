@@ -4,7 +4,9 @@ import { AuthGuardService } from '../../../middleware/auth-guard.service';
 import { userRoleNames as role } from '../../../helpers/util';
 import { DeActiveService } from '../../../middleware/de-active.service';
 import { deactivateGuard } from '../../../middleware/deactivate.guard';
-import { ApprovalGuardService } from '../../../middleware/approval.guard';
+import { LeaveApprovalGuard } from '../../../middleware/approval.guard';
+import { MemberEditFormComponent } from './member-registration/member-edit-form/member-edit-form.component';
+
 
 export const MembersRoutingModules: Routes = [
 {
@@ -48,11 +50,13 @@ export const MembersRoutingModules: Routes = [
 {
   path:'approval',
   loadComponent:()=> import('./approval/approval.component').then(m => m.ApprovalComponent),
+  canDeactivate: [LeaveApprovalGuard],
+  children: [{ path: 'modify/edit/:id', component:MemberEditFormComponent  },]
 },
-{
-  path:'modify/edit/:id',
-  loadComponent:() => import('./member-registration/member-edit-form/member-edit-form.component').then(m => m.MemberEditFormComponent),
-  data:{accessUsers: [role.member]}
- },
+// {
+//   path:'modify/edit/:id',
+//   loadComponent:() => import('./member-registration/member-edit-form/member-edit-form.component').then(m => m.MemberEditFormComponent),
+//   data:{accessUsers: [role.member]}
+//  },
 
 ];

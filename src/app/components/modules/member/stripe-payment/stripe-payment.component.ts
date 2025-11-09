@@ -35,7 +35,7 @@ export class StripePaymentComponent {
   public isLoading:boolean = false;
   public clientSecret:string = '';
   public isSubmitted:boolean = false;
-
+  public agreed = false;
   public name:string = '';
 
   private planId!:string;
@@ -186,6 +186,7 @@ private subScriptionFormInit() {
       city: this.subscriptionForm.value.city,
       country: this.subscriptionForm.value.country,
       postalCode: this.subscriptionForm.value.postcode,
+      IsAcceptedTerms:this.agreed,
     }
     this.subscriptionService.confirmPayment(paymentMethodId, body).subscribe({
       next:(res:any)=>{
@@ -249,5 +250,8 @@ private subScriptionFormInit() {
     })
   }
 
+  public changeAgree(event:any){
+    this.agreed = event.target.checked;
+  }
 
 }

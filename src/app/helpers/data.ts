@@ -20729,9 +20729,9 @@ export const LookingForList = [
   {id:2, name:'Son'},
   {id:3, name:'Daughter'},
   {id:4, name:'Brother'},
-  {id:4, name:'Sister'},
-  {id:4, name:'Friend'},
-  {id:4, name:'Relative'}
+  {id:5, name:'Sister'},
+  {id:6, name:'Friend'},
+  {id:7, name:'Relative'}
 ];
 
 export const Natshathira = [

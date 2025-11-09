@@ -1,7 +1,7 @@
 
 <form [formGroup]="profileMatchingForm">
   <div class="row">
-    <div class="col-12 col-md-12 mb-1">
+    <div class="col-12 col-md-12 mb-3">
       <label for="diet" class="mb-1 fw-bold text-muted">I am creating this  Profile for?<span class="text-danger">*</span></label>
       <ng-select
       [items]="lookingForList"
@@ -14,8 +14,8 @@
 
     </ng-select>
     </div>
-    <div class="text-md fw-bold text-muted mb-3 mt-3">Looking For in a Match</div>
-    <div class="col-12 col-md-12 mb-3">
+    <!-- <div class="text-md fw-bold text-muted mb-3 mt-3" *ngIf="SelectedLookingFor === 1 || SelectedLookingFor === 6 || SelectedLookingFor === 7">Looking For in a Match</div> -->
+    <!-- <div class="col-12 col-md-12 mb-3" *ngIf="SelectedLookingFor === 1 || SelectedLookingFor === 6 || SelectedLookingFor === 7">
       <label for="diet" class="mb-1 ">Looking For Gender<span class="text-danger">*</span></label>
       <div class="d-flex">
         <div class="me-3">
@@ -31,7 +31,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="col-12 col-md-3">
       <div class="form-group mb-3">

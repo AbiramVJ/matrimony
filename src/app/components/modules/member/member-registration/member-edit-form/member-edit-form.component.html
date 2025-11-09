@@ -1,5 +1,5 @@
-<app-top-bar *ngIf="!isLoading && memberProfile.memberApproval === 1 && memberProfile"></app-top-bar>
-<section class="content" [ngClass]="{'pt-3':memberProfile.memberApproval === 1}">
+<app-top-bar *ngIf="memberProfile && !isLoading && memberProfile.memberApproval === 1 && memberProfile && memberIdInput === ''"></app-top-bar>
+<section class="content" [ngClass]="{'pt-3':memberProfile && memberProfile.memberApproval === 1}">
   <div class="component-content">
 
     <div class="row m-0 p-0 ">
@@ -218,7 +218,7 @@
                   <app-looking-for-form  [isEditFrom]="true" [memberProfile]="memberProfile"></app-looking-for-form>
                 </div>
                 <div class="mt-4" [ngClass]="{'d-none' :currentStep !== steps.basic }">
-                  <app-member-profile-form  [memberProfile]="memberProfile" [isEditFrom]="true"></app-member-profile-form>
+                  <app-member-profile-form  [memberProfile]="memberProfile" [isEditFrom]="true" [hideGender]="isHideGender"></app-member-profile-form>
                 </div>
                 <div class="mt-4" [ngClass]="{'d-none' :currentStep !== steps.contact }">
                   <app-contact-info-form  [isEditFrom]="true" [memberProfile]="memberProfile"></app-contact-info-form>

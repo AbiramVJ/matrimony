@@ -17,6 +17,7 @@ export class MemberProfileFormComponent {
   @Output() basicDetailsEmitter = new EventEmitter<UserBasicForm>();
   @Input() isEditFrom:boolean = false;
   @Input() memberProfile!:UserProfile;
+  @Input() hideGender:boolean = false;
 
   public isSubmitted:Boolean = false;
   public userBasicFrom!:FormGroup;

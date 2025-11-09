@@ -3,7 +3,7 @@
 <section class="content pt-0 rounded" *ngIf="memberProfile">
   <div class="component-content s-content">
     <app-top-bar></app-top-bar>
-    <div class="row m-0">
+    <div class="row m-0" *ngIf="!isMoveEdit">
       <div class="col-12 col-md-8 col-lg-6 mx-auto p-0 my-4">
         <div class="card border-0 shadow-lg">
           <div class="card-body p-4 p-md-3 text-center">
@@ -68,6 +68,10 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <div *ngIf="isMoveEdit">
+      <app-member-edit-form [memberIdInput]="memberId" (goBackEmitter)="getGoBackEmitter($event)" ></app-member-edit-form>
     </div>
   </div>
 </section>
