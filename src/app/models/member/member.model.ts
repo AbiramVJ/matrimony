@@ -363,6 +363,7 @@ export class FullUserProfile {
   profileEducations: ProfileEducation[];
   age: number;
   friendRequest:Request | null;
+  manageBy:string;
 
   constructor(obj: any) {
     const images = obj?.profileImages ?? [];
@@ -404,6 +405,7 @@ export class FullUserProfile {
     this.profileEducations = obj?.profileEducations?.map((x: any) => new ProfileEducation(x)) ?? [];
     this.age = obj?.age ?? 0;
     this.friendRequest = obj.friendRequest !== null ? new Request(obj.friendRequest) : null;
+    this.manageBy = obj.manageBy ?? '';
 
   }
 
