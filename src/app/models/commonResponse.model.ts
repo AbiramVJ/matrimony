@@ -6,6 +6,7 @@ export class CommonResponse<T> {
   totalPages?: number;
   hasPrevious?: boolean;
   hasNext?: boolean;
+  pendingApproval:number;
 
   constructor(obj: any, modelClass?: new (item: any) => T) {
     this.data = obj.data && modelClass ? obj.data.map((item: any) => new modelClass(item)) : obj.data ?? [];
@@ -15,6 +16,7 @@ export class CommonResponse<T> {
     this.totalPages = obj.totalPages ?? 0;
     this.hasPrevious = obj.hasPrevious ?? false;
     this.hasNext = obj.hasNext ?? false;
+    this.pendingApproval = obj.pendingApproval ?? 0;
   }
 }
 

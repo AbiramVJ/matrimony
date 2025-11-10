@@ -20767,110 +20767,110 @@ export const Natshathira = [
 export const raasiList = [
   {
     id: 1,
-    name: "Aries",
+    name: "Mesham",
     rasi: [
       { id: 1, name: "Aswini" },
       { id: 2, name: "Bharani" },
-      { id: 3, name: "Karthigai (1st quarter)" }
+      { id: 3, name: "Karthigai" }
     ]
   },
   {
     id: 2,
-    name: "Taurus",
+    name: "Rishabam",
     rasi: [
-      { id: 3, name: "Karthigai (last 3 quarters)" },
+      { id: 3, name: "Karthigai" },
       { id: 4, name: "Rohini" },
-      { id: 5, name: "Mrigashirsha (1st 2 quarters)" }
+      { id: 5, name: "Mrigashirsha" }
     ]
   },
   {
     id: 3,
-    name: "Gemini",
+    name: "Mithunam",
     rasi: [
-      { id: 5, name: "Mrigashirsha (last 2 quarters)" },
+      { id: 5, name: "Mrigashirsha" },
       { id: 6, name: "Thiruvathirai" },
-      { id: 7, name: "Punarpoosam (1st 3 quarters)" }
+      { id: 7, name: "Punarpoosam" }
     ]
   },
   {
     id: 4,
-    name: "Cancer",
+    name: "Katakam",
     rasi: [
-      { id: 7, name: "Punarpoosam (last quarter)" },
+      { id: 7, name: "Punarpoosam" },
       { id: 8, name: "Poosam" },
       { id: 9, name: "Ayilyam" }
     ]
   },
   {
     id: 5,
-    name: "Leo",
+    name: "Simmam",
     rasi: [
       { id: 10, name: "Magam" },
       { id: 11, name: "Pooram" },
-      { id: 12, name: "Uthiram (1st quarter)" }
+      { id: 12, name: "Uthiram" }
     ]
   },
   {
     id: 6,
-    name: "Virgo",
+    name: "Kanni",
     rasi: [
-      { id: 12, name: "Uthiram (last 3 quarters)" },
+      { id: 12, name: "Uthiram" },
       { id: 13, name: "Hastham" },
       { id: 14, name: "Chithirai" }
     ]
   },
   {
     id: 7,
-    name: "Libra",
+    name: "Thulam",
     rasi: [
       { id: 15, name: "Swathi" },
       { id: 16, name: "Vishakam" },
-      { id: 17, name: "Anusham (1st quarter)" }
+      { id: 17, name: "Anusham" }
     ]
   },
   {
     id: 8,
-    name: "Scorpio",
+    name: "Viruchigam",
     rasi: [
-      { id: 17, name: "Anusham (last 3 quarters)" },
+      { id: 17, name: "Anusham" },
       { id: 18, name: "Kettai" },
-      { id: 19, name: "Moolam (1st 2 quarters)" }
+      { id: 19, name: "Moolam" }
     ]
   },
   {
     id: 9,
-    name: "Sagittarius",
+    name: "Dhanusu",
     rasi: [
-      { id: 19, name: "Moolam (last 2 quarters)" },
+      { id: 19, name: "Moolam" },
       { id: 20, name: "Pooradam" },
-      { id: 21, name: "Uthiradam (1st quarter)" }
+      { id: 21, name: "Uthiradam" }
     ]
   },
   {
     id: 10,
-    name: "Capricorn",
+    name: "Makaram",
     rasi: [
-      { id: 21, name: "Uthiradam (last 3 quarters)" },
+      { id: 21, name: "Uthiradam" },
       { id: 22, name: "Thiruvonam" },
       { id: 23, name: "Avittam" }
     ]
   },
   {
     id: 11,
-    name: "Aquarius",
+    name: "Kumbam",
     rasi: [
       { id: 24, name: "Sathayam" },
       { id: 25, name: "Poorattadhi" },
-      { id: 26, name: "Uthirattadhi (1st 3 quarters)" }
+      { id: 26, name: "Uthirattadhi" }
     ]
   },
   {
     id: 12,
-    name: "Pisces",
+    name: "Meenam",
     rasi: [
-      { id: 26, name: "Uthirattadhi (last quarter)" },
+      { id: 26, name: "Uthirattadhi" },
       { id: 27, name: "Revathi" },
-      { id: 1, name: "Aswini (starts next Aries cycle)" }
+      { id: 1, name: "Aswini" }
     ]
   }
 ];

@@ -22,6 +22,7 @@ import { ToastrService } from 'ngx-toastr';
 export class UsersComponent {
 
   public totalItemCount:number = 0;
+  public pendingApproval:number = 0;
   public userList:User[] = [];
 
   public searchText:string = '';
@@ -74,6 +75,7 @@ export class UsersComponent {
         console.log(res);
         this.userList = res.data;
         this.totalItemCount = res.totalCount;
+        this.pendingApproval = res.pendingApproval;
         this.isLoading = false;
       },
       error:(error:Error) => {

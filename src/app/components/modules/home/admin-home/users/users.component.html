@@ -22,7 +22,8 @@
           </div>
         </div>
 
-        <div class="d-flex justify-content-end">
+        <div class="d-flex mb-3" [ngClass]="selectedApproval === 0 ? 'justify-content-between' : 'justify-content-end'">
+           <div class="text-md fw-bold my-auto me-3" *ngIf="selectedApproval === 0">Pending Approval : {{pendingApproval}}</div>
           <div class="text-md fw-bold my-auto">Total : {{totalItemCount}}</div>
         </div>
 

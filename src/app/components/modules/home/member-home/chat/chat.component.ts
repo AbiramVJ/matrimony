@@ -11,9 +11,11 @@ import {
 import { FileType } from '../../../../../helpers/enum';
 import { LoadingComponent } from '../../../../../common/loading/loading.component';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
+import { RouterLink } from '@angular/router';
+
 @Component({
   selector: 'app-chat',
-  imports: [FORM_MODULES, CommonModule, LoadingComponent, PickerComponent],
+  imports: [FORM_MODULES, CommonModule, LoadingComponent, PickerComponent, RouterLink],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss',
 })

@@ -65,7 +65,7 @@
                             {{plan.intervalType === billingInterval.Month ? 'month' : plan.intervalType === billingInterval.Year ? 'year' : plan.intervalType === billingInterval.Week ? 'week' : 'day' }}</span>
                         </div>
                         <div class="trial-text mt-2" *ngIf="plan.subscriptionType !== subscriptionType.Free">
-                          <small class="text-success fw-semibold">7-day free trial</small>
+                          <small class="text-success fw-semibold">{{plan.trialPeriodDays}}-day free trial</small>
                         </div>
                      </div>
 

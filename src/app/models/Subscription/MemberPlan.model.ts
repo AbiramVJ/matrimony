@@ -31,7 +31,6 @@ export class SubscriptionPlan {
 
 
   constructor(data: any) {
-    console.log(data)
     this.id = data.id ?? null;
     this.name = data.name ?? '';
     this.price = data.price ?? 0;

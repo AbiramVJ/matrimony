@@ -133,7 +133,7 @@ export class AppComponent {
 
   private _getAdmin(){
     this.isLoading = false;
-    this.router.navigateByUrl("admin/dashboard");
+    this.router.navigateByUrl("admin/users");
   }
 
   public viewMemberDetails(id: string) {

@@ -326,10 +326,11 @@ private loadBillingData(): void {
         if (viewModal) {
           viewModal.click();
         }
-        this.isSwitchPlanLoading = false;
-        this.getPlanAndBilling();
-        this.getAvailablePlan();
-        this.newPlanId = 0;
+        window.location.href = '/';
+       // this.isSwitchPlanLoading = false;
+       // this.getPlanAndBilling();
+     //   this.getAvailablePlan();
+       // this.newPlanId = 0;
       },
       error: (error:any) => {
         let viewModal: HTMLElement = document.getElementById(
