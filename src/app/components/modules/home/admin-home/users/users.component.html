@@ -29,10 +29,12 @@
         <!-- FILTERS -->
          <div class="row">
             <div class="col-3">
-              <input type="text" class="form-control mt-3" placeholder="Search by name or email" [(ngModel)]="searchText"  (keyup)="searchUser(searchText)">
+              <label class="label text-ls">Search</label>
+              <input type="text" class="form-control mt-1" placeholder="Search by name or email" [(ngModel)]="searchText"  (keyup)="searchUser(searchText)">
             </div>
             <div class="col-3">
-               <ng-select class="mt-3" [items]="subscriptionTypes"
+               <label class="label">Subscription Type</label>
+               <ng-select class="mt-1" [items]="subscriptionTypes"
                  bindLabel="name"
                  bindValue="id"
                  [clearable]="false"
@@ -42,8 +44,9 @@
                  >
                </ng-select>
             </div>
-            <div class="col-3">
-               <ng-select class="mt-3" [items]="sortedBy"
+            <div class="col-2">
+              <label class="label">Filter By</label>
+               <ng-select class="mt-1" [items]="sortedBy"
                  bindLabel="name"
                  bindValue="id"
                  [clearable]="false"
@@ -52,13 +55,26 @@
                  [(ngModel)]="selectedSortBy">
                </ng-select>
             </div>
-            <div class="col-3">
-               <ng-select class="mt-3" [items]="sortedDirection"
+            <div class="col-2">
+              <label class="label">Order By</label>
+               <ng-select class="mt-1" [items]="sortedDirection"
                  bindLabel="name"
                  bindValue="id"
                  [clearable]="false"
                  placeholder="Select Direction"
                  [(ngModel)]="selectedDirection"
+                 (change)="changFilter()"
+                 >
+               </ng-select>
+            </div>
+            <div class="col-2">
+              <label class="label">Approval</label>
+               <ng-select class="mt-1" [items]="sortMemberApproval"
+                 bindLabel="name"
+                 bindValue="id"
+                 [clearable]="false"
+                 placeholder="Select Direction"
+                 [(ngModel)]="selectedApproval"
                  (change)="changFilter()"
                  >
                </ng-select>

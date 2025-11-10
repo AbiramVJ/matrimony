@@ -1,7 +1,7 @@
 import { MemberService } from './../../../../../services/member.service';
 import { FormsModule } from '@angular/forms';
 import { AdminService } from '../../../../../services/admin.service';
-import { sortedBy, sortedDirection, subscriptionTypeList } from './../../../../../helpers/data';
+import { sortAproval, sortedBy, sortedDirection, subscriptionTypeList } from './../../../../../helpers/data';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgSelectComponent } from "@ng-select/ng-select";
@@ -37,12 +37,15 @@ export class UsersComponent {
   public selectedStatus:number = 0;
   public selectedSortBy:number = 0;
   public selectedDirection:number = 0;
+  public selectedApproval:number = 0;
 
   public subscriptionTypes = subscriptionTypeList;
   public sortedBy = sortedBy;
   public sortedDirection = sortedDirection;
+  public sortMemberApproval = sortAproval;
   public openedUserId: number | null = null;
   public filterMemberViewData!: FullUserProfile;
+  public isApproval:number = 0;
 
   public searchValue = new BehaviorSubject<any>(null);
 
@@ -63,7 +66,8 @@ export class UsersComponent {
       searchText: this.searchText,
       subscriptionType: this.selectedStatus == 0 ? null : this.selectedStatus,
       sortField: this.selectedSortBy == 0 ? null : this.selectedSortBy,
-      sortDirection: this.selectedDirection == 0 ? null : this.selectedDirection
+      sortDirection: this.selectedDirection == 0 ? null : this.selectedDirection,
+      memberApproval:this.selectedApproval === 0 ? null : this.selectedApproval
     }
     this._adminService.getAllUsers(this.currentPage, this.itemsPerPage, body).subscribe({
       next:(res:any) => {
@@ -177,4 +181,6 @@ export class UsersComponent {
   public removeApprove(id:string){
 
   }
+
+
 }

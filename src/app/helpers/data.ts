@@ -20938,3 +20938,8 @@ export const sortedDirection = [
   { id: 1, name: 'Ascending' },
   { id: 2, name: 'Descending' },
 ];
+export const sortAproval = [
+  { id: 0, name: 'All' },
+  { id: 2, name: 'Aproved' },
+  { id: 1, name: 'Pending' },
+];
