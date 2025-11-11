@@ -1,0 +1,89 @@
+        .body-m {
+           // background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .construction-container {
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .construction-icon {
+            font-size: 80px;
+            animation: swing 2s ease-in-out infinite;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        @keyframes swing {
+            0%, 100% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        .construction-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .construction-text {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .progress-container {
+            max-width: 400px;
+            margin: 0 auto 30px;
+            background: rgba(255,255,255,0.2);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.8rem;
+            margin: 0 15px;
+            transition: transform 0.3s;
+            display: inline-block;
+        }
+
+        .social-links a:hover {
+            transform: scale(1.2);
+        }
+
+        .coming-soon-badge {
+            background: rgba(255,255,255,0.3);
+            padding: 10px 25px;
+            border-radius: 30px;
+            display: inline-block;
+            margin-top: 20px;
+            font-weight: 500;
+            backdrop-filter: blur(5px);
+        }
+
+        @media (max-width: 576px) {
+            .construction-icon {
+                font-size: 60px;
+            }
+
+            .construction-title {
+                font-size: 1.5rem;
+            }
+
+            .construction-text {
+                font-size: 1rem;
+            }
+
+            .social-links a {
+                font-size: 1.5rem;
+                margin: 0 10px;
+            }
+        }

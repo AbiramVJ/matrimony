@@ -40,6 +40,7 @@ export class AppComponent {
   public subscriptionStatus = SubscriptionStatus;
   public isActiveSubscription = false;
   public currentMember:any;
+  public isMobile = false;
 
   constructor(
      private dataProviderService:DataProviderService,
@@ -55,6 +56,10 @@ export class AppComponent {
     }
 
   ngOnInit(): void {
+    this.isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+    if(this.isMobile){
+      this.router.navigateByUrl('not-found');
+    }
     this.dataProviderService.getUserGeoLocation();
     this._authService.member$.subscribe((data)=>{
         this.currentMemberDetails = data;
