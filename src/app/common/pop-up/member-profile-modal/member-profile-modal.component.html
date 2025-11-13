@@ -29,7 +29,7 @@
           </div>
           <div class="col-12 col-sm-6 col-6 my-auto mt-2">
             <div class="d-flex justify-content-end mt-2">
-              <button class="btn bt-danger-light bg-danger text-white me-3" [disabled]="isLoading" (click)="cancelFriendRequest(memberProfile.friendRequest.id)" *ngIf="memberProfile.friendRequest && memberProfile.friendRequest!.status === request.Pending && memberProfile.friendRequest?.receiverProfileId !== selectedMember">
+              <button class="btn bt-danger-light bg-danger text-white me-3" [disabled]="isLoading" (click)="cancelFriendRequest(memberProfile.friendRequest.id)" *ngIf="memberProfile.friendRequest && memberProfile.friendRequest!.status === request.Pending && memberProfile.friendRequest.receiverProfileId !== selectedMember">
                 <i class="fas fa-user-times text-white me-2"></i>
                 Cancel Friend Request
                  <div class="spinner-border text-light me-1 spinner-border-sm" role="status" *ngIf="isLoading">

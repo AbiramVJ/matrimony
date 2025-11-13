@@ -9,13 +9,14 @@ import { User } from '../../../../../models/member/user.model';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { BehaviorSubject, debounceTime } from 'rxjs';
 import { LoadingComponent } from "../../../../../common/loading/loading.component";
-import { FullUserProfile } from '../../../../../models/index.model';
-import { MemberProfileModalComponent } from "../../../../../common/pop-up/member-profile-modal/member-profile-modal.component";
+import { FullUserProfile, UserProfile } from '../../../../../models/index.model';
+
 import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-users',
-  imports: [CommonModule, FormsModule, NgSelectComponent, NgxPaginationModule, LoadingComponent, MemberProfileModalComponent],
+  imports: [CommonModule, FormsModule, NgSelectComponent, NgxPaginationModule, LoadingComponent],
   templateUrl: './users.component.html',
   styleUrl: './users.component.scss'
 })
@@ -45,10 +46,12 @@ export class UsersComponent {
   public sortedDirection = sortedDirection;
   public sortMemberApproval = sortAproval;
   public openedUserId: number | null = null;
-  public filterMemberViewData!: FullUserProfile;
+  public filterMemberViewData!: UserProfile;
   public isApproval:number = 0;
 
   public searchValue = new BehaviorSubject<any>(null);
+
+
 
   constructor(private _adminService:AdminService, private memberService:MemberService,private toastr: ToastrService) { }
 

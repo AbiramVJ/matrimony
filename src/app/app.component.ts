@@ -21,7 +21,7 @@ import { LoadingComponent } from "./common/loading/loading.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, COMMON_DIRECTIVES, NavigationBarComponent, MobileTopBarComponent, MemberProfileModalComponent, TopBarComponent, AdminSideBarComponent, LoadingComponent],
+  imports: [RouterOutlet, CommonModule, COMMON_DIRECTIVES, NavigationBarComponent, MemberProfileModalComponent, TopBarComponent, AdminSideBarComponent, LoadingComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
