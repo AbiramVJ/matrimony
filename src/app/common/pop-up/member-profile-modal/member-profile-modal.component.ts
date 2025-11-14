@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 export class MemberProfileModalComponent {
 @Input() memberProfile!:FullUserProfile;
 @Input() isPopUp:boolean = false;
+@Input() isAdmin:boolean = false;
 
 public mainUser!:MainUser;
 

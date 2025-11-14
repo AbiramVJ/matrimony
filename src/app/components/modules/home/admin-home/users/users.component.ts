@@ -12,11 +12,12 @@ import { LoadingComponent } from "../../../../../common/loading/loading.componen
 import { FullUserProfile, UserProfile } from '../../../../../models/index.model';
 
 import { ToastrService } from 'ngx-toastr';
+import { MemberProfileModalComponent } from "../../../../../common/pop-up/member-profile-modal/member-profile-modal.component";
 
 
 @Component({
   selector: 'app-users',
-  imports: [CommonModule, FormsModule, NgSelectComponent, NgxPaginationModule, LoadingComponent],
+  imports: [CommonModule, FormsModule, NgSelectComponent, NgxPaginationModule, LoadingComponent, MemberProfileModalComponent],
   templateUrl: './users.component.html',
   styleUrl: './users.component.scss'
 })
@@ -46,7 +47,7 @@ export class UsersComponent {
   public sortedDirection = sortedDirection;
   public sortMemberApproval = sortAproval;
   public openedUserId: number | null = null;
-  public filterMemberViewData!: UserProfile;
+  public filterMemberViewData!: FullUserProfile;
   public isApproval:number = 0;
 
   public searchValue = new BehaviorSubject<any>(null);
@@ -141,7 +142,8 @@ export class UsersComponent {
     this.viewMemberId = id;
     this.memberService.getMemberProfileById(id).subscribe({
       next: (res: any) => {
-        this.filterMemberViewData = res;
+
+        this.filterMemberViewData = new FullUserProfile(res);
       },
       complete: () => {
         this.isMemberViewLoading = false;
@@ -185,6 +187,15 @@ export class UsersComponent {
 
   public removeApprove(id:string){
 
+  }
+
+  public closeImageView(){
+    let viewModal: HTMLElement = document.getElementById(
+          'adminModal'
+        ) as HTMLElement;
+        if (viewModal) {
+          viewModal.click();
+        }
   }
 
 

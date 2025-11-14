@@ -377,20 +377,20 @@ export class FullUserProfile {
     this.aboutMe = obj?.aboutMe ?? '';
     this.gender = obj?.gender ? (obj?.gender == 1 ? 'Male' : 'Female') : null;
     this.dateOfBirth = obj?.dateOfBirth ?? '';
-    this.foodHabit = this.getFoodHabit(obj?.foodHabit) ?? null;
-    this.drinksHabit = this.getDrinkingHabit(obj?.drinksHabit) ?? null;
-    this.smokeHabit = this.getSmokeHabit( obj?.smokeHabit) ?? null;
-    this.marriageStatus = this.getMarriedStatus(obj?.marriageStatus) ?? null;
-    this.bodyType = this.getBodyType(obj?.bodyType) ?? null;
-    this.willingToRelocate = this.getRelocated(obj?.willingToRelocate) ?? null;
+    this.foodHabit = getFoodHabit(obj?.foodHabit) ?? null;
+    this.drinksHabit = getDrinkingHabit(obj?.drinksHabit) ?? null;
+    this.smokeHabit = getSmokeHabit( obj?.smokeHabit) ?? null;
+    this.marriageStatus = getMarriedStatus(obj?.marriageStatus) ?? null;
+    this.bodyType = getBodyType(obj?.bodyType) ?? null;
+    this.willingToRelocate = getRelocated(obj?.willingToRelocate) ?? null;
     this.height = obj?.height ?? null;
     this.weight = obj?.weight ?? null;
     this.disability = obj?.disability ?? '';
     this.originCountry = obj?.originCountry ?? '';
     this.motherTongue = obj?.motherTongue ?? '';
     this.knownLanguages = obj?.knownLanguages ?? '';
-    this.bloodGroup = this.getBloodGroup(obj?.bloodGroup)  ?? null;
-    this.skinComplexion = this.getSkinCompletion(obj?.skinComplexion) ?? '';
+    this.bloodGroup = getBloodGroup(obj?.bloodGroup)  ?? null;
+    this.skinComplexion = getSkinCompletion(obj?.skinComplexion) ?? '';
     this.religionId = obj?.religionId ?? null;
     this.communityId = obj?.communityId ?? null;
     this.subCommunityId = obj?.subCommunityId ?? null;
@@ -404,52 +404,13 @@ export class FullUserProfile {
     this.profileAddresses = obj?.profileAddresses?.map((x: any) => new ProfileAddress(x)) ?? [];
     this.profileEducations = obj?.profileEducations?.map((x: any) => new ProfileEducation(x)) ?? [];
     this.age = obj?.age ?? 0;
-    this.friendRequest = obj.friendRequest !== null ? new Request(obj.friendRequest) : null;
+    this.friendRequest = obj.friendRequest !== null &&  obj.friendRequest  ? new Request(obj.friendRequest) : null;
     this.manageBy = obj.manageBy ?? '';
 
   }
 
 
 
-  getMarriedStatus(status: number) {
-    const option = maritalStatusOptions.find(opt => opt.id === status);
-    return option ? option.name : null;
-  }
-
-  getFoodHabit(status: number){
-    const option = diet.find(opt => opt.id === status);
-    return option ? option.name : null;
-  }
-
-  getRelocated(status:number){
-    const option = willingToRelocate.find(opt => opt.id === status);
-    return option ? option.name : null;
-  }
-
-  getBloodGroup(status:number){
-    const option = BloodGroup.find(opt => opt.id === status);
-    return option ? option.name : null;
-  }
-
-  getBodyType(status:number){
-    const option = bodyTypes.find(opt => opt.id === status);
-    return option ? option.name : null;
-  }
-
-  getSmokeHabit(status:number){
-    const option = SmokeHabit.find(opt => opt.id === status);
-    return option ? option.name : null;
-  }
-
-  getDrinkingHabit(status:number)  {
-    const option = DrinkHabit.find(opt => opt.id === status);
-    return option ? option.name : null;
-  }
-
-  getSkinCompletion(status:number){
-    const option = Complexion.find(opt => opt.id === status);
-    return option ? option.name : null;
-  }
 
 
 
@@ -541,3 +502,44 @@ export function getRasi(status:number){
   const option = raasiList.find(opt => opt.id === status);
   return option ? option.name : null;
 }
+
+
+  export function getMarriedStatus(status: number) {
+    const option = maritalStatusOptions.find(opt => opt.id === status);
+    return option ? option.name : null;
+  }
+
+ export function getFoodHabit(status: number){
+    const option = diet.find(opt => opt.id === status);
+    return option ? option.name : null;
+  }
+
+  export function getRelocated(status:number){
+    const option = willingToRelocate.find(opt => opt.id === status);
+    return option ? option.name : null;
+  }
+
+  export function getBloodGroup(status:number){
+    const option = BloodGroup.find(opt => opt.id === status);
+    return option ? option.name : null;
+  }
+
+ export function getBodyType(status:number){
+    const option = bodyTypes.find(opt => opt.id === status);
+    return option ? option.name : null;
+  }
+
+ export function getSmokeHabit(status:number){
+    const option = SmokeHabit.find(opt => opt.id === status);
+    return option ? option.name : null;
+  }
+
+ export function getDrinkingHabit(status:number)  {
+    const option = DrinkHabit.find(opt => opt.id === status);
+    return option ? option.name : null;
+  }
+
+ export function getSkinCompletion(status:number){
+    const option = Complexion.find(opt => opt.id === status);
+    return option ? option.name : null;
+  }
