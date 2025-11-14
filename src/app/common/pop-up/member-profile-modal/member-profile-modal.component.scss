@@ -40,11 +40,10 @@
   background: linear-gradient(135deg, #030303, #ec4b4b) !important;
 }
 
-/* styles.scss or component-specific SCSS */
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-  background-color: red;       /* fallback background */
-  background-image: none;      /* remove default SVG */
+  background-color: red;
+  background-image: none;
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
@@ -54,8 +53,8 @@
 }
 
 .carousel-control-prev-icon::after {
-  content: '<';               /* left arrow */
-  color: white;               /* arrow color */
+  content: '<';
+  color: white;
   font-size: 1.5rem;
   font-weight: bold;
   padding-bottom: 5px;
@@ -63,7 +62,7 @@
 }
 
 .carousel-control-next-icon::after {
-  content: '>';               /* right arrow */
+  content: '>';
   color: white;
   font-size: 1.5rem;
   font-weight: bold;

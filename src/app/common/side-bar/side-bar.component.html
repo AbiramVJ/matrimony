@@ -284,13 +284,7 @@
               </div>
             </div>
              <div class="custom-slider">
-              <ngx-slider
-                            [(value)]="minWeightValue"
-                            [(highValue)]="maxWeightValue"
-                            [options]="weightOptions"
-                            (userChangeEnd)="ngSelectChange()"
-                            >
-                          </ngx-slider>
+              <ngx-slider [(value)]="minWeightValue" [(highValue)]="maxWeightValue" [options]="weightOptions" (userChangeEnd)="ngSelectChange()"> </ngx-slider>
              </div>
 
          </div>
@@ -304,20 +298,7 @@
       <div class="card card-body rounded-0">
          <div class="mt-3">
             <label class="fw-500">Religion</label>
-            <!-- <div class="form-check mt-2" *ngFor="let r of religionList">
-            <input
-              class="form-check-input small-check"
-              type="checkbox"
-              [id]="'re_' + r.id"
-              [value]="r.id"
-              (change)="onReligionChange($event)"
-              [checked]="religion.includes(r.id)"
-            >
 
-            <label class="form-check-label ms-2 text-sm" [for]="'re_' + r.id">
-              {{ r.name }}
-            </label>
-          </div> -->
           <ng-select
             [items]="religionList"
             bindLabel="name"
@@ -332,19 +313,7 @@
          </div>
         <div class="mt-3">
           <label class="fw-500">Community</label>
-          <!-- <div class="form-check mt-2" *ngFor="let com of communityList">
-            <input
-              class="form-check-input small-check"
-              type="checkbox"
-              [id]="'re_' + com.id"
-              [value]="com.id"
-              (change)="onCommunityChange($event)"
-              [checked]="community.includes(com.id)"
-            >
-            <label class="form-check-label ms-2 text-sm" [for]="'re_' + com.id">
-              {{ com.name }}
-            </label>
-          </div> -->
+
            <ng-select
             [items]="communityList"
             bindLabel="name"
@@ -357,21 +326,6 @@
             (change)="ngSelectChange()"
            ></ng-select>
         </div>
-
-        <!-- <div class="mt-3">
-         <label class="fw-500">Sub Community</label>
-          <ng-select
-            [items]="SubCommunityList"
-            bindLabel="name"
-            bindValue="id"
-            [ngModelOptions]="{standalone: true}"
-            [clearable]="true"
-            [searchable]="true"
-            [multiple]="true"
-            [(ngModel)]="selectedSubCommunity"
-             (change)="ngSelectChange()"
-           ></ng-select>
-        </div> -->
 
          <div class="mt-3">
           <label class="fw-500">Marital Status</label>
@@ -391,19 +345,6 @@
 
         <div class="mt-3">
           <label class="fw-500">Known Languages</label>
-          <!-- <div class="form-check mt-2" *ngFor="let kl of knownLanguagesList">
-            <input
-              class="form-check-input small-check"
-              type="checkbox"
-              [id]="'re_' + kl.id"
-              [value]="kl.name"
-              (change)="onKnowLanguageChange($event)"
-              [checked]="knownLanguages.includes(kl.name)"
-            >
-            <label class="form-check-label ms-2 text-sm" [for]="'re_' + kl.id">
-              {{ kl.name }}
-            </label>
-          </div> -->
           <ng-select
             [items]="knownLanguagesList"
             bindLabel="name"
@@ -443,18 +384,6 @@
 
         <div class="mt-3">
           <label class="fw-500">Job Types</label>
-           <!-- <div class="form-check mt-2" *ngFor="let jt of jobTypeList">
-            <input
-              class="form-check-input small-check"
-              type="checkbox"
-              [id]="'js_' + jt.id"
-              [value]="jt.id"
-              (change)="onJobTypeChange($event)"
-              [checked]="jobType.includes(jt.id)"
-            >
-            <label class="form-check-label ms-2 text-sm" [for]="'js_' + jt.id">
-              {{ jt.name }}
-            </label> -->
             <ng-select
             [items]="jobTypeList"
             bindLabel="name"
@@ -536,19 +465,6 @@
         </div>
         <div class="mt-3">
           <label class="fw-500" >Raasi</label>
-          <!-- <div class="form-check mt-2" *ngFor="let ra of rasiList">
-            <input
-              class="form-check-input small-check"
-              type="checkbox"
-              [id]="'ed_' + ra.id"
-              [value]="ra.id"
-              (change)="onRasiChange($event)"
-              [checked]="rasi.includes(ra.id)"
-            >
-            <label class="form-check-label ms-2 text-sm" [for]="'ed_' + ra.id">
-              {{ ra.name }}
-            </label>
-          </div> -->
            <ng-select
             [items]="rasiList"
             bindLabel="name"

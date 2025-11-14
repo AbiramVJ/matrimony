@@ -9,17 +9,6 @@
   overflow: hidden;
   min-height: 100vh;
 
-  // &::before {
-  //   content: '';
-  //   position: absolute;
-  //   top: 0;
-  //   left: 0;
-  //   right: 0;
-  //   height: 3px;
-  //   background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #f5576c);
-  //   background-size: 300% 100%;
-  //   animation: gradientMove 4s ease infinite;
-  // }
 }
 
 @keyframes gradientMove {

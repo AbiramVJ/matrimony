@@ -18,14 +18,14 @@ interface AspectRatio {
 })
 export class ImageCropperComponent {
   @Output() imageCroppedEvent = new EventEmitter<string | string>();
-  imageChangedEvent: Event | null = null;
-  croppedImage: SafeUrl | string = '';
-  croppedBlob: Blob | null = null;
-  showPreview = true;
-  maintainAspectRatio = true;
-  roundCropper = false;
-  currentAspectRatio = 4 / 3;
-  selectedRatio = 4 / 3;
+  public imageChangedEvent: Event | null = null;
+  public croppedImage: SafeUrl | string = '';
+  public croppedBlob: Blob | null = null;
+  public showPreview = true;
+  public maintainAspectRatio = true;
+  public roundCropper = false;
+  public currentAspectRatio = 4 / 3;
+  public selectedRatio = 4 / 3;
   public isUploading:boolean = false;
 
   aspectRatios: AspectRatio[] = [
@@ -37,29 +37,29 @@ export class ImageCropperComponent {
 
   constructor(private sanitizer: DomSanitizer,private _memberService:MemberService) {}
 
-  fileChangeEvent(event: Event): void {
+  public fileChangeEvent(event: Event): void {
     this.imageChangedEvent = event;
   //  this.showPreview = false;
   }
 
-  imageCropped(event: ImageCroppedEvent): void {
+  public imageCropped(event: ImageCroppedEvent): void {
     this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl!);
     this.croppedBlob = event.blob!;
   }
 
-  imageLoaded(image: LoadedImage): void {
+  public imageLoaded(image: LoadedImage): void {
     console.log('Image loaded successfully');
   }
 
-  cropperReady(): void {
+  public cropperReady(): void {
     console.log('Cropper ready');
   }
 
-  loadImageFailed(): void {
+  public loadImageFailed(): void {
     alert('Failed to load image. Please try another file.');
   }
 
-  setAspectRatio(ratio: number): void {
+  public setAspectRatio(ratio: number): void {
     this.selectedRatio = ratio;
     if (isNaN(ratio)) {
       this.maintainAspectRatio = false;
@@ -69,7 +69,7 @@ export class ImageCropperComponent {
     }
   }
 
-  resetImage(): void {
+  public resetImage(): void {
     this.imageChangedEvent = null;
     this.croppedImage = '';
     this.croppedBlob = null;
@@ -79,29 +79,20 @@ export class ImageCropperComponent {
     this.maintainAspectRatio = true;
   }
 
-  cancelCrop(): void {
+  public cancelCrop(): void {
     this.resetImage();
   }
-
-
 
   async saveCroppedImage(): Promise<void> {
     if (!this.croppedBlob) {
       console.warn('No cropped image to upload');
       return;
     }
-
     this.isUploading = true;
-
     try {
-      // Compress the image
       const compressedBlob = await compressBlob(this.croppedBlob, 1024, 0.8);
-
-      // Prepare form data
       const formData = new FormData();
       formData.append('file', compressedBlob, `cropped-image-${Date.now()}.png`);
-
-      // Upload
       this._memberService.uploadImageToBulb(formData).subscribe({
         next: (res) => {
           this.imageCroppedEvent.emit(res.Result);
@@ -116,7 +107,6 @@ export class ImageCropperComponent {
         }
       });
     } catch (error) {
-      console.error('Compression failed:', error);
       this.isUploading = false;
     }
   }
